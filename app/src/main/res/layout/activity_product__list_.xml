@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/unknown"
+    tools:context=".fragment.Product_List_Activity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/proListBrandName"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/forty_dp"
+            android:layout_marginTop="@dimen/five_dp"
+            android:gravity="center"
+            android:text="Tamizhan Agro"
+            android:textColor="@color/black"
+            android:textSize="@dimen/twenty_sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/proListShortDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/proListBrandName"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="98dp"
+            android:text="Short Description"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/proListDash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/proListShortDesc"
+            android:layout_marginTop="3dp"
+            android:text="-------------------------------------------------"
+            android:visibility="gone" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/thirty_dp"
+            android:layout_below="@+id/proListBrandName"
+            android:layout_marginStart="@dimen/ten_dp"
+            android:layout_marginEnd="@dimen/ten_dp"
+            android:layout_marginBottom="@dimen/ten_dp"
+            android:gravity="center"
+            android:paddingStart="@dimen/five_dp"
+            android:paddingEnd="@dimen/three_dp">
+
+
+            <TextView
+                android:id="@+id/proListRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="4.1"
+                android:padding="@dimen/two_dp"
+                android:background="@color/FragmentGreen"
+                android:textColor="@color/white"
+                android:textSize="@dimen/medium_font" />
+
+            <TextView
+                android:id="@+id/proListDeliveryTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="24 Hours Delivery"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/medium_font" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/proListDash1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="-------------------------------------------------"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_activity_product_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/five_dp"
+        android:layout_marginEnd="@dimen/five_dp"
+        android:layout_weight="1" />
+
+
+    <FrameLayout
+        android:id="@+id/countPriceShow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </FrameLayout>
+
+</LinearLayout>

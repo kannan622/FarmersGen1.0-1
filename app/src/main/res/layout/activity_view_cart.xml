@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/swipe_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/unknown"
+        tools:context=".fragment.ViewCartActivity">
+
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/activity_cart_list"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="#f2f2f2"
+            android:paddingTop="7dp"
+            tools:context=".fragment.ViewCartActivity">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_ViewCart"
+                    android:layout_width="match_parent"
+                    android:layout_height="430dp"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="25px" />
+
+                <!--  <TextView
+                      android:id="@+id/text_login"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_centerInParent="true"
+                      android:layout_centerHorizontal="true"
+                      android:layout_gravity="center"
+
+                      android:layout_marginTop="60dp"
+                      android:layout_weight=".5"
+                      android:drawablePadding="10dp"
+                      android:text="Please Login to View Favourites"
+                      android:textColor="@color/greyi"
+                      android:visibility="gone" />
+      -->
+            </RelativeLayout>
+
+            <!--Offers Code-->
+            <RelativeLayout
+                android:id="@+id/coupon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/bottom"
+                android:background="@color/gray"
+                android:clickable="true"
+                android:gravity="bottom"
+                android:onClick="offers"
+                android:orientation="horizontal"
+                android:padding="@dimen/ten_dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="APPLY COUPON"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/offersArrow"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/profilerightarrow" />
+
+
+            </RelativeLayout>
+
+            <!--End Offers Code-->
+
+            <RelativeLayout
+                android:id="@+id/bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+
+                <TextView
+                    android:id="@+id/toPayAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="10dp"
+                    android:text="Total Amount : $1500"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/viewCartProceed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/rounder_themecolor"
+                    android:padding="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Checkout"
+
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/emptyViewCartImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/empty_cart"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

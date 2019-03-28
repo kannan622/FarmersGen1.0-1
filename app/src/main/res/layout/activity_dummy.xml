@@ -1,0 +1,1015 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+<!--
+ <android.support.v7.widget.CardView
+     android:layout_width="190dp"
+
+     android:layout_height="190dp"
+     android:layout_margin="2dp"
+     android:focusable="false"
+     android:foreground="?android:attr/selectableItemBackground">
+
+  <RelativeLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+
+   <LinearLayout
+       android:id="@+id/lin1"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:gravity="center"
+       android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/fav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="5dp"
+        android:paddingRight="25dp" />
+
+    <ImageView
+        android:id="@+id/imagee"
+        android:layout_width="104dp"
+        android:layout_height="64dp"
+        android:src="@drawable/empty_cart" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="$4.93"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="1dp"
+        android:maxLines="2"
+        android:text="Fresh Strawberry gfdsagd gdagda  gadgdagdagdagda gdagdag ggdfsgdsg gdsg"
+        android:minLines="2"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="4dp"
+        android:background="@color/grey_lighti" />
+
+   </LinearLayout>
+
+ <RelativeLayout
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_below="@+id/lin1"
+
+
+     >
+
+  <TextView
+      android:id="@+id/addtocart"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+
+      android:layout_centerHorizontal="true"
+      android:layout_marginLeft="80dp"
+      android:layout_marginTop="10dp"
+      android:drawableLeft="@drawable/shoppingcart"
+      android:drawablePadding="5dp"
+      android:text="Add to cart"
+
+
+      android:textColor="@color/colorPrimaryDark"
+      android:textStyle="bold|normal" />
+
+  <ImageView
+      android:id="@+id/image1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:paddingLeft="30dp"
+      android:src="@drawable/sub"
+      android:visibility="gone"
+
+      />
+
+  <TextView
+      android:id="@+id/quantity"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:layout_toRightOf="@+id/image1"
+      android:paddingLeft="30dp"
+      android:text="0"
+      android:visibility="gone"
+
+      />
+
+
+  <ImageView
+      android:id="@+id/image2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dp"
+      android:layout_toRightOf="@+id/quantity"
+      android:paddingLeft="30dp"
+      android:src="@drawable/add"
+      android:visibility="gone"
+
+      />
+
+
+ </RelativeLayout>
+
+  </RelativeLayout>
+ </android.support.v7.widget.CardView>
+-->
+
+
+
+
+
+
+   </LinearLayout>
+
+<!--Registration-->
+
+<!-- <android.support.v4.widget.NestedScrollView
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+
+      android:padding="30dp"
+
+      >
+
+   <TextView
+       android:id="@+id/all"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="*All Fields are Mandatory"
+       android:textColor="#FFFFFF"
+       android:textSize="14dp"
+       />
+
+   <EditText
+
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:inputType="textEmailAddress"
+       android:ems="10"
+       android:id="@+id/username"
+       android:drawableLeft="@drawable/user"
+       android:hint="Enter First name"
+       android:layout_below="@+id/all"
+
+       android:layout_marginTop="15dp"
+       android:background="#40FFFFFF"
+
+       android:textColor="#FFF"
+
+
+       android:drawablePadding="10dp"
+       android:paddingLeft="5dp"
+       android:textSize="14dp"
+       android:textColorHint="@color/grey_lighti"
+       />
+
+   <EditText
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:inputType="textEmailAddress"
+       android:ems="10"
+       android:id="@+id/lastname"
+       android:drawableLeft="@drawable/user"
+       android:hint="Enter Last name"
+       android:layout_below="@+id/username"
+       android:layout_marginTop="15dp"
+       android:background="#40FFFFFF"
+
+       android:textColor="#FFF"
+
+
+       android:drawablePadding="10dp"
+       android:paddingLeft="5dp"
+       android:textSize="14dp"
+       android:textColorHint="@color/grey_lighti"
+       />
+
+   <EditText
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:inputType="textEmailAddress"
+       android:ems="10"
+       android:id="@+id/mobileno"
+       android:drawableLeft="@drawable/cellphone"
+       android:hint="Enter Moblile no"
+       android:layout_below="@+id/lastname"
+       android:layout_marginTop="15dp"
+       android:background="#40FFFFFF"
+
+       android:textColor="#FFF"
+
+
+       android:drawablePadding="10dp"
+       android:paddingLeft="5dp"
+       android:textSize="14dp"
+       android:textColorHint="@color/grey_lighti"
+       />
+   <EditText
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:inputType="textEmailAddress"
+       android:ems="10"
+       android:id="@+id/email"
+       android:drawableLeft="@android:drawable/sym_action_email"
+       android:hint="Enter Email"
+       android:layout_below="@+id/mobileno"
+       android:layout_marginTop="15dp"
+       android:background="#40FFFFFF"
+
+       android:textColor="#FFF"
+
+
+       android:drawablePadding="10dp"
+       android:paddingLeft="5dp"
+       android:textSize="14dp"
+       android:textColorHint="@color/grey_lighti"
+       />
+
+
+   <EditText
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:inputType="textPassword"
+       android:ems="10"
+       android:id="@+id/password"
+       android:drawableLeft="@drawable/lock"
+       android:hint="Password"
+       android:layout_marginTop="15dp"
+       android:textColor="#FFF"
+       android:background="#40FFFFFF"
+       android:drawablePadding="10dp"
+       android:paddingLeft="5dp"
+       android:layout_below="@+id/email"
+       android:textSize="14dp"
+       android:textColorHint="@color/grey_lighti"
+       />
+   <EditText
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:inputType="textPassword"
+       android:ems="10"
+       android:id="@+id/confirmpassword"
+       android:drawableLeft="@drawable/lock"
+       android:hint="Confirm Password"
+       android:layout_marginTop="15dp"
+       android:textColor="#FFF"
+       android:background="#40FFFFFF"
+       android:drawablePadding="10dp"
+       android:paddingLeft="5dp"
+       android:layout_below="@+id/password"
+       android:textSize="14dp"
+       android:textColorHint="@color/grey_lighti"
+       />
+
+
+
+   <Button
+       android:id="@+id/signup"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+
+       android:layout_below="@+id/confirmpassword"
+       android:background="#40FFFFFF"
+       android:text="Register"
+       android:layout_marginTop="15dp"
+       android:textColor="#FFFFFF"
+
+       />
+
+   <Button
+       android:id="@+id/signin"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+
+       android:layout_below="@+id/signup"
+       android:background="#40FFFFFF"
+       android:text="Back to Signin"
+       android:layout_marginTop="15dp"
+       android:textColor="#FFFFFF"
+
+       />
+  </RelativeLayout>
+
+ </android.support.v4.widget.NestedScrollView>-->
+
+<!--<RelativeLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:layout_marginTop="@dimen/thirty_dp"
+     android:layout_marginBottom="5dp"
+     android:background="#FFFFFF"
+     android:padding="5dp">
+
+
+  <ImageView
+      android:id="@+id/spacecraftImg"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+
+
+      android:layout_marginTop="8dp"
+      android:src="@drawable/pinpoint" />
+
+
+  <TextView
+      android:id="@+id/nameTxt"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="5dp"
+      android:layout_marginTop="10dp"
+      android:layout_toRightOf="@+id/spacecraftImg"
+      android:text="Williams"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:textColor="#595959"
+      android:textSize="15sp"
+
+      android:textStyle="bold" />
+
+  <TextView
+      android:id="@+id/status"
+      android:layout_width="wrap_content"
+      android:layout_height="29dp"
+      android:layout_alignParentRight="true"
+      android:background="@drawable/rounder_themecolor"
+      android:drawableRight="@drawable/tick"
+      android:drawablePadding="5dp"
+      android:padding="8dp"
+      android:text="Use this for delivery"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:textColor="@color/colorPrimary"
+      android:textSize="10sp"
+      android:textStyle="bold"
+
+      />
+
+  <TextView
+      android:id="@+id/orderid"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/status"
+      android:layout_marginLeft="5dp"
+      android:layout_marginTop="5dp"
+      android:layout_toRightOf="@+id/spacecraftImg"
+      android:lines="1"
+      android:text="Plot 1A, Varalakshmi Apartments,"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:textColor="@color/gray"
+
+      android:textSize="12sp" />
+
+  <TextView
+      android:id="@+id/datetime"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/orderid"
+      android:layout_marginLeft="5dp"
+      android:layout_marginTop="5dp"
+      android:layout_toRightOf="@+id/spacecraftImg"
+      android:lines="1"
+      android:text="VKK Menon st, Ram Nagar"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:textColor="@color/gray"
+      android:textSize="12sp"
+
+      />
+
+  <TextView
+      android:id="@+id/contactno"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/datetime"
+      android:layout_marginLeft="5dp"
+      android:layout_marginTop="5dp"
+      android:layout_toRightOf="@+id/spacecraftImg"
+      android:lines="1"
+      android:text="Ambattur,Chennai"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:textColor="@color/gray"
+      android:textSize="12sp"
+
+      />
+
+  <TextView
+      android:id="@+id/state"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/contactno"
+      android:layout_marginLeft="5dp"
+      android:layout_marginTop="5dp"
+      android:layout_toRightOf="@+id/spacecraftImg"
+      android:lines="1"
+      android:text="Tamilnadu, India"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:textColor="@color/gray"
+      android:textSize="12sp"
+
+      />
+
+
+  <View
+      android:id="@+id/view1"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_below="@+id/state"
+      android:layout_marginTop="5dp"
+      android:background="@color/gray" />
+
+  <Button
+      android:id="@+id/call"
+      android:layout_width="wrap_content"
+      android:layout_height="33dp"
+
+      android:layout_below="@+id/view1"
+
+      android:layout_marginLeft="20dp"
+      android:layout_marginTop="10dp"
+      android:background="@drawable/roundedcolor"
+      android:drawableLeft="@android:drawable/presence_offline"
+      android:padding="7dp"
+      android:text="Delete"
+
+      android:textColor="#bfbfbf"
+      android:textSize="12sp" />
+
+
+  <View
+      android:id="@+id/view2"
+      android:layout_width="1dp"
+      android:layout_height="33dp"
+      android:layout_below="@+id/view1"
+      android:layout_centerInParent="true"
+      android:layout_marginTop="10dp"
+      android:background="@color/gray" />
+
+  <Button
+      android:id="@+id/detailview"
+      android:layout_width="wrap_content"
+      android:layout_height="33dp"
+
+      android:layout_below="@+id/view1"
+      android:layout_alignParentRight="true"
+
+      android:layout_gravity="right"
+      android:layout_marginTop="10dp"
+      android:layout_marginRight="20dp"
+
+
+      android:background="@drawable/roundedcolor"
+      android:drawableLeft="@drawable/edit"
+      android:padding="7dp"
+      android:text="Edit"
+      android:textColor="#bfbfbf"
+      android:textSize="12sp" />
+
+
+ </RelativeLayout>-->
+
+
+<!--Address View-->
+<!--<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_margin="10dp"
+    android:background="#FFFFFF"
+    android:orientation="horizontal"
+    card_view:cardCornerRadius="5dp"
+
+    card_view:cardElevation="1dp">
+
+ <RelativeLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:layout_marginBottom="5dp"
+     android:background="#FFFFFF"
+     android:padding="5dp">
+
+
+
+ <ImageView
+     android:id="@+id/spacecraftImg"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+
+
+     android:layout_marginTop="8dp"
+     android:src="@drawable/pinpoint"
+     />
+
+
+
+
+
+ <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:textAppearance="?android:attr/textAppearanceLarge"
+     android:text="Williams"
+     android:layout_toRightOf="@+id/spacecraftImg"
+     android:id="@+id/nameTxt"
+     android:layout_marginTop="10dp"
+     android:layout_marginLeft="5dp"
+     android:textColor="#595959"
+     android:textStyle="bold"
+
+     android:textSize="15sp"
+     />
+
+ <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="29dp"
+     android:textAppearance="?android:attr/textAppearanceLarge"
+     android:text="Use this for delivery"
+     android:id="@+id/status"
+     android:padding="8dp"
+     android:textColor="@color/colorPrimary"
+     android:textSize="10sp"
+     android:background="@drawable/rounder_themecolor"
+     android:drawableRight="@drawable/tick"
+     android:drawablePadding="5dp"
+     android:textStyle="bold"
+     android:layout_alignParentRight="true"
+
+     />
+
+ <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:textAppearance="?android:attr/textAppearanceLarge"
+     android:text="Plot 1A, Varalakshmi Apartments,"
+     android:layout_below="@+id/status"
+     android:lines="1"
+     android:id="@+id/orderid"
+     android:layout_marginLeft="5dp"
+     android:textColor="@color/gray"
+     android:layout_marginTop="5dp"
+     android:layout_toRightOf="@+id/spacecraftImg"
+
+     android:textSize="12sp"
+     />
+ <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:textAppearance="?android:attr/textAppearanceLarge"
+     android:text="VKK Menon st, Ram Nagar"
+     android:layout_below="@+id/orderid"
+     android:lines="1"
+     android:id="@+id/datetime"
+     android:textSize="12sp"
+     android:layout_marginLeft="5dp"
+     android:textColor="@color/gray"
+     android:layout_marginTop="5dp"
+     android:layout_toRightOf="@+id/spacecraftImg"
+
+     />
+ <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:textAppearance="?android:attr/textAppearanceLarge"
+     android:text="Ambattur,Chennai"
+     android:layout_below="@+id/datetime"
+     android:lines="1"
+     android:id="@+id/contactno"
+     android:textSize="12sp"
+     android:layout_marginLeft="5dp"
+     android:textColor="@color/gray"
+     android:layout_marginTop="5dp"
+     android:layout_toRightOf="@+id/spacecraftImg"
+
+     />
+
+ <TextView
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:textAppearance="?android:attr/textAppearanceLarge"
+     android:text="Tamilnadu, India"
+     android:layout_below="@+id/contactno"
+     android:lines="1"
+     android:id="@+id/state"
+     android:textSize="12sp"
+     android:layout_marginLeft="5dp"
+     android:textColor="@color/gray"
+     android:layout_marginTop="5dp"
+     android:layout_toRightOf="@+id/spacecraftImg"
+
+     />
+
+
+
+
+
+ <View
+     android:id="@+id/view1"
+     android:layout_width="match_parent"
+     android:layout_height="1dp"
+     android:layout_below="@+id/state"
+     android:layout_marginTop="5dp"
+     android:background="@color/gray"/>
+
+ <Button
+     android:id="@+id/call"
+     android:layout_width="wrap_content"
+     android:layout_height="33dp"
+
+     android:layout_below="@+id/view1"
+
+     android:background="@drawable/roundedcolor"
+     android:padding="7dp"
+     android:text="Delete"
+     android:drawableLeft="@android:drawable/presence_offline"
+     android:layout_marginTop="10dp"
+     android:textColor="#bfbfbf"
+
+     android:layout_marginLeft="20dp"
+     android:textSize="12sp" />
+
+
+ <View
+     android:id="@+id/view2"
+     android:layout_width="1dp"
+     android:layout_height="33dp"
+     android:layout_below="@+id/view1"
+     android:layout_centerInParent="true"
+     android:layout_marginTop="10dp"
+     android:background="@color/gray"/>
+
+ <Button
+     android:id="@+id/detailview"
+     android:layout_width="wrap_content"
+     android:layout_height="33dp"
+
+     android:layout_below="@+id/view1"
+     android:layout_gravity="right"
+
+     android:background="@drawable/roundedcolor"
+     android:padding="7dp"
+     android:text="Edit"
+
+
+
+
+     android:drawableLeft="@drawable/edit"
+     android:layout_marginTop="10dp"
+     android:textColor="#bfbfbf"
+     android:layout_alignParentRight="true"
+     android:layout_marginRight="20dp"
+     android:textSize="12sp" />
+
+
+
+
+</RelativeLayout>
+
+
+</android.support.v7.widget.CardView>-->
+
+    <!--  <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="match_parent"
+
+          android:layout_height="wrap_content"
+          android:layout_margin="2dp"
+
+          android:foreground="?android:attr/selectableItemBackground"
+          >
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:paddingBottom="@dimen/ten_dp">
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:weightSum="3">
+
+         <ImageView
+             android:id="@+id/image_cartlist"
+             android:layout_width="0dp"
+             android:layout_height="80dp"
+             android:layout_gravity="center_vertical"
+             android:layout_weight="1"
+             android:src="@drawable/empty_cart"></ImageView>
+
+         <LinearLayout
+             android:id="@+id/layout_item_desc"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="@dimen/activity_horizontal_margin"
+             android:layout_marginTop="3dp"
+             android:layout_weight="2"
+             android:orientation="vertical">
+
+         <TextView
+             android:id="@+id/item_title"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Fresh strawberry"
+             android:textColor="@color/colorPrimary"
+             android:textSize="@dimen/twenty_sp" />
+
+         <TextView
+             android:id="@+id/actual_price"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="2dp"
+             android:text="Actual price : $5"
+             android:textColor="@color/gray"
+             android:textSize="@dimen/twenty_sp" />
+
+         <TextView
+
+             android:id="@+id/sale_price"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="2dp"
+             android:text="Sale Price : $3"
+             android:textColor="@color/gray"
+             android:textSize="@dimen/twenty_sp" />
+
+         <TextView
+             android:id="@+id/quantity"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Qty: 1"
+             android:textColor="@color/gray"
+             android:textSize="@dimen/twenty_sp" />
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
+
+         <TextView
+
+             android:id="@+id/total"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Total: 1"
+             android:textColor="@color/gray"
+             android:textSize="@dimen/twenty_sp" />
+
+         </LinearLayout>
+         </LinearLayout>
+         </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/view_width_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:background="@color/grey_light" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+               <LinearLayout
+                   android:id="@+id/layout_action1"
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:orientation="horizontal"
+                   android:weightSum="2">
+
+                  &lt;!&ndash;<ImageView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:src="@android:drawable/ic_delete" />
+
+                  <TextView
+                      android:id="@+id/text_action1"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginLeft="8dp"
+                      android:layout_weight="1"
+                      android:gravity="left"
+                      android:text="Remove"
+                      android:textColor="@color/black"
+                      android:textSize="12dp" />&ndash;&gt;
+               </LinearLayout>
+
+               <View
+                   android:layout_width="@dimen/ten_dp"
+                   android:layout_height="match_parent"
+                   android:background="@color/gray" />
+
+               <LinearLayout
+                   android:id="@+id/layout_action2"
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1"
+                   android:gravity="center"
+                   android:orientation="horizontal"
+                   android:weightSum="2">
+
+                  <ImageView
+                      android:id="@+id/sub"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="30dp"
+
+                      android:src="@drawable/sub"
+
+                      />
+
+                  <TextView
+                      android:id="@+id/quantity_"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_toRightOf="@+id/image1"
+                      android:paddingLeft="30dp"
+
+                      android:text="10"
+
+                      />
+
+
+                  <ImageView
+                      android:id="@+id/add"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_toRightOf="@+id/quantity"
+
+                      android:paddingLeft="30dp"
+                      android:src="@drawable/add"
+
+                      />
+               </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ten_dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/gray" />
+         </LinearLayout>
+
+
+
+      </android.support.v7.widget.CardView>-->
+
+
+    <!-- <RelativeLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+
+         android:background="#f2f2f2"
+         android:paddingLeft="7dp"
+         android:paddingRight="7dp"
+
+         tools:context="Fragments.FiveFragment">
+
+
+      >
+
+      <com.github.siyamed.shapeimageview.CircularImageView
+          android:id="@+id/profile_image"
+          android:layout_width="55dp"
+          android:layout_height="55dp"
+
+
+          android:layout_marginTop="8dp"
+          android:src="@drawable/user_real"
+          app:siBorderColor="#ffffff"
+          app:siBorderWidth="5dp" />
+
+      <TextView
+          android:id="@+id/name_text"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+          android:layout_marginTop="10dp"
+          android:layout_toRightOf="@+id/profile_image"
+          android:paddingLeft="20dp"
+          android:paddingTop="5dp"
+          android:paddingRight="15dp"
+          android:text="Kannan"
+          android:textColor="@color/colorPrimary"
+          android:textSize="14sp"
+          android:textStyle="bold" />
+
+      <TextView
+          android:id="@+id/email_value"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/name_text"
+          android:layout_centerHorizontal="true"
+          android:layout_marginTop="5dp"
+          android:layout_toRightOf="@+id/profile_image"
+          android:paddingLeft="20dp"
+          android:paddingTop="5dp"
+          android:paddingRight="15dp"
+          android:text="Kannan@gmail.com"
+          android:textColor="@color/gray"
+          android:textSize="14sp"
+
+          />
+
+
+      <ListView
+          android:id="@+id/list"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_below="@+id/profile_image"
+          android:layout_marginTop="10dp"
+          android:layout_marginBottom="80dp"
+          android:divider="@android:color/transparent"
+          android:dividerHeight="4px"
+          android:fastScrollEnabled="true"
+
+
+          android:scrollbarSize="2dip"
+          android:transcriptMode="alwaysScroll"
+
+          />
+
+      <android.support.design.widget.FloatingActionButton
+          android:id="@+id/fab"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+
+
+          android:layout_margin="@dimen/fab_margin"
+          android:src="@drawable/plus" />
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:layout_gravity="bottom"
+          android:background="@color/colorPrimary"
+          android:orientation="horizontal"
+          android:paddingTop="5dp">
+
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerVertical="true"
+           android:paddingLeft="10dp"
+           android:text="Total Amount : $1500"
+           android:textColor="@color/white"
+           android:textSize="14dp"
+           android:textStyle="bold" />
+
+
+       <TextView
+           android:id="@+id/checkout"
+           android:layout_width="wrap_content"
+           android:layout_height="50dp"
+
+           android:layout_alignParentRight="true"
+           android:layout_marginLeft="10dp"
+           android:layout_marginTop="3dp"
+           android:layout_marginRight="10dp"
+           android:layout_marginBottom="3dp"
+           android:background="@drawable/rounder_themecolor"
+
+           android:padding="15dp"
+
+
+           android:paddingLeft="10dp"
+
+           android:paddingRight="10dp"
+           android:text="Checkout"
+
+           android:textColor="@color/colorPrimary"
+           android:textSize="14dp"
+           android:textStyle="bold" />
+
+      </RelativeLayout>
+
+     </RelativeLayout>-->

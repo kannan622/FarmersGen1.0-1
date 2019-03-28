@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="color_grey">#808080</color>
+
+
+
+           <!--activity_signup-->
+    <color name="SilverSignup">#C0C0C0</color>
+    <color name="GreenSignup">#008000</color>
+
+    <color name="bg_row_background">#fa315b</color>
+    <color name="Black">#000000</color>
+    <color name="Orange">#FFA500</color>
+
+    <color name="White">#FFFFFF</color>
+
+    <!--Fragment Colour-->
+    <color name="FragmentGreen">#60b246</color>
+
+    <color name="lightBlue">#4a8cf6</color>
+
+    <color name="unknown">#f5f5f5</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#d3d3d3</color>
+    <color name="strong_red">#bf252f</color>
+    <color name="green">#388E3C</color>
+    <color name="transparent">#00000000</color>
+    <color name="app_black">#666766</color>
+    <color name="alpha_gray">#408D8D8D</color>
+    <color name="red">#F05154</color>
+    <color name="light_green">#8ac581</color>
+    <color name="dark_green">#1B5E20</color>
+    <color name="fb_bg_color">#3B5997</color>
+    <color name="google_bg_color">#DD4D35</color>
+    <color name="light_gold_color">#D3AD6E</color>
+    <color name="hint_text_color">#999BA7</color>
+    <color name="raven_color">#6B7084</color>
+    <color name="alpha_white">#FAFAFA</color>
+    <color name="home_page_border_color">#F5F5F5</color>
+    <color name="bianca">#F6F0E2</color>
+    <color name="req_skill_color">#ededef</color>
+    <color name="fab_transparent">#BFFFFFFF</color>
+    <color name="college_transparent">#26FFFFFF</color>
+    <color name="one_star_color">#d93025</color>
+    <color name="two_star_color">#fa921d</color>
+    <color name="three_star_color">#8dc53e</color>
+    <color name="four_star_color">#85E200</color>
+    <color name="five_star_color">#01a351</color>
+    <color name="fb_color">#4A5A8F</color>
+
+
+    <!--Iyappan Code-->
+
+    <color name="colorPrimaryi">#307b8f</color>
+    <color name="colorPrimaryDarki">#266273</color>
+    <color name="colorAccenti">#307b8f</color>
+    <color name="greeni">#00802b</color>
+
+    <color name="whitei">#FFFFFF</color>
+    <color name="greyi">#919191</color>
+
+
+    <color name="grey_lighti">#E0E0E0</color>
+
+    <drawable name="transperent_colori">#00000000</drawable>
+    <color name="holo_gray_darki">#424242</color>
+    <color name="blacki">#000000</color>
+
+    <color name="redi">#990000</color>
+    <color name="stay_colori">#999999</color>
+
+    <color name="dot_dark_screen1i">#919191</color>
+
+    <color name="yellowi">#e67300</color>
+
+
+    <!-- dots active colors -->
+    <color name="dot_light_screen1i">#266273</color>
+
+   <!-- <array name="array_dot_activei">
+        <item>@color/dot_light_screen1</item>
+        <item>@color/dot_light_screen1</item>
+        <item>@color/dot_light_screen1</item>
+        <item>@color/dot_light_screen1</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/dot_dark_screen1</item>
+        <item>@color/dot_dark_screen1</item>
+        <item>@color/dot_dark_screen1</item>
+        <item>@color/dot_dark_screen1</item>
+    </array>
+-->
+
+
+
+</resources>

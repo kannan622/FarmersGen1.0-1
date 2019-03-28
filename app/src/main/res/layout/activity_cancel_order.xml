@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".fragment.CancelOrderActivity">
+
+    <RelativeLayout
+        android:id="@+id/viewOrderDetailsBlock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/viewOrderDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tap on Order# to view Order Details"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/orderDisplayBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewOrderDetailsBlock"
+        android:layout_marginTop="@dimen/ten_dp">
+
+        <TextView
+            android:id="@+id/orderNo"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/ten_dp"
+            android:text="Order id"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/orderDate"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/orderNo"
+            android:gravity="center"
+            android:padding="@dimen/ten_dp"
+            android:text="Date"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/orderGrandTotal"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/orderDate"
+            android:gravity="center"
+            android:padding="@dimen/ten_dp"
+            android:text="Total"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ordercancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/orderGrandTotal"
+            android:gravity="center"
+            android:padding="@dimen/ten_dp"
+            android:text="Order"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/cancelOrderRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/orderDisplayBlock"
+        android:layout_marginTop="@dimen/twenty_dp"></android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

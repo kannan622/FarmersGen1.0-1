@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_margin="10dp"
+    android:background="#FFFFFF"
+    android:orientation="horizontal"
+    card_view:cardCornerRadius="5dp"
+
+    card_view:cardElevation="1dp">
+
+
+    <RelativeLayout
+        android:id="@+id/menuartProdcutListBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+
+        >
+
+        <TextView
+            android:id="@+id/menuCartFragProductName"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="25dp"
+            android:text="Proudct Name"
+            android:textColor="#595959"
+            android:textSize="16sp" />
+
+
+        <ImageView
+            android:id="@+id/menuCartFragDecCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@id/menuCartFragProductName"
+            android:src="@drawable/sub"
+
+            />
+
+        <TextView
+            android:id="@+id/menuCartFragCount"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_alignBaseline="@id/incCart"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/menuCartFragDecCart"
+            android:gravity="center"
+            android:text="10" />
+
+
+        <ImageView
+            android:id="@+id/menuCartFragIncCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@+id/menuCartFragCount"
+            android:src="@drawable/add"
+
+            />
+
+
+        <TextView
+            android:id="@+id/menuCartFragCartPrice"
+            android:layout_width="56dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/menuCartFragIncCart"
+            android:gravity="center"
+            android:text="200"
+            android:textSize="16sp" />
+
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
+
+
+    <!-- <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
+
+            <TextView
+                android:id="@+id/priceMenuCart"
+                android:layout_width="180dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="5dp"
+                android:text="Proudct Name"
+                android:textSize="20sp"
+                />
+            <TextView
+                android:id="@+id/plusMenuCart"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:text="+"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:layout_toLeftOf="@id/priceMenuCart"
+                android:layout_marginRight="15dp"
+                />
+            <TextView
+                android:id="@+id/countMenuCart"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:textSize="20dp"
+                android:text="4"
+                android:gravity="center"
+                android:layout_toLeftOf="@id/plusMenuCart"
+                android:layout_marginRight="15dp"
+                />
+
+            <TextView
+                android:id="@+id/minusMenuCart"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:text="-"
+                android:gravity="center"
+                android:layout_toLeftOf="@id/countMenuCart"
+                android:layout_marginRight="15dp"
+                android:textSize="20dp"
+                />
+            <TextView
+                android:id="@+id/productNameMenuCart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/minusMenuCart"
+                android:text="Medimix Sout"
+                android:textSize="20dp"
+                android:layout_marginLeft="5dp"
+
+                />
+
+
+
+
+        </RelativeLayout>-->

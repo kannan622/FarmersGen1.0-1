@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".fragment.OrderedProductListView">
+    <RelativeLayout
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/orderedProductUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saravana Murali"
+        android:textStyle="bold"
+        android:textSize="@dimen/twenty_dp"
+        android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/orderedProductListViewR_View"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userName"
+        android:layout_marginTop="@dimen/ten_dp">
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/orderedProductListGrandTotal"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:text="1000"
+        android:gravity="center"
+        android:layout_below="@+id/orderedProductListViewR_View"
+        android:layout_marginTop="@dimen/ten_dp"
+        android:layout_alignParentRight="true"
+        />
+
+</RelativeLayout>

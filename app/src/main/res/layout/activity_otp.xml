@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".signup.OTPActivity">
+
+
+
+   <com.goodiebag.pinview.Pinview
+       android:id="@+id/otpPinView"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="@dimen/twenty_dp"
+       app:pinLength="4"
+       app:cursorVisible="true"
+       app:forceKeyboard="true"
+       app:inputType="number"
+       app:password="false">
+   </com.goodiebag.pinview.Pinview>
+
+   <TextView
+       android:id="@+id/otpError"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="otp"
+       android:visibility="invisible"
+       android:layout_below="@+id/otpPinView"
+       />
+
+   <!--<TextView
+       android:id="@+id/resendOTP"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="RESEND OTP?"
+       android:layout_below="@id/otpError"
+       />
+
+-->
+
+   <Button
+       android:id="@+id/otpSubmit"
+       android:layout_width="match_parent"
+       android:layout_height="@dimen/fifty_dp"
+       android:layout_below="@id/otpError"
+       android:text="@string/submitOTP"
+       android:background="@drawable/rec_gradiant"
+       android:textColor="@color/white"
+       android:textSize="@dimen/large_font" />
+
+
+  <!-- <Button
+       android:id="@+id/otpSubmit"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/otpError"
+       android:text="Submit OTP"
+       />
+  -->
+</RelativeLayout>

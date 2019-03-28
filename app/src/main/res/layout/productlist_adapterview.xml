@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="170dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/five_dp"
+    app:cardCornerRadius="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/five_dp">
+
+        <ImageView
+            android:id="@+id/listProductImage"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_launcher_one" />
+
+        <TextView
+            android:id="@+id/product_quantity_avaliable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="250 grms"
+            android:textSize="@dimen/small_font" />
+
+        <TextView
+            android:id="@+id/listProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="Dell Inspiration"
+            android:textSize="@dimen/medium_font"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/actualprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="100"
+            android:textColor="@color/app_black"
+            android:textSize="@dimen/medium_font" />
+
+        <View
+            android:layout_width="40dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="-10dp"
+
+            android:background="@color/gray"></View>
+
+
+        <RelativeLayout
+            android:id="@+id/priceContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+
+            android:layout_marginTop="6dp">
+
+
+            <ImageView
+                android:id="@+id/listProductindianRupee"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_launcher_indian_rupee"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+
+                <TextView
+                    android:id="@+id/listProductprice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.4"
+                    android:gravity="start"
+                    android:text="200"
+
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/large_font" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6">
+
+                    <Button
+                        android:id="@+id/addButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="ADD"
+                        android:textColor="@color/GreenSignup"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/decButton"
+                        android:layout_width="23dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/sub"
+                        android:textColor="@color/White"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/countTextView"
+                        android:layout_width="23dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="@dimen/five_dp"
+                        android:layout_marginEnd="@dimen/five_dp"
+                        android:gravity="center"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/incButton"
+                        android:layout_width="23dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/add"
+                        android:textColor="@color/White"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>
+
+
+    <!--Now-->
+
+    <!---->
+
+
+    <!--First--><!-- <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_margin="1dp"
+            app:cardCornerRadius="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/listProductImage"
+                    android:layout_width="176dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/ic_launcher_one" />
+
+                <TextView
+                    android:id="@+id/listProductName"
+                    android:layout_width="173dp"
+                    android:layout_height="43dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Dell Inspiration"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/priceContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="4dp">
+
+                    <ImageView
+                        android:id="@+id/listProductindianRupee"
+                        android:layout_width="27dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/ic_launcher_indian_rupee" />
+
+                    <TextView
+                        android:id="@+id/listProductprice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_toRightOf="@+id/listProductindianRupee"
+                        android:text="200"
+                        android:textSize="20sp" />
+
+
+                    <Button
+                        android:id="@+id/addButton"
+                        android:layout_width="90dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@id/listProductprice"
+                        android:text="ADD"
+                        android:textColor="@color/GreenSignup"
+                        />
+
+                    <Button
+                        android:id="@+id/decButton"
+                        android:layout_width="23dp"
+                        android:layout_height="25dp"
+                        android:layout_alignTop="@+id/listProductprice"
+                        android:layout_marginLeft="28dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_toRightOf="@id/listProductprice"
+                        android:background="@color/GreenSignup"
+                        android:text="-"
+                        android:textColor="@color/White"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/countTextView"
+                        android:layout_width="22dp"
+                        android:layout_height="25dp"
+                        android:layout_alignTop="@+id/listProductprice"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_toRightOf="@id/decButton"
+                        android:gravity="center"
+                        android:visibility="gone"/>
+
+                    <Button
+                        android:id="@+id/incButton"
+                        android:layout_width="23dp"
+                        android:layout_height="25dp"
+                        android:layout_alignTop="@+id/listProductprice"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_toRightOf="@id/countTextView"
+                        android:background="@color/GreenSignup"
+                        android:text="+"
+                        android:textColor="@color/White"
+                        android:visibility="gone"/>
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>-->

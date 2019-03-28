@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.ExistingAddressActivity_AtMenuAccFragment">
+
+    <ImageView
+        android:id="@+id/mapImageAtMenuAcc"
+        android:layout_width="54dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:layout_marginRight="@dimen/eight_dp"
+        android:layout_marginTop="@dimen/twenty_dp"
+        android:src="@drawable/add_address_logo" />
+    <TextView
+        android:id="@+id/deliveryAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/mapImageAtMenuAcc"
+        android:text="Delivery Address"
+        android:layout_marginTop="@dimen/twenty_five"
+        android:layout_alignBaseline="@id/mapImage"
+        android:textSize="@dimen/twenty_five"
+        android:textStyle="bold"
+        />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mapImage"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:layout_marginRight="@dimen/eight_dp"
+        android:layout_marginTop="@dimen/eighty_dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        app:cardCornerRadius="@dimen/five_dp"
+        android:elevation="1dp"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/thirty_dp"
+            android:layout_marginBottom="5dp"
+            android:background="#FFFFFF"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/spacecraftImgMenuAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/pinpoint" />
+
+            <TextView
+                android:id="@+id/statusMenuAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/rounder_themecolor"
+                android:drawableRight="@drawable/tick"
+                android:drawablePadding="5dp"
+                android:padding="8dp"
+                android:text="Use this for delivery"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                android:textStyle="bold"
+
+                />
+
+            <TextView
+                android:id="@+id/flatNoRightMenuAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/statusMenuAcc"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/spacecraftImgMenuAcc"
+                android:lines="1"
+                android:text="Plot 1A, Varalakshmi Apartments,"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15sp" />
+            <TextView
+                android:id="@+id/streetNameMenuAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/flatNoRightMenuAcc"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/spacecraftImgMenuAcc"
+                android:lines="1"
+                android:text="VKK Menon st, Ram Nagar"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/areaMenuAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/streetNameMenuAcc"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/spacecraftImgMenuAcc"
+                android:lines="1"
+                android:text="Ambattur"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/cityMenuAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="5dp"
+                android:text="Chennai"
+                android:layout_below="@id/streetNameMenuAcc"
+                android:layout_toRightOf="@+id/spacecraftImgMenuAcc"
+                android:layout_toEndOf="@id/areaMenuAcc"
+                android:lines="1"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15sp"
+
+                />
+
+            <TextView
+                android:id="@+id/pinCodeMenuAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cityMenuAcc"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/spacecraftImgMenuAcc"
+                android:lines="1"
+                android:text="600055"
+                android:textSize="15sp"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+            <TextView
+                android:id="@+id/stateMenuAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pinCodeMenuAcc"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/spacecraftImgMenuAcc"
+                android:lines="1"
+                android:text="Tamilnadu, India"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15sp"
+
+                />
+
+            <View
+                android:id="@+id/view1MenuAcc"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/stateMenuAcc"
+                android:layout_marginTop="5dp"
+                android:background="@color/gray" />
+
+            <Button
+                android:id="@+id/callMenuAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+
+                android:layout_below="@+id/view1MenuAcc"
+
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/FragmentGreen"
+                android:drawableLeft="@android:drawable/presence_offline"
+                android:padding="7dp"
+                android:text="Delete"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:visibility="gone"
+                />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="1dp"
+                android:layout_height="33dp"
+                android:layout_below="@+id/view1MenuAcc"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:background="@color/gray"
+                android:visibility="gone"
+                />
+
+           <!-- <Button
+                android:id="@+id/detailviewMenuAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+
+                android:layout_below="@+id/view1MenuAcc"
+                android:layout_alignParentRight="true"
+
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+
+                android:textColor="@color/white"
+                android:background="@color/FragmentGreen"
+                android:drawableLeft="@drawable/edit"
+                android:padding="7dp"
+                android:text="Edit"
+                android:textSize="15sp"/>
+-->
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <LinearLayout
+        android:id="@+id/buttonBlockMenuAcc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/changeAddressMenuAcc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/FragmentGreen"
+            android:text="Change Address"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".signup.OTPActivityForViewCart2">
+
+    <com.goodiebag.pinview.Pinview
+        android:id="@+id/otpForRegistrationAtViewCart2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/twenty_dp"
+        app:pinLength="4"
+        app:cursorVisible="false"
+        app:forceKeyboard="true"
+        app:inputType="number"
+        app:password="false">
+    </com.goodiebag.pinview.Pinview>
+
+    <Button
+        android:id="@+id/otpRegistrationSubmitAtViewCart2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rec_gradiant"
+        android:textColor="@color/white"
+        android:layout_below="@id/otpForRegistrationAtViewCart2"
+        android:text="Submit OTP"
+        />
+
+
+
+</RelativeLayout>

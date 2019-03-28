@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.saravanamurali.farmersgen">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon_logo"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:noHistory="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionAndStatusBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".tappedactivity.HomeActivity"
+            android:label=""
+
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".signin.LoginActivity" />
+        <activity android:name=".DummyActivity" />
+        <activity android:name=".signup.SignupActivity" />
+        <activity android:name=".fragment.Product_List_Activity" />
+        <activity android:name=".baseurl.Device_ID_Activity" />
+        <activity android:name=".fragment.ViewCartActivity" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="4454fe85492ece55bb64d212ce9f0a682326f914" />
+
+        <activity android:name=".signup.OTPActivity" />
+        <activity android:name=".fragment.RegisterUserAtCartActivity" />
+        <activity android:name=".fragment.PaymentGatewayActivity" />
+        <activity android:name=".fragment.Add_Address_Activity" />
+        <activity android:name=".fragment.ExistingAddressActivity" />
+        <activity android:name=".fragment.ForgetPassword" />
+        <activity android:name=".fragment.MenuAccountFragmentLoginActivity" />
+        <activity android:name=".fragment.COD_Details_Activity" />
+        <activity android:name=".fragment.UpdateAddress_Activity" />
+        <activity android:name=".fragment.NewPassAndConfirmPass" />
+        <activity android:name=".signup.OTPActForSuccRegistrationAtViewCart" />
+        <activity android:name=".signin.LoginActivityForViewCart" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".fragment.ProfileUpdateActivity" />
+        <activity android:name=".signin.LoginForgetPasswordActivity" />
+        <activity android:name=".signin.OTPActivityForLoginForgetPassword" />
+        <activity android:name=".signin.NewPassAndConfirmPassForLoginForgetPassword" />
+        <activity android:name=".fragment.ThanksActivity" />
+        <activity android:name=".fragment.CancelOrderActivity" />
+        <activity android:name=".fragment.OrderedProductListView" />
+        <activity android:name=".fragment.PastOrderListActivity" />
+        <activity android:name=".fragment.PastOrderedProductListView" />
+
+
+    </application>
+
+</manifest>

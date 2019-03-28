@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/mapImage"
+        android:layout_width="54dp"
+        android:layout_height="42dp"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:layout_marginTop="@dimen/twenty_dp"
+        android:layout_marginRight="@dimen/eight_dp"
+        android:src="@drawable/add_address_logo" />
+
+    <TextView
+        android:id="@+id/deliveryAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/mapImage"
+        android:layout_marginTop="@dimen/twenty_five"
+        android:layout_toRightOf="@id/mapImage"
+        android:text="Delivery Address"
+        android:textSize="@dimen/twenty_five"
+        android:textStyle="bold" />
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mapImage"
+        android:layout_marginLeft="@dimen/eight_dp"
+        android:layout_marginTop="@dimen/eighty_dp"
+        android:layout_marginRight="@dimen/eight_dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/thirty_dp"
+            android:layout_marginBottom="5dp"
+            android:background="#FFFFFF"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/spacecraftImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/pinpoint" />
+
+            <!--<TextView
+                android:id="@+id/nameTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/spacecraftImg"
+                android:text="Williams"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#595959"
+                android:textSize="15sp"
+
+                android:textStyle="bold" />
+    -->
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/rounder_themecolor"
+                android:drawableRight="@drawable/tick"
+                android:drawablePadding="5dp"
+                android:padding="8dp"
+                android:text="Use this for delivery"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                android:textStyle="bold"
+
+                />
+
+            <TextView
+                android:id="@+id/flatNoRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/status"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/spacecraftImg"
+                android:lines="1"
+                android:text="Plot 1A, Varalakshmi Apartments,"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/streetNameRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/flatNoRight"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/spacecraftImg"
+                android:lines="1"
+                android:text="VKK Menon st, Ram Nagar"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15sp"
+
+                />
+
+            <TextView
+                android:id="@+id/areaRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/streetNameRight"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/spacecraftImg"
+                android:lines="1"
+                android:text="Ambattur"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/cityRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/streetNameRight"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@id/areaRight"
+                android:layout_toRightOf="@+id/spacecraftImg"
+                android:lines="1"
+                android:text=",Chennai"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15sp"
+
+                />
+
+            <TextView
+                android:id="@+id/pinCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cityRight"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/spacecraftImg"
+                android:lines="1"
+                android:text="600055"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pinCode"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/spacecraftImg"
+                android:lines="1"
+                android:text="Tamilnadu, India"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15sp"
+
+                />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/state"
+                android:layout_marginTop="5dp"
+                android:background="@color/gray" />
+
+            <Button
+                android:id="@+id/call"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+
+                android:layout_below="@+id/view1"
+
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rounder_themecolor"
+                android:drawableLeft="@drawable/delete"
+                android:drawablePadding="10dp"
+                android:padding="7dp"
+                android:text="Delete"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="1dp"
+                android:layout_height="33dp"
+                android:layout_below="@+id/view1"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:background="@color/gray" />
+
+            <Button
+                android:id="@+id/detailview"
+                android:layout_width="wrap_content"
+                android:layout_height="33dp"
+
+                android:layout_below="@+id/view1"
+                android:layout_alignParentRight="true"
+
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+
+                android:background="@drawable/rounder_themecolor"
+                android:drawableLeft="@drawable/edit"
+                android:drawablePadding="10dp"
+                android:padding="7dp"
+                android:text="Edit"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp" />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/buttonBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/changeAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/White"
+            android:text="Change Address"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <Button
+            android:id="@+id/proceedToPayFromViewCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:paddingLeft="2dp"
+            android:text="Proceed To Pay"
+            android:textColor="@color/White" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+
+
+    <!--<RelativeLayout
+            android:id="@+id/deliveryAddressBlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/mapImage"
+            android:layout_width="54dp"
+            android:layout_height="42dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="66dp"
+            android:src="@drawable/add_address_logo" />
+
+        <TextView
+            android:id="@+id/deliveryAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/mapImage"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="70dp"
+            android:layout_toRightOf="@id/mapImage"
+            android:text="Delivery Address"
+            android:textStyle="bold"
+            android:textSize="30sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/addressBlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/deliveryAddressBlock"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+
+            <TextView
+                android:id="@+id/deliverNameLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:layout_alignParentLeft="true"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                />
+
+            <TextView
+                android:id="@+id/deliveryNameRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/deliverNameLeft"
+                android:layout_marginLeft="40dp"
+                android:text="Saravana Murali"
+                android:textSize="18dp"
+                />
+
+            <TextView
+                android:id="@+id/flatNoLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/deliverNameLeft"
+                android:text="Flat / Apt No"
+                android:layout_alignParentLeft="true"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:textSize="20dp"
+                />
+            <TextView
+                android:id="@+id/flatNoRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="928"
+                android:layout_below="@id/deliveryNameRight"
+                android:layout_toRightOf="@+id/flatNoLeft"
+                android:layout_marginTop="30dp"
+                android:layout_alignBaseline="@id/flatNoLeft"
+                android:paddingLeft="20dp"
+                android:textSize="20dp"
+                />
+            <TextView
+                android:id="@+id/streetNameLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/flatNoLeft"
+                android:text="Street Name"
+                android:layout_marginTop="30dp"
+                android:layout_alignParentLeft="true"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/streetNameRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/flatNoRight"
+                android:layout_toRightOf="@id/streetNameLeft"
+                android:layout_marginTop="30dp"
+                android:layout_alignBaseline="@id/streetNameLeft"
+                android:text="Riche Street"
+                android:paddingLeft="20dp"
+                android:textSize="20dp"
+                />
+            <TextView
+                android:id="@+id/areaLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Area/Locality"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/streetNameLeft"
+                android:layout_marginTop="30dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/areaRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Porur"
+                android:layout_below="@id/streetNameRight"
+                android:layout_toRightOf="@id/areaLeft"
+                android:layout_marginTop="30dp"
+                android:layout_alignBaseline="@id/areaLeft"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"
+
+                />
+            <TextView
+                android:id="@+id/cityLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="City"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/areaLeft"
+                android:layout_marginTop="30dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/cityRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chennai"
+                android:layout_below="@id/areaRight"
+                android:layout_toRightOf="@id/cityLeft"
+                android:layout_marginTop="30dp"
+                android:paddingLeft="20dp"
+                android:layout_alignBaseline="@id/cityLeft"
+                android:textSize="20dp"
+                />
+
+            <TextView
+                android:id="@+id/pincideLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PinCode"
+                android:layout_below="@id/cityLeft"
+                android:layout_marginTop="30dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/pinCodeRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cityRight"
+                android:layout_toRightOf="@id/pincideLeft"
+                android:layout_marginTop="30dp"
+                android:paddingLeft="20dp"
+                android:text="602024"
+                android:layout_alignBaseline="@id/pincideLeft"
+                android:textSize="20dp"
+                />
+
+                </RelativeLayout>
+    -->

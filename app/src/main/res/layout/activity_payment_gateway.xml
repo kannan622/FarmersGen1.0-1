@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.PaymentGatewayActivity">
+
+    <RelativeLayout
+        android:id="@+id/paymentBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/twenty_dp"
+        android:layout_marginLeft="@dimen/ten_dp"
+        android:layout_marginRight="@dimen/ten_dp"
+        >
+
+    <TextView
+        android:id="@+id/paytext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pay"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+        android:textSize="@dimen/twenty_four_sp"
+        android:textStyle="bold"
+        />
+
+        <ImageView
+            android:id="@+id/indianRupee"
+            android:layout_width="@dimen/twenty_five"
+            android:layout_height="@dimen/thirty_five_dp"
+            android:src="@drawable/ic_launcher_indian_rupee"
+            android:layout_toRightOf="@id/paytext"
+            android:layout_marginLeft="@dimen/ten_dp"
+            />
+
+        <TextView
+            android:id="@+id/grandTotalAtPaymentGateway"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/indianRupee"
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:text="3000"
+            android:textSize="30sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/detailsBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/paymentBlock"
+        android:layout_marginLeft="@dimen/ten_dp"
+        android:layout_marginRight="@dimen/ten_dp"
+        android:layout_marginTop="@dimen/thirty_dp"
+        >
+
+        <TextView
+            android:id="@+id/details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Details"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+            android:textSize="@dimen/twenty_four_sp"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/details"
+            android:layout_marginTop="@dimen/ten_dp"
+            android:text="@string/saveDetails"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/cashOnDeliveryBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/ten_dp"
+        android:layout_marginRight="@dimen/ten_dp"
+        android:layout_below="@id/detailsBlock"
+        android:layout_marginTop="@dimen/thirty_dp">
+
+        <TextView
+            android:id="@+id/cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cash on Delivery"
+            android:textStyle="bold"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+            android:textSize="@dimen/twenty_four_sp"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/thirty_five_dp"
+            android:src="@drawable/cod"
+            android:layout_toRightOf="@id/cash"
+            />
+        <TextView
+            android:id="@+id/cashOnDelivery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cash"
+            android:layout_marginTop="@dimen/five_dp"
+            android:text="@string/codScript" />
+
+
+
+    </RelativeLayout>
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/payButtonBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/payButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/White"
+            android:layout_alignParentBottom="true"
+            android:onClick="payOnclick" />
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

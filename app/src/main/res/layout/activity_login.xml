@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login_parent_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/unknown"
+    tools:context=".signin.LoginActivity">
+
+    <ImageView
+        android:layout_width="@dimen/hundred_dp"
+        android:layout_height="@dimen/hundred_dp"
+        android:layout_gravity="center"
+        android:contentDescription="@null"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/fifty_dp"
+        android:layout_marginBottom="@dimen/ten_dp"
+        android:src="@drawable/icon_logo"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/twenty_dp"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/ten_dp">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/loginMobileNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/twenty_dp"
+            android:paddingTop="@dimen/ten_dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editTextLM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mobile_number"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:paddingTop="@dimen/ten_dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/large_font" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/loginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ten_dp"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorAccent">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editTextLP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:paddingEnd="@dimen/fifteen_dp"
+                android:paddingStart="@dimen/three_dp"
+                android:paddingTop="@dimen/ten_dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/alpha_gray"
+                android:textSize="@dimen/large_font" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/loginForgetPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/five_dp"
+            android:text="@string/forgot_password"
+            android:onClick="onClickLoginForgetPassword"
+            android:textColor="@color/app_black"
+            android:textSize="@dimen/medium_font" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/fifty_dp"
+            android:layout_marginTop="@dimen/twenty_dp"
+            android:text="@string/login"
+            android:onClick="OnlickLogin"
+            android:background="@drawable/rec_gradiant"
+            android:textColor="@color/white"
+            android:textSize="@dimen/large_font" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/twenty_dp"
+            >
+        <TextView
+            android:id="@+id/createAcc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/havent"
+            android:textSize="16sp"
+            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/createAcc"
+                android:text="@string/signup"
+                android:layout_marginLeft="@dimen/five_dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:onClick="onClickSignupInLogin"
+                android:layout_alignBaseline="@id/createAcc"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
+
+
+<!--<LinearLayout
+        android:id="@+id/loginBlock"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/background_gradiant"
+            android:layout_weight="1"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/White"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/loginMobileNo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:errorEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editTextLM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_mobile"
+                android:paddingLeft="5dp"
+                android:hint="Mobile Number"
+                android:textColorHint="@color/GreenSignup"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/loginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:passwordToggleEnabled="true"
+            app:errorEnabled="true">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editTextLP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:textColorHint="@color/GreenSignup"
+                android:inputType="textPassword" />
+        </android.support.design.widget.TextInputLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            >
+
+        <TextView
+            android:id="@+id/loginForgetPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ForgetPassword?"
+            android:textColor="@color/GreenSignup"
+            android:layout_alignParentEnd="true"
+            android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:layout_below="@id/loginForgetPassword"
+                android:onClick="OnlickLogin"
+                android:textColor="@color/White"
+                android:background="@drawable/rec_gradiant"
+                android:text="SignIn"
+
+                />
+            <TextView
+                android:id="@+id/haventacc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Haven't Account "
+                android:textColor="@color/GreenSignup"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/btnLogin"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register?"
+                android:textColor="#ff0000"
+                android:textSize="15sp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/btnLogin"
+                android:layout_toRightOf="@id/haventacc"
+                android:layout_marginLeft="5dp"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/organic" />
+-->
+
+
+
+<!-- <LinearLayout
+        android:id="@+id/imageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="205dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/loginImage"
+            android:layout_width="match_parent"
+            android:src="@drawable/loginlogo"
+            android:layout_height="203dp" />
+
+    </LinearLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/loginMobileNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:layout_marginTop="30dp"
+        app:errorEnabled="true"
+        android:layout_below="@+id/imageContainer">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Mobile Number"
+            android:inputType="phone"  />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/loginPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginMobileNo"
+        android:layout_marginTop="30dp"
+        android:paddingRight="5dp"
+        app:errorEnabled="true"
+        app:passwordToggleEnabled="true"
+        android:paddingLeft="5dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Password"
+            android:inputType="textPassword" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginPassword"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="50dp"
+        android:text="@string/login_button"
+        android:onClick="OnlickLogin"
+        android:layout_alignParentBottom="true"
+        />
+-->
