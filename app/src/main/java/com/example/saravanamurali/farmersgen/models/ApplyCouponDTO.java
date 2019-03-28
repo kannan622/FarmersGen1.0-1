@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class ApplyCouponDTO {
 
-    @SerializedName("")
+    @SerializedName("off_userid")
     String user_ID;
-    @SerializedName("")
+    @SerializedName("off_code")
     String coupon_Code;
 
-    @SerializedName("")
+    @SerializedName("coupon_id")
     String coupon_ID;
 
     public ApplyCouponDTO(String user_ID, String coupon_Code, String coupon_ID) {

@@ -4,30 +4,48 @@ import com.google.gson.annotations.SerializedName;
 
 public class JSONResponseApplyCouponDTO {
 
-    @SerializedName("")
-    String responseCode;
+    @SerializedName("success")
+    Success success;
 
-    @SerializedName("")
-    String coupon_Code;
+    @SerializedName("off_userid")
+    String userID;
 
-    @SerializedName("")
+    @SerializedName("coupon_id")
     String coupon_ID;
 
-    public JSONResponseApplyCouponDTO(String responseCode, String coupon_Code, String coupon_ID) {
-        this.responseCode = responseCode;
-        this.coupon_Code = coupon_Code;
-        this.coupon_ID = coupon_ID;
+    @SerializedName("off_code")
+    String coupon_Code;
+
+    public Success getSuccess() {
+        return success;
     }
 
-    public String getResponseCode() {
-        return responseCode;
+    public String getUserID() {
+        return userID;
+    }
+
+    public String getCoupon_ID() {
+        return coupon_ID;
     }
 
     public String getCoupon_Code() {
         return coupon_Code;
     }
 
-    public String getCoupon_ID() {
-        return coupon_ID;
+   public class Success{
+
+        @SerializedName("response_code")
+        String responseCode;
+        @SerializedName("message")
+        String message;
+
+        public String getResponseCode() {
+            return responseCode;
+        }
+
+        public String getMessage() {
+            return message;
+        }
     }
+
 }

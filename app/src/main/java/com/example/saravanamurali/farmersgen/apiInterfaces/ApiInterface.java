@@ -212,7 +212,7 @@ public interface ApiInterface {
     Call<JSONResponseCouponDTO> getCouponCode();
 
     //Apply Code
-    @POST("Apply.php")
+    @POST("fetch_single_offer.php")
     Call<JSONResponseApplyCouponDTO> applyCoupon(@Body ApplyCouponDTO applyCouponDTO);
 
 

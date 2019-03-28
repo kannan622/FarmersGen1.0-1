@@ -75,6 +75,8 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
 
                     couponAdapter.setCouponData(couponDTO);
 
+                    couponAdapter.notifyDataSetChanged();
+
                 }
             }
 
@@ -110,18 +112,19 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
 
                         JSONResponseApplyCouponDTO jsonResponseApplyCouponDTO=response.body();
 
-                        if(jsonResponseApplyCouponDTO.getResponseCode()=="200"){
+                        //Offer is avaliable can access offer
+
+                        if(jsonResponseApplyCouponDTO.getSuccess().getResponseCode()=="200"){
 
                             Intent applyCoupon=new Intent(CouponActivity.this,ViewCartActivity.class);
                             applyCoupon.putExtra("COUPON_CODE",jsonResponseApplyCouponDTO.getCoupon_Code());
                             applyCoupon.putExtra("COUPON_ID",jsonResponseApplyCouponDTO.getCoupon_ID());
                             startActivity(applyCoupon);
-                            finish();
 
                         }
-                        else {
+                        else if(jsonResponseApplyCouponDTO.getSuccess().getResponseCode()=="500") {
 
-                            Toast.makeText(CouponActivity.this,"You already applied this coupon",Toast.LENGTH_LONG).show();
+                            Toast.makeText(CouponActivity.this,"You already applied this coupon,Try another one",Toast.LENGTH_LONG).show();
 
                         }
                     }

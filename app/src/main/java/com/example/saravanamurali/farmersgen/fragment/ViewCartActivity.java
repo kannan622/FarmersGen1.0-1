@@ -81,6 +81,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     String currentUser;
     private String NO_CURRENT_USER = "NO_CURRENT_USER";
 
+    private String NO_CURRENT_COUPON_ID = "NO_CURRENT_COUPON_ID";
+
     public ViewCartActivity(String curentUser) {
         this.currentUser = curentUser;
 
@@ -121,6 +123,39 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         couponAppliedBlock = (RelativeLayout) findViewById(R.id.couponAppliedBlock);
         couponCodeApplied = (TextView) findViewById(R.id.couponCode);
         cancelCoupon = (ImageView) findViewById(R.id.couponCodeCancel);
+
+
+        //Data From Coupon Activity
+        Intent getCouponIntent = getIntent();
+
+        String apply_CouponID = getCouponIntent.getStringExtra("COUPON_ID");
+
+        String applied_Coupon_Code=getCouponIntent.getStringExtra("COUPON_CODE");
+
+
+        SharedPreferences current_CouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorID = current_CouponID.edit();
+        editorID.putString("COUPONID", apply_CouponID);
+        editorID.commit();
+
+        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+        String curUserCouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
+
+
+        if (curUserCouponID.equals(NO_CURRENT_COUPON_ID)){
+
+            showCouponLayout.setVisibility(View.VISIBLE);
+        couponAppliedBlock.setVisibility(View.GONE);
+    }
+        else if(!curUserCouponID.equals(NO_CURRENT_COUPON_ID)){
+            showCouponLayout.setVisibility(View.GONE);
+            couponAppliedBlock.setVisibility(View.VISIBLE);
+
+            couponCodeApplied.setText(curUserCouponID);
+
+        }
+
+
 
 
 

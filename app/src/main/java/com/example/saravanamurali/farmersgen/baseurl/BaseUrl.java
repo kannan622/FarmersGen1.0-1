@@ -90,7 +90,7 @@ public interface BaseUrl {
     public  static final String ROOT_URL_TO_GET_COUPON="http://farmersgen.com/service/offers/";
 
     //Apply Copuon
-    public  static final String ROOT_URL_TO_APPLY_COUPON="http://farmersgen.com/service/web_apis/";
+    public  static final String ROOT_URL_TO_APPLY_COUPON="http://farmersgen.com/service/offers/";
 
 
     //LogOut using deviceID(clears all items from addCart Table)
