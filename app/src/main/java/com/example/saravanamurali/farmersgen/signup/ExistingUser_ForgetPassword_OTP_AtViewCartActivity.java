@@ -96,8 +96,6 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
             }
 
 
-
-
             @Override
             public void onFailure(Call<JSONOTPResponseFromOTPActivity> call, Throwable t) {
 
