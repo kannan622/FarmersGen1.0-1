@@ -111,6 +111,7 @@ public class RegisterUserAtCartActivity extends AppCompatActivity {
                         Intent registerOTP = new Intent(RegisterUserAtCartActivity.this, OTPActivityForViewCart2.class);
                         registerOTP.putExtra("MOBILENOTOSEND_OTPATVIEWCART2", signUpJSONResponse.getData().getMobile());
                         startActivity(registerOTP);
+                        finish();
                     }
 
                     else if (signUpJSONResponse.getResultStatus() == 500) {
@@ -118,6 +119,7 @@ public class RegisterUserAtCartActivity extends AppCompatActivity {
                         Intent forgotPassword = new Intent(RegisterUserAtCartActivity.this, ExistingUser_ForgetPassword_AtViewCartActivity.class);
                         forgotPassword.putExtra("EXISTING_USER_MOBILENO_AT_VIEWCART", signUpJSONResponse.getData().getMobile());
                         startActivity(forgotPassword);
+                        finish();
 
                         System.out.println("Number already exists");
 

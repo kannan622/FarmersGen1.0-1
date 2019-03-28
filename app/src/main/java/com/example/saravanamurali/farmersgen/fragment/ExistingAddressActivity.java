@@ -121,11 +121,11 @@ public class ExistingAddressActivity extends AppCompatActivity {
 
     }
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         super.onBackPressed();
 
         Intent viewCartActivity=new Intent(ExistingAddressActivity.this,ViewCartActivity.class);
         startActivity(viewCartActivity);
-    }
+    }*/
 }

@@ -2,12 +2,15 @@ package com.example.saravanamurali.farmersgen.apiInterfaces;
 
 import com.example.saravanamurali.farmersgen.models.ADDAddessDTO;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
+import com.example.saravanamurali.farmersgen.models.ApplyCouponDTO;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.models.DeleteCountInCartDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
 import com.example.saravanamurali.farmersgen.models.GetOrdersUsingDeviceID_DTO;
 import com.example.saravanamurali.farmersgen.models.JSONOTPResponseFromOTPActivity;
 import com.example.saravanamurali.farmersgen.models.JSONResponseADDAddress;
+import com.example.saravanamurali.farmersgen.models.JSONResponseApplyCouponDTO;
+import com.example.saravanamurali.farmersgen.models.JSONResponseCouponDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseDeleteCartDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseForCancelOrderDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseForNPasswordAndCPasswrod;
@@ -204,6 +207,13 @@ public interface ApiInterface {
     @POST("fetch_ordered_products_details.php")
     Call<JSONResponseToViewPastOrderedProductList> getViewPastOrderProductList(@Body OrderID_DTO orderDTO);
 
+    //Get Coupon Code
+    @GET("fetch_offer.php")
+    Call<JSONResponseCouponDTO> getCouponCode();
+
+    //Apply Code
+    @POST("Apply.php")
+    Call<JSONResponseApplyCouponDTO> applyCoupon(@Body ApplyCouponDTO applyCouponDTO);
 
 
 

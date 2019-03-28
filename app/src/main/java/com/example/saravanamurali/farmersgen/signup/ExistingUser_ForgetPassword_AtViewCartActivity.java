@@ -72,6 +72,7 @@ public class ExistingUser_ForgetPassword_AtViewCartActivity extends AppCompatAct
                     Intent intent=new Intent(ExistingUser_ForgetPassword_AtViewCartActivity.this,ExistingUser_ForgetPassword_OTP_AtViewCartActivity.class);
                     intent.putExtra("MOBILE_NO_TO_CONFIRM_PASSWORD_FOR_EXISTING_USER",forgetPasswordMobileNumberAtViewCart);
                     startActivity(intent);
+                    finish();
                 }
             }
 
@@ -121,7 +122,9 @@ public class ExistingUser_ForgetPassword_AtViewCartActivity extends AppCompatAct
 
 
                         Intent viewCartActivity = new Intent(ExistingUser_ForgetPassword_AtViewCartActivity.this, ViewCartActivity.class);
+                        viewCartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(viewCartActivity);
+                        finish();
                     }
 
                 }

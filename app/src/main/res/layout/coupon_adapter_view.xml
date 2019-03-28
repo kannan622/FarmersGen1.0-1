@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/five_dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/ten_dp"
+        >
+
+        <ImageView
+            android:id="@+id/couponImage"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:src="@drawable/banner"
+            />
+        <TextView
+            android:id="@+id/apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="APPLY"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/getCouponText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get 50% OFF on your first 5 FG orders"
+            android:layout_below="@id/couponImage"
+            android:layout_marginTop="@dimen/ten_dp" />
+
+        <TextView
+            android:id="@+id/couponDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Use code ORDER50 and get 50% off on your first 5 FG orders on the app. Maximum discunt Rs:100 per order"
+            android:layout_below="@id/getCouponText"
+            android:layout_marginTop="@dimen/five_dp" />
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

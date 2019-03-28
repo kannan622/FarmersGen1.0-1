@@ -103,6 +103,7 @@ public class Add_Address_Activity extends AppCompatActivity {
 
                         Intent codIntent=new Intent(Add_Address_Activity.this,PaymentGatewayActivity.class);
                         startActivity(codIntent);
+                        finish();
 
                     }
                 }

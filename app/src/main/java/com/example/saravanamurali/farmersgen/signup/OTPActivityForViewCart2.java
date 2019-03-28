@@ -86,6 +86,7 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
                 if(response.isSuccessful()){
                     Intent intent=new Intent(OTPActivityForViewCart2.this,LoginActivityForViewCart.class);
                     startActivity(intent);
+                    finish();
                 }
             }
 

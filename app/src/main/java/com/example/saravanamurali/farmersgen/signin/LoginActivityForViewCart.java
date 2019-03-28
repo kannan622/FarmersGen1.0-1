@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.signin;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,9 +15,6 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
-import com.example.saravanamurali.farmersgen.fragment.Add_Address_Activity;
-import com.example.saravanamurali.farmersgen.fragment.ExistingAddressActivity;
-import com.example.saravanamurali.farmersgen.fragment.RegisterUserAtCartActivity;
 import com.example.saravanamurali.farmersgen.fragment.ViewCartActivity;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
@@ -24,7 +22,7 @@ import com.example.saravanamurali.farmersgen.models.SignInDTO;
 import com.example.saravanamurali.farmersgen.models.SignedInJSONResponse;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToLogin;
-import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
+import com.example.saravanamurali.farmersgen.signup.RegisterUserAtCartActivity;
 import com.example.saravanamurali.farmersgen.util.Utils;
 
 import retrofit2.Call;
@@ -68,6 +66,13 @@ public class LoginActivityForViewCart extends AppCompatActivity {
 
     private void getAddressIDAtViewCartLogin() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(LoginActivityForViewCart.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
 
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -81,6 +86,10 @@ public class LoginActivityForViewCart extends AppCompatActivity {
             @Override
             public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
                 if (response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
 
                     GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
 
@@ -98,6 +107,10 @@ public class LoginActivityForViewCart extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });
@@ -129,6 +142,13 @@ public class LoginActivityForViewCart extends AppCompatActivity {
 
     private void getLoginUserAtViewCart(final String mobileNumberAtCart,final String passwordAtCart) {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(LoginActivityForViewCart.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api = APIClientToLogin.getApiInterfaceToLogin();
 
         SignInDTO signInDTO = new SignInDTO(mobileNumberAtCart, passwordAtCart);
@@ -142,6 +162,10 @@ public class LoginActivityForViewCart extends AppCompatActivity {
             public void onResponse(Call<SignedInJSONResponse> call, Response<SignedInJSONResponse> response) {
 
                 if (response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
                     SignedInJSONResponse signedInJSONResponse = response.body();
 
                     if(signedInJSONResponse.getUser_ID()!=null) {
@@ -153,7 +177,9 @@ public class LoginActivityForViewCart extends AppCompatActivity {
                         editor.commit();
 
                         Intent openViewCartActivity = new Intent(LoginActivityForViewCart.this, ViewCartActivity.class);
+                        openViewCartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(openViewCartActivity);
+                        finish();
 
 /*
 
@@ -187,6 +213,10 @@ public class LoginActivityForViewCart extends AppCompatActivity {
             @Override
             public void onFailure(Call<SignedInJSONResponse> call, Throwable t) {
 
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
             }
         });
 
@@ -194,13 +224,13 @@ public class LoginActivityForViewCart extends AppCompatActivity {
 
     }
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         super.onBackPressed();
 
         Intent viewCartActivityFromLoginActivityForViewCart=new Intent(LoginActivityForViewCart.this,ViewCartActivity.class);
         startActivity(viewCartActivityFromLoginActivityForViewCart);
-    }
+    }*/
 
     public void onClickLoginForgetPasswordAtViewCart(View view) {
     }
@@ -209,5 +239,6 @@ public class LoginActivityForViewCart extends AppCompatActivity {
     public void onClickSignupInLoginAtViewCartActivity(View view) {
         Intent intent=new Intent(LoginActivityForViewCart.this,RegisterUserAtCartActivity.class);
         startActivity(intent);
+        finish();
     }
 }

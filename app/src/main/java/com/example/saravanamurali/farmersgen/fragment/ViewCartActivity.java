@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -35,6 +36,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForDeleteIt
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForUpdateCountInViewCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForViewCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
+import com.example.saravanamurali.farmersgen.signin.LoginActivityForViewCart;
 import com.example.saravanamurali.farmersgen.signup.SignupActivity;
 
 import java.util.ArrayList;
@@ -55,7 +57,14 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     TextView proceedButton;
     // JSONResponseUpdateCartDTO jsonResponseUpdateCartDTO;
     //Coupon
-    RelativeLayout couponLayout;
+    RelativeLayout showCouponLayout;
+
+    //Coupon Applied
+    RelativeLayout couponAppliedBlock;
+    TextView couponCodeApplied;
+    ImageView cancelCoupon;
+
+
     String addressID;
     String checked_MobileID;
     String checked_MobileNumber;
@@ -81,58 +90,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     }
 
-    //To Display list of ordered items in ViewCart Avtivity From ProductList Activity
-    public static void loadViewCartProductList() {
-
-        String ANDROID_MOBILE_ID = Settings.Secure.getString(context.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-
-        // Toast.makeText(ViewCartActivity.this, "ViewCartResponseSuccessFirst", Toast.LENGTH_LONG).show();
-
-        System.out.println("I am Here" + ANDROID_MOBILE_ID);
-
-        ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
-        AddCartDTO loadFragment = new AddCartDTO(ANDROID_MOBILE_ID);
-        Call<JSONResponseViewCartListDTO> call = api.getViewCart(loadFragment);
-
-        call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
-            @Override
-            public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
-                System.out.println("Null Values");
-                if (response.isSuccessful()) {
-
-
-                    JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
-                    List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
-
-                    GrandTotal = jsonResponseViewCartListDTO.getGrandTotal();
-                    System.out.println("GRANDTOTAL" + GrandTotal);
-
-
-                    viewCartAdapter.setData(viewCartProductListDTO);
-
-                    viewCartAdapter.notifyDataSetChanged();
-
-
-                }
-
-
-                toPayAmountTextView.setText(GrandTotal);
-            }
-
-
-            @Override
-            public void onFailure(Call<JSONResponseViewCartListDTO> call, Throwable t) {
-
-                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
-
-                // Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                //Toast.makeText(getApplicationContext(),response.code(),Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,12 +110,18 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         proceedButton = (TextView) findViewById(R.id.viewCartProceed);
         toPayAmountTextView = (TextView) findViewById(R.id.toPayAmount);
-        coordinatorLayout = findViewById(R.id.coordinator_layout);
+        //coordinatorLayout = findViewById(R.id.coordinator_layout);
 
         //toPayT=(TextView)findViewById(R.id.toPay);
         emptViewCartImage = (ImageView) findViewById(R.id.emptyViewCartImage);
 
-        couponLayout = (RelativeLayout) findViewById(R.id.coupon);
+        showCouponLayout = (RelativeLayout) findViewById(R.id.coupon);
+
+        //Coupon Code Applied
+        couponAppliedBlock = (RelativeLayout) findViewById(R.id.couponAppliedBlock);
+        couponCodeApplied = (TextView) findViewById(R.id.couponCode);
+        cancelCoupon = (ImageView) findViewById(R.id.couponCodeCancel);
+
 
 
         viewCartDTOList = new ArrayList<ViewCartDTO>();
@@ -180,11 +143,28 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         //Get addressID for Existing User
         getAddressID();
 
+        //offer block cliked
+        showCouponLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                proceedOffers();
+            }
+        });
+
+
 
         //PROCEED Button Pressed in View Cart Activity
         proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                final ProgressDialog csprogress;
+                csprogress = new ProgressDialog(ViewCartActivity.this);
+                csprogress.setMessage("Loading...");
+                csprogress.show();
+                csprogress.setCanceledOnTouchOutside(false);
+
 
                 Toast.makeText(ViewCartActivity.this, "Checking Proceed Button", Toast.LENGTH_LONG).show();
 
@@ -208,8 +188,11 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                     Toast.makeText(ViewCartActivity.this, "No Current Cuser", Toast.LENGTH_LONG).show();
 
-                    Intent registerUserAtViewCartActivity = new Intent(ViewCartActivity.this, SignupActivity.class);
+                    Intent registerUserAtViewCartActivity = new Intent(ViewCartActivity.this, LoginActivityForViewCart.class);
                     startActivity(registerUserAtViewCartActivity);
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
 
                 } else if (!curUser.equals(NO_CURRENT_USER) && addressID != null) {
 
@@ -218,12 +201,18 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     Intent deliveryAddressActivity = new Intent(ViewCartActivity.this, ExistingAddressActivity.class);
                     deliveryAddressActivity.putExtra("CURRENTUSER", curUser);
                     startActivity(deliveryAddressActivity);
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
                 } else if (!curUser.equals(NO_CURRENT_USER) && addressID == null) {
 
                     Toast.makeText(ViewCartActivity.this, "He is Current Cuser", Toast.LENGTH_LONG).show();
 
                     Intent addAddressActivity = new Intent(ViewCartActivity.this, Add_Address_Activity.class);
                     startActivity(addAddressActivity);
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
                 }
 
 
@@ -260,8 +249,37 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     }
 
+    private void proceedOffers() {
+
+        //Getting Current User
+        SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String curUserToCheckOffer = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+        if (!curUserToCheckOffer.equals(NO_CURRENT_USER)) {
+
+            Intent coupon =new Intent(ViewCartActivity.this,CouponActivity.class);
+            startActivity(coupon);
+        }
+
+        else {
+
+            Toast toast=Toast.makeText(ViewCartActivity.this, "Please login to avil offer. To login Click on  CheckOut Button", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER,0,0);
+            toast.show();
+
+        }
+
+    }
+
     //Get AddressID from Existing User
     private void getAddressID() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ViewCartActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
 
         ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
 
@@ -278,6 +296,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
 
                 if (response.isSuccessful()) {
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
 
                     GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
 
@@ -297,10 +319,85 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             @Override
             public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
 
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
             }
         });
 
     }
+
+
+    //To Display list of ordered items in ViewCart Avtivity From ProductList Activity
+    public  void loadViewCartProductList() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ViewCartActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
+
+        String ANDROID_MOBILE_ID = Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        // Toast.makeText(ViewCartActivity.this, "ViewCartResponseSuccessFirst", Toast.LENGTH_LONG).show();
+
+        System.out.println("I am Here" + ANDROID_MOBILE_ID);
+
+        ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
+        AddCartDTO loadFragment = new AddCartDTO(ANDROID_MOBILE_ID);
+        Call<JSONResponseViewCartListDTO> call = api.getViewCart(loadFragment);
+
+        call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
+            @Override
+            public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
+                System.out.println("Null Values");
+                if (response.isSuccessful()) {
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+
+                    JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
+                    List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
+
+                    GrandTotal = jsonResponseViewCartListDTO.getGrandTotal();
+                    System.out.println("GRANDTOTAL" + GrandTotal);
+
+
+                    viewCartAdapter.setData(viewCartProductListDTO);
+
+                    viewCartAdapter.notifyDataSetChanged();
+
+
+                }
+
+
+                toPayAmountTextView.setText(GrandTotal);
+            }
+
+
+            @Override
+            public void onFailure(Call<JSONResponseViewCartListDTO> call, Throwable t) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
+                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
+
+                // Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),response.code(),Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
+
 
     //Update Count in ViewCart
     @Override
@@ -341,7 +438,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     viewCartAdapter.setUpdateTotalPrice(jsonResponseUpdateCartDTO);
 
                     GrandTotal = jsonResponseUpdateCartDTO.getGrandTotal();
-
 
                 }
 
@@ -409,7 +505,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 } else {
                     toPayAmountTextView.setText("");
                     // toPayT.setVisibility(View.GONE);
-                    couponLayout.setVisibility(View.GONE);
+                    showCouponLayout.setVisibility(View.GONE);
                     emptViewCartImage.setVisibility(View.VISIBLE);
                     proceedButton.setVisibility(View.GONE);
 

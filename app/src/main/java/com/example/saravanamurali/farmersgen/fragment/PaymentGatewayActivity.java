@@ -168,6 +168,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
                     Intent thanksActivity=new Intent(PaymentGatewayActivity.this,ThanksActivity.class);
                     startActivity(thanksActivity);
+                    finish();
 
                     System.out.println("Order Confirmed");
 

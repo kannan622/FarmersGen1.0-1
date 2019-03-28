@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
@@ -58,32 +58,73 @@
                 android:id="@+id/coupon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/bottom"
-                android:background="@color/gray"
                 android:clickable="true"
-                android:gravity="bottom"
                 android:onClick="offers"
                 android:orientation="horizontal"
-                android:padding="@dimen/ten_dp">
+                android:background="@color/gray"
+                android:padding="@dimen/ten_dp"
+                android:layout_above="@id/bottom"
+                android:gravity="bottom"
+                >
 
                 <TextView
+                    android:id="@+id/applyCouponText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
                     android:text="APPLY COUPON"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
-                    android:textStyle="bold" />
+                    />
 
                 <ImageView
                     android:id="@+id/offersArrow"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/profilerightarrow" />
+                    android:src="@drawable/profilerightarrow"
+                    />
 
 
             </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/couponAppliedBlock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="offers"
+                android:orientation="horizontal"
+                android:background="@color/gray"
+                android:padding="@dimen/ten_dp"
+                android:layout_above="@id/bottom"
+                android:gravity="bottom"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:id="@+id/couponCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="ORDER50"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
+
+
+                <ImageView
+                    android:id="@+id/couponCodeCancel"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/profilerightarrow" />
+
+            </RelativeLayout>
+
+
+
 
             <!--End Offers Code-->
 
@@ -93,20 +134,29 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/FragmentGreen"
                 android:orientation="horizontal"
                 android:paddingTop="5dp">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/five_dp"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    />
 
                 <TextView
                     android:id="@+id/toPayAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="10dp"
                     android:text="Total Amount : $1500"
                     android:textColor="@color/white"
                     android:textSize="14dp"
+                    android:layout_marginLeft="@dimen/fifteen_dp"
                     android:textStyle="bold" />
 
 
@@ -125,7 +175,7 @@
                     android:paddingRight="10dp"
                     android:text="Checkout"
 
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/FragmentGreen"
                     android:textSize="14dp"
                     android:textStyle="bold" />
 
@@ -145,4 +195,4 @@
 
     </RelativeLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

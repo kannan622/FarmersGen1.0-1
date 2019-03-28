@@ -19,6 +19,7 @@
         android:src="@drawable/icon_logo"/>
 
     <LinearLayout
+        android:id="@+id/loginBlock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/twenty_dp"
@@ -111,7 +112,7 @@
                 android:layout_marginLeft="@dimen/five_dp"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/FragmentGreen"
                 android:onClick="onClickSignupInLogin"
                 android:layout_alignBaseline="@id/createAcc"
                 />
@@ -119,6 +120,25 @@
         </RelativeLayout>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginBlock"
+        android:layout_margin="@dimen/ten_dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="SKIP LOGIN"
+            android:onClick="skip"
+            android:background="@drawable/rec_white"
+            android:textSize="@dimen/twenty_sp"
+            android:textColor="@color/red" />
+
+    </RelativeLayout>
+
 
 
 

@@ -86,6 +86,13 @@ public interface BaseUrl {
     //Profile Edit
     public  static final String ROOT_URL_TO_UPDATE_NAME_URL="http://farmersgen.com/service/web_apis/";
 
+    //To Get Coupon
+    public  static final String ROOT_URL_TO_GET_COUPON="http://farmersgen.com/service/offers/";
+
+    //Apply Copuon
+    public  static final String ROOT_URL_TO_APPLY_COUPON="http://farmersgen.com/service/web_apis/";
+
+
     //LogOut using deviceID(clears all items from addCart Table)
     public static final String ROOT_URL_TO_LOGOUT_USING_DEVICEID="http://farmersgen.com/service/web_apis/";
 

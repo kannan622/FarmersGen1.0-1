@@ -43,7 +43,6 @@
             android:value="4454fe85492ece55bb64d212ce9f0a682326f914" />
 
         <activity android:name=".signup.OTPActivity" />
-        <activity android:name=".fragment.RegisterUserAtCartActivity" />
         <activity android:name=".fragment.PaymentGatewayActivity" />
         <activity android:name=".fragment.Add_Address_Activity" />
         <activity android:name=".fragment.ExistingAddressActivity" />
@@ -64,6 +63,14 @@
         <activity android:name=".fragment.OrderedProductListView" />
         <activity android:name=".fragment.PastOrderListActivity" />
         <activity android:name=".fragment.PastOrderedProductListView" />
+        <activity android:name=".signup.RegisterUserAtCartActivity" />
+        <activity android:name=".signup.OTPActivityForViewCart2" />
+        <activity android:name=".signup.ExistingUser_ForgetPassword_AtViewCartActivity" />
+        <activity android:name=".signup.ExistingUser_ForgetPassword_OTP_AtViewCartActivity" />
+        <activity android:name=".signup.Existing_User_NewPassAndConfirmPass_AtViewCartActivity" />
+        <activity android:name=".fragment.ExistingAddressActivity_AtMenuAccFragment" />
+        <activity android:name=".fragment.UpdateAddress_MenuAccFragment" />
+        <activity android:name=".fragment.CouponActivity"></activity>
 
 
     </application>

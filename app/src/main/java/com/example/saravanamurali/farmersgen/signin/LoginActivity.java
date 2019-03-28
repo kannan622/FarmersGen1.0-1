@@ -234,4 +234,9 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(signUpActivity);
 
     }
+
+    public void skip(View view) {
+        Intent homeActivity = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(homeActivity);
+    }
 }

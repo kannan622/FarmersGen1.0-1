@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="@color/White"
     android:id="@+id/signup_Parrent_At_ViewCart"
-    tools:context=".fragment.RegisterUserAtCartActivity">
+    tools:context=".signup.RegisterUserAtCartActivity">
 
     <ImageView
         android:layout_width="@dimen/hundred_dp"
@@ -16,118 +16,110 @@
         android:layout_gravity="center"
         android:contentDescription="@null"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/ten_dp"
+        android:layout_marginTop="@dimen/twenty_dp"
         android:layout_marginBottom="@dimen/three_dp"
         android:src="@drawable/icon_logo"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/twenty_dp"
         android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/ten_dp"
+        android:layout_marginTop="@dimen/twenty_dp"
+        android:layout_marginRight="@dimen/ten_dp"
         android:orientation="vertical"
         android:paddingTop="@dimen/ten_dp">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/signUpMobileNoAtViewCartActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/five_dp"
-        android:paddingTop="@dimen/ten_dp"
-        app:errorEnabled="true"
-        >
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/editTextMAtViewCartActivity"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/signUpMobileNoAtViewCartActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/mobile_number"
-            android:inputType="phone"
-            android:maxLength="10"
-            android:drawableRight="@drawable/ic_mobile"
-            android:paddingTop="@dimen/ten_dp"
-            android:paddingLeft="@dimen/five_dp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/large_font" />
+            app:errorEnabled="true">
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editTextMAtViewCartActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_mobile"
+                android:hint="@string/mobile_number"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:paddingLeft="@dimen/five_dp"
+                android:paddingTop="@dimen/ten_dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/large_font" />
+
+        </android.support.design.widget.TextInputLayout>
 
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/signUpNameAtViewCartActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/five_dp"
-        android:paddingTop="@dimen/ten_dp"
-        app:errorEnabled="true"
-        >
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/editTextNAtViewCartActivity"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/signUpNameAtViewCartActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/signupname"
-            android:inputType="text"
-            android:drawableRight="@drawable/ic_person_black_24dp"
-            android:paddingLeft="@dimen/five_dp"
-            android:paddingTop="@dimen/ten_dp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/large_font" />
+            app:errorEnabled="true">
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editTextNAtViewCartActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_person_black_24dp"
+                android:hint="@string/signupname"
+                android:inputType="text"
+                android:paddingLeft="@dimen/five_dp"
+                android:paddingTop="@dimen/ten_dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/large_font" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/signUpEmailAtViewCartActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/five_dp"
-        app:errorEnabled="true"
-        >
+        </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/editTextEMAtViewCartActivity"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/signUpEmailAtViewCartActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:paddingLeft="@dimen/five_dp"
-            android:drawableRight="@drawable/ic_email_black_24dp"
-            android:paddingStart="@dimen/three_dp"
-            android:paddingTop="@dimen/ten_dp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/large_font" />
+            app:errorEnabled="true">
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editTextEMAtViewCartActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/ic_email_black_24dp"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:paddingStart="@dimen/three_dp"
+                android:paddingLeft="@dimen/five_dp"
+                android:paddingTop="@dimen/ten_dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/large_font" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/signUpPasswordAtViewCartActivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/five_dp"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/colorAccent">
+        </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/editTextpasAtViewCartActivity"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/signUpPasswordAtViewCartActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:paddingLeft="@dimen/five_dp"
-            android:paddingStart="@dimen/three_dp"
-            android:paddingTop="@dimen/ten_dp"
-            android:textColor="@color/black"
-            android:textSize="@dimen/large_font" />
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorAccent">
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/editTextpasAtViewCartActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:paddingStart="@dimen/three_dp"
+                android:paddingLeft="@dimen/five_dp"
+                android:paddingTop="@dimen/ten_dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/large_font" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/ten_dp"
-        android:text="Accepting Terms and Condition"
-        android:textColor="@color/lightBlue"
-        />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ten_dp"
+            android:text="Accepting Terms and Condition"
+            android:textColor="@color/lightBlue" />
 
 
         <Button
@@ -135,9 +127,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/fifty_dp"
             android:layout_marginTop="@dimen/fifteen_dp"
-            android:text="@string/signuptext"
-            android:onClick="onClickSignUpAtViewCart"
             android:background="@drawable/rec_gradiant"
+            android:onClick="onClickSignUpAtViewCart"
+            android:text="@string/signuptext"
             android:textColor="@color/white"
             android:textSize="@dimen/large_font" />
 
@@ -145,7 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/ten_dp"
-            >
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/accAtViewCartActivity"
@@ -157,20 +149,16 @@
                 android:id="@+id/arrowbackidAtViewCart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="signIn"
-                android:layout_marginLeft="@dimen/five_dp"
-                android:textColor="@color/red"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:onClick="arrowbackToLoginAtViewCartActivity"
                 android:layout_alignBaseline="@id/accAtViewCartActivity"
+                android:layout_marginLeft="@dimen/five_dp"
                 android:layout_toRightOf="@id/accAtViewCartActivity"
-
-                />
+                android:onClick="arrowbackToLoginAtViewCartActivity"
+                android:text="signIn"
+                android:textColor="@color/red"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
-
-
 
 
     </LinearLayout>
