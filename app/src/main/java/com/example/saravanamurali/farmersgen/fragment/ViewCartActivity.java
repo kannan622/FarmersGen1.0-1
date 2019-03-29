@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
+import com.example.saravanamurali.farmersgen.models.CancelCouponDTO;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseDeleteCartDTO;
@@ -35,6 +36,7 @@ import com.example.saravanamurali.farmersgen.recyclerviewadapter.ViewCartAdapter
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForDeleteItemInViewCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForUpdateCountInViewCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForViewCart;
+import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToCancelCouponCode;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
 import com.example.saravanamurali.farmersgen.signin.LoginActivityForViewCart;
 import com.example.saravanamurali.farmersgen.signup.SignupActivity;
@@ -42,6 +44,7 @@ import com.example.saravanamurali.farmersgen.signup.SignupActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -125,12 +128,15 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         cancelCoupon = (ImageView) findViewById(R.id.couponCodeCancel);
 
 
-        //Data From Coupon Activity
+
+
+        /*//Data From Coupon Activity
         Intent getCouponIntent = getIntent();
+        String applied_Coupon_Code=getCouponIntent.getStringExtra("COUPON_CODE");
 
         String apply_CouponID = getCouponIntent.getStringExtra("COUPON_ID");
 
-        String applied_Coupon_Code=getCouponIntent.getStringExtra("COUPON_CODE");
+
 
 
         SharedPreferences current_CouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
@@ -151,12 +157,17 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             showCouponLayout.setVisibility(View.GONE);
             couponAppliedBlock.setVisibility(View.VISIBLE);
 
-            couponCodeApplied.setText(curUserCouponID);
+            couponCodeApplied.setText(applied_Coupon_Code);
 
         }
+*/
 
-
-
+        cancelCoupon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteCouponCode();
+            }
+        });
 
 
         viewCartDTOList = new ArrayList<ViewCartDTO>();
@@ -171,8 +182,21 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         System.out.println("I am inside ViewCartActivity");
 
+        //Current Coupon ID
+        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+        String curUser_CouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
 
-        loadViewCartProductList();
+
+        if (curUser_CouponID==null) {
+
+            //Only DeviceID
+            loadViewCartProductList();
+
+        } else {
+            //with DeviceID and curUser_CouponID
+            loadViewCartProductListWithCouponID(curUser_CouponID);
+
+        }
 
 
         //Get addressID for Existing User
@@ -186,7 +210,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 proceedOffers();
             }
         });
-
 
 
         //PROCEED Button Pressed in View Cart Activity
@@ -284,6 +307,52 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     }
 
+
+
+    //Cancel coupon Code
+    private void deleteCouponCode() {
+
+        ApiInterface api = APIClientToCancelCouponCode.getApiInterfaceToCancelCouponCode();
+
+        //Current User
+        SharedPreferences getCurrentUser_ForDeleteCoupon = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String curUserID_ForDeleteCoupon = getCurrentUser_ForDeleteCoupon.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+        //Current Coupon ID
+        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+        String curUserCouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
+
+
+        CancelCouponDTO cancelCouponDTO = new CancelCouponDTO(curUserID_ForDeleteCoupon, curUserCouponID);
+
+        Call<ResponseBody> call = api.cancelCoupon(cancelCouponDTO);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+
+                    //Remove Current User From Shared Preferences
+                    SharedPreferences getCurrentUser_CouponID = getSharedPreferences("CURRENT_COUPON_ID", context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = getCurrentUser_CouponID.edit();
+                    editor.remove("COUPONID");
+                    editor.commit();
+
+                    showCouponLayout.setVisibility(View.VISIBLE);
+                    couponAppliedBlock.setVisibility(View.GONE);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
     private void proceedOffers() {
 
         //Getting Current User
@@ -292,14 +361,12 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         if (!curUserToCheckOffer.equals(NO_CURRENT_USER)) {
 
-            Intent coupon =new Intent(ViewCartActivity.this,CouponActivity.class);
+            Intent coupon = new Intent(ViewCartActivity.this, CouponActivity.class);
             startActivity(coupon);
-        }
+        } else {
 
-        else {
-
-            Toast toast=Toast.makeText(ViewCartActivity.this, "Please login to avil offer. To login Click on  CheckOut Button", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER,0,0);
+            Toast toast = Toast.makeText(ViewCartActivity.this, "Please login to avil offer. To login Click on  CheckOut Button", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER, 0, 0);
             toast.show();
 
         }
@@ -363,16 +430,48 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-    //To Display list of ordered items in ViewCart Avtivity From ProductList Activity
-    public  void loadViewCartProductList() {
+        //Data From Coupon Activity
+        Intent getCouponIntent = getIntent();
+        String applied_Coupon_Code = getCouponIntent.getStringExtra("COUPON_CODE");
+
+        String apply_CouponID = getCouponIntent.getStringExtra("COUPON_ID");
+
+
+        SharedPreferences current_CouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorID = current_CouponID.edit();
+        editorID.putString("COUPONID", apply_CouponID);
+        editorID.commit();
+
+        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+        String curUserCouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
+
+
+        if (curUserCouponID.equals(NO_CURRENT_COUPON_ID)) {
+
+            showCouponLayout.setVisibility(View.VISIBLE);
+            couponAppliedBlock.setVisibility(View.GONE);
+
+        } else if (!curUserCouponID.equals(NO_CURRENT_COUPON_ID)) {
+            showCouponLayout.setVisibility(View.GONE);
+            couponAppliedBlock.setVisibility(View.VISIBLE);
+            couponCodeApplied.setText(applied_Coupon_Code);
+
+        }
+
+    }
+
+    //To Display list of ordered items in ViewCart Avtivity From ProductList Activity without COUPONID
+    public void loadViewCartProductList() {
 
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
         csprogress.setCanceledOnTouchOutside(false);
-
 
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(context.getContentResolver(),
@@ -430,6 +529,66 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
             }
         });
+
+    }
+
+
+    //To Display list of ordered items in ViewCart Avtivity From ProductList Activity with COUPONID
+    private void loadViewCartProductListWithCouponID(String curUser_CouponID) {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ViewCartActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
+        String ANDROID_MOBILE_ID = Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
+
+        AddCartDTO loadViewCartWithCouponID = new AddCartDTO(ANDROID_MOBILE_ID,curUser_CouponID);
+        Call<JSONResponseViewCartListDTO> call = api.getViewCart(loadViewCartWithCouponID);
+
+        call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
+            @Override
+            public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
+
+                if (response.isSuccessful()) {
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+                    JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
+                    List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
+
+                    GrandTotal = jsonResponseViewCartListDTO.getGrandTotal();
+                    System.out.println("GRANDTOTAL" + GrandTotal);
+
+
+                    viewCartAdapter.setData(viewCartProductListDTO);
+
+                    viewCartAdapter.notifyDataSetChanged();
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponseViewCartListDTO> call, Throwable t) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
+            }
+        });
+
+
 
     }
 
@@ -576,7 +735,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
             // remove the item from recycler view
 
-            Log.d("POS1",""+viewHolder.getAdapterPosition());
+            Log.d("POS1", "" + viewHolder.getAdapterPosition());
             viewCartAdapter.removeItem1(viewHolder.getAdapterPosition());
 
             // showing snack bar with Undo option

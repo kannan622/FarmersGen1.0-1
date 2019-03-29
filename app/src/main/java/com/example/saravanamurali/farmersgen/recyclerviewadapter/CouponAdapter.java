@@ -17,6 +17,10 @@ import java.util.List;
 
 public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponViewHolder> {
 
+    List<CouponDTO> jsonResponseCouponDTOList;
+    Context mCouponContext;
+
+
     ShareCouponCode shareCouponCode;
 
     public interface ShareCouponCode{
@@ -30,8 +34,6 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
         notifyDataSetChanged();
     }
 
-    List<CouponDTO> jsonResponseCouponDTOList;
-    Context mCouponContext;
 
     public CouponAdapter(List<CouponDTO> jsonResponseCouponDTOList, Context mCouponContext) {
         this.jsonResponseCouponDTOList = jsonResponseCouponDTOList;

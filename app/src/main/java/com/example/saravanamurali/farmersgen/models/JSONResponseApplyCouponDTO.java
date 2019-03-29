@@ -4,8 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class JSONResponseApplyCouponDTO {
 
-    @SerializedName("success")
-    Success success;
+    @SerializedName("response_code")
+    int responseCode ;
 
     @SerializedName("off_userid")
     String userID;
@@ -16,8 +16,9 @@ public class JSONResponseApplyCouponDTO {
     @SerializedName("off_code")
     String coupon_Code;
 
-    public Success getSuccess() {
-        return success;
+
+    public int getResponseCode() {
+        return responseCode;
     }
 
     public String getUserID() {
@@ -31,21 +32,4 @@ public class JSONResponseApplyCouponDTO {
     public String getCoupon_Code() {
         return coupon_Code;
     }
-
-   public class Success{
-
-        @SerializedName("response_code")
-        String responseCode;
-        @SerializedName("message")
-        String message;
-
-        public String getResponseCode() {
-            return responseCode;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-    }
-
 }

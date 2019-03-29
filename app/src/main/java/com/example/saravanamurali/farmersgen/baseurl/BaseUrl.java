@@ -93,6 +93,10 @@ public interface BaseUrl {
     public  static final String ROOT_URL_TO_APPLY_COUPON="http://farmersgen.com/service/offers/";
 
 
+    //Cancel Copuon
+    public  static final String ROOT_URL_TO_CANCEL_COUPON="http://farmersgen.com/service/offers/";
+
+
     //LogOut using deviceID(clears all items from addCart Table)
     public static final String ROOT_URL_TO_LOGOUT_USING_DEVICEID="http://farmersgen.com/service/web_apis/";
 

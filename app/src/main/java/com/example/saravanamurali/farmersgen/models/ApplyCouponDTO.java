@@ -3,9 +3,9 @@ package com.example.saravanamurali.farmersgen.models;
 import com.google.gson.annotations.SerializedName;
 
 public class ApplyCouponDTO {
-
     @SerializedName("off_userid")
     String user_ID;
+
     @SerializedName("off_code")
     String coupon_Code;
 

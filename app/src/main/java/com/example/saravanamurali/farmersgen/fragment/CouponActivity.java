@@ -108,37 +108,44 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
             call.enqueue(new Callback<JSONResponseApplyCouponDTO>() {
                 @Override
                 public void onResponse(Call<JSONResponseApplyCouponDTO> call, Response<JSONResponseApplyCouponDTO> response) {
-                    if(response.isSuccessful()){
 
-                        JSONResponseApplyCouponDTO jsonResponseApplyCouponDTO=response.body();
+                    if (response.isSuccessful()) {
 
-                        //Offer is avaliable can access offer
 
-                        if(jsonResponseApplyCouponDTO.getSuccess().getResponseCode()=="200"){
+                        System.out.println("I am inside ");
 
-                            Intent applyCoupon=new Intent(CouponActivity.this,ViewCartActivity.class);
-                            applyCoupon.putExtra("COUPON_CODE",jsonResponseApplyCouponDTO.getCoupon_Code());
-                            applyCoupon.putExtra("COUPON_ID",jsonResponseApplyCouponDTO.getCoupon_ID());
+                        JSONResponseApplyCouponDTO jsonResponseApplyCouponDTO = response.body();
+
+                        if (jsonResponseApplyCouponDTO.getResponseCode() == 200) {
+
+                            //Offer is avaliable can access offer
+
+                            System.out.println("I am inside A ");
+
+                            Intent applyCoupon = new Intent(CouponActivity.this, ViewCartActivity.class);
+                            applyCoupon.putExtra("COUPON_CODE", jsonResponseApplyCouponDTO.getCoupon_Code());
+                            applyCoupon.putExtra("COUPON_ID", jsonResponseApplyCouponDTO.getCoupon_ID());
+                            applyCoupon.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(applyCoupon);
+                            finish();
+
+                        } else if (jsonResponseApplyCouponDTO.getResponseCode() == 500) {
+
+                            Toast.makeText(CouponActivity.this, "You already applied this coupon,Try another one", Toast.LENGTH_LONG).show();
 
                         }
-                        else if(jsonResponseApplyCouponDTO.getSuccess().getResponseCode()=="500") {
 
-                            Toast.makeText(CouponActivity.this,"You already applied this coupon,Try another one",Toast.LENGTH_LONG).show();
 
-                        }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<JSONResponseApplyCouponDTO> call, Throwable t) {
 
+                    Toast.makeText(CouponActivity.this,"Error",Toast.LENGTH_LONG).show();
+
                 }
             });
-
-
-
-
 
 
 

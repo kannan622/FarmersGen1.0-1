@@ -3,6 +3,7 @@ package com.example.saravanamurali.farmersgen.apiInterfaces;
 import com.example.saravanamurali.farmersgen.models.ADDAddessDTO;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
 import com.example.saravanamurali.farmersgen.models.ApplyCouponDTO;
+import com.example.saravanamurali.farmersgen.models.CancelCouponDTO;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.models.DeleteCountInCartDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
@@ -112,6 +113,14 @@ public interface ApiInterface {
     @POST("view-cart.php")
     Call<JSONResponseViewCartListDTO> getViewCart(@Body AddCartDTO addCartDTO);
 
+
+    //View Cart with deviceID and couponID
+    //View Cart To Show in Fragment
+    @POST("view-cart.php")
+    Call<JSONResponseViewCartListDTO> getViewCartWithCouponID(@Body AddCartDTO addCartDTO);
+
+
+
     @POST("view-cart.php")
     Call<JSONResponseViewCartOrdersatPaymentGateway> getViewCartOrdersatPaymentGateway(@Body GetOrdersUsingDeviceID_DTO getOrdersUsingDeviceID_dto);
 
@@ -214,6 +223,10 @@ public interface ApiInterface {
     //Apply Code
     @POST("fetch_single_offer.php")
     Call<JSONResponseApplyCouponDTO> applyCoupon(@Body ApplyCouponDTO applyCouponDTO);
+
+    //Apply Code
+    @POST("delete_offer.php")
+    Call<ResponseBody> cancelCoupon(@Body CancelCouponDTO cancelCouponDTO);
 
 
 

@@ -15,6 +15,14 @@ public class AddCartDTO {
     @SerializedName("product_price")
     private String productPrice;
 
+    @SerializedName("coupon_id")
+    String couponID;
+
+    public AddCartDTO(String addCartMobile_ID, String couponID) {
+        this.addCartMobile_ID = addCartMobile_ID;
+        this.couponID = couponID;
+    }
+
     public AddCartDTO(String addCartMobile_ID){
         this.addCartMobile_ID=addCartMobile_ID;
     }
