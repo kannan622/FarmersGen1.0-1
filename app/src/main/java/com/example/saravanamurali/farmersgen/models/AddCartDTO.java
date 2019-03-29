@@ -36,6 +36,10 @@ public class AddCartDTO {
         this.addCartMobile_ID = addCartMobile_ID;
     }
 
+    public String getCouponID() {
+        return couponID;
+    }
+
     public String getAddCartProductCode() {
         return addCartProductCode;
     }

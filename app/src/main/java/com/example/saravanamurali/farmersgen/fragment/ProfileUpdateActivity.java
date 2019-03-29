@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TextInputEditText;
@@ -69,6 +70,13 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
     private void profileEdit() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ProfileUpdateActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         SharedPreferences updateProfileForCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
         String updateProfile = updateProfileForCurrentUser.getString("CURRENTUSER", NO_CURRENT_USER);
 
@@ -84,6 +92,10 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
 
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     JSONResponseProfileEdit jsonResponseProfileEdit = response.body();
 
                     t_MobileNo.setText(jsonResponseProfileEdit.getProfileMobileNo());
@@ -97,6 +109,10 @@ public class ProfileUpdateActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<JSONResponseProfileEdit> call, Throwable t) {
 
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
                 Toast.makeText(ProfileUpdateActivity.this, "Cant Fetch data now!", Toast.LENGTH_SHORT).show();
 
             }
@@ -107,6 +123,13 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
 
     private void updateNameandMail() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ProfileUpdateActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
 
         UpdateNameEmailDTO updateNameEmailDTO = new UpdateNameEmailDTO();
 
@@ -125,6 +148,11 @@ public class ProfileUpdateActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     Toast.makeText(ProfileUpdateActivity.this, "Profile Updated Successfully", Toast.LENGTH_LONG).show();
                     Intent redirectToHomeActivity=new Intent(ProfileUpdateActivity.this,HomeActivity.class);
                     startActivity(redirectToHomeActivity);
@@ -133,6 +161,9 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
                 Toast.makeText(ProfileUpdateActivity.this,"Check Internet Connection",Toast.LENGTH_LONG).show();
 
             }

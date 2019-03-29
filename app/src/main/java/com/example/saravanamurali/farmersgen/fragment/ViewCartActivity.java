@@ -128,6 +128,38 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         cancelCoupon = (ImageView) findViewById(R.id.couponCodeCancel);
 
 
+        //Data From Coupon Activity
+        Intent getCouponIntent = getIntent();
+        String applied_Coupon_Code = getCouponIntent.getStringExtra("COUPON_CODE");
+
+        String apply_CouponID = getCouponIntent.getStringExtra("COUPON_ID");
+
+
+        SharedPreferences current_CouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorID = current_CouponID.edit();
+        editorID.putString("COUPONID", apply_CouponID);
+        editorID.commit();
+
+        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+        String curUserCouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
+
+        loadViewCartProductListWithCouponID(curUserCouponID);
+
+
+        if (curUserCouponID.equals(NO_CURRENT_COUPON_ID)) {
+
+            showCouponLayout.setVisibility(View.VISIBLE);
+            couponAppliedBlock.setVisibility(View.GONE);
+
+        } else if (!curUserCouponID.equals(NO_CURRENT_COUPON_ID)) {
+            showCouponLayout.setVisibility(View.GONE);
+            couponAppliedBlock.setVisibility(View.VISIBLE);
+            couponCodeApplied.setText(applied_Coupon_Code);
+
+        }
+
+
+
 
 
         /*//Data From Coupon Activity
@@ -182,23 +214,26 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         System.out.println("I am inside ViewCartActivity");
 
-        //Current Coupon ID
+        loadViewCartProductList();
+
+
+        /*//Current Coupon ID
         SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
         String curUser_CouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
 
 
-        if (curUser_CouponID==null) {
+        if (curUser_CouponID.equals(NO_CURRENT_COUPON_ID)) {
 
             //Only DeviceID
             loadViewCartProductList();
 
-        } else {
+        } else if(!curUser_CouponID.equals(NO_CURRENT_COUPON_ID)) {
             //with DeviceID and curUser_CouponID
             loadViewCartProductListWithCouponID(curUser_CouponID);
 
         }
 
-
+*/
         //Get addressID for Existing User
         getAddressID();
 
@@ -338,6 +373,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     editor.remove("COUPONID");
                     editor.commit();
 
+                    //loadViewCartProductList();
+
                     showCouponLayout.setVisibility(View.VISIBLE);
                     couponAppliedBlock.setVisibility(View.GONE);
 
@@ -430,7 +467,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     }
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
 
@@ -449,6 +486,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
         String curUserCouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
 
+        loadViewCartProductListWithCouponID(curUserCouponID);
+
 
         if (curUserCouponID.equals(NO_CURRENT_COUPON_ID)) {
 
@@ -463,7 +502,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         }
 
     }
-
+*/
     //To Display list of ordered items in ViewCart Avtivity From ProductList Activity without COUPONID
     public void loadViewCartProductList() {
 
@@ -549,7 +588,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
 
         AddCartDTO loadViewCartWithCouponID = new AddCartDTO(ANDROID_MOBILE_ID,curUser_CouponID);
-        Call<JSONResponseViewCartListDTO> call = api.getViewCart(loadViewCartWithCouponID);
+        Call<JSONResponseViewCartListDTO> call = api.getViewCartWithCouponID(loadViewCartWithCouponID);
 
         call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
             @Override

@@ -116,7 +116,7 @@ public interface ApiInterface {
 
     //View Cart with deviceID and couponID
     //View Cart To Show in Fragment
-    @POST("view-cart.php")
+    @POST("view_cart_with_offer.php")
     Call<JSONResponseViewCartListDTO> getViewCartWithCouponID(@Body AddCartDTO addCartDTO);
 
 

@@ -1,6 +1,7 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -265,6 +266,13 @@ public class MenuAccountFragment extends Fragment {
 
     private void getPastOrderDetailsToDisplaySnacker() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api = APIClientToGetPastOrderDetails.getApiInterfaceToGetPastOrderDetails();
 
         SharedPreferences getCurrentUser = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -278,6 +286,9 @@ public class MenuAccountFragment extends Fragment {
             @Override
             public void onResponse(Call<JSONResponseToGetPastOrderDetails> call, Response<JSONResponseToGetPastOrderDetails> response) {
                 if (response.isSuccessful()) {
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
                     JSONResponseToGetPastOrderDetails jsonResponseToGetPastOrderDetails = response.body();
 
                     jsonResponseToGetPastOrderDTOListSnackBar = jsonResponseToGetPastOrderDetails.getJsonResponseToGetPastOrderDTOList();
@@ -297,6 +308,9 @@ public class MenuAccountFragment extends Fragment {
 
             @Override
             public void onFailure(Call<JSONResponseToGetPastOrderDetails> call, Throwable t) {
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });
@@ -321,6 +335,13 @@ public class MenuAccountFragment extends Fragment {
 
     private void getCancelOrderDetailsToDisplaySnackBar() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api = APIClientToGetCancelOrderList.getApiInterfaceToGetCancelOrderList();
 
         SharedPreferences getCurrentUser = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -334,6 +355,11 @@ public class MenuAccountFragment extends Fragment {
             public void onResponse(Call<JSONResponseToFetchCancelOrderDTO> call, Response<JSONResponseToFetchCancelOrderDTO> response) {
 
                 if (response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     JSONResponseToFetchCancelOrderDTO jsonResponseToFetchCancelOrderDTO = response.body();
                     jsonResponseForCancelOrderDTOSForSnakcerBar = jsonResponseToFetchCancelOrderDTO.getJsonResponseForCancelOrderDTO();
 
@@ -358,6 +384,9 @@ public class MenuAccountFragment extends Fragment {
 
             @Override
             public void onFailure(Call<JSONResponseToFetchCancelOrderDTO> call, Throwable t) {
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
                 Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_LONG).show();
 
@@ -369,6 +398,13 @@ public class MenuAccountFragment extends Fragment {
 
 
     private void getNameMobileMail() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
 
         SharedPreferences getCurUserNameMobEmail = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
         String getProfile = getCurUserNameMobEmail.getString("CURRENTUSER", NO_CURRENT_USER);
@@ -384,6 +420,9 @@ public class MenuAccountFragment extends Fragment {
             public void onResponse(Call<JSONResponseProfileEdit> call, Response<JSONResponseProfileEdit> response) {
 
                 if (response.isSuccessful()) {
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
 
                     JSONResponseProfileEdit jsonResponseProfileEdit = response.body();
 
@@ -397,6 +436,9 @@ public class MenuAccountFragment extends Fragment {
 
             @Override
             public void onFailure(Call<JSONResponseProfileEdit> call, Throwable t) {
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });
@@ -414,6 +456,7 @@ public class MenuAccountFragment extends Fragment {
 
 
     private void logout() {
+
 
         //Get Current User From Shared Preferences
         SharedPreferences deleteCartUsingCurrentUSer = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -437,6 +480,13 @@ public class MenuAccountFragment extends Fragment {
 
     private void clearAllItemsAtAddCartTableUsingDeviceID() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api = APIClientLogOutUsingDeviceID.getApiInterfaceToLogOutUsingDeviceID();
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(this.getActivity().getContentResolver(),
@@ -450,6 +500,10 @@ public class MenuAccountFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
                     Intent homeActvity = new Intent(getActivity(), HomeActivity.class);
                     startActivity(homeActvity);
                 }
@@ -457,6 +511,10 @@ public class MenuAccountFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
             }
         });
