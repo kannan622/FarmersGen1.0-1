@@ -86,6 +86,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     private String NO_CURRENT_COUPON_ID = "NO_CURRENT_COUPON_ID";
 
+    private String NO_CURRENT_COUPON_CODE = "NO_CURRENT_COUPON_CODE";
+
     public ViewCartActivity(String curentUser) {
         this.currentUser = curentUser;
 
@@ -128,71 +130,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         cancelCoupon = (ImageView) findViewById(R.id.couponCodeCancel);
 
 
-        //Data From Coupon Activity
-        Intent getCouponIntent = getIntent();
-        String applied_Coupon_Code = getCouponIntent.getStringExtra("COUPON_CODE");
-
-        String apply_CouponID = getCouponIntent.getStringExtra("COUPON_ID");
 
 
-        SharedPreferences current_CouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editorID = current_CouponID.edit();
-        editorID.putString("COUPONID", apply_CouponID);
-        editorID.commit();
-
-        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
-        String curUserCouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
-
-        loadViewCartProductListWithCouponID(curUserCouponID);
-
-
-        if (curUserCouponID.equals(NO_CURRENT_COUPON_ID)) {
-
-            showCouponLayout.setVisibility(View.VISIBLE);
-            couponAppliedBlock.setVisibility(View.GONE);
-
-        } else if (!curUserCouponID.equals(NO_CURRENT_COUPON_ID)) {
-            showCouponLayout.setVisibility(View.GONE);
-            couponAppliedBlock.setVisibility(View.VISIBLE);
-            couponCodeApplied.setText(applied_Coupon_Code);
-
-        }
-
-
-
-
-
-        /*//Data From Coupon Activity
-        Intent getCouponIntent = getIntent();
-        String applied_Coupon_Code=getCouponIntent.getStringExtra("COUPON_CODE");
-
-        String apply_CouponID = getCouponIntent.getStringExtra("COUPON_ID");
-
-
-
-
-        SharedPreferences current_CouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editorID = current_CouponID.edit();
-        editorID.putString("COUPONID", apply_CouponID);
-        editorID.commit();
-
-        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
-        String curUserCouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
-
-
-        if (curUserCouponID.equals(NO_CURRENT_COUPON_ID)){
-
-            showCouponLayout.setVisibility(View.VISIBLE);
-        couponAppliedBlock.setVisibility(View.GONE);
-    }
-        else if(!curUserCouponID.equals(NO_CURRENT_COUPON_ID)){
-            showCouponLayout.setVisibility(View.GONE);
-            couponAppliedBlock.setVisibility(View.VISIBLE);
-
-            couponCodeApplied.setText(applied_Coupon_Code);
-
-        }
-*/
 
         cancelCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,26 +153,46 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         System.out.println("I am inside ViewCartActivity");
 
-        loadViewCartProductList();
+        //loadViewCartProductList();
+
+        //Data From Coupon Activity
+        /*Intent getCouponIntent = getIntent();
+        String applied_Coupon_Code = getCouponIntent.getStringExtra("COUPON_CODE");
+        String apply_CouponID = getCouponIntent.getStringExtra("COUPON_ID");*/
 
 
-        /*//Current Coupon ID
-        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+        /*SharedPreferences current_CouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editorID = current_CouponID.edit();
+        editorID.putString("COUPONID", apply_CouponID);
+        editorID.commit();
+*/
+        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
         String curUser_CouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
+
+        SharedPreferences getCouponCODE = getSharedPreferences("CURRENT_COUPON_CODE", Context.MODE_PRIVATE);
+        String curUser_Coupon_CODE = getCouponCODE.getString("COUPON_CODE", "NO_CURRENT_COUPON_CODE");
 
 
         if (curUser_CouponID.equals(NO_CURRENT_COUPON_ID)) {
 
-            //Only DeviceID
             loadViewCartProductList();
 
-        } else if(!curUser_CouponID.equals(NO_CURRENT_COUPON_ID)) {
-            //with DeviceID and curUser_CouponID
-            loadViewCartProductListWithCouponID(curUser_CouponID);
+            showCouponLayout.setVisibility(View.VISIBLE);
+            couponAppliedBlock.setVisibility(View.GONE);
+
+        } else if (!curUser_CouponID.equals(NO_CURRENT_COUPON_ID)) {
+
+            loadViewCartProductListWithCouponID();
+
+            showCouponLayout.setVisibility(View.GONE);
+            couponAppliedBlock.setVisibility(View.VISIBLE);
+           couponCodeApplied.setText(curUser_Coupon_CODE);
 
         }
 
-*/
+
+
+
         //Get addressID for Existing User
         getAddressID();
 
@@ -270,7 +229,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 removeEditor.commit();*/
 
                 //Getting Current User
-                SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+                SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
                 String curUser = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
                 System.out.println("Current User at ViewCart Activity" + curUser);
 
@@ -347,6 +306,13 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     //Cancel coupon Code
     private void deleteCouponCode() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ViewCartActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api = APIClientToCancelCouponCode.getApiInterfaceToCancelCouponCode();
 
         //Current User
@@ -367,22 +333,37 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
 
-                    //Remove Current User From Shared Preferences
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
+                    //Remove Current User COUPON ID From Shared Preferences
                     SharedPreferences getCurrentUser_CouponID = getSharedPreferences("CURRENT_COUPON_ID", context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = getCurrentUser_CouponID.edit();
                     editor.remove("COUPONID");
                     editor.commit();
 
-                    //loadViewCartProductList();
+
+                    //Remove Current User COUPON CODE From Shared Preferences
+                    SharedPreferences getCurrentUser_CouponCODE = getSharedPreferences("CURRENT_COUPON_CODE", context.MODE_PRIVATE);
+                    SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
+                    editorCode.remove("COUPON_CODE");
+                    editorCode.commit();
 
                     showCouponLayout.setVisibility(View.VISIBLE);
                     couponAppliedBlock.setVisibility(View.GONE);
+
+                    loadViewCartProductList();
+
 
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });
@@ -467,42 +448,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     }
 
-    /*@Override
-    protected void onResume() {
-        super.onResume();
 
-        //Data From Coupon Activity
-        Intent getCouponIntent = getIntent();
-        String applied_Coupon_Code = getCouponIntent.getStringExtra("COUPON_CODE");
-
-        String apply_CouponID = getCouponIntent.getStringExtra("COUPON_ID");
-
-
-        SharedPreferences current_CouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editorID = current_CouponID.edit();
-        editorID.putString("COUPONID", apply_CouponID);
-        editorID.commit();
-
-        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
-        String curUserCouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
-
-        loadViewCartProductListWithCouponID(curUserCouponID);
-
-
-        if (curUserCouponID.equals(NO_CURRENT_COUPON_ID)) {
-
-            showCouponLayout.setVisibility(View.VISIBLE);
-            couponAppliedBlock.setVisibility(View.GONE);
-
-        } else if (!curUserCouponID.equals(NO_CURRENT_COUPON_ID)) {
-            showCouponLayout.setVisibility(View.GONE);
-            couponAppliedBlock.setVisibility(View.VISIBLE);
-            couponCodeApplied.setText(applied_Coupon_Code);
-
-        }
-
-    }
-*/
     //To Display list of ordered items in ViewCart Avtivity From ProductList Activity without COUPONID
     public void loadViewCartProductList() {
 
@@ -573,7 +519,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
     //To Display list of ordered items in ViewCart Avtivity From ProductList Activity with COUPONID
-    private void loadViewCartProductListWithCouponID(String curUser_CouponID) {
+    private void loadViewCartProductListWithCouponID() {
+
 
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ViewCartActivity.this);
@@ -581,8 +528,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         csprogress.show();
         csprogress.setCanceledOnTouchOutside(false);
 
+        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
+        String curUser_CouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
 
-        String ANDROID_MOBILE_ID = Settings.Secure.getString(context.getContentResolver(),
+        String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
         ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();

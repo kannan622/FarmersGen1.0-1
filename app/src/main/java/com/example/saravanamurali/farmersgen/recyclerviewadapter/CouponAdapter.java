@@ -25,7 +25,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
 
     public interface ShareCouponCode{
 
-        public void applyCouponCode(String coupson_code, String couponID);
+        public void applyCouponCode(String coupson_code, String couponID,String offer_price);
 
     }
 
@@ -93,7 +93,8 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
                     String couponCode=couponDTO.getCouponCode();
                     String coupID=couponDTO.getCouponId();
 
-                    shareCouponCode.applyCouponCode(couponCode,coupID);
+
+                    shareCouponCode.applyCouponCode(couponCode,coupID,couponDTO.getCoupon_OffPrice());
 
                 }
             });

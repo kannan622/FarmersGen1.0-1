@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class JSONResponseApplyCouponDTO {
 
     @SerializedName("response_code")
-    int responseCode ;
+    int  responseCode ;
 
     @SerializedName("off_userid")
     String userID;

@@ -14,6 +14,9 @@ public class CouponDTO {
     String desc2;
     @SerializedName("coupon_image")
     String couponImage;
+    @SerializedName("offer_price")
+    String coupon_OffPrice;
+
 
     public CouponDTO(String couponId, String couponCode, String desc1, String desc2, String couponImage) {
         this.couponId = couponId;
@@ -21,6 +24,10 @@ public class CouponDTO {
         this.desc1 = desc1;
         this.desc2 = desc2;
         this.couponImage = couponImage;
+    }
+
+    public String getCoupon_OffPrice() {
+        return coupon_OffPrice;
     }
 
     public String getCouponId() {

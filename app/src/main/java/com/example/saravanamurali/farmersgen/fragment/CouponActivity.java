@@ -1,5 +1,7 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -61,6 +63,13 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
 
     private void loadCouponCode() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(CouponActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api=APIClientToGetCoupon.getApiInterfaceToGetCoupon();
         Call<JSONResponseCouponDTO> call =api.getCouponCode();
 
@@ -68,6 +77,10 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
             @Override
             public void onResponse(Call<JSONResponseCouponDTO> call, Response<JSONResponseCouponDTO> response) {
                 if(response.isSuccessful()){
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
 
                     JSONResponseCouponDTO jsonResponseCouponDTO =response.body();
 
@@ -82,6 +95,9 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
 
             @Override
             public void onFailure(Call<JSONResponseCouponDTO> call, Throwable t) {
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });
@@ -92,7 +108,14 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
     //Apply Coupon Code
 
     @Override
-    public void applyCouponCode(String coupson_code,String couponID) {
+    public void applyCouponCode(String coupson_code,String couponID,String off_Price) {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(CouponActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
 
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
         String curUser_CouponCode = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
@@ -101,7 +124,7 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
 
             ApiInterface api=APIClientToApplyCode.getApiInterfaceToApplyCode();
 
-            ApplyCouponDTO applyCouponDTO=new ApplyCouponDTO(curUser_CouponCode,coupson_code,couponID);
+            ApplyCouponDTO applyCouponDTO=new ApplyCouponDTO(curUser_CouponCode,coupson_code,couponID,off_Price);
 
             Call<JSONResponseApplyCouponDTO> call=api.applyCoupon(applyCouponDTO);
 
@@ -110,6 +133,9 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
                 public void onResponse(Call<JSONResponseApplyCouponDTO> call, Response<JSONResponseApplyCouponDTO> response) {
 
                     if (response.isSuccessful()) {
+                        if(csprogress.isShowing()){
+                            csprogress.dismiss();
+                        }
 
 
                         System.out.println("I am inside ");
@@ -120,11 +146,25 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
 
                             //Offer is avaliable can access offer
 
+                            String applied_Coupon=jsonResponseApplyCouponDTO.getCoupon_ID();
+                            String coupon_Code=jsonResponseApplyCouponDTO.getCoupon_Code();
+
+                            //Storing couponID
+                            SharedPreferences current_CouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editorID = current_CouponID.edit();
+                            editorID.putString("COUPONID", applied_Coupon);
+                            editorID.commit();
+
+                            //Storing couponCODE
+                            SharedPreferences current_Coupon_Code = getSharedPreferences("CURRENT_COUPON_CODE", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor c_CODE = current_Coupon_Code.edit();
+                            c_CODE.putString("COUPON_CODE", coupon_Code);
+                            c_CODE.commit();
+
+
                             System.out.println("I am inside A ");
 
                             Intent applyCoupon = new Intent(CouponActivity.this, ViewCartActivity.class);
-                            applyCoupon.putExtra("COUPON_CODE", jsonResponseApplyCouponDTO.getCoupon_Code());
-                            applyCoupon.putExtra("COUPON_ID", jsonResponseApplyCouponDTO.getCoupon_ID());
                             applyCoupon.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(applyCoupon);
                             finish();
@@ -141,6 +181,9 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
 
                 @Override
                 public void onFailure(Call<JSONResponseApplyCouponDTO> call, Throwable t) {
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
 
                     Toast.makeText(CouponActivity.this,"Error",Toast.LENGTH_LONG).show();
 
