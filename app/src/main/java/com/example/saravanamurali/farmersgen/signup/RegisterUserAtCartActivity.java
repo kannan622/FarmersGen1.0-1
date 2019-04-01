@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.signup;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.provider.Settings;
 import android.support.design.widget.TextInputEditText;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
+import com.example.saravanamurali.farmersgen.fragment.ViewCartActivity;
 import com.example.saravanamurali.farmersgen.models.SignUpDTO;
 import com.example.saravanamurali.farmersgen.models.SignUpJSONResponse;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToSignUp;
@@ -84,6 +86,13 @@ public class RegisterUserAtCartActivity extends AppCompatActivity {
 
     private void signUpAtViewCat() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(RegisterUserAtCartActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface apiInterface = ApiClientToSignUp.getApiInterface();
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(RegisterUserAtCartActivity.this.getContentResolver(),
@@ -97,10 +106,15 @@ public class RegisterUserAtCartActivity extends AppCompatActivity {
             public void onResponse(Call<SignUpJSONResponse> call, Response<SignUpJSONResponse> response) {
                 if (response.isSuccessful()) {
 
+
                     editTextM_ViewCart.setText("");
                     editTextN_ViewCart.setText("");
                     editTextEM_ViewCart.setText("");
                     editTextpas_ViewCart.setText("");
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
 
                     SignUpJSONResponse signUpJSONResponse = response.body();
 
@@ -130,6 +144,10 @@ public class RegisterUserAtCartActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SignUpJSONResponse> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

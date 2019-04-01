@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.signup;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -57,6 +58,13 @@ public class ExistingUser_ForgetPassword_AtViewCartActivity extends AppCompatAct
 
     public void I_Forget_My_Password_At_ViewCart(View view) {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ExistingUser_ForgetPassword_AtViewCartActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api=APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
 
         OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_fp=new OTPSendToMobileDTOFrom_FP(forgetPasswordMobileNumberAtViewCart);
@@ -67,6 +75,10 @@ public class ExistingUser_ForgetPassword_AtViewCartActivity extends AppCompatAct
             @Override
             public void onResponse(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Response<JSONResponseToSendOTPFromForgetPasswordDTO> response) {
                 if(response.isSuccessful()){
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
                     Toast.makeText(ExistingUser_ForgetPassword_AtViewCartActivity.this,"i forget my password Clicked",Toast.LENGTH_SHORT).show();
 
                     Intent intent=new Intent(ExistingUser_ForgetPassword_AtViewCartActivity.this,ExistingUser_ForgetPassword_OTP_AtViewCartActivity.class);
@@ -98,6 +110,13 @@ public class ExistingUser_ForgetPassword_AtViewCartActivity extends AppCompatAct
 
     private void login_ViewCartActivity() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ExistingUser_ForgetPassword_AtViewCartActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api = APIClientToLogin.getApiInterfaceToLogin();
 
         SignInDTO signInDTO = new SignInDTO(forgetPasswordMobileNumberAtViewCart, confirmPassword_AtViewCartActivity);
@@ -109,6 +128,11 @@ public class ExistingUser_ForgetPassword_AtViewCartActivity extends AppCompatAct
             public void onResponse(Call<SignedInJSONResponse> call, Response<SignedInJSONResponse> response) {
 
                 if (response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     SignedInJSONResponse signedInJSONResponse = response.body();
 
 

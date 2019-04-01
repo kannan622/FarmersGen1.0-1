@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.signup;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -88,6 +89,13 @@ public class Existing_User_NewPassAndConfirmPass_AtViewCartActivity extends AppC
 
     private void savePassword_AtViewCart() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(Existing_User_NewPassAndConfirmPass_AtViewCartActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api = APIClientForNewPassAndConfirmPass.getApiInterfaceForNewPasswordAndConfirmPassword();
 
         NewPassAndConfirmPassDTO newPassAndConfirmPassDTO = new NewPassAndConfirmPassDTO(MobileNo_For_New_And_Confirm_Pass, n_Pass_V_Cart, c_Pass_V_Cart);
@@ -99,6 +107,10 @@ public class Existing_User_NewPassAndConfirmPass_AtViewCartActivity extends AppC
             public void onResponse(Call<JSONResponseForNPasswordAndCPasswrod> call, Response<JSONResponseForNPasswordAndCPasswrod> response) {
 
                 if (response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
 
                     JSONResponseForNPasswordAndCPasswrod jsonResponseForNPasswordAndCPasswrod = response.body();
 
@@ -114,6 +126,11 @@ public class Existing_User_NewPassAndConfirmPass_AtViewCartActivity extends AppC
 
             @Override
             public void onFailure(Call<JSONResponseForNPasswordAndCPasswrod> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
 
             }
         });

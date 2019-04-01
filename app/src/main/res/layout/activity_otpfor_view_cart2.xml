@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="@dimen/five_dp"
     tools:context=".signup.OTPActivityForViewCart2">
 <LinearLayout
     android:layout_width="match_parent"
@@ -52,6 +53,35 @@
         app:password="false">
     </com.goodiebag.pinview.Pinview>
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/timeShower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:layout_marginTop="@dimen/five_dp"
+            android:layout_toLeftOf="@id/reSend"
+            android:padding="@dimen/five_dp"
+            android:layout_marginRight="@dimen/five_dp"
+            />
+
+        <TextView
+            android:id="@+id/reSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RESEND"
+            android:layout_marginTop="@dimen/five_dp"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/five_dp"
+            android:visibility="invisible"
+            />
+
+
+    </RelativeLayout>
+
     <Button
         android:id="@+id/otpRegistrationSubmitAtViewCart2"
         android:layout_width="match_parent"
@@ -60,9 +90,9 @@
         android:textColor="@color/white"
         android:layout_marginTop="@dimen/twenty_dp"
         android:layout_below="@id/otpForRegistrationAtViewCart2"
-        android:text="Submit OTP"
+        android:text="Submit OTP" />
 
-        />
+
 </LinearLayout>
 
 </RelativeLayout>

@@ -1,6 +1,8 @@
 package com.example.saravanamurali.farmersgen.signup;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -27,6 +29,12 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
     private Button otpButton_OTP;
     private TextView errorText_OTP;
 
+    private TextView mobileNoShow;
+
+    private TextView timeShow_existingUser;
+    private TextView resendClick_existingUser;
+
+
     String entered_OTP_AtViewCart;
 
     String MobileNumberFrom_Existing_User_Forget_Password;
@@ -43,14 +51,17 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
         otpButton_OTP=(Button)findViewById(R.id.existingUser_otpSubmit_ViewCart);
         errorText_OTP=(TextView)findViewById(R.id.existing_User_otpErroratVCart);
 
-        pinview_OTP.setPinViewEventListener(new Pinview.PinViewEventListener() {
-            @Override
-            public void onDataEntered(Pinview pinview, boolean b) {
+        mobileNoShow=(TextView)findViewById(R.id.otp_MobileNumber);
 
-                entered_OTP_AtViewCart=pinview_OTP.getValue();
+        mobileNoShow.setText(MobileNumberFrom_Existing_User_Forget_Password);
 
-            }
-        });
+        timeShow_existingUser=(TextView)findViewById(R.id.timeShower_existing_User);
+        resendClick_existingUser=(TextView)findViewById(R.id.reSend_existing_User);
+
+        getOTP();
+
+        CallCountDown_Timer();
+
 
         otpButton_OTP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +79,60 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
 
     }
 
+    private void CallCountDown_Timer() {
+
+        CountDownTimer countDownTimer=new CountDownTimer(120*1000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                timeShow_existingUser.setText(""+millisUntilFinished/1000);
+
+            }
+
+            @Override
+            public void onFinish() {
+
+                otpButton_OTP.setVisibility(View.INVISIBLE);
+                resendClick_existingUser.setVisibility(View.VISIBLE);
+
+                resendClick_existingUser.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        otpButton_OTP.setVisibility(View.VISIBLE);
+                        resendClick_existingUser.setVisibility(View.INVISIBLE);
+                        CallCountDown_Timer();
+                        getOTP();
+
+
+                    }
+                });
+
+            }
+        }.start();
+    }
+
+    private void getOTP() {
+
+        pinview_OTP.setPinViewEventListener(new Pinview.PinViewEventListener() {
+            @Override
+            public void onDataEntered(Pinview pinview, boolean b) {
+
+                entered_OTP_AtViewCart=pinview_OTP.getValue();
+
+            }
+        });
+
+    }
+
     private void sendMobileNoandOTPForConfirmPassword() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ExistingUser_ForgetPassword_OTP_AtViewCartActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
 
         ApiInterface api = APIClientToSendMobileNoAndOTP.getApiInterfaceToSendMobileNoAndOTP();
 
@@ -82,6 +146,10 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
             public void onResponse(Call<JSONOTPResponseFromOTPActivity> call, Response<JSONOTPResponseFromOTPActivity> response) {
 
                 if (response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
 
                     Toast.makeText(ExistingUser_ForgetPassword_OTP_AtViewCartActivity.this,"Here",Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ExistingUser_ForgetPassword_OTP_AtViewCartActivity.this, Existing_User_NewPassAndConfirmPass_AtViewCartActivity.class);
@@ -98,6 +166,10 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
 
             @Override
             public void onFailure(Call<JSONOTPResponseFromOTPActivity> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });
