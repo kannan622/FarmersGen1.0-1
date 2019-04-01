@@ -7,7 +7,6 @@ public class HomeProductDTO {
     @SerializedName("brand_id")
     String brandId;
 
-
     @SerializedName("brand_logo")
     String productImage;
     @SerializedName("brand_name")

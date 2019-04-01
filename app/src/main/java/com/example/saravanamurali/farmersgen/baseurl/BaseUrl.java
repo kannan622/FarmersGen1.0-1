@@ -6,6 +6,10 @@ public interface BaseUrl {
 
     public static final String ROOT_URL_FOR_LOGIN ="http://farmersgen.com/service/auth/";
 
+    //To view Banner Images
+    public static final String ROOT_URL_FOR_BANNER_IMAGES =" ";
+
+
     //To view Brand Prodcut+To view product List
     public static final String ROOT_URL_BRAND_PRODUCTS ="http://farmersgen.com/service/product/";
 

@@ -25,8 +25,12 @@ import android.widget.Toast;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.HomeProductDTO;
+import com.example.saravanamurali.farmersgen.models.JSONResponseForBannerImages;
 import com.example.saravanamurali.farmersgen.models.JSONResponseHomeBrandDTO;
+import com.example.saravanamurali.farmersgen.models.MenuBannerDTO;
+import com.example.saravanamurali.farmersgen.recyclerviewadapter.MenuBannerAdapter;
 import com.example.saravanamurali.farmersgen.recyclerviewadapter.Menuhome_Adapter;
+import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForBannerImages;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForBrand;
 import com.example.saravanamurali.farmersgen.util.Network_config;
 
@@ -50,6 +54,11 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     String currentUserId;
     Dialog dialog;
     private SearchView searchView;
+
+    //Banner Horizontal
+    RecyclerView recyclerViewHorizontal;
+    MenuBannerAdapter menuBannerAdapter;
+    List<MenuBannerDTO> menuBannerDTOList; 
 
 
     /* @SuppressLint("ValidFragment")
@@ -107,16 +116,39 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
+        //Banner Horizontal
+        recyclerViewHorizontal=(RecyclerView)view.findViewById(R.id.recyclerViewHorizonal);
+        recyclerViewHorizontal.setHasFixedSize(true);
+        recyclerViewHorizontal.setLayoutManager(new LinearLayoutManager(this.getActivity(),LinearLayoutManager.HORIZONTAL,true));
+
+
+
         if (Network_config.is_Network_Connected_flag(getActivity())) {
 
 
             loadRetrofitforProductDisplay();
+            
 
             homeProductDTOSList = new ArrayList<HomeProductDTO>();
 
             menuHomeFragmentAdapter = new Menuhome_Adapter(getActivity(), homeProductDTOSList, this);
             recyclerView.setAdapter(menuHomeFragmentAdapter);
             menuHomeFragmentAdapter.setOnItemClickListener(MenuHomeFragment.this);
+
+            //Banner Images
+
+            loadBannerImages();
+
+            menuBannerDTOList=new ArrayList<MenuBannerDTO>();
+            menuBannerAdapter=new MenuBannerAdapter(this.getActivity(),menuBannerDTOList);
+            recyclerViewHorizontal.setAdapter(menuBannerAdapter);
+
+
+
+
+
+
+
         } else {
             Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                     getResources().getString(R.string.connection_message));
@@ -133,20 +165,16 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         return view;
     }
 
-    /* private void doSearch(String searchWord) {
-         List<HomeProductDTO> searchProductDTOSList=new ArrayList<HomeProductDTO>();
 
-         for(HomeProductDTO brandName:homeProductDTOSList){
-             if(brandName.getProductName().toLowerCase().contains(searchWord)){
-                 searchProductDTOSList.add(brandName);
-             }
-         }
+    //Display All Banner Images
+    private void loadBannerImages() {
 
-         menuHomeFragmentAdapter.updateList(searchProductDTOSList);
+        ApiInterface api=APIClientForBannerImages.getApiInterfaceForBannerImages();
+        Call<JSONResponseForBannerImages> call=api.getAllBannerImages();
+
+    }
 
 
-     }
- */
 
     //Display All Brands
     private void loadRetrofitforProductDisplay() {

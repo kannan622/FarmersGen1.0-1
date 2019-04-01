@@ -10,6 +10,22 @@
     <include layout="@layout/toolbar_layout">
     </include>
 
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewHorizonal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
 
     <android.support.v7.widget.RecyclerView

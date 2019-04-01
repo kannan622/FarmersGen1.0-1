@@ -13,6 +13,7 @@ import com.example.saravanamurali.farmersgen.models.JSONResponseADDAddress;
 import com.example.saravanamurali.farmersgen.models.JSONResponseApplyCouponDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseCouponDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseDeleteCartDTO;
+import com.example.saravanamurali.farmersgen.models.JSONResponseForBannerImages;
 import com.example.saravanamurali.farmersgen.models.JSONResponseForCancelOrderDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseForNPasswordAndCPasswrod;
 import com.example.saravanamurali.farmersgen.models.JSONResponseMenuCartFragDeleteDTO;
@@ -72,6 +73,9 @@ public interface ApiInterface {
 
     @GET("view-brand.php")
     Call<JSONResponseHomeBrandDTO> getAllBrands();
+
+    @GET("")
+    Call<JSONResponseForBannerImages> getAllBannerImages();
 
 
     @POST("view-product.php")
