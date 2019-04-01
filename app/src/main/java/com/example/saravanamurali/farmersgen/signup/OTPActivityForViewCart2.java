@@ -14,8 +14,11 @@ import android.widget.Toast;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.JSONOTPResponseFromOTPActivity;
+import com.example.saravanamurali.farmersgen.models.JSONResponseToSendOTPFromForgetPasswordDTO;
+import com.example.saravanamurali.farmersgen.models.OTPSendToMobileDTOFrom_FP;
 import com.example.saravanamurali.farmersgen.models.OTPandMobileNoDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendMobileNoAndOTP;
+import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendOTPToMFrom_FP;
 import com.example.saravanamurali.farmersgen.signin.LoginActivityForViewCart;
 import com.goodiebag.pinview.Pinview;
 
@@ -117,6 +120,8 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
                         resendClick.setVisibility(View.INVISIBLE);
                         callCountDownTimer();
                         gettingOTP();
+                        
+                        sendOTPForResend();
 
                     }
                 });
@@ -124,6 +129,29 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
 
             }
         }.start();
+
+    }
+
+    private void sendOTPForResend() {
+
+        ApiInterface api=APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
+
+        OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_fp=new OTPSendToMobileDTOFrom_FP(mobileNumberToSendOTP_AtViewCart);
+
+        Call<JSONResponseToSendOTPFromForgetPasswordDTO> call= api.getOTPTOForgetPassword(otpSendToMobileDTOFrom_fp);
+
+        call.enqueue(new Callback<JSONResponseToSendOTPFromForgetPasswordDTO>() {
+            @Override
+            public void onResponse(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Response<JSONResponseToSendOTPFromForgetPasswordDTO> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Throwable t) {
+
+            }
+        });
+
 
     }
 

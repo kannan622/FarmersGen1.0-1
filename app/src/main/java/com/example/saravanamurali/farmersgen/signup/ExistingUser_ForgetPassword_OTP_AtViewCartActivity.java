@@ -15,8 +15,11 @@ import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.fragment.NewPassAndConfirmPass;
 import com.example.saravanamurali.farmersgen.models.JSONOTPResponseFromOTPActivity;
+import com.example.saravanamurali.farmersgen.models.JSONResponseToSendOTPFromForgetPasswordDTO;
+import com.example.saravanamurali.farmersgen.models.OTPSendToMobileDTOFrom_FP;
 import com.example.saravanamurali.farmersgen.models.OTPandMobileNoDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendMobileNoAndOTP;
+import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendOTPToMFrom_FP;
 import com.goodiebag.pinview.Pinview;
 
 import retrofit2.Call;
@@ -51,7 +54,7 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
         otpButton_OTP=(Button)findViewById(R.id.existingUser_otpSubmit_ViewCart);
         errorText_OTP=(TextView)findViewById(R.id.existing_User_otpErroratVCart);
 
-        mobileNoShow=(TextView)findViewById(R.id.otp_MobileNumber);
+        mobileNoShow=(TextView)findViewById(R.id.otp_MobileNumber_existing_User);
 
         mobileNoShow.setText(MobileNumberFrom_Existing_User_Forget_Password);
 
@@ -104,12 +107,36 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
                         CallCountDown_Timer();
                         getOTP();
 
+                        sendOTPForResendSer();
+
 
                     }
                 });
 
             }
         }.start();
+    }
+
+    private void sendOTPForResendSer() {
+
+        ApiInterface api=APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
+
+        OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_fp=new OTPSendToMobileDTOFrom_FP(MobileNumberFrom_Existing_User_Forget_Password);
+
+        Call<JSONResponseToSendOTPFromForgetPasswordDTO> call= api.getOTPTOForgetPassword(otpSendToMobileDTOFrom_fp);
+
+        call.enqueue(new Callback<JSONResponseToSendOTPFromForgetPasswordDTO>() {
+            @Override
+            public void onResponse(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Response<JSONResponseToSendOTPFromForgetPasswordDTO> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private void getOTP() {
