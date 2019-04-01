@@ -5,8 +5,16 @@ import com.google.gson.annotations.SerializedName;
 public class MenuBannerDTO {
 
     @SerializedName("")
-    private String productImage;
+    private String bannerImages;
 
     @SerializedName("")
-    private String productCode;
+    private String bannerCode;
+
+    public String getBannerImages() {
+        return bannerImages;
+    }
+
+    public String getBannerCode() {
+        return bannerCode;
+    }
 }

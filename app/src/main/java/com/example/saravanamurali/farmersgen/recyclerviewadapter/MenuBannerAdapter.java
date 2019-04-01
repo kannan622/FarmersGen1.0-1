@@ -47,7 +47,7 @@ public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.Me
     @Override
     public void onBindViewHolder(@NonNull MenuBAnner_ViewHolder menuBAnner_viewHolder, int i) {
 
-       // Picasso.with(m_context).load()
+       Picasso.with(m_context).load(menuBannerDTOList.get(i).getBannerImages()).into(menuBAnner_viewHolder.imageView);
 
     }
 
