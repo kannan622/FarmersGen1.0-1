@@ -74,8 +74,9 @@ public interface ApiInterface {
     @GET("view-brand.php")
     Call<JSONResponseHomeBrandDTO> getAllBrands();
 
-    @GET("")
-    Call<JSONResponseForBannerImages> getAllBannerImages();
+    //Get Banner Images
+    @GET("fetch_banner.php")
+    Call<JSONResponseHomeBrandDTO> getAllBannerImages();
 
 
     @POST("view-product.php")

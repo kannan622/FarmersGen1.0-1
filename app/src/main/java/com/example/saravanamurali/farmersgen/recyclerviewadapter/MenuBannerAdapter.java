@@ -18,14 +18,29 @@ import java.util.List;
 public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.MenuBAnner_ViewHolder> {
 
     private Context m_context;
-    private List<MenuBannerDTO> menuBannerDTOList;
+    private List<HomeProductDTO> menuBannerDTOList;
 
-    public MenuBannerAdapter(Context context, List<MenuBannerDTO> menuBannerDTOList) {
+
+    OnBannerImageClick onBannerImageClick;
+
+    public interface OnBannerImageClick{
+
+        void bannerImageClick(String brandID,String brandName,String brandRating);
+    }
+
+    public void setOnBannerImageClick(OnBannerImageClick onBannerImageClick){
+
+        this.onBannerImageClick=onBannerImageClick;
+
+    }
+
+
+    public MenuBannerAdapter(Context context, List<HomeProductDTO> menuBannerDTOList) {
         this.m_context = context;
         this.menuBannerDTOList = menuBannerDTOList;
     }
 
-    public void setBannerImages(List<MenuBannerDTO> menuBannerDTOList){
+    public void setBannerImages(List<HomeProductDTO> menuBannerDTOList){
 
         this.menuBannerDTOList=menuBannerDTOList;
         notifyDataSetChanged();
@@ -47,7 +62,7 @@ public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.Me
     @Override
     public void onBindViewHolder(@NonNull MenuBAnner_ViewHolder menuBAnner_viewHolder, int i) {
 
-       Picasso.with(m_context).load(menuBannerDTOList.get(i).getBannerImages()).into(menuBAnner_viewHolder.imageView);
+       Picasso.with(m_context).load(menuBannerDTOList.get(i).getBannerImage()).into(menuBAnner_viewHolder.imageView);
 
     }
 
@@ -64,6 +79,22 @@ public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.Me
             super(itemView);
 
             imageView=(ImageView)itemView.findViewById(R.id.banner_Images);
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int bannerAdapterPosition=getAdapterPosition();
+                    HomeProductDTO bannerDTO=menuBannerDTOList.get(bannerAdapterPosition);
+
+                    String brand_Id =bannerDTO.getBrandId();
+                    String brand_Name=bannerDTO.getProductName();
+                    String brand_Rating=bannerDTO.getProductRating();
+
+                    onBannerImageClick.bannerImageClick(brand_Id,brand_Name,brand_Rating);
+
+                }
+            });
+
         }
     }
 

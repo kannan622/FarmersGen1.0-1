@@ -16,6 +16,9 @@ public class HomeProductDTO {
     @SerializedName("rating")
     String productRating;
 
+    @SerializedName("banner_image")
+    String bannerImage;
+
     String productMinOrder;
 
 
@@ -31,6 +34,9 @@ public class HomeProductDTO {
         this.productMinOrder=minOrder;
     }
 
+    public String getBannerImage() {
+        return bannerImage;
+    }
 
 
     public void setRecyclerVPosition(int recyclerVPosition) {

@@ -42,7 +42,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnItemClickListener, SearchView.OnQueryTextListener, Menuhome_Adapter.ContactsAdapterListener {
+public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnItemClickListener, SearchView.OnQueryTextListener, Menuhome_Adapter.ContactsAdapterListener,MenuBannerAdapter.OnBannerImageClick {
 
     RecyclerView recyclerView;
     Menuhome_Adapter menuHomeFragmentAdapter;
@@ -58,7 +58,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     //Banner Horizontal
     RecyclerView recyclerViewHorizontal;
     MenuBannerAdapter menuBannerAdapter;
-    List<MenuBannerDTO> menuBannerDTOList; 
+    List<HomeProductDTO> menuBannerDTOList;
 
 
     /* @SuppressLint("ValidFragment")
@@ -122,7 +122,6 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         recyclerViewHorizontal.setLayoutManager(new LinearLayoutManager(this.getActivity(),LinearLayoutManager.HORIZONTAL,true));
 
 
-
         if (Network_config.is_Network_Connected_flag(getActivity())) {
 
 
@@ -139,10 +138,11 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
             loadBannerImages();
 
-            menuBannerDTOList=new ArrayList<MenuBannerDTO>();
+            menuBannerDTOList=new ArrayList<HomeProductDTO>();
             menuBannerAdapter=new MenuBannerAdapter(this.getActivity(),menuBannerDTOList);
             recyclerViewHorizontal.setAdapter(menuBannerAdapter);
 
+            menuBannerAdapter.setOnBannerImageClick(MenuHomeFragment.this);
 
 
 
@@ -170,7 +170,30 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     private void loadBannerImages() {
 
         ApiInterface api=APIClientForBannerImages.getApiInterfaceForBannerImages();
-        Call<JSONResponseForBannerImages> call=api.getAllBannerImages();
+        Call<JSONResponseHomeBrandDTO> call=api.getAllBannerImages();
+
+        call.enqueue(new Callback<JSONResponseHomeBrandDTO>() {
+            @Override
+            public void onResponse(Call<JSONResponseHomeBrandDTO> call, Response<JSONResponseHomeBrandDTO> response) {
+                if(response.isSuccessful()){
+
+                    JSONResponseHomeBrandDTO jsonBannerResponse = response.body();
+
+                    List<HomeProductDTO> bannerList = jsonBannerResponse.getRecords();
+
+                    menuBannerAdapter.setBannerImages(bannerList);
+                    menuBannerAdapter.notifyDataSetChanged();
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponseHomeBrandDTO> call, Throwable t) {
+
+            }
+        });
+
 
     }
 
@@ -347,6 +370,25 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         startActivity(productListIntent);
 
         //  Toast.makeText(getActivity(), "Selected: " + contact.getProductName() + ", " + contact.getProductDesc(), Toast.LENGTH_LONG).show();
+
+    }
+
+
+    //Banner Images Clicked
+    @Override
+    public void bannerImageClick(String brandID, String brandName, String brandRating) {
+
+        Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
+
+
+        productListIntent.putExtra("CURRENTUSER", currentUserId);
+
+        productListIntent.putExtra("BRAND_ID", brandID);
+        productListIntent.putExtra("BRAND_NAME", brandName);
+        productListIntent.putExtra("BRAND_RATING", brandRating);
+        startActivity(productListIntent);
+
+
 
     }
 }
