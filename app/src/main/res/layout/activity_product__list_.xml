@@ -45,8 +45,51 @@
             android:text="-------------------------------------------------"
             android:visibility="gone" />
 
-
         <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/proListBrandName"
+            android:layout_margin="@dimen/five_dp"
+            >
+
+            <TextView
+                android:id="@+id/proListRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5"
+                android:textSize="14sp"
+                android:layout_alignParentLeft="true"
+                android:padding="@dimen/four_dp"
+                android:background="@color/FragmentGreen"
+                android:textColor="@color/white"
+                />
+            <TextView
+                android:id="@+id/proListDeliveryTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="24 Hours Delivery"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_centerInParent="true"
+                />
+
+            <TextView
+                android:id="@+id/brand_Review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Review"
+                android:textSize="14sp"
+                android:layout_alignParentEnd="true"
+                android:background="@color/FragmentGreen"
+                android:textColor="@color/white"
+                android:padding="@dimen/four_dp"
+                />
+
+
+        </RelativeLayout>
+
+
+        <!--<RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/thirty_dp"
             android:layout_below="@+id/proListBrandName"
@@ -79,8 +122,7 @@
                 android:textSize="@dimen/medium_font" />
 
         </RelativeLayout>
-
-        <TextView
+-->        <TextView
             android:id="@+id/proListDash1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

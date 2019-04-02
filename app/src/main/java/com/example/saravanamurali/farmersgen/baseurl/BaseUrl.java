@@ -13,6 +13,10 @@ public interface BaseUrl {
     //To view Brand Prodcut+To view product List
     public static final String ROOT_URL_BRAND_PRODUCTS ="http://farmersgen.com/service/product/";
 
+    //To view Brand Review
+    public static final String ROOT_URL_FOR_BRAND_REVIEW ="http://farmersgen.com/service/review/";
+
+
     //Add Cart
     public static final String ROOT_URL_FOR_ADDCART = "http://farmersgen.com/service/cart/";
 

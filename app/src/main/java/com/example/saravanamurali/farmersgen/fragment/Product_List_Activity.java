@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForBrand;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForDeleteItemInCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForUpdateCountInCart;
+import com.example.saravanamurali.farmersgen.review.BrandReviewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +39,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Product_List_Activity extends AppCompatActivity implements ProductListAdapter.ShowDataInFragment, ProductListAdapter.AddCart, ProductListAdapter.UpdateCartInAddCart, ProductListAdapter.DeleteItemWhenCountZeroInterface {
+
 
     private final String NO_CURRENT_USER = "null";
     FragmentManager fragmentManager = getSupportFragmentManager();
@@ -54,6 +58,9 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
     TextView textViewProductName;
     TextView textViewShortDesc;
+
+    //Brand Review
+    TextView brand_Review;
 
 
     @Override
@@ -84,9 +91,31 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(Product_List_Activity.this, 2));
 
+        //Brand Review
+        brand_Review=(TextView)findViewById(R.id.brand_Review);
+
+        brand_Review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                callReviewDisplayActivity();
+            }
+        });
+
 
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
         currentUserIdFromSharedPreferences = getCurrentUser.getString("CURRENTUSER", NO_CURRENT_USER);
+
+
+    }
+
+    //Review Display method
+    private void callReviewDisplayActivity() {
+
+        Intent brandReviewActivity=new Intent(Product_List_Activity.this,BrandReviewActivity.class);
+        brandReviewActivity.putExtra("BRAND_ID_FOR_REVIEW",brand_ID_For_ProductList);
+        startActivity(brandReviewActivity);
+
 
 
     }

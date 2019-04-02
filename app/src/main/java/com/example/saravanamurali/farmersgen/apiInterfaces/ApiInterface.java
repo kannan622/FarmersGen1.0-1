@@ -29,6 +29,7 @@ import com.example.saravanamurali.farmersgen.models.JSONResponseToViewPastOrdere
 import com.example.saravanamurali.farmersgen.models.JSONResponseUpdateCartDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseViewCartOrdersatPaymentGateway;
 import com.example.saravanamurali.farmersgen.models.JsonOrderResponse;
+import com.example.saravanamurali.farmersgen.models.JsonResponseForBrandReview;
 import com.example.saravanamurali.farmersgen.models.LogOutDeviceIDDTO;
 import com.example.saravanamurali.farmersgen.models.MenuCartFragmentDTO;
 import com.example.saravanamurali.farmersgen.models.MenuCartUpdateDTO;
@@ -37,6 +38,7 @@ import com.example.saravanamurali.farmersgen.models.OTPSendToMobileDTOFrom_FP;
 import com.example.saravanamurali.farmersgen.models.OTPandMobileNoDTO;
 import com.example.saravanamurali.farmersgen.models.OrderDTO;
 import com.example.saravanamurali.farmersgen.models.OrderID_DTO;
+import com.example.saravanamurali.farmersgen.models.ReviewDTO;
 import com.example.saravanamurali.farmersgen.models.SignUpJSONResponse;
 import com.example.saravanamurali.farmersgen.models.SignedInJSONResponse;
 import com.example.saravanamurali.farmersgen.models.JSONResponseHomeBrandDTO;
@@ -81,6 +83,10 @@ public interface ApiInterface {
 
     @POST("view-product.php")
     Call<JSONResponseProductListDTO> getSingleBrandProductList(@Body ViewProductListDTO viewProductListDTO);
+
+    //Reviews
+    @POST("fetch_review.php")
+    Call<JsonResponseForBrandReview> getBrandReviews(@Body ReviewDTO reviewDTO);
 
 
     @POST("add-cart.php")
