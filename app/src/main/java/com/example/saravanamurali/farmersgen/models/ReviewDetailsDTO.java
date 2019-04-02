@@ -3,6 +3,7 @@ package com.example.saravanamurali.farmersgen.models;
 import com.google.gson.annotations.SerializedName;
 
 public class ReviewDetailsDTO {
+
     @SerializedName("name")
     String reviewUser;
 
