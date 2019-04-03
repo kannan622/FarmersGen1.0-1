@@ -82,6 +82,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     CoordinatorLayout coordinatorLayout;
     int totalAmount = 0;
     String currentUser;
+
     private String NO_CURRENT_USER = "NO_CURRENT_USER";
 
     private String NO_CURRENT_COUPON_ID = "NO_CURRENT_COUPON_ID";

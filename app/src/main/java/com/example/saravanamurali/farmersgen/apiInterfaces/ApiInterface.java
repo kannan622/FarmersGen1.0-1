@@ -38,6 +38,7 @@ import com.example.saravanamurali.farmersgen.models.OTPSendToMobileDTOFrom_FP;
 import com.example.saravanamurali.farmersgen.models.OTPandMobileNoDTO;
 import com.example.saravanamurali.farmersgen.models.OrderDTO;
 import com.example.saravanamurali.farmersgen.models.OrderID_DTO;
+import com.example.saravanamurali.farmersgen.models.PostReviewDTO;
 import com.example.saravanamurali.farmersgen.models.ReviewDTO;
 import com.example.saravanamurali.farmersgen.models.SignUpJSONResponse;
 import com.example.saravanamurali.farmersgen.models.SignedInJSONResponse;
@@ -84,9 +85,14 @@ public interface ApiInterface {
     @POST("view-product.php")
     Call<JSONResponseProductListDTO> getSingleBrandProductList(@Body ViewProductListDTO viewProductListDTO);
 
-    //Reviews
+    //Get Reviews
     @POST("fetch_review.php")
     Call<JsonResponseForBrandReview> getBrandReviews(@Body ReviewDTO reviewDTO);
+
+
+    //Add Review
+    @POST("add_review.php")
+    Call<ResponseBody> postBrandReview(@Body PostReviewDTO reviewDTO);
 
 
     @POST("add-cart.php")

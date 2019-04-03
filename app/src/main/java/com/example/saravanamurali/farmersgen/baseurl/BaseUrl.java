@@ -16,6 +16,9 @@ public interface BaseUrl {
     //To view Brand Review
     public static final String ROOT_URL_FOR_BRAND_REVIEW ="http://farmersgen.com/service/review/";
 
+    //To Post Brand Review
+    public static final String ROOT_URL_TO_POST_BRAND_REVIEW ="http://farmersgen.com/service/review/";
+
 
     //Add Cart
     public static final String ROOT_URL_FOR_ADDCART = "http://farmersgen.com/service/cart/";

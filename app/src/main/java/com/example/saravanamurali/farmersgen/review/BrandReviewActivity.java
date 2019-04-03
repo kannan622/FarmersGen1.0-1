@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.review;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
+import com.example.saravanamurali.farmersgen.fragment.ViewCartActivity;
 import com.example.saravanamurali.farmersgen.models.JsonResponseForBrandReview;
 import com.example.saravanamurali.farmersgen.models.ReviewDTO;
 import com.example.saravanamurali.farmersgen.models.ReviewDetailsDTO;
@@ -88,6 +90,7 @@ public class BrandReviewActivity extends AppCompatActivity {
         else{
 
             Intent reviewPostIntent=new Intent(BrandReviewActivity.this,ReviewPostActivity.class);
+            reviewPostIntent.putExtra("BRANDID_FOR_REVIEW_POST",brandID_For_Review);
             startActivity(reviewPostIntent);
 
         }
@@ -95,6 +98,12 @@ public class BrandReviewActivity extends AppCompatActivity {
     }
 
     private void getReviewForBrand() {
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(BrandReviewActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
 
         ApiInterface api = APIClientToGetReviews.getApiInterfaceToGetReviews();
 
@@ -106,6 +115,9 @@ public class BrandReviewActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JsonResponseForBrandReview> call, Response<JsonResponseForBrandReview> response) {
                 if (response.isSuccessful()) {
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
 
                     JsonResponseForBrandReview jsonResponseForBrandReview = response.body();
 
@@ -119,6 +131,10 @@ public class BrandReviewActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JsonResponseForBrandReview> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });
