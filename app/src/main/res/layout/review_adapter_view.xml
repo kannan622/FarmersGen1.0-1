@@ -28,7 +28,6 @@
             android:layout_marginTop="@dimen/five_dp"
             android:layout_marginLeft="@dimen/ten_dp" />
 
-
     </LinearLayout>
 
 </RelativeLayout>

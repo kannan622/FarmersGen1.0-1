@@ -70,7 +70,8 @@
         <activity android:name=".fragment.ExistingAddressActivity_AtMenuAccFragment" />
         <activity android:name=".fragment.UpdateAddress_MenuAccFragment" />
         <activity android:name=".fragment.CouponActivity" />
-        <activity android:name=".review.BrandReviewActivity"></activity>
+        <activity android:name=".review.BrandReviewActivity" />
+        <activity android:name=".review.ReviewPostActivity"></activity>
     </application>
 
 </manifest>

@@ -1,10 +1,16 @@
 package com.example.saravanamurali.farmersgen.review;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
@@ -23,7 +29,11 @@ import retrofit2.Response;
 
 public class BrandReviewActivity extends AppCompatActivity {
 
+    private String NO_CURRENT_USER = "NO_CURRENT_USER";
+
     String brandID_For_Review;
+
+    TextView post_Review;
 
     RecyclerView recyclerView_Review;
     List<ReviewDetailsDTO> reviewDTOList;
@@ -36,6 +46,8 @@ public class BrandReviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_brand_review);
 
         Intent get_BrandID = getIntent();
+
+        post_Review=(TextView)findViewById(R.id.postReview);
 
         brandID_For_Review = get_BrandID.getStringExtra("BRAND_ID_FOR_REVIEW");
 
@@ -51,6 +63,34 @@ public class BrandReviewActivity extends AppCompatActivity {
 
         //Get List of Brands
         getReviewForBrand();
+
+        post_Review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                postYourReview();
+            }
+        });
+
+    }
+
+    private void postYourReview() {
+
+        SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
+        String curUserForReview = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+        if(curUserForReview.equals(NO_CURRENT_USER)){
+            Toast toast=Toast.makeText(BrandReviewActivity.this," Please Login and purchase product to post your review",Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER, 0, 0);
+            toast.show();
+
+        }
+
+        else{
+
+            Intent reviewPostIntent=new Intent(BrandReviewActivity.this,ReviewPostActivity.class);
+            startActivity(reviewPostIntent);
+
+        }
 
     }
 
@@ -71,7 +111,7 @@ public class BrandReviewActivity extends AppCompatActivity {
 
                     reviewDTOList = jsonResponseForBrandReview.getReviewDetailsDTOS();
 
-                    reviewAdapter.setData(reviewDTOList);
+                    reviewAdapter.setDataForReview(reviewDTOList);
 
 
                 }

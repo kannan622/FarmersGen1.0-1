@@ -6,10 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".review.BrandReviewActivity">
 
+    <TextView
+        android:id="@+id/postReview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="POST YOUR REVIEW"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/ten_dp"
+        android:padding="@dimen/five_dp"
+        android:background="@color/FragmentGreen"
+        android:textColor="@color/white"
+        />
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewReview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/postReview"
+        android:layout_marginTop="@dimen/ten_dp"
+        >
     </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

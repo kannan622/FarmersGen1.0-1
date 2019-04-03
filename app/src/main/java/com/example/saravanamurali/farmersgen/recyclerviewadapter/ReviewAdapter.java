@@ -24,7 +24,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         this.reviewDTOList = reviewDTOList;
     }
 
-    public void setData(List<ReviewDetailsDTO> reviewDTOList){
+    public void setDataForReview(List<ReviewDetailsDTO> reviewDTOList){
         this.reviewDTOList=reviewDTOList;
         notifyDataSetChanged();
     }

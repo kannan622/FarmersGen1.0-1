@@ -117,10 +117,10 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         //Banner Horizontal
-        recyclerViewHorizontal=(RecyclerView)view.findViewById(R.id.recyclerViewHorizonal);
+        /*recyclerViewHorizontal=(RecyclerView)view.findViewById(R.id.recyclerViewHorizonal);
         recyclerViewHorizontal.setHasFixedSize(true);
         recyclerViewHorizontal.setLayoutManager(new LinearLayoutManager(this.getActivity(),LinearLayoutManager.HORIZONTAL,true));
-
+*/
 
         if (Network_config.is_Network_Connected_flag(getActivity())) {
 
@@ -136,14 +136,14 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
             //Banner Images
 
-            loadBannerImages();
+            /*loadBannerImages();
 
             menuBannerDTOList=new ArrayList<HomeProductDTO>();
             menuBannerAdapter=new MenuBannerAdapter(this.getActivity(),menuBannerDTOList);
             recyclerViewHorizontal.setAdapter(menuBannerAdapter);
 
             menuBannerAdapter.setOnBannerImageClick(MenuHomeFragment.this);
-
+*/
 
 
 
