@@ -43,12 +43,16 @@ public class Add_Address_Activity extends AppCompatActivity {
     private TextInputLayout mArea;
     private TextInputLayout mCity;
     private TextInputLayout mPinCode;
+    private TextInputLayout mLandMark;
+    private TextInputLayout mAlternateMobile;
 
     private String proceed_FlatNo="";
     private String proceed_StreetName="";
     private String proceed_Area="";
     private String proceed_City="";
     private String proceed_PinCode="";
+    private String proceed_LandMark="";
+    private String proceed_AlternateMobileNumber="";
 
 
     @Override
@@ -63,6 +67,9 @@ public class Add_Address_Activity extends AppCompatActivity {
         mArea=findViewById(R.id.area);
         mCity=findViewById(R.id.city);
         mPinCode=findViewById(R.id.pinCode);
+        mLandMark=findViewById(R.id.landMark);
+        mAlternateMobile=findViewById(R.id.alternateMobile);
+
 
 
     }
@@ -70,7 +77,7 @@ public class Add_Address_Activity extends AppCompatActivity {
     public void onClickProceed(View view) {
 
 
-        if (!validateFlatNo() | !validatStreetName() | !validateArea() | !validateCity() | !validatePinCode()) {
+        if (!validateFlatNo() | !validatStreetName() | !validateArea() | !validateCity() | !validatePinCode() | !validateLandMark() | !validateAlternateMobileNumber()) {
             return;
         } else {
 
@@ -89,7 +96,7 @@ public class Add_Address_Activity extends AppCompatActivity {
 
 
 
-        ADDAddessDTO addAddessDTO=new ADDAddessDTO(proceed_FlatNo,proceed_StreetName,proceed_Area,proceed_City,proceed_PinCode,currentUserForADD_Address);
+        ADDAddessDTO addAddessDTO=new ADDAddessDTO(proceed_FlatNo,proceed_StreetName,proceed_Area,proceed_City,proceed_PinCode,proceed_LandMark,proceed_AlternateMobileNumber,currentUserForADD_Address);
 
         Call<JSONResponseADDAddress> call =api.addAddress(addAddessDTO);
 
@@ -210,9 +217,46 @@ public class Add_Address_Activity extends AppCompatActivity {
         }
 
         return true;
-
-
     }
+
+    boolean validateLandMark(){
+
+        boolean status=false;
+
+        String m_LandMark = mLandMark.getEditText().getText().toString().trim();
+
+        if(m_LandMark.isEmpty()){
+            mLandMark.setError("LandMark Can't be Empty");
+
+        }
+        else {
+            mLandMark.setError("");
+            status=true;
+            proceed_LandMark=m_LandMark;
+        }
+
+        return true;
+    }
+
+    boolean validateAlternateMobileNumber(){
+
+        boolean status=false;
+
+        String m_AlternateMobile = mAlternateMobile.getEditText().getText().toString().trim();
+
+        if(m_AlternateMobile.isEmpty()){
+            mAlternateMobile.setError("Alternate Mobile Number Can't be Empty");
+
+        }
+        else {
+            mAlternateMobile.setError("");
+            status=true;
+            proceed_AlternateMobileNumber=m_AlternateMobile;
+        }
+
+        return true;
+    }
+
 
 
 }

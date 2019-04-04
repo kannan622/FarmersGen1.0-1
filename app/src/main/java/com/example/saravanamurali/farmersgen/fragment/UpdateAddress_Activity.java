@@ -24,17 +24,24 @@ public class UpdateAddress_Activity extends AppCompatActivity {
 
     String addressID;
 
-    private TextInputLayout mFlatNo;
-    private TextInputLayout mStreetName;
-    private TextInputLayout mArea;
-    private TextInputLayout mCity;
-    private TextInputLayout mPinCode;
+    private TextInputLayout uFlatNo;
+    private TextInputLayout uStreetName;
+    private TextInputLayout uArea;
+    private TextInputLayout uCity;
+    private TextInputLayout uPinCode;
+
+    private TextInputLayout uLandMark;
+    private TextInputLayout uAlternateMobile;
+
 
     private String proceed_FlatNo="";
     private String proceed_StreetName="";
     private String proceed_Area="";
     private String proceed_City="";
     private String proceed_PinCode="";
+
+    private String proceed_LandMark="";
+    private String proceed_Alternate_Mobile_Number="";
 
 
     @Override
@@ -46,26 +53,73 @@ public class UpdateAddress_Activity extends AppCompatActivity {
 
         addressID=getAddressID.getStringExtra("ADDRESSID");
 
-        mFlatNo = findViewById(R.id.updateFlatNo);
-        mStreetName=findViewById(R.id.updateStreetName);
-        mArea=findViewById(R.id.updateArea);
-        mCity=findViewById(R.id.updateCity);
-        mPinCode=findViewById(R.id.upatePinCode);
+        uFlatNo = findViewById(R.id.updateFlatNo);
+        uStreetName=findViewById(R.id.updateStreetName);
+        uArea=findViewById(R.id.updateArea);
+        uCity=findViewById(R.id.updateCity);
+        uPinCode=findViewById(R.id.upatePinCode);
+
+        uLandMark=findViewById(R.id.updateLandMark);
+        uAlternateMobile=findViewById(R.id.updateAlternateMobile);
 
 
     }
 
-    private boolean validateFlatNo(){
+    private boolean validateLandMark(){
         boolean status=false;
 
-        String m_FlatNo = mFlatNo.getEditText().getText().toString().trim();
+        String m_LandMark = uLandMark.getEditText().getText().toString().trim();
 
-        if(m_FlatNo.isEmpty()){
-            mFlatNo.setError("Flat # Can't be Empty");
+        if(m_LandMark.isEmpty()){
+            uLandMark.setError("Land Mark Can't be Empty");
             status=false;
         }
         else{
-            mFlatNo.setError("");
+            uLandMark.setError("");
+            status = true;
+            proceed_LandMark = m_LandMark;
+        }
+
+        return status;
+
+    }
+
+    private boolean validateAlterMobileNumber(){
+        boolean status=false;
+
+        String m_AlternateMobileNumber = uAlternateMobile.getEditText().getText().toString().trim();
+
+        if(m_AlternateMobileNumber.isEmpty()){
+            uAlternateMobile.setError("Alternate mobile # Can't be Empty");
+            status=false;
+        }
+        else{
+            uAlternateMobile.setError("");
+            status = true;
+            proceed_Alternate_Mobile_Number = m_AlternateMobileNumber;
+        }
+
+        return status;
+
+    }
+
+
+
+
+
+
+
+    private boolean validateFlatNo(){
+        boolean status=false;
+
+        String m_FlatNo = uFlatNo.getEditText().getText().toString().trim();
+
+        if(m_FlatNo.isEmpty()){
+            uFlatNo.setError("Flat # Can't be Empty");
+            status=false;
+        }
+        else{
+            uFlatNo.setError("");
             status = true;
             proceed_FlatNo = m_FlatNo;
         }
@@ -77,15 +131,15 @@ public class UpdateAddress_Activity extends AppCompatActivity {
     private boolean validatStreetName(){
         boolean status=false;
 
-        String m_StreetNAme = mStreetName.getEditText().getText().toString().trim();
+        String m_StreetNAme = uStreetName.getEditText().getText().toString().trim();
 
 
         if(m_StreetNAme.isEmpty()){
-            mStreetName.setError("Street Name Can't be Empty");
+            uStreetName.setError("Street Name Can't be Empty");
             status=false;
         }
         else{
-            mStreetName.setError("");
+            uStreetName.setError("");
             status=true;
             proceed_StreetName=m_StreetNAme;
         }
@@ -96,14 +150,14 @@ public class UpdateAddress_Activity extends AppCompatActivity {
     private boolean validateArea(){
         boolean status=false;
 
-        String m_Area = mArea.getEditText().getText().toString().trim();
+        String m_Area = uArea.getEditText().getText().toString().trim();
 
         if(m_Area.isEmpty()){
-            mArea.setError("Area Name Cant be Empty");
+            uArea.setError("Area Name Cant be Empty");
             status=false;
         }
         else{
-            mArea.setError("");
+            uArea.setError("");
             status=true;
             proceed_Area=m_Area;
         }
@@ -116,15 +170,15 @@ public class UpdateAddress_Activity extends AppCompatActivity {
 
         boolean status=false;
 
-        String m_City = mCity.getEditText().getText().toString().trim();
+        String m_City = uCity.getEditText().getText().toString().trim();
 
         if(m_City.isEmpty()){
-            mCity.setError("City Cant be Empty");
+            uCity.setError("City Cant be Empty");
             status=false;
         }
 
         else{
-            mCity.setError("");
+            uCity.setError("");
             status=true;
             proceed_City=m_City;
         }
@@ -138,15 +192,15 @@ public class UpdateAddress_Activity extends AppCompatActivity {
 
         boolean status=false;
 
-        String m_PinCode = mPinCode.getEditText().getText().toString().trim();
+        String m_PinCode = uPinCode.getEditText().getText().toString().trim();
 
         if(m_PinCode.isEmpty()){
-            mPinCode.setError("Pincode Can't be Empty");
+            uPinCode.setError("Pincode Can't be Empty");
             status=false;
 
         }
         else {
-            mPinCode.setError("");
+            uPinCode.setError("");
             status=true;
             proceed_PinCode=m_PinCode;
         }
@@ -161,7 +215,7 @@ public class UpdateAddress_Activity extends AppCompatActivity {
     public void onClickUpdateAddress(View view) {
 
 
-        if (!validateFlatNo() | !validatStreetName() | !validateArea() | !validateCity() | !validatePinCode()) {
+        if (!validateFlatNo() | !validatStreetName() | !validateArea() | !validateCity() | !validatePinCode() | !validateLandMark() | !validateAlterMobileNumber() ) {
 
             return;
         } else {
@@ -181,7 +235,7 @@ public class UpdateAddress_Activity extends AppCompatActivity {
 
          String currentUser=getcurrentUser.getString("CURRENTUSER",NO_CURRENT_USER);
 
-        UpdateAddressDTO updateAddressDTO=new UpdateAddressDTO(proceed_FlatNo,proceed_StreetName,proceed_Area,proceed_City,proceed_PinCode,addressID,currentUser);
+        UpdateAddressDTO updateAddressDTO=new UpdateAddressDTO(proceed_FlatNo,proceed_StreetName,proceed_Area,proceed_City,proceed_PinCode,addressID,proceed_LandMark,proceed_Alternate_Mobile_Number,currentUser);
         Call<ResponseBody> call =api.updateAddress(updateAddressDTO);
 
         call.enqueue(new Callback<ResponseBody>() {

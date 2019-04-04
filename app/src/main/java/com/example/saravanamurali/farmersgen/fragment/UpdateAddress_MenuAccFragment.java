@@ -28,11 +28,17 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity {
     private TextInputLayout update_mCity;
     private TextInputLayout update_mPinCode;
 
+    private TextInputLayout update_mLandmark;
+    private TextInputLayout update_mAlternateMobileNumber;
+
     private String update_proceed_FlatNo = "";
     private String update_proceed_StreetName = "";
     private String update_proceed_Area = "";
     private String update_proceed_City = "";
     private String update_proceed_PinCode = "";
+
+    private String update_proceed_Landmark = "";
+    private String update_proceed_AlternateMobileNumber = "";
 
 
     @Override
@@ -50,8 +56,52 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity {
         update_mCity = findViewById(R.id.updateCityMenuCart);
         update_mPinCode = findViewById(R.id.upatePinCodeMenuCart);
 
+        update_mLandmark = findViewById(R.id.landMarkMenuCart);
+        update_mAlternateMobileNumber = findViewById(R.id.alternateMobileMenuCart);
+
 
     }
+
+    private boolean validateAlternate_Mobile_ManageAddress() {
+        boolean status = false;
+
+        String m_Alternate_Mobile = update_mAlternateMobileNumber.getEditText().getText().toString().trim();
+
+        if (m_Alternate_Mobile.isEmpty()) {
+            update_mAlternateMobileNumber.setError("Flat # Can't be Empty");
+            status = false;
+        } else {
+            update_mAlternateMobileNumber.setError("");
+            status = true;
+            update_proceed_AlternateMobileNumber = m_Alternate_Mobile;
+        }
+
+        return status;
+
+    }
+
+
+    private boolean validateLandMar_ManageAddress() {
+        boolean status = false;
+
+        String m_LandMark = update_mLandmark.getEditText().getText().toString().trim();
+
+        if (m_LandMark.isEmpty()) {
+            update_mLandmark.setError("Flat # Can't be Empty");
+            status = false;
+        } else {
+            update_mLandmark.setError("");
+            status = true;
+            update_proceed_Landmark = m_LandMark;
+        }
+
+        return status;
+
+    }
+
+
+
+
 
     private boolean validateFlatNo_ManageAddress() {
         boolean status = false;
@@ -152,7 +202,7 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity {
 
     public void onClickUpdateAddressAtMenuCart(View view) {
 
-        if (!validateFlatNo_ManageAddress() | !validatStreetName_ManageAddress() | !validateArea_ManageAddress() | !validateCity_ManageAddress() | !validatePinCode_ManageAddress()) {
+        if (!validateFlatNo_ManageAddress() | !validatStreetName_ManageAddress() | !validateArea_ManageAddress() | !validateCity_ManageAddress() | !validatePinCode_ManageAddress()| !validateLandMar_ManageAddress() | !validateAlternate_Mobile_ManageAddress()  ) {
 
             return;
         } else {
@@ -171,7 +221,7 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity {
 
         String currentUserManageAddress = getcurrentUser.getString("CURRENTUSER", NO_CURRENT_USER);
 
-        UpdateAddressDTO updateAddressDTO = new UpdateAddressDTO(update_proceed_FlatNo, update_proceed_StreetName, update_proceed_Area, update_proceed_City, update_proceed_PinCode, addressID_Menu, currentUserManageAddress);
+        UpdateAddressDTO updateAddressDTO = new UpdateAddressDTO(update_proceed_FlatNo, update_proceed_StreetName, update_proceed_Area, update_proceed_City, update_proceed_PinCode, addressID_Menu, update_proceed_Landmark,update_proceed_AlternateMobileNumber,currentUserManageAddress);
 
         Call<ResponseBody> call = api.updateAddress(updateAddressDTO);
 

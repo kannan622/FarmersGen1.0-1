@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -146,6 +147,13 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     //Display all products list from Brand
     private void loadRetrofitProductList() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(Product_List_Activity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface apiInterface = APIClientForBrand.getApiInterfaceForBrand();
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
@@ -184,6 +192,9 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                 }
 
                 if (response.isSuccessful()) {
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
                     productListAdapter.notifyDataSetChanged();
                     // Toast.makeText(Product_List_Activity.this, "Success", Toast.LENGTH_SHORT).show();
 
@@ -213,6 +224,10 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
             @Override
             public void onFailure(Call<JSONResponseProductListDTO> call, Throwable t) {
 
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
                 Toast.makeText(Product_List_Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
 
             }
@@ -224,6 +239,13 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     //Adding items to Cart
     @Override
     public void addCart(int countNum, String product_Code, String productPrice) {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(Product_List_Activity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
 
         android_id = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -244,6 +266,11 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if (response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     // Toast.makeText(Product_List_Activity.this,"Success",Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(Product_List_Activity.this, "Error", Toast.LENGTH_LONG).show();
@@ -253,6 +280,10 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
                 Toast.makeText(Product_List_Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
 
@@ -266,6 +297,14 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     //Updating Count to AddCart Table
     @Override
     public void updateCartInAddCart(String updateProductCode, int updateCount, String prouctPrice) {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(Product_List_Activity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         System.out.println("I am inside updateCartInAddCart");
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
@@ -283,6 +322,11 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     // Toast.makeText(Product_List_Activity.this,"Success",Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(Product_List_Activity.this, "Error", Toast.LENGTH_LONG).show();
@@ -291,6 +335,10 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });
@@ -301,6 +349,13 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     //Delete item from Cart when Count is Zero
     @Override
     public void deleteItemWhenCountZero(String produceCode) {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(Product_List_Activity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -315,6 +370,10 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
                     // Toast.makeText(Product_List_Activity.this,"Deleted",Toast.LENGTH_LONG).show();
                 }
             }

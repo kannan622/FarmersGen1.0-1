@@ -80,7 +80,7 @@ public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.Me
 
             imageView=(ImageView)itemView.findViewById(R.id.banner_Images);
 
-            imageView.setOnClickListener(new View.OnClickListener() {
+            /*imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int bannerAdapterPosition=getAdapterPosition();
@@ -94,7 +94,7 @@ public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.Me
 
                 }
             });
-
+*/
         }
     }
 

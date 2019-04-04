@@ -113,7 +113,7 @@
         <!--Land Mark and Alternate Mobile Number-->
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/landMark"
+            android:id="@+id/updateLandMark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -122,12 +122,11 @@
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="LandMark"
-                />
+                android:hint="LandMark" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/alternateMobile"
+            android:id="@+id/updateAlternateMobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
