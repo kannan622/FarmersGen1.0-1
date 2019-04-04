@@ -19,7 +19,13 @@ public class GetDeliveryAddressDTO {
     @SerializedName("pincode")
     String pincode;
 
-    public GetDeliveryAddressDTO(String addressID, String userID, String flatNo, String streetName, String area, String city, String pincode) {
+    @SerializedName("landmark")
+    String landmar;
+
+    @SerializedName("alternative_mobile_no")
+    String alter;
+
+    public GetDeliveryAddressDTO(String addressID, String userID, String flatNo, String streetName, String area, String city, String pincode,String landMark,String alternate) {
         this.addressID = addressID;
         this.userID = userID;
         this.flatNo = flatNo;
@@ -27,6 +33,16 @@ public class GetDeliveryAddressDTO {
         this.area = area;
         this.city = city;
         this.pincode = pincode;
+        this.landmar=landMark;
+        this.alter=alternate;
+    }
+
+    public String getLandmar() {
+        return landmar;
+    }
+
+    public String getAlter() {
+        return alter;
     }
 
     public String getAddressID() {

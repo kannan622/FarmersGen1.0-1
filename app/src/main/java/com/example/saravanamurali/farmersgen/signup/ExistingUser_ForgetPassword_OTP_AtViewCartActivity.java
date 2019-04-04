@@ -119,6 +119,13 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
 
     private void sendOTPForResendSer() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ExistingUser_ForgetPassword_OTP_AtViewCartActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api=APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
 
         OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_fp=new OTPSendToMobileDTOFrom_FP(MobileNumberFrom_Existing_User_Forget_Password);
@@ -129,10 +136,23 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
             @Override
             public void onResponse(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Response<JSONResponseToSendOTPFromForgetPasswordDTO> response) {
 
+                if(response.isSuccessful()){
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
+                }
+
             }
 
             @Override
             public void onFailure(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Throwable t) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
+
 
             }
         });

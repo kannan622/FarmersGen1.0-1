@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.signin;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
+import com.example.saravanamurali.farmersgen.fragment.CancelOrderActivity;
 import com.example.saravanamurali.farmersgen.fragment.NewPassAndConfirmPass;
 import com.example.saravanamurali.farmersgen.models.JSONResponseForNPasswordAndCPasswrod;
 import com.example.saravanamurali.farmersgen.models.NewPassAndConfirmPassDTO;
@@ -77,6 +79,13 @@ public class NewPassAndConfirmPassForLoginForgetPassword extends AppCompatActivi
 
     private void upatePassword() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(NewPassAndConfirmPassForLoginForgetPassword.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api =APIClientForNewPassAndConfirmPassFromLoginPassword.getApiInterfaceForNewPassAndConfirmPassFromLoginPassword();
 
         NewPassAndConfirmPassDTO newPassAndConfirmPassDTO = new NewPassAndConfirmPassDTO(mobileNumberForNewPassAndConfirmPass, n_Pass, c_Pass);
@@ -87,6 +96,10 @@ public class NewPassAndConfirmPassForLoginForgetPassword extends AppCompatActivi
            @Override
            public void onResponse(Call<JSONResponseForNPasswordAndCPasswrod> call, Response<JSONResponseForNPasswordAndCPasswrod> response) {
                if(response.isSuccessful()){
+
+                   if(csprogress.isShowing()){
+                       csprogress.dismiss();
+                   }
 
                    JSONResponseForNPasswordAndCPasswrod jsonResponseForNPasswordAndCPasswrod = response.body();
 
@@ -103,6 +116,9 @@ public class NewPassAndConfirmPassForLoginForgetPassword extends AppCompatActivi
 
            @Override
            public void onFailure(Call<JSONResponseForNPasswordAndCPasswrod> call, Throwable t) {
+               if(csprogress.isShowing()){
+                   csprogress.dismiss();
+               }
 
            }
        });

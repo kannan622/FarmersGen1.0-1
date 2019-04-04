@@ -127,11 +127,39 @@
 
                 />
 
+
+            <TextView
+                android:id="@+id/landmarkViewMenuAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LandMark"
+                android:layout_toRightOf="@+id/spacecraftImgMenuAcc"
+                android:layout_marginLeft="@dimen/five_dp"
+                android:layout_below="@id/areaMenuAcc"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginTop="@dimen/five_dp"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:id="@+id/alternateMobileViewMenuAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/areaMenuAcc"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@id/landmarkViewMenuAcc"
+                android:lines="1"
+                android:text="8015386062"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15sp" />
+
+
             <TextView
                 android:id="@+id/pinCodeMenuAcc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/cityMenuAcc"
+                android:layout_below="@id/landmarkViewMenuAcc"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/spacecraftImgMenuAcc"

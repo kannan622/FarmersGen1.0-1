@@ -134,6 +134,13 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
 
     private void sendOTPForResend() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(OTPActivityForViewCart2.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api=APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
 
         OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_fp=new OTPSendToMobileDTOFrom_FP(mobileNumberToSendOTP_AtViewCart);
@@ -144,10 +151,20 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Response<JSONResponseToSendOTPFromForgetPasswordDTO> response) {
 
+                if(response.isSuccessful()){
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+                }
+
             }
 
             @Override
             public void onFailure(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

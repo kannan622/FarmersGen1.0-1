@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,9 @@ public class ExistingAddressActivity_AtMenuAccFragment extends AppCompatActivity
     TextView pincode;
     TextView state;
 
+    TextView landMarkMenuAcc;
+    TextView alternateMenuAcc;
+
     String addressIDAtMenuCart;
 
     Button changeAddressAtMenuCart;
@@ -42,6 +46,9 @@ public class ExistingAddressActivity_AtMenuAccFragment extends AppCompatActivity
         city = (TextView) findViewById(R.id.cityMenuAcc);
         pincode = (TextView) findViewById(R.id.pinCodeMenuAcc);
         state=(TextView)findViewById(R.id.stateMenuAcc);
+
+        landMarkMenuAcc=(TextView)findViewById(R.id.landMarkMenuCart);
+        alternateMenuAcc=(TextView)findViewById(R.id.alternateMobileViewMenuAcc);
 
         changeAddressAtMenuCart = (Button) findViewById(R.id.changeAddressMenuAcc);
 
@@ -70,6 +77,13 @@ public class ExistingAddressActivity_AtMenuAccFragment extends AppCompatActivity
 
     private void loadDeliverAddressAtMenuAccFragment() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ExistingAddressActivity_AtMenuAccFragment.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
 
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -83,6 +97,9 @@ public class ExistingAddressActivity_AtMenuAccFragment extends AppCompatActivity
             @Override
             public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
                 if (response.isSuccessful()) {
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
 
                     GetDeliveryAddressDTO getDeliveryAddressDTOAtMenuCart = response.body();
 
@@ -93,12 +110,18 @@ public class ExistingAddressActivity_AtMenuAccFragment extends AppCompatActivity
                     area.setText(getDeliveryAddressDTOAtMenuCart.getArea());
                     city.setText(getDeliveryAddressDTOAtMenuCart.getCity());
                     pincode.setText(getDeliveryAddressDTOAtMenuCart.getPincode());
+                    landMarkMenuAcc.setText(getDeliveryAddressDTOAtMenuCart.getLandmar());
+                    alternateMenuAcc.setText(getDeliveryAddressDTOAtMenuCart.getAlter());
 
 
                 }
             }
             @Override
             public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

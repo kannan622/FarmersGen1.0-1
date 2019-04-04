@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
@@ -229,7 +230,14 @@ public class UpdateAddress_Activity extends AppCompatActivity {
 
      private void updateAddressFromChangeAddressClick() {
 
-        ApiInterface api=APIClientToUpdateAddress.getApiIterfaceToUpdateAddress();
+         final ProgressDialog csprogress;
+         csprogress = new ProgressDialog(UpdateAddress_Activity.this);
+         csprogress.setMessage("Loading...");
+         csprogress.show();
+         csprogress.setCanceledOnTouchOutside(false);
+
+
+         ApiInterface api=APIClientToUpdateAddress.getApiIterfaceToUpdateAddress();
 
          SharedPreferences getcurrentUser=getSharedPreferences("CURRENT_USER",MODE_PRIVATE);
 
@@ -244,6 +252,10 @@ public class UpdateAddress_Activity extends AppCompatActivity {
 
                 if(response.isSuccessful()){
 
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     Intent CODDetails=new Intent(UpdateAddress_Activity.this,COD_Details_Activity.class);
                     startActivity(CODDetails);
 
@@ -253,6 +265,10 @@ public class UpdateAddress_Activity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

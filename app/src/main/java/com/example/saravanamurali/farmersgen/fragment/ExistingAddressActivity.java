@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,9 @@ public class ExistingAddressActivity extends AppCompatActivity {
     TextView pincodeRight;
     TextView state;
 
+    TextView land_Mark;
+    TextView alternate;
+
     String addressID;
 
     Button changeAddress;
@@ -52,6 +56,8 @@ public class ExistingAddressActivity extends AppCompatActivity {
         cityRight = (TextView) findViewById(R.id.cityRight);
         pincodeRight = (TextView) findViewById(R.id.pinCode);
         state=(TextView)findViewById(R.id.state);
+        land_Mark=(TextView)findViewById(R.id.landmarkView);
+        alternate=(TextView)findViewById(R.id.alternateMobileView);
 
         changeAddress = (Button) findViewById(R.id.changeAddress);
         proceedtoPay = (Button) findViewById(R.id.proceedToPayFromViewCart);
@@ -83,6 +89,13 @@ public class ExistingAddressActivity extends AppCompatActivity {
     //Get Registered User Delivery Address
     private void loadDeliverAddress() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ExistingAddressActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
 
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -98,6 +111,10 @@ public class ExistingAddressActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
 
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
 
 
@@ -107,6 +124,8 @@ public class ExistingAddressActivity extends AppCompatActivity {
                     areaRight.setText(getDeliveryAddressDTO.getArea());
                     cityRight.setText(getDeliveryAddressDTO.getCity());
                     pincodeRight.setText(getDeliveryAddressDTO.getPincode());
+                    land_Mark.setText(getDeliveryAddressDTO.getLandmar());
+                    alternate.setText(getDeliveryAddressDTO.getAlter());
 
                 }
 
@@ -114,6 +133,9 @@ public class ExistingAddressActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

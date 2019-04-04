@@ -1,6 +1,7 @@
 package com.example.saravanamurali.farmersgen.signup;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -76,6 +77,13 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
 
     private void sendMobileNoandOTP() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(OTPActForSuccRegistrationAtViewCart.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api = APIClientToSendMobileNoAndOTP.getApiInterfaceToSendMobileNoAndOTP();
 
 
@@ -93,6 +101,11 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
                 // JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity=response.body();
 
                 if (response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     Intent intent = new Intent(OTPActForSuccRegistrationAtViewCart.this, LoginActivity.class);
                     startActivity(intent);
                 } else {
@@ -106,6 +119,10 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JSONOTPResponseFromOTPActivity> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

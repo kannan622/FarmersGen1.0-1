@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
@@ -87,6 +88,14 @@ public class Add_Address_Activity extends AppCompatActivity {
     }
 
     private void proceed() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(Add_Address_Activity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         Toast.makeText(Add_Address_Activity.this,"Proceed To Pay,",Toast.LENGTH_LONG).show();
 
         ApiInterface api=APIClientToADDAddress.getAPIInterfaceForADDAddress();
@@ -104,6 +113,11 @@ public class Add_Address_Activity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONResponseADDAddress> call, Response<JSONResponseADDAddress> response) {
                 if (response.isSuccessful()){
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     JSONResponseADDAddress jsonResponseADDAddress= response.body();
 
                     if(jsonResponseADDAddress.getResultStatus()==200){
@@ -118,6 +132,10 @@ public class Add_Address_Activity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JSONResponseADDAddress> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

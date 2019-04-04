@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.signin;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
+import com.example.saravanamurali.farmersgen.fragment.CancelOrderActivity;
 import com.example.saravanamurali.farmersgen.models.JSONResponseToSendMobileNoFromLoginForgetPasswordDTO;
 import com.example.saravanamurali.farmersgen.models.OTPSendToMobileDTOFrom_FP;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendMobileNoFromLoginForgetPassword;
@@ -98,6 +100,13 @@ public class LoginForgetPasswordActivity extends AppCompatActivity {
 
     private void sendMobileNumberForOTPInLoginForgetPassword(String forgetPasswordLoginMobileNumber) {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(LoginForgetPasswordActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api=APIClientToSendMobileNoFromLoginForgetPassword.getAPIInterfaceTOSendMobileNoFromLoginForgetPassword();
 
         OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_Login_FP=new OTPSendToMobileDTOFrom_FP(forgetPasswordLoginMobileNumber);
@@ -109,6 +118,11 @@ public class LoginForgetPasswordActivity extends AppCompatActivity {
             public void onResponse(Call<JSONResponseToSendMobileNoFromLoginForgetPasswordDTO> call, Response<JSONResponseToSendMobileNoFromLoginForgetPasswordDTO> response) {
 
                 if(response.isSuccessful()){
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     Toast.makeText(LoginForgetPasswordActivity.this,"Success",Toast.LENGTH_LONG).show();
                     Intent otpActivityforLoginForgetPasssord=new Intent(LoginForgetPasswordActivity.this,OTPActivityForLoginForgetPassword.class);
                     otpActivityforLoginForgetPasssord.putExtra("MOBILENO_FOR_LOGIN_FORGET_PASSWORD",logMMobileForForgetMobile);

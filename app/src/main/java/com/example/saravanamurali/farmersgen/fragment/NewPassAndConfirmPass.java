@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -78,6 +79,14 @@ public class NewPassAndConfirmPass extends AppCompatActivity {
     }
 
     private void savePassword() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(NewPassAndConfirmPass.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         Toast.makeText(NewPassAndConfirmPass.this, "Your are entered", Toast.LENGTH_SHORT).show();
 
         ApiInterface api = APIClientForNewPassAndConfirmPass.getApiInterfaceForNewPasswordAndConfirmPassword();
@@ -90,6 +99,10 @@ public class NewPassAndConfirmPass extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONResponseForNPasswordAndCPasswrod> call, Response<JSONResponseForNPasswordAndCPasswrod> response) {
                 if (response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
 
                     JSONResponseForNPasswordAndCPasswrod jsonResponseForNPasswordAndCPasswrod = response.body();
 

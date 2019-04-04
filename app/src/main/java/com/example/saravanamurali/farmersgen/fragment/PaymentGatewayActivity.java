@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.provider.Settings;
@@ -67,6 +68,13 @@ public class PaymentGatewayActivity extends AppCompatActivity {
     //Getting ordered items from addcart table using deviceID
     private void loadViewCartProductList() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(PaymentGatewayActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         String ANDROID_MOBILE_ID = Settings.Secure.getString(PaymentGatewayActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
@@ -78,6 +86,10 @@ public class PaymentGatewayActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONResponseViewCartOrdersatPaymentGateway> call, Response<JSONResponseViewCartOrdersatPaymentGateway> response) {
                 if (response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
 
                     JSONResponseViewCartOrdersatPaymentGateway jsonResponseViewCartListDTO = response.body();
                     List<ViewCartPaymentGatewayDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
@@ -107,6 +119,10 @@ public class PaymentGatewayActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<JSONResponseViewCartOrdersatPaymentGateway> call, Throwable t) {
 
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
             }
         });
 
@@ -116,6 +132,13 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
     //Getting addressId for that current user
     private void getAddressID() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(PaymentGatewayActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
         ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
 
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -131,6 +154,10 @@ public class PaymentGatewayActivity extends AppCompatActivity {
             public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
                 if (response.isSuccessful()) {
 
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
 
                     addressID = getDeliveryAddressDTO.getAddressID();
@@ -142,12 +169,23 @@ public class PaymentGatewayActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
 
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
             }
         });
 
     }
 
     public void payOnclick(View view) {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(PaymentGatewayActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
 
         ApiInterface api = APIClientToOrder.getAPIInterfaceToOrder();
 
@@ -163,6 +201,10 @@ public class PaymentGatewayActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JsonOrderResponse> call, Response<JsonOrderResponse> response) {
                 if(response.isSuccessful()){
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
 
                     JsonOrderResponse jsonOrderResponse=response.body();
 
@@ -180,6 +222,10 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JsonOrderResponse> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

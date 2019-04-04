@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -59,6 +60,13 @@ public class PastOrderListActivity extends AppCompatActivity implements PastOrde
 
     private void loastPastOrderList() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(PastOrderListActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api=APIClientToGetPastOrderDetails.getApiInterfaceToGetPastOrderDetails();
 
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -72,6 +80,11 @@ public class PastOrderListActivity extends AppCompatActivity implements PastOrde
             @Override
             public void onResponse(Call<JSONResponseToGetPastOrderDetails> call, Response<JSONResponseToGetPastOrderDetails> response) {
                 if(response.isSuccessful()){
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     JSONResponseToGetPastOrderDetails jsonResponseToGetPastOrderDetails   =response.body();
                     jsonResponseToGetPastOrderDTOList =jsonResponseToGetPastOrderDetails.getJsonResponseToGetPastOrderDTOList();
 
@@ -83,6 +96,10 @@ public class PastOrderListActivity extends AppCompatActivity implements PastOrde
             @Override
             public void onFailure(Call<JSONResponseToGetPastOrderDetails> call, Throwable t) {
 
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
             }
         });
 
@@ -92,6 +109,13 @@ public class PastOrderListActivity extends AppCompatActivity implements PastOrde
 
     @Override
     public void pastOrderID(String pastOrderID) {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(PastOrderListActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
 
         ApiInterface api=APIClientPastOrderedProductListView.getApiInterfacePastOrderedProductListView();
 
@@ -104,6 +128,12 @@ public class PastOrderListActivity extends AppCompatActivity implements PastOrde
          public void onResponse(Call<JSONResponseToViewPastOrderedProductList> call, Response<JSONResponseToViewPastOrderedProductList> response) {
 
              if(response.isSuccessful()){
+
+                 if(csprogress.isShowing()){
+                     csprogress.dismiss();
+                 }
+
+
                  Intent orderedProductListView=new Intent(PastOrderListActivity.this,PastOrderedProductListView.class);
 
                  JSONResponseToViewPastOrderedProductList jsonResponseToViewPastOrderedProductList=response.body();
@@ -125,6 +155,10 @@ public class PastOrderListActivity extends AppCompatActivity implements PastOrde
 
          @Override
          public void onFailure(Call<JSONResponseToViewPastOrderedProductList> call, Throwable t) {
+
+             if(csprogress.isShowing()){
+                 csprogress.dismiss();
+             }
 
          }
      });

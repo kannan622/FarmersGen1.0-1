@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.signup;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -97,6 +98,13 @@ public class OTPActivity extends AppCompatActivity {
 
     private void sendMobileNoandOTP() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(OTPActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api = APIClientToSendMobileNoAndOTP.getApiInterfaceToSendMobileNoAndOTP();
 
 
@@ -114,6 +122,11 @@ public class OTPActivity extends AppCompatActivity {
                     JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
 */
                     if (response.isSuccessful()) {
+
+                        if(csprogress.isShowing()){
+                            csprogress.dismiss();
+                        }
+
                         Intent intent = new Intent(OTPActivity.this, NewPassAndConfirmPass.class);
                         intent.putExtra("MOBILENO_FROM_OTP", mobileNumberToSendOTP);
                         startActivity(intent);
@@ -129,6 +142,10 @@ public class OTPActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JSONOTPResponseFromOTPActivity> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

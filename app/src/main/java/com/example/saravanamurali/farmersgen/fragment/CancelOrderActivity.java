@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -67,6 +68,13 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
 
     private void loadCancelOrderList() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(CancelOrderActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api=APIClientToGetCancelOrderList.getApiInterfaceToGetCancelOrderList();
 
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -79,6 +87,11 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
            @Override
            public void onResponse(Call<JSONResponseToFetchCancelOrderDTO> call, Response<JSONResponseToFetchCancelOrderDTO> response) {
                if(response.isSuccessful()){
+
+                   if(csprogress.isShowing()){
+                       csprogress.dismiss();
+                   }
+
                    JSONResponseToFetchCancelOrderDTO jsonResponseToFetchCancelOrderDTO=response.body();
                    jsonResponseForCancelOrderDTOS =jsonResponseToFetchCancelOrderDTO.getJsonResponseForCancelOrderDTO();
 
@@ -88,6 +101,10 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
 
            @Override
            public void onFailure(Call<JSONResponseToFetchCancelOrderDTO> call, Throwable t) {
+
+               if(csprogress.isShowing()){
+                   csprogress.dismiss();
+               }
 
            }
        });
@@ -99,6 +116,13 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
     @Override
     public void getCancelOrderUsingOrderID(final String orderID) {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(CancelOrderActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api= APIClientToCancelOrderUsingOrderID.getAPIInterfaceToCancelOrderUsingOrderID();
 
         OrderID_DTO order_ID=new OrderID_DTO(orderID);
@@ -109,6 +133,11 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
          @Override
          public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
              if(response.isSuccessful()){
+
+                 if(csprogress.isShowing()){
+                     csprogress.dismiss();
+                 }
+
                  loadCancelOrderList();
                  Toast.makeText(CancelOrderActivity.this,"Your order"+orderID+"has been cancelled",Toast.LENGTH_LONG).show();
              }
@@ -116,6 +145,10 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
 
          @Override
          public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+             if(csprogress.isShowing()){
+                 csprogress.dismiss();
+             }
 
              Toast.makeText(CancelOrderActivity.this,"Please try again!!!",Toast.LENGTH_LONG).show();
          }
@@ -129,6 +162,13 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
     @Override
     public void getViewProductDetailUsingOrderID(String orderIDToViewProductDetails) {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(CancelOrderActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api=APIClientOrderedProductListView.getgetApiInterfaceOrderedProductListView();
 
         OrderID_DTO order_IDToViewProdcutList=new OrderID_DTO(orderIDToViewProductDetails);
@@ -139,6 +179,11 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
           @Override
           public void onResponse(Call<JSONResponseToViewOrderedProductList> call, Response<JSONResponseToViewOrderedProductList> response) {
               if(response.isSuccessful()){
+
+                  if(csprogress.isShowing()){
+                      csprogress.dismiss();
+                  }
+
 
                   Toast.makeText(CancelOrderActivity.this,"OrderedProductListView",Toast.LENGTH_LONG).show();
                   Intent orderedProductListView=new Intent(CancelOrderActivity.this,OrderedProductListView.class);
@@ -179,6 +224,11 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
 
           @Override
           public void onFailure(Call<JSONResponseToViewOrderedProductList> call, Throwable t) {
+
+              if(csprogress.isShowing()){
+                  csprogress.dismiss();
+              }
+
 
           }
       });

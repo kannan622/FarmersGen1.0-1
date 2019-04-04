@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -108,6 +109,13 @@ public class ForgetPassword extends AppCompatActivity {
 
     private void login() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ForgetPassword.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api = APIClientToLogin.getApiInterfaceToLogin();
 
         SignInDTO signInDTO = new SignInDTO(forgetPasswordMobileNumber, confirmPassword);
@@ -121,6 +129,11 @@ public class ForgetPassword extends AppCompatActivity {
 
                 // JSONResponse jsonResponse=response.body();
                 if (response.isSuccessful()) {
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     SignedInJSONResponse signedInJSONResponse = response.body();
 
 
@@ -156,6 +169,10 @@ public class ForgetPassword extends AppCompatActivity {
             @Override
             public void onFailure(Call<SignedInJSONResponse> call, Throwable t) {
 
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
             }
 
         });
@@ -183,6 +200,14 @@ public class ForgetPassword extends AppCompatActivity {
 
 
     public void I_Forget_My_Password(View view) {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ForgetPassword.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         Toast.makeText(ForgetPassword.this,"Clicked",Toast.LENGTH_SHORT).show();
 
 
@@ -196,6 +221,11 @@ public class ForgetPassword extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Response<JSONResponseToSendOTPFromForgetPasswordDTO> response) {
                 if(response.isSuccessful()){
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     Intent otpIntent=new Intent(ForgetPassword.this,OTPActivity.class);
                     otpIntent.putExtra("MOBILENUM_TOCONFIR_PASSWORD",forgetPasswordMobileNumber);
                     startActivity(otpIntent);
@@ -205,6 +235,10 @@ public class ForgetPassword extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

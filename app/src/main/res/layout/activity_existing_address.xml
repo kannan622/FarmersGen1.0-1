@@ -137,15 +137,40 @@
                 android:lines="1"
                 android:text=",Chennai"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="15sp"
+                android:textSize="15sp" />
 
+            <TextView
+                android:id="@+id/landmarkView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LandMark"
+                android:layout_toRightOf="@+id/spacecraftImg"
+                android:layout_marginLeft="@dimen/five_dp"
+                android:layout_below="@id/cityRight"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginTop="@dimen/five_dp"
+                android:textSize="15sp"
                 />
+
+            <TextView
+                android:id="@+id/alternateMobileView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/cityRight"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@id/landmarkView"
+                android:lines="1"
+                android:text="8015386062"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="15sp" />
+
 
             <TextView
                 android:id="@+id/pinCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/cityRight"
+                android:layout_below="@id/landmarkView"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/spacecraftImg"

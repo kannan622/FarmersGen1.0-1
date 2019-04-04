@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.signin;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -68,6 +69,14 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
     }
 
     private void sendMobileNoandOTPForLoginForgetPassword() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(OTPActivityForLoginForgetPassword.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface api=APIClientToSendMobileNoAndOTPForLoginForgetPassword.getApiInterfaceToSendMobileNoAndOTPForLoginForgetPassword();
 
         OTPandMobileNoDTO otpAndMobileNoDTO = new OTPandMobileNoDTO(mobileNumberForLoginForgetPassword, entered_OTP_AtLoginForgetPassword);
@@ -83,6 +92,11 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
                     JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
 */
                     if(response.isSuccessful())  {
+
+                        if(csprogress.isShowing()){
+                            csprogress.dismiss();
+                        }
+
                         //(jsonotpResponseFromOTPActivity.getStatus()=="200")
                         Intent newPassintent = new Intent(OTPActivityForLoginForgetPassword.this, NewPassAndConfirmPassForLoginForgetPassword.class);
                         newPassintent.putExtra("MOBILENO_FOR_NEW_PASS_AND_CONFIRM_PASSWORD", mobileNumberForLoginForgetPassword);
@@ -103,6 +117,10 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JSONOTPResponseFromOTPActivity> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });
