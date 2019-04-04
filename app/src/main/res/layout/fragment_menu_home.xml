@@ -12,12 +12,7 @@
 
     <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="@dimen/five_dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp">
+        android:layout_height="200dp">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerViewHorizonal"
@@ -25,7 +20,6 @@
                 android:layout_height="200dp">
             </android.support.v7.widget.RecyclerView>
 
-        </LinearLayout>
     </HorizontalScrollView>
 
     <android.support.v7.widget.RecyclerView

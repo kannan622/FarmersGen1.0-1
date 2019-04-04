@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.saravanamurali.farmersgen.R;
+import com.example.saravanamurali.farmersgen.models.BannerDTO;
 import com.example.saravanamurali.farmersgen.models.HomeProductDTO;
 import com.example.saravanamurali.farmersgen.models.MenuBannerDTO;
 import com.squareup.picasso.Picasso;
@@ -18,7 +19,7 @@ import java.util.List;
 public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.MenuBAnner_ViewHolder> {
 
     private Context m_context;
-    private List<HomeProductDTO> menuBannerDTOList;
+    private List<BannerDTO> menuBannerDTOList;
 
 
     OnBannerImageClick onBannerImageClick;
@@ -35,12 +36,12 @@ public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.Me
     }
 
 
-    public MenuBannerAdapter(Context context, List<HomeProductDTO> menuBannerDTOList) {
+    public MenuBannerAdapter(Context context, List<BannerDTO> menuBannerDTOList) {
         this.m_context = context;
         this.menuBannerDTOList = menuBannerDTOList;
     }
 
-    public void setBannerImages(List<HomeProductDTO> menuBannerDTOList){
+    public void setBannerImages(List<BannerDTO> menuBannerDTOList){
 
         this.menuBannerDTOList=menuBannerDTOList;
         notifyDataSetChanged();
@@ -62,7 +63,7 @@ public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.Me
     @Override
     public void onBindViewHolder(@NonNull MenuBAnner_ViewHolder menuBAnner_viewHolder, int i) {
 
-       Picasso.with(m_context).load(menuBannerDTOList.get(i).getBannerImage()).into(menuBAnner_viewHolder.imageView);
+       Picasso.with(m_context).load(menuBannerDTOList.get(i).getBanner_image()).into(menuBAnner_viewHolder.imageView);
 
     }
 

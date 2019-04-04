@@ -24,9 +24,11 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
+import com.example.saravanamurali.farmersgen.models.BannerDTO;
 import com.example.saravanamurali.farmersgen.models.HomeProductDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseForBannerImages;
 import com.example.saravanamurali.farmersgen.models.JSONResponseHomeBrandDTO;
+import com.example.saravanamurali.farmersgen.models.JsonResponseForBannerDTO;
 import com.example.saravanamurali.farmersgen.models.MenuBannerDTO;
 import com.example.saravanamurali.farmersgen.recyclerviewadapter.MenuBannerAdapter;
 import com.example.saravanamurali.farmersgen.recyclerviewadapter.Menuhome_Adapter;
@@ -58,7 +60,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     //Banner Horizontal
     RecyclerView recyclerViewHorizontal;
     MenuBannerAdapter menuBannerAdapter;
-    List<HomeProductDTO> menuBannerDTOList;
+    List<BannerDTO> menuBannerDTOList;
 
 
     /* @SuppressLint("ValidFragment")
@@ -137,7 +139,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
             loadBannerImages();
 
-            menuBannerDTOList=new ArrayList<HomeProductDTO>();
+            menuBannerDTOList=new ArrayList<BannerDTO>();
             menuBannerAdapter=new MenuBannerAdapter(this.getActivity(),menuBannerDTOList);
             recyclerViewHorizontal.setAdapter(menuBannerAdapter);
 
@@ -168,16 +170,16 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     private void loadBannerImages() {
 
         ApiInterface api=APIClientForBannerImages.getApiInterfaceForBannerImages();
-        Call<JSONResponseHomeBrandDTO> call=api.getAllBannerImages();
+        Call<JsonResponseForBannerDTO> call=api.getAllBannerImages();
 
-        call.enqueue(new Callback<JSONResponseHomeBrandDTO>() {
+        call.enqueue(new Callback<JsonResponseForBannerDTO>() {
             @Override
-            public void onResponse(Call<JSONResponseHomeBrandDTO> call, Response<JSONResponseHomeBrandDTO> response) {
+            public void onResponse(Call<JsonResponseForBannerDTO> call, Response<JsonResponseForBannerDTO> response) {
                 if(response.isSuccessful()){
 
-                    JSONResponseHomeBrandDTO jsonBannerResponse = response.body();
+                    JsonResponseForBannerDTO jsonBannerResponse = response.body();
 
-                    List<HomeProductDTO> bannerList = jsonBannerResponse.getRecords();
+                    List<BannerDTO> bannerList = jsonBannerResponse.getRecords();
 
                     menuBannerAdapter.setBannerImages(bannerList);
                     menuBannerAdapter.notifyDataSetChanged();
@@ -187,7 +189,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
             }
 
             @Override
-            public void onFailure(Call<JSONResponseHomeBrandDTO> call, Throwable t) {
+            public void onFailure(Call<JsonResponseForBannerDTO> call, Throwable t) {
 
             }
         });

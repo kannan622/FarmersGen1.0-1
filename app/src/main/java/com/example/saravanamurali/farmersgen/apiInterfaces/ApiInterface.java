@@ -29,6 +29,7 @@ import com.example.saravanamurali.farmersgen.models.JSONResponseToViewPastOrdere
 import com.example.saravanamurali.farmersgen.models.JSONResponseUpdateCartDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseViewCartOrdersatPaymentGateway;
 import com.example.saravanamurali.farmersgen.models.JsonOrderResponse;
+import com.example.saravanamurali.farmersgen.models.JsonResponseForBannerDTO;
 import com.example.saravanamurali.farmersgen.models.JsonResponseForBrandReview;
 import com.example.saravanamurali.farmersgen.models.LogOutDeviceIDDTO;
 import com.example.saravanamurali.farmersgen.models.MenuCartFragmentDTO;
@@ -79,7 +80,7 @@ public interface ApiInterface {
 
     //Get Banner Images
     @GET("fetch_banner.php")
-    Call<JSONResponseHomeBrandDTO> getAllBannerImages();
+    Call<JsonResponseForBannerDTO> getAllBannerImages();
 
 
     @POST("view-product.php")
