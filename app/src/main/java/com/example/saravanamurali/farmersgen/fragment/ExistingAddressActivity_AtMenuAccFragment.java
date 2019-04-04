@@ -47,7 +47,7 @@ public class ExistingAddressActivity_AtMenuAccFragment extends AppCompatActivity
         pincode = (TextView) findViewById(R.id.pinCodeMenuAcc);
         state=(TextView)findViewById(R.id.stateMenuAcc);
 
-        landMarkMenuAcc=(TextView)findViewById(R.id.landMarkMenuCart);
+        landMarkMenuAcc=(TextView)findViewById(R.id.landmarkViewMenuAcc);
         alternateMenuAcc=(TextView)findViewById(R.id.alternateMobileViewMenuAcc);
 
         changeAddressAtMenuCart = (Button) findViewById(R.id.changeAddressMenuAcc);

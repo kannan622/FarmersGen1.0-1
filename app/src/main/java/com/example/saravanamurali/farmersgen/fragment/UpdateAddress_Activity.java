@@ -256,8 +256,8 @@ public class UpdateAddress_Activity extends AppCompatActivity {
                         csprogress.dismiss();
                     }
 
-                    Intent CODDetails=new Intent(UpdateAddress_Activity.this,COD_Details_Activity.class);
-                    startActivity(CODDetails);
+                    Intent paymentGateActivity=new Intent(UpdateAddress_Activity.this,PaymentGatewayActivity.class);
+                    startActivity(paymentGateActivity);
 
                 }
 
