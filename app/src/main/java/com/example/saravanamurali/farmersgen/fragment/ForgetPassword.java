@@ -155,11 +155,15 @@ public class ForgetPassword extends AppCompatActivity {
                         menuHomeActivity.putExtra("CUR_USER_ID", signedInJSONResponse.getUser_ID());
 
                         startActivity(menuHomeActivity);
+                        finish();
                     }
 
 
                     Toast.makeText(ForgetPassword.this, "Sucesss", Toast.LENGTH_LONG).show();
                 } else {
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
                     Toast.makeText(ForgetPassword.this, "You have Entered Wrong Password", Toast.LENGTH_LONG).show();
                 }
 
@@ -229,6 +233,7 @@ public class ForgetPassword extends AppCompatActivity {
                     Intent otpIntent=new Intent(ForgetPassword.this,OTPActivity.class);
                     otpIntent.putExtra("MOBILENUM_TOCONFIR_PASSWORD",forgetPasswordMobileNumber);
                     startActivity(otpIntent);
+                    finish();
 
                 }
             }

@@ -82,7 +82,7 @@
             android:onClick="onClickLoginForgetPasswordAtViewCart"
             android:textColor="@color/app_black"
             android:textSize="@dimen/medium_font"
-            android:visibility="gone"
+            android:visibility="visible"
             />
 
         <Button

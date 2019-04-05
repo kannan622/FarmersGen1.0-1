@@ -233,6 +233,7 @@ public class OTPActivity extends AppCompatActivity {
                         Intent intent = new Intent(OTPActivity.this, NewPassAndConfirmPass.class);
                         intent.putExtra("MOBILENO_FROM_OTP", mobileNumberToSendOTP);
                         startActivity(intent);
+                        finish();
                     } else {
                        // if (jsonotpResponseFromOTPActivity.getStatus() == 500) {
 

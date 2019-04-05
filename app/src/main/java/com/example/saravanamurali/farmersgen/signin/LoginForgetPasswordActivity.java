@@ -135,6 +135,10 @@ public class LoginForgetPasswordActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<JSONResponseToSendMobileNoFromLoginForgetPasswordDTO> call, Throwable t) {
 
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
             }
         });
     }

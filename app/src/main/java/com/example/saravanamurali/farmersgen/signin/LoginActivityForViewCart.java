@@ -233,6 +233,8 @@ public class LoginActivityForViewCart extends AppCompatActivity {
     }*/
 
     public void onClickLoginForgetPasswordAtViewCart(View view) {
+        Intent loginForgetPasswordActivityAtViewCart = new Intent(LoginActivityForViewCart.this, LoginForgetPasswordActivityAtViewCart.class);
+        startActivity(loginForgetPasswordActivityAtViewCart);
     }
 
 

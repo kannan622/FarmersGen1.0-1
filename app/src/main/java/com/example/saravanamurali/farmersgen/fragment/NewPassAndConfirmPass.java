@@ -115,6 +115,7 @@ public class NewPassAndConfirmPass extends AppCompatActivity {
 
                         Intent loginActivity = new Intent(NewPassAndConfirmPass.this, LoginActivity.class);
                         startActivity(loginActivity);
+                        finish();
 
                     }
 

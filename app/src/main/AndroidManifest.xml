@@ -71,7 +71,10 @@
         <activity android:name=".fragment.UpdateAddress_MenuAccFragment" />
         <activity android:name=".fragment.CouponActivity" />
         <activity android:name=".review.BrandReviewActivity" />
-        <activity android:name=".review.ReviewPostActivity"></activity>
+        <activity android:name=".review.ReviewPostActivity" />
+        <activity android:name=".signin.LoginForgetPasswordActivityAtViewCart" />
+        <activity android:name=".signin.OTPActivityForLoginForgetPasswordAtViewCart" />
+        <activity android:name=".signin.NewPassAndConfirmPassForLoginForgetPassword_At_ViewCart"></activity>
     </application>
 
 </manifest>
