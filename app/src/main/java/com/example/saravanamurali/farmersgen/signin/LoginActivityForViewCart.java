@@ -206,12 +206,21 @@ public class LoginActivityForViewCart extends AppCompatActivity {
 
                     }
 
+                    else {
+                        if (csprogress.isShowing()) {
+                            csprogress.dismiss();
+                        }
+                        Toast.makeText(LoginActivityForViewCart.this, "You have Entered Wrong Mobile Number or Password!!!", Toast.LENGTH_LONG).show();
+                    }
+
 
 
                     }
             }
             @Override
             public void onFailure(Call<SignedInJSONResponse> call, Throwable t) {
+
+                Toast.makeText(LoginActivityForViewCart.this, "You have Entered Wrong Mobile Number or Password!!!", Toast.LENGTH_LONG).show();
 
                 if(csprogress.isShowing()){
                     csprogress.dismiss();
