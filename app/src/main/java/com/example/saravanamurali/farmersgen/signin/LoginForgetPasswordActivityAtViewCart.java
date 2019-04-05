@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
@@ -99,18 +100,28 @@ public class LoginForgetPasswordActivityAtViewCart extends AppCompatActivity {
         call.enqueue(new Callback<JSONResponseToSendMobileNoFromLoginForgetPasswordDTO>() {
             @Override
             public void onResponse(Call<JSONResponseToSendMobileNoFromLoginForgetPasswordDTO> call, Response<JSONResponseToSendMobileNoFromLoginForgetPasswordDTO> response) {
-                if(response.isSuccessful()) {
-
+                if (response.isSuccessful()) {
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
-                    Intent otpActivityforLoginForgetPasssordAtViewCart=new Intent(LoginForgetPasswordActivityAtViewCart.this,OTPActivityForLoginForgetPasswordAtViewCart.class);
-                    otpActivityforLoginForgetPasssordAtViewCart.putExtra("MOBILENO_FOR_LOGIN_FORGET_PASSWORD_AT_VIEWCART",logMMobileForForgetMobile_AtviewCart);
-                    startActivity(otpActivityforLoginForgetPasssordAtViewCart);
-                    finish();
+                    JSONResponseToSendMobileNoFromLoginForgetPasswordDTO jsonResponseToSendMobileNoFromLoginForgetPasswordDTO = response.body();
+
+                    if (jsonResponseToSendMobileNoFromLoginForgetPasswordDTO.getStatus() == 200) {
+
+                        Intent otpActivityforLoginForgetPasssordAtViewCart = new Intent(LoginForgetPasswordActivityAtViewCart.this, OTPActivityForLoginForgetPasswordAtViewCart.class);
+                        otpActivityforLoginForgetPasssordAtViewCart.putExtra("MOBILENO_FOR_LOGIN_FORGET_PASSWORD_AT_VIEWCART", logMMobileForForgetMobile_AtviewCart);
+                        startActivity(otpActivityforLoginForgetPasssordAtViewCart);
+                        finish();
+                    }
+
+                    else if(jsonResponseToSendMobileNoFromLoginForgetPasswordDTO.getStatus() == 500){
+
+                        Toast.makeText(LoginForgetPasswordActivityAtViewCart.this,"We dont have your mobile number please Signup",Toast.LENGTH_LONG).show();
+                    }
                 }
-                }
+            }
+
 
             @Override
             public void onFailure(Call<JSONResponseToSendMobileNoFromLoginForgetPasswordDTO> call, Throwable t) {

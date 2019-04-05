@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +41,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToCancelCou
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
 import com.example.saravanamurali.farmersgen.signin.LoginActivityForViewCart;
 import com.example.saravanamurali.farmersgen.signup.SignupActivity;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +63,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     // JSONResponseUpdateCartDTO jsonResponseUpdateCartDTO;
     //Coupon
     RelativeLayout showCouponLayout;
+
+    Dialog dialog;
 
     //Coupon Applied
     RelativeLayout couponAppliedBlock;
@@ -453,71 +457,79 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     //To Display list of ordered items in ViewCart Avtivity From ProductList Activity without COUPONID
     public void loadViewCartProductList() {
 
-        final ProgressDialog csprogress;
-        csprogress = new ProgressDialog(ViewCartActivity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
-        csprogress.setCanceledOnTouchOutside(false);
+        if (Network_config.is_Network_Connected_flag(getApplicationContext())) {
+
+            final ProgressDialog csprogress;
+            csprogress = new ProgressDialog(ViewCartActivity.this);
+            csprogress.setMessage("Loading...");
+            csprogress.show();
+            csprogress.setCanceledOnTouchOutside(false);
 
 
-        String ANDROID_MOBILE_ID = Settings.Secure.getString(context.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
+            String ANDROID_MOBILE_ID = Settings.Secure.getString(context.getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
 
-        // Toast.makeText(ViewCartActivity.this, "ViewCartResponseSuccessFirst", Toast.LENGTH_LONG).show();
+            // Toast.makeText(ViewCartActivity.this, "ViewCartResponseSuccessFirst", Toast.LENGTH_LONG).show();
 
-        System.out.println("I am Here" + ANDROID_MOBILE_ID);
+            System.out.println("I am Here" + ANDROID_MOBILE_ID);
 
-        ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
-        AddCartDTO loadFragment = new AddCartDTO(ANDROID_MOBILE_ID);
-        Call<JSONResponseViewCartListDTO> call = api.getViewCart(loadFragment);
+            ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
+            AddCartDTO loadFragment = new AddCartDTO(ANDROID_MOBILE_ID);
+            Call<JSONResponseViewCartListDTO> call = api.getViewCart(loadFragment);
 
-        call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
-            @Override
-            public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
-                System.out.println("Null Values");
-                if (response.isSuccessful()) {
+            call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
+                @Override
+                public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
+                    System.out.println("Null Values");
+                    if (response.isSuccessful()) {
+
+                        if (csprogress.isShowing()) {
+                            csprogress.dismiss();
+                        }
+
+
+                        JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
+                        List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
+
+                        GrandTotal = jsonResponseViewCartListDTO.getGrandTotal();
+                        System.out.println("GRANDTOTAL" + GrandTotal);
+
+
+                        viewCartAdapter.setData(viewCartProductListDTO);
+
+                        viewCartAdapter.notifyDataSetChanged();
+
+
+                    }
+
+
+                    toPayAmountTextView.setText(GrandTotal);
+                }
+
+
+                @Override
+                public void onFailure(Call<JSONResponseViewCartListDTO> call, Throwable t) {
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
+                    Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
 
-                    JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
-                    List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
-
-                    GrandTotal = jsonResponseViewCartListDTO.getGrandTotal();
-                    System.out.println("GRANDTOTAL" + GrandTotal);
-
-
-                    viewCartAdapter.setData(viewCartProductListDTO);
-
-                    viewCartAdapter.notifyDataSetChanged();
-
+                    // Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(),response.code(),Toast.LENGTH_LONG).show();
 
                 }
+            });
 
+        }
 
-                toPayAmountTextView.setText(GrandTotal);
-            }
-
-
-            @Override
-            public void onFailure(Call<JSONResponseViewCartListDTO> call, Throwable t) {
-
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
-
-                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
-
-                // Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                //Toast.makeText(getApplicationContext(),response.code(),Toast.LENGTH_LONG).show();
-
-            }
-        });
+        else {
+            Network_config.customAlert(dialog, getApplicationContext(), getResources().getString(R.string.app_name),
+                    getResources().getString(R.string.connection_message));
+        }
 
     }
-
 
     //To Display list of ordered items in ViewCart Avtivity From ProductList Activity with COUPONID
     private void loadViewCartProductListWithCouponID() {
