@@ -127,6 +127,7 @@ public class LoginForgetPasswordActivity extends AppCompatActivity {
                     Intent otpActivityforLoginForgetPasssord=new Intent(LoginForgetPasswordActivity.this,OTPActivityForLoginForgetPassword.class);
                     otpActivityforLoginForgetPasssord.putExtra("MOBILENO_FOR_LOGIN_FORGET_PASSWORD",logMMobileForForgetMobile);
                     startActivity(otpActivityforLoginForgetPasssord);
+                    finish();
                 }
 
             }

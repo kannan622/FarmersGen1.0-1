@@ -53,26 +53,26 @@ public class SplashActivity extends AppCompatActivity {
             deviceID = Settings.Secure.getString(SplashActivity.this.getContentResolver(),
                     Settings.Secure.ANDROID_ID);
 
-            /*SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+            SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
             currentUserAtSplashScreen = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
-            *//*final Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+            final Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
             startActivity(intent);
-*//*
+
             //Logged in user(User is there)
             if (deviceID != null && currentUserAtSplashScreen != NO_CURRENT_USER) {
-                final Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
-                startActivity(intent);
+                final Intent intentHome = new Intent(SplashActivity.this, HomeActivity.class);
+                startActivity(intentHome);
                 //Logged Out and First Time user
             } else if (deviceID != null && currentUserAtSplashScreen == NO_CURRENT_USER) {
                 final Intent loginIntent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
-            }*/
+            }
 
-            if(deviceID!=null){
+            /*if(deviceID!=null){
                 final Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
                 startActivity(intent);
 
-            }
+            }*/
 
         }
     }

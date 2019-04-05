@@ -16,6 +16,7 @@ import com.example.saravanamurali.farmersgen.models.JSONResponseForNPasswordAndC
 import com.example.saravanamurali.farmersgen.models.NewPassAndConfirmPassDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForNewPassAndConfirmPass;
 import com.example.saravanamurali.farmersgen.signin.LoginActivity;
+import com.example.saravanamurali.farmersgen.signup.Existing_User_NewPassAndConfirmPass_AtViewCartActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,6 +61,10 @@ public class NewPassAndConfirmPass extends AppCompatActivity {
 
         int nP = nPassword.length();
         int cP = cPassword.length();
+
+        if(nPassword.isEmpty() && cPassword.isEmpty()){
+            Toast.makeText(NewPassAndConfirmPass.this, "Password field should not Empty", Toast.LENGTH_SHORT).show();
+        }
 
         if (!nPassword.equals(cPassword)) {
             Toast.makeText(NewPassAndConfirmPass.this, "Password is not Match", Toast.LENGTH_SHORT).show();
