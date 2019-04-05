@@ -120,7 +120,7 @@ public class LoginForgetPasswordActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
 
                     if(csprogress.isShowing()){
-                        csprogress.dismiss();
+                         csprogress.dismiss();
                     }
 
                     Toast.makeText(LoginForgetPasswordActivity.this,"Success",Toast.LENGTH_LONG).show();
