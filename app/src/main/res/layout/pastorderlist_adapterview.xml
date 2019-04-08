@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="15dp"
+        android:layout_margin="1dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:transitionName="open_mediaplayer"
         card_view:cardCornerRadius="4dp"
@@ -25,25 +25,27 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="@dimen/ten_dp"
+                android:textColor="@color/FragmentGreen"
+                android:paddingTop="@dimen/five_dp"
+                android:layout_alignParentLeft="true"
                 android:text="Order#" />
 
             <TextView
                 android:id="@+id/pastOrderDateAdapterView"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/pastOrderNoAdapterView"
+                android:layout_centerInParent="true"
                 android:gravity="center"
-                android:padding="@dimen/ten_dp"
+                android:paddingTop="@dimen/five_dp"
                 android:text="Date" />
 
             <TextView
                 android:id="@+id/pastOrderGrandTotalAdapterView"
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/pastOrderDateAdapterView"
+                android:paddingTop="@dimen/five_dp"
+                android:layout_alignParentEnd="true"
                 android:gravity="center"
-                android:padding="@dimen/ten_dp"
                 android:text="Total" />
 
 

@@ -17,6 +17,7 @@
         android:text="Saravana Murali"
         android:textStyle="bold"
         android:textSize="@dimen/twenty_dp"
+        android:textColor="@color/FragmentGreen"
         android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 
@@ -29,13 +30,29 @@
     </android.support.v7.widget.RecyclerView>
 
     <TextView
-        android:id="@+id/orderedProductListGrandTotal"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:text="1000"
+        android:id="@+id/orderedProductListGrandTotalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grand Total"
         android:gravity="center"
+        android:layout_marginLeft="@dimen/ten_dp"
+        android:textColor="@color/colorPrimary"
         android:layout_below="@+id/orderedProductListViewR_View"
         android:layout_marginTop="@dimen/ten_dp"
+        android:layout_alignParentLeft="true"
+        />
+
+
+    <TextView
+        android:id="@+id/orderedProductListGrandTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1000"
+        android:gravity="center"
+        android:padding="@dimen/five_dp"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+        android:textStyle="bold"
+        android:layout_below="@+id/orderedProductListViewR_View"
         android:layout_alignParentRight="true"
         />
 

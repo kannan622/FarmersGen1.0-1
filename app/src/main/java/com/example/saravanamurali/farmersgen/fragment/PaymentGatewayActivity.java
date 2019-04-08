@@ -204,9 +204,23 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
+
                     }
 
                     JsonOrderResponse jsonOrderResponse=response.body();
+
+                    /*if(jsonOrderResponse.getResponseCode()=="200"){
+                        Toast.makeText(PaymentGatewayActivity.this,"Order Confirmed",Toast.LENGTH_LONG).show();
+                    }
+
+                    else if(jsonOrderResponse.getResponseCode()=="500"){
+                        Toast.makeText(PaymentGatewayActivity.this,"Due to Slow internet Connection unable to Checkout Please try again",Toast.LENGTH_LONG).show();
+
+                        loadViewCartProductList();
+                        if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+                    }*/
 
                     Intent thanksActivity=new Intent(PaymentGatewayActivity.this,ThanksActivity.class);
                     startActivity(thanksActivity);
@@ -214,7 +228,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
                     System.out.println("Order Confirmed");
 
-                    Toast.makeText(PaymentGatewayActivity.this,"Order Confirmed",Toast.LENGTH_LONG).show();
+
 
 
                                     }

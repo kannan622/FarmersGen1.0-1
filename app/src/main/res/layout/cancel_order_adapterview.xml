@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="15dp"
+        android:layout_margin="1dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:transitionName="open_mediaplayer"
         card_view:cardCornerRadius="4dp"
@@ -19,28 +19,25 @@
         <RelativeLayout
             android:id="@+id/orderCancelAdapterBlock"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            >
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/orderNoAdapterView"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="1dp"
-                android:layout_marginTop="5dp"
+                android:padding="@dimen/ten_dp"
+                android:layout_alignParentLeft="true"
                 android:gravity="center"
+                android:textColor="@color/FragmentGreen"
                 android:text="Order" />
 
             <TextView
                 android:id="@+id/orderDateAdapterView"
-                android:layout_width="100dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/orderNoAdapterView"
                 android:gravity="center"
-                android:padding="@dimen/five_dp"
-
-
+                android:padding="@dimen/ten_dp"
                 android:text="Date" />
 
             <TextView
@@ -49,18 +46,15 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/orderDateAdapterView"
                 android:gravity="center"
-                android:padding="@dimen/five_dp"
+                android:padding="@dimen/ten_dp"
                 android:text="Total" />
 
             <ImageView
                 android:id="@+id/ordercancelAdapterView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-
-
-                android:layout_toRightOf="@id/orderGrandTotalAdapterView"
-                android:padding="@dimen/five_dp"
+                android:layout_alignParentEnd="true"
+                android:padding="@dimen/ten_dp"
                 android:src="@drawable/delete" />
 
 
