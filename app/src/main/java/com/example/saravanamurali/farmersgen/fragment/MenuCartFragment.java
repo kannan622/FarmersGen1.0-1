@@ -149,36 +149,6 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
     }
 
-    //Get Address Id at MenuCartFragment
-    private void getAddressID() {
-        ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
-
-        SharedPreferences getCurUserAddressID = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
-        String curUserAtAddressId = getCurUserAddressID.getString("CURRENTUSER", NO_CURRENT_USER);
-
-        CurrentUserDTO currentUserDTO = new CurrentUserDTO(curUserAtAddressId);
-
-        Call<GetDeliveryAddressDTO> call = api.getExistingAddress(currentUserDTO);
-
-        call.enqueue(new Callback<GetDeliveryAddressDTO>() {
-            @Override
-            public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
-                if (response.isSuccessful()) {
-
-                    GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
-                    menuCartAddressID = getDeliveryAddressDTO.getAddressID();
-                    storeCurrentUserAddressID();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
-
-            }
-        });
-
-    }
 
     private void storeCurrentUserAddressID() {
 
@@ -401,6 +371,38 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
 
     }
+
+    //Get Address Id at MenuCartFragment
+    private void getAddressID() {
+        ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
+
+        SharedPreferences getCurUserAddressID = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String curUserAtAddressId = getCurUserAddressID.getString("CURRENTUSER", NO_CURRENT_USER);
+
+        CurrentUserDTO currentUserDTO = new CurrentUserDTO(curUserAtAddressId);
+
+        Call<GetDeliveryAddressDTO> call = api.getExistingAddress(currentUserDTO);
+
+        call.enqueue(new Callback<GetDeliveryAddressDTO>() {
+            @Override
+            public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
+                if (response.isSuccessful()) {
+
+                    GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
+                    menuCartAddressID = getDeliveryAddressDTO.getAddressID();
+                    storeCurrentUserAddressID();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
+
+            }
+        });
+
+    }
+
 
 
 }

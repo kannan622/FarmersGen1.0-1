@@ -11,18 +11,15 @@
         android:id="@+id/menuCartRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-
-        ></android.support.v7.widget.RecyclerView>
+        android:visibility="gone">
+    </android.support.v7.widget.RecyclerView>
 
     <ImageView
         android:id="@+id/emptyCartImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/empty_cart"
-
-        />
+        android:src="@drawable/empty_cart" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -69,8 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"
-                android:drawableRight="@drawable/rightarrow"
+                android:background="@color/FragmentGreen"
                 android:paddingLeft="100dp"
                 android:paddingRight="100dp"
                 android:text="@string/checkout"

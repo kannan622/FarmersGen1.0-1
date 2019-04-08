@@ -132,8 +132,6 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
     public void removeItem(int position) {
         viewCartProductListDTO.remove(position);
-
-
         notifyItemRemoved(position);
     }
 

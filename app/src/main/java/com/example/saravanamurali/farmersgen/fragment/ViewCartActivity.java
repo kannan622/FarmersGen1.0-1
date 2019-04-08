@@ -52,7 +52,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapter.ViewCartUpdateInterface, ViewCartAdapter.ViewCartDeleteInterface, RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
+public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapter.ViewCartUpdateInterface, ViewCartAdapter.ViewCartDeleteInterface {
+    // Implements swipe interface
+    //, RecyclerItemTouchHelper.RecyclerItemTouchHelperListener
 
     static TextView toPayAmountTextView;
     // TextView toPayT;
@@ -135,9 +137,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         cancelCoupon = (ImageView) findViewById(R.id.couponCodeCancel);
 
 
-
-
-
         cancelCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -191,11 +190,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
             showCouponLayout.setVisibility(View.GONE);
             couponAppliedBlock.setVisibility(View.VISIBLE);
-           couponCodeApplied.setText(curUser_Coupon_CODE);
+            couponCodeApplied.setText(curUser_Coupon_CODE);
 
         }
-
-
 
 
         //Get addressID for Existing User
@@ -276,7 +273,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             }
         });
 
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        /*ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerViewViewCart);
 
 
@@ -303,161 +300,12 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         // attaching the touch helper to recycler view
         new ItemTouchHelper(itemTouchHelperCallback1).attachToRecyclerView(recyclerViewViewCart);
-
+*/
     }
 
 
-
-    //Cancel coupon Code
-    private void deleteCouponCode() {
-
-        final ProgressDialog csprogress;
-        csprogress = new ProgressDialog(ViewCartActivity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
-        csprogress.setCanceledOnTouchOutside(false);
-
-
-        ApiInterface api = APIClientToCancelCouponCode.getApiInterfaceToCancelCouponCode();
-
-        //Current User
-        SharedPreferences getCurrentUser_ForDeleteCoupon = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
-        String curUserID_ForDeleteCoupon = getCurrentUser_ForDeleteCoupon.getString("CURRENTUSER", "NO_CURRENT_USER");
-
-        //Current Coupon ID
-        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
-        String curUserCouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
-
-
-        CancelCouponDTO cancelCouponDTO = new CancelCouponDTO(curUserID_ForDeleteCoupon, curUserCouponID);
-
-        Call<ResponseBody> call = api.cancelCoupon(cancelCouponDTO);
-
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-
-                    if(csprogress.isShowing()){
-                        csprogress.dismiss();
-                    }
-
-                    //Remove Current User COUPON ID From Shared Preferences
-                    SharedPreferences getCurrentUser_CouponID = getSharedPreferences("CURRENT_COUPON_ID", context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = getCurrentUser_CouponID.edit();
-                    editor.remove("COUPONID");
-                    editor.commit();
-
-
-                    //Remove Current User COUPON CODE From Shared Preferences
-                    SharedPreferences getCurrentUser_CouponCODE = getSharedPreferences("CURRENT_COUPON_CODE", context.MODE_PRIVATE);
-                    SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
-                    editorCode.remove("COUPON_CODE");
-                    editorCode.commit();
-
-                    showCouponLayout.setVisibility(View.VISIBLE);
-                    couponAppliedBlock.setVisibility(View.GONE);
-
-                    loadViewCartProductList();
-
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                if(csprogress.isShowing()){
-                    csprogress.dismiss();
-                }
-
-            }
-        });
-
-
-    }
-
-    private void proceedOffers() {
-
-        //Getting Current User
-        SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
-        String curUserToCheckOffer = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
-
-        if (!curUserToCheckOffer.equals(NO_CURRENT_USER)) {
-
-            Intent coupon = new Intent(ViewCartActivity.this, CouponActivity.class);
-            startActivity(coupon);
-        } else {
-
-            Toast toast = Toast.makeText(ViewCartActivity.this, "Please login to avil offer. To login Click on  CheckOut Button", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER, 0, 0);
-            toast.show();
-
-        }
-
-    }
-
-    //Get AddressID from Existing User
-    private void getAddressID() {
-
-        final ProgressDialog csprogress;
-        csprogress = new ProgressDialog(ViewCartActivity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
-        csprogress.setCanceledOnTouchOutside(false);
-
-
-        ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
-
-        SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
-
-        String curUser = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
-
-        CurrentUserDTO currentUserDTO = new CurrentUserDTO(curUser);
-
-        Call<GetDeliveryAddressDTO> call = api.getExistingAddress(currentUserDTO);
-
-        call.enqueue(new Callback<GetDeliveryAddressDTO>() {
-            @Override
-            public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
-
-                if (response.isSuccessful()) {
-
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-
-                    GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
-
-                    addressID = getDeliveryAddressDTO.getAddressID();
-
-                    SharedPreferences sharedPreferences = getSharedPreferences("ADDRESS_ID", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("ADDRESSID", addressID);
-                    editor.commit();
-
-
-                    System.out.println("CUreent user Address ID" + addressID);
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
-
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
-
-            }
-        });
-
-    }
-
-
-    //To Display list of ordered items in ViewCart Avtivity From ProductList Activity without COUPONID
-    public void loadViewCartProductList() {
-
-        if (Network_config.is_Network_Connected_flag(getApplicationContext())) {
+        //Cancel coupon Code
+        private void deleteCouponCode () {
 
             final ProgressDialog csprogress;
             csprogress = new ProgressDialog(ViewCartActivity.this);
@@ -466,27 +314,247 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             csprogress.setCanceledOnTouchOutside(false);
 
 
-            String ANDROID_MOBILE_ID = Settings.Secure.getString(context.getContentResolver(),
-                    Settings.Secure.ANDROID_ID);
+            ApiInterface api = APIClientToCancelCouponCode.getApiInterfaceToCancelCouponCode();
 
-            // Toast.makeText(ViewCartActivity.this, "ViewCartResponseSuccessFirst", Toast.LENGTH_LONG).show();
+            //Current User
+            SharedPreferences getCurrentUser_ForDeleteCoupon = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+            String curUserID_ForDeleteCoupon = getCurrentUser_ForDeleteCoupon.getString("CURRENTUSER", "NO_CURRENT_USER");
 
-            System.out.println("I am Here" + ANDROID_MOBILE_ID);
+            //Current Coupon ID
+            SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+            String curUserCouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
 
-            ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
-            AddCartDTO loadFragment = new AddCartDTO(ANDROID_MOBILE_ID);
-            Call<JSONResponseViewCartListDTO> call = api.getViewCart(loadFragment);
 
-            call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
+            CancelCouponDTO cancelCouponDTO = new CancelCouponDTO(curUserID_ForDeleteCoupon, curUserCouponID);
+
+            Call<ResponseBody> call = api.cancelCoupon(cancelCouponDTO);
+
+            call.enqueue(new Callback<ResponseBody>() {
                 @Override
-                public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
-                    System.out.println("Null Values");
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
 
                         if (csprogress.isShowing()) {
                             csprogress.dismiss();
                         }
 
+                        //Remove Current User COUPON ID From Shared Preferences
+                        SharedPreferences getCurrentUser_CouponID = getSharedPreferences("CURRENT_COUPON_ID", context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = getCurrentUser_CouponID.edit();
+                        editor.remove("COUPONID");
+                        editor.commit();
+
+
+                        //Remove Current User COUPON CODE From Shared Preferences
+                        SharedPreferences getCurrentUser_CouponCODE = getSharedPreferences("CURRENT_COUPON_CODE", context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
+                        editorCode.remove("COUPON_CODE");
+                        editorCode.commit();
+
+                        showCouponLayout.setVisibility(View.VISIBLE);
+                        couponAppliedBlock.setVisibility(View.GONE);
+
+                        loadViewCartProductList();
+
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+                }
+            });
+
+
+        }
+
+        private void proceedOffers () {
+
+            //Getting Current User
+            SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+            String curUserToCheckOffer = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+            if (!curUserToCheckOffer.equals(NO_CURRENT_USER)) {
+
+                Intent coupon = new Intent(ViewCartActivity.this, CouponActivity.class);
+                startActivity(coupon);
+            } else {
+
+                Toast toast = Toast.makeText(ViewCartActivity.this, "Please login to avil offer. To login Click on  CheckOut Button", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER, 0, 0);
+                toast.show();
+
+            }
+
+        }
+
+        //Get AddressID from Existing User
+        private void getAddressID () {
+
+            final ProgressDialog csprogress;
+            csprogress = new ProgressDialog(ViewCartActivity.this);
+            csprogress.setMessage("Loading...");
+            csprogress.show();
+            csprogress.setCanceledOnTouchOutside(false);
+
+
+            ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
+
+            SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+
+            String curUser = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+            CurrentUserDTO currentUserDTO = new CurrentUserDTO(curUser);
+
+            Call<GetDeliveryAddressDTO> call = api.getExistingAddress(currentUserDTO);
+
+            call.enqueue(new Callback<GetDeliveryAddressDTO>() {
+                @Override
+                public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
+
+                    if (response.isSuccessful()) {
+
+                        if (csprogress.isShowing()) {
+                            csprogress.dismiss();
+                        }
+
+                        GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
+
+                        addressID = getDeliveryAddressDTO.getAddressID();
+
+                        SharedPreferences sharedPreferences = getSharedPreferences("ADDRESS_ID", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("ADDRESSID", addressID);
+                        editor.commit();
+
+
+                        System.out.println("CUreent user Address ID" + addressID);
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+                }
+            });
+
+        }
+
+
+        //To Display list of ordered items in ViewCart Avtivity From ProductList Activity without COUPONID
+        public void loadViewCartProductList () {
+
+            if (Network_config.is_Network_Connected_flag(getApplicationContext())) {
+
+                final ProgressDialog csprogress;
+                csprogress = new ProgressDialog(ViewCartActivity.this);
+                csprogress.setMessage("Loading...");
+                csprogress.show();
+                csprogress.setCanceledOnTouchOutside(false);
+
+
+                String ANDROID_MOBILE_ID = Settings.Secure.getString(context.getContentResolver(),
+                        Settings.Secure.ANDROID_ID);
+
+                // Toast.makeText(ViewCartActivity.this, "ViewCartResponseSuccessFirst", Toast.LENGTH_LONG).show();
+
+                System.out.println("I am Here" + ANDROID_MOBILE_ID);
+
+                ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
+                AddCartDTO loadFragment = new AddCartDTO(ANDROID_MOBILE_ID);
+                Call<JSONResponseViewCartListDTO> call = api.getViewCart(loadFragment);
+
+                call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
+                    @Override
+                    public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
+                        System.out.println("Null Values");
+                        if (response.isSuccessful()) {
+
+                            if (csprogress.isShowing()) {
+                                csprogress.dismiss();
+                            }
+
+
+                            JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
+                            List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
+
+                            GrandTotal = jsonResponseViewCartListDTO.getGrandTotal();
+                            System.out.println("GRANDTOTAL" + GrandTotal);
+
+
+                            viewCartAdapter.setData(viewCartProductListDTO);
+
+                            viewCartAdapter.notifyDataSetChanged();
+
+
+                        }
+
+
+                        toPayAmountTextView.setText(GrandTotal);
+                    }
+
+
+                    @Override
+                    public void onFailure(Call<JSONResponseViewCartListDTO> call, Throwable t) {
+
+                        if (csprogress.isShowing()) {
+                            csprogress.dismiss();
+                        }
+
+                        Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
+
+                        // Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(),response.code(),Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+            } else {
+                Network_config.customAlert(dialog, getApplicationContext(), getResources().getString(R.string.app_name),
+                        getResources().getString(R.string.connection_message));
+            }
+
+        }
+
+        //To Display list of ordered items in ViewCart Avtivity From ProductList Activity with COUPONID
+        private void loadViewCartProductListWithCouponID () {
+
+
+            final ProgressDialog csprogress;
+            csprogress = new ProgressDialog(ViewCartActivity.this);
+            csprogress.setMessage("Loading...");
+            csprogress.show();
+            csprogress.setCanceledOnTouchOutside(false);
+
+            SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
+            String curUser_CouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
+
+            String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+
+            ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
+
+            AddCartDTO loadViewCartWithCouponID = new AddCartDTO(ANDROID_MOBILE_ID, curUser_CouponID);
+            Call<JSONResponseViewCartListDTO> call = api.getViewCartWithCouponID(loadViewCartWithCouponID);
+
+            call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
+                @Override
+                public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
+
+                    if (response.isSuccessful()) {
+
+                        if (csprogress.isShowing()) {
+                            csprogress.dismiss();
+                        }
 
                         JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
                         List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
@@ -503,9 +571,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     }
 
 
-                    toPayAmountTextView.setText(GrandTotal);
                 }
-
 
                 @Override
                 public void onFailure(Call<JSONResponseViewCartListDTO> call, Throwable t) {
@@ -514,225 +580,153 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                         csprogress.dismiss();
                     }
 
-                    Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
-
-                    // Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                    //Toast.makeText(getApplicationContext(),response.code(),Toast.LENGTH_LONG).show();
-
                 }
             });
 
+
         }
 
-        else {
-            Network_config.customAlert(dialog, getApplicationContext(), getResources().getString(R.string.app_name),
-                    getResources().getString(R.string.connection_message));
-        }
 
-    }
+        //Update Count in ViewCart
+        @Override
+        public void viewCartUpdateInterface ( int viewCartCount, String viewCartProductCode, String
+        viewCartProductPrice){
 
-    //To Display list of ordered items in ViewCart Avtivity From ProductList Activity with COUPONID
-    private void loadViewCartProductListWithCouponID() {
+            final ProgressDialog csprogress;
+            csprogress = new ProgressDialog(ViewCartActivity.this);
+            csprogress.setMessage("Loading...");
+            csprogress.show();
+            csprogress.setCanceledOnTouchOutside(false);
+
+            String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+
+            String count = String.valueOf(viewCartCount);
+            ViewCartUpdateDTO viewCartUpdateDTO = new ViewCartUpdateDTO(count, viewCartProductCode, viewCartProductPrice, ANDROID_MOBILE_ID);
+
+            ApiInterface api = APIClientForUpdateCountInViewCart.getAPIClientForUpdateCountInViewCartInterface();
+
+            Call<JSONResponseUpdateCartDTO> call = api.updateCountatAtViewCart(viewCartUpdateDTO);
+
+            call.enqueue(new Callback<JSONResponseUpdateCartDTO>() {
+                @Override
+                public void onResponse(Call<JSONResponseUpdateCartDTO> call, Response<JSONResponseUpdateCartDTO> response) {
+
+                    //  if(response.isSuccessful()){
+
+                    // JSONResponseUpdateCartDTO  jsonResponseUpdateCartDTO=response.body();
+
+                    if (response.isSuccessful()) {
+                        if (csprogress.isShowing()) {
+                            csprogress.dismiss();
+                        }
+                        JSONResponseUpdateCartDTO jsonResponseUpdateCartDTO = response.body();
+                        //(jsonResponseUpdateCartDTO.getUpdateSuccess().getResponseCode()=="200")
+                        System.out.println("Update Total Price" + jsonResponseUpdateCartDTO.getUpdateTotalPrice());
+
+                        viewCartAdapter.setUpdateTotalPrice(jsonResponseUpdateCartDTO);
+
+                        GrandTotal = jsonResponseUpdateCartDTO.getGrandTotal();
+
+                    }
 
 
-        final ProgressDialog csprogress;
-        csprogress = new ProgressDialog(ViewCartActivity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
-        csprogress.setCanceledOnTouchOutside(false);
+                    toPayAmountTextView.setText(GrandTotal);
 
-        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
-        String curUser_CouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
+                }
 
-        String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
 
-        ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
+                @Override
+                public void onFailure(Call<JSONResponseUpdateCartDTO> call, Throwable t) {
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+                }
+            });
 
-        AddCartDTO loadViewCartWithCouponID = new AddCartDTO(ANDROID_MOBILE_ID,curUser_CouponID);
-        Call<JSONResponseViewCartListDTO> call = api.getViewCartWithCouponID(loadViewCartWithCouponID);
 
-        call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
-            @Override
-            public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
+        }//// End of Update Count in ViewCart
 
-                if (response.isSuccessful()) {
+
+        //Delete Count in ViewCart when it reaches zero
+        @Override
+        public void viewCartDeleteInterface (String produceDecCode){
+
+            final ProgressDialog csprogress;
+            csprogress = new ProgressDialog(ViewCartActivity.this);
+            csprogress.setMessage("Loading...");
+            csprogress.show();
+            csprogress.setCanceledOnTouchOutside(false);
+            String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+
+            ApiInterface api = APIClientForDeleteItemInViewCart.getApiInterfaceForDeleteItemFromViewCart();
+
+            ViewCartUpdateDTO viewCartUpdateDTO = new ViewCartUpdateDTO(produceDecCode, ANDROID_MOBILE_ID);
+
+            Call<JSONResponseDeleteCartDTO> call = api.deleteItemFromViewCart(viewCartUpdateDTO);
+
+            call.enqueue(new Callback<JSONResponseDeleteCartDTO>() {
+                @Override
+                public void onResponse(Call<JSONResponseDeleteCartDTO> call, Response<JSONResponseDeleteCartDTO> response) {
+
+
+                    JSONResponseDeleteCartDTO jsonResponseDeleteCartDTO = response.body();
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
-
-                    JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
-                    List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
-
-                    GrandTotal = jsonResponseViewCartListDTO.getGrandTotal();
-                    System.out.println("GRANDTOTAL" + GrandTotal);
-
-
-                    viewCartAdapter.setData(viewCartProductListDTO);
-
-                    viewCartAdapter.notifyDataSetChanged();
-
-
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<JSONResponseViewCartListDTO> call, Throwable t) {
-
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
-
-            }
-        });
-
-
-
-    }
-
-
-    //Update Count in ViewCart
-    @Override
-    public void viewCartUpdateInterface(int viewCartCount, String viewCartProductCode, String viewCartProductPrice) {
-
-        final ProgressDialog csprogress;
-        csprogress = new ProgressDialog(ViewCartActivity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
-        csprogress.setCanceledOnTouchOutside(false);
-
-        String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-
-        String count = String.valueOf(viewCartCount);
-        ViewCartUpdateDTO viewCartUpdateDTO = new ViewCartUpdateDTO(count, viewCartProductCode, viewCartProductPrice, ANDROID_MOBILE_ID);
-
-        ApiInterface api = APIClientForUpdateCountInViewCart.getAPIClientForUpdateCountInViewCartInterface();
-
-        Call<JSONResponseUpdateCartDTO> call = api.updateCountatAtViewCart(viewCartUpdateDTO);
-
-        call.enqueue(new Callback<JSONResponseUpdateCartDTO>() {
-            @Override
-            public void onResponse(Call<JSONResponseUpdateCartDTO> call, Response<JSONResponseUpdateCartDTO> response) {
-
-                //  if(response.isSuccessful()){
-
-                // JSONResponseUpdateCartDTO  jsonResponseUpdateCartDTO=response.body();
-
-                if (response.isSuccessful()) {
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-                    JSONResponseUpdateCartDTO jsonResponseUpdateCartDTO = response.body();
-                    //(jsonResponseUpdateCartDTO.getUpdateSuccess().getResponseCode()=="200")
-                    System.out.println("Update Total Price" + jsonResponseUpdateCartDTO.getUpdateTotalPrice());
-
-                    viewCartAdapter.setUpdateTotalPrice(jsonResponseUpdateCartDTO);
-
-                    GrandTotal = jsonResponseUpdateCartDTO.getGrandTotal();
-
-                }
-
-
-                toPayAmountTextView.setText(GrandTotal);
-
-            }
-
-
-            @Override
-            public void onFailure(Call<JSONResponseUpdateCartDTO> call, Throwable t) {
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
-            }
-        });
-
-
-    }//// End of Update Count in ViewCart
-
-
-    //Delete Count in ViewCart when it reaches zero
-    @Override
-    public void viewCartDeleteInterface(String produceDecCode) {
-
-        final ProgressDialog csprogress;
-        csprogress = new ProgressDialog(ViewCartActivity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
-        csprogress.setCanceledOnTouchOutside(false);
-        String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-
-        ApiInterface api = APIClientForDeleteItemInViewCart.getApiInterfaceForDeleteItemFromViewCart();
-
-        ViewCartUpdateDTO viewCartUpdateDTO = new ViewCartUpdateDTO(produceDecCode, ANDROID_MOBILE_ID);
-
-        Call<JSONResponseDeleteCartDTO> call = api.deleteItemFromViewCart(viewCartUpdateDTO);
-
-        call.enqueue(new Callback<JSONResponseDeleteCartDTO>() {
-            @Override
-            public void onResponse(Call<JSONResponseDeleteCartDTO> call, Response<JSONResponseDeleteCartDTO> response) {
-
-
-                JSONResponseDeleteCartDTO jsonResponseDeleteCartDTO = response.body();
-
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
 
               /*  recyclerViewViewCart.getRecycledViewPool().clear();
                 viewCartAdapter.notifyDataSetChanged();*/
 
-                GrandTotal = jsonResponseDeleteCartDTO.getDeleteGrandTotal();
+                    GrandTotal = jsonResponseDeleteCartDTO.getDeleteGrandTotal();
 
-                int toPayCheck = 0;
-                if (GrandTotal == null) {
-                    toPayCheck = 0;
-                } else {
-                    toPayCheck = Integer.parseInt(GrandTotal);
+                    int toPayCheck = 0;
+                    if (GrandTotal == null) {
+                        toPayCheck = 0;
+                    } else {
+                        toPayCheck = Integer.parseInt(GrandTotal);
+                    }
+                    if (toPayCheck > 0) {
+
+                        toPayAmountTextView.setText(GrandTotal);
+                    } else {
+                        toPayAmountTextView.setText("");
+                        // toPayT.setVisibility(View.GONE);
+                        showCouponLayout.setVisibility(View.GONE);
+                        emptViewCartImage.setVisibility(View.VISIBLE);
+                        proceedButton.setVisibility(View.GONE);
+
+                    }
+
                 }
-                if (toPayCheck > 0) {
 
-                    toPayAmountTextView.setText(GrandTotal);
-                } else {
-                    toPayAmountTextView.setText("");
-                    // toPayT.setVisibility(View.GONE);
-                    showCouponLayout.setVisibility(View.GONE);
-                    emptViewCartImage.setVisibility(View.VISIBLE);
-                    proceedButton.setVisibility(View.GONE);
-
+                @Override
+                public void onFailure(Call<JSONResponseDeleteCartDTO> call, Throwable t) {
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
                 }
-
-            }
-
-            @Override
-            public void onFailure(Call<JSONResponseDeleteCartDTO> call, Throwable t) {
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
-            }
-        });
+            });
 
 
-    } //End of Delete Count in ViewCart when it reaches zero
+        } //End of Delete Count in ViewCart when it reaches zero
 
 
-    public void offers(View view) {
+    /*public void offers(View view) {
         Toast.makeText(ViewCartActivity.this, "Offers Clicked", Toast.LENGTH_LONG).show();
-    }
+    }*/
 
-    @Override
+   /* @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof ViewCartAdapter.ViewCartHolder) {
             // get the removed item name to display it in snack bar
             // String name = viewCartDTOList.get(viewHolder.getAdapterPosition()).getProduct_Name();
 
             // backup of removed item for undo purpose
-          /*  final ViewCartDTO deletedItem = viewCartDTOList.get(viewHolder.getAdapterPosition());
-            final int deletedIndex = viewHolder.getAdapterPosition();*/
+          *//*  final ViewCartDTO deletedItem = viewCartDTOList.get(viewHolder.getAdapterPosition());
+            final int deletedIndex = viewHolder.getAdapterPosition();*//*
 
             // remove the item from recycler view
 
@@ -740,22 +734,19 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             viewCartAdapter.removeItem1(viewHolder.getAdapterPosition());
 
             // showing snack bar with Undo option
-           /* Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, name + " removed from cart!", Snackbar.LENGTH_LONG);*/
-          /*  snackbar.setAction("UNDO", new View.OnClickListener() {
+           *//* Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, name + " removed from cart!", Snackbar.LENGTH_LONG);*//*
+         *//*  snackbar.setAction("UNDO", new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     // undo is selected, restore the deleted item
                     viewCartAdapter.restoreItem(deletedItem, deletedIndex);
                 }
-            });*/
-            /*snackbar.setActionTextColor(Color.YELLOW);
-            snackbar.show();*/
+            });*//*
+         *//*snackbar.setActionTextColor(Color.YELLOW);
+            snackbar.show();*//*
         }
+    }*/
     }
-}
-
-
-
 

@@ -59,7 +59,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:onClick="offers"
                 android:orientation="horizontal"
                 android:background="@color/gray"
                 android:padding="@dimen/ten_dp"
@@ -174,7 +173,6 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="Checkout"
-
                     android:textColor="@color/FragmentGreen"
                     android:textSize="14dp"
                     android:textStyle="bold" />
