@@ -30,6 +30,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForDeleteItemInCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForUpdateCountInCart;
 import com.example.saravanamurali.farmersgen.review.BrandReviewActivity;
+import com.example.saravanamurali.farmersgen.util.ProgressThread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +127,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         super.onResume();
 
         //Guest User
+        //Display all products list from Brand
         loadRetrofitProductList();
 
         productListDTOList = new ArrayList<ProductListDTO>();
@@ -182,11 +184,13 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                     String product_Image = productListDTO.get(i).getProductImage();
                     String product_Price = productListDTO.get(i).getProductPrice();
                     String count = productListDTO.get(i).getCount();
+                    String productQuatity=productListDTO.get(i).getProductQuantity();
+                    String productActualPrice=productListDTO.get(i).getAcutalPrice();
 
                     if (count != null && !count.isEmpty())
                         totalCount = totalCount + Integer.parseInt(count);
 
-                    ProductListDTO productList = new ProductListDTO(pro_Code, count, product_Name, product_Image, product_Price);
+                    ProductListDTO productList = new ProductListDTO(pro_Code, count, product_Name, product_Image, product_Price,productQuatity,productActualPrice);
                     productListDTOList.add(productList);
                     // System.out.println("Product Name of Every Product" + product_Name);
                 }
@@ -267,6 +271,10 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
                 if (response.isSuccessful()) {
 
+                    //Thread to slow the process
+                    ProgressThread progressThread=new ProgressThread();
+                    progressThread.run();
+
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
                     }
@@ -323,6 +331,11 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
 
+                    //Thread to slow the process
+                    ProgressThread progressThread=new ProgressThread();
+                    progressThread.run();
+
+
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
                     }
@@ -370,6 +383,11 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+
+                    //Thread to slow the process
+                    ProgressThread progressThread=new ProgressThread();
+                    progressThread.run();
+
 
                     if(csprogress.isShowing()){
                         csprogress.dismiss();

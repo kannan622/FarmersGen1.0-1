@@ -111,8 +111,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public void onBindViewHolder(@NonNull ProductListAdapterViewHolder holder, int position) {
 
         holder.productListName.setText(productListDTOList.get(position).getProductName());
+
         holder.productListPrice.setText("₹ " + productListDTOList.get(position).getProductPrice());
-        holder.list_actualprice.setText("₹ 100");
+        holder.productQuantity.setText(""+productListDTOList.get(position).getProductQuantity());
+        holder.list_actualprice.setText("₹"+productListDTOList.get(position).getAcutalPrice());
         Picasso.with(mListContext).load(productListDTOList.get(position).getProductImage()).into(holder.productListImage);
 
         int finalCount = 0;
@@ -196,7 +198,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         ImageView productListImage;
         TextView productListName;
       //  ImageView productListIndianRupee;
-        TextView productListPrice,list_actualprice;
+        TextView productListPrice,list_actualprice,productQuantity;
 
         Button addButton;
         ImageView incButton;
@@ -206,6 +208,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         public ProductListAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            productQuantity=itemView.findViewById(R.id.product_quantity_avaliable);
 
             productListImage = itemView.findViewById(R.id.listProductImage);
             productListName = itemView.findViewById(R.id.listProductName);
