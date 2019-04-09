@@ -62,6 +62,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     static ViewCartAdapter viewCartAdapter;
     private static Context context = null;
     TextView proceedButton;
+
+
+    RelativeLayout bottomView;
+
     // JSONResponseUpdateCartDTO jsonResponseUpdateCartDTO;
     //Coupon
     RelativeLayout showCouponLayout;
@@ -125,6 +129,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         proceedButton = (TextView) findViewById(R.id.viewCartProceed);
         toPayAmountTextView = (TextView) findViewById(R.id.toPayAmount);
         //coordinatorLayout = findViewById(R.id.coordinator_layout);
+
+        bottomView=(RelativeLayout)findViewById(R.id.bottom);
 
         //toPayT=(TextView)findViewById(R.id.toPay);
         emptViewCartImage = (ImageView) findViewById(R.id.emptyViewCartImage);
@@ -691,12 +697,14 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     if (toPayCheck > 0) {
 
                         toPayAmountTextView.setText(GrandTotal);
+                        bottomView.setVisibility(View.VISIBLE);
                     } else {
                         toPayAmountTextView.setText("");
                         // toPayT.setVisibility(View.GONE);
                         showCouponLayout.setVisibility(View.GONE);
                         emptViewCartImage.setVisibility(View.VISIBLE);
                         proceedButton.setVisibility(View.GONE);
+                        bottomView.setVisibility(View.GONE);
 
                     }
 

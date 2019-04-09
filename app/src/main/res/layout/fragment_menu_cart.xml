@@ -3,78 +3,179 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     tools:context=".fragment.MenuCartFragment">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/menuCartRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-    </android.support.v7.widget.RecyclerView>
-
-    <ImageView
-        android:id="@+id/emptyCartImage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:src="@drawable/empty_cart" />
-
-    <android.support.v4.widget.NestedScrollView
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="55dp"
-        android:fillViewport="true"
-
-        android:overScrollMode="never"
-        android:scrollbars="none"
+        android:background="@color/unknown"
+        tools:context=".fragment.MenuCartFragment">
 
 
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/activity_cart_list"
 
-        <RelativeLayout
-            android:id="@+id/rel1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="#f2f2f2"
+            android:paddingTop="7dp"
+            tools:context=".fragment.MenuCartFragment">
 
-            <TextView
-                android:id="@+id/m_CartToPay"
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/menuCartCheckOut"
-                android:layout_marginBottom="@dimen/ten_dp"
-                android:text="To Pay"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/m_CartToPayAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/menuCartCheckOut"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="@dimen/ten_dp"
-                android:text="200"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_MenuCart"
+                    android:layout_width="match_parent"
+                    android:layout_height="430dp"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="25px" />
 
-            <Button
-                android:id="@+id/menuCartCheckOut"
+            </RelativeLayout>
+
+            <!--Offers Code-->
+           <!-- <RelativeLayout
+                android:id="@+id/coupon_MenuCart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:background="@color/gray"
+                android:padding="@dimen/ten_dp"
+                android:layout_above="@id/bottom_menuCart"
+                android:gravity="bottom"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:id="@+id/applyCouponText_MenuCart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="APPLY COUPON"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+                    />
+
+                <ImageView
+                    android:id="@+id/offersArrow_MenuCart"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/profilerightarrow"
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/couponAppliedBlock_MenuCart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:background="@color/gray"
+                android:padding="@dimen/ten_dp"
+                android:layout_above="@id/bottom_menuCart"
+                android:gravity="bottom"
+                >
+
+                <TextView
+                    android:id="@+id/couponCode_MenuCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="ORDER50"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
+
+
+                <ImageView
+                    android:id="@+id/couponCodeCancelMenuCart"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_cancel" />
+
+            </RelativeLayout>-->
+            <!--End Offers Code-->
+
+
+            <RelativeLayout
+                android:id="@+id/bottom_menuCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_weight="1"
+                android:layout_gravity="bottom"
                 android:background="@color/FragmentGreen"
-                android:paddingLeft="100dp"
-                android:paddingRight="100dp"
-                android:text="@string/checkout"
-                android:textColor="@color/white" />
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/five_dp"
+                    android:textSize="16dp"
+                    android:textColor="@color/white"
+                    />
+
+                <TextView
+                    android:id="@+id/m_CartToPayAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    android:layout_marginLeft="@dimen/fifteen_dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/CheckOut_MenuCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/rounder_themecolor"
+                    android:padding="15dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Checkout"
+                    android:textColor="@color/FragmentGreen"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
 
         </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
 
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/emptyMenuCartImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/empty_cart"
+            android:visibility="gone" />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
 
