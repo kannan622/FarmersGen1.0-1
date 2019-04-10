@@ -295,6 +295,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
                 Toast.makeText(Product_List_Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
 
+                Toast.makeText(Product_List_Activity.this,"I am here"+t.getMessage(), Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -339,6 +341,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
                     }
+
+
 
                     // Toast.makeText(Product_List_Activity.this,"Success",Toast.LENGTH_LONG).show();
                 } else {
@@ -392,6 +396,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
                     }
+
+
                     // Toast.makeText(Product_List_Activity.this,"Deleted",Toast.LENGTH_LONG).show();
                 }
             }

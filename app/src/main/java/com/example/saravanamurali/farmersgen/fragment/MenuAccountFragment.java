@@ -493,7 +493,6 @@ public class MenuAccountFragment extends Fragment {
         SharedPreferences deleteCartUsingCurrentUSer = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
         String deletecart = deleteCartUsingCurrentUSer.getString("CURRENTUSER", NO_CURRENT_USER);
 
-        System.out.println(deletecart);
 
         //Remove Current User From Shared Preferences
         SharedPreferences getCurrentUser = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -501,11 +500,21 @@ public class MenuAccountFragment extends Fragment {
         editor.remove("CURRENTUSER");
         editor.commit();
 
-        clearAllItemsAtAddCartTableUsingDeviceID();
+        //Remove Current User COUPON ID From Shared Preferences
+        SharedPreferences getCurrentUser_CouponID = this.getActivity().getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+        SharedPreferences.Editor editorID = getCurrentUser_CouponID.edit();
+        editor.remove("COUPONID");
+        editor.commit();
 
-        /*Intent loginIntent = new Intent(getActivity(), MenuAccountFragmentLoginActivity.class);
-        startActivity(loginIntent);
-*/
+
+        //Remove Current User COUPON CODE From Shared Preferences
+        SharedPreferences getCurrentUser_CouponCODE = this.getActivity().getSharedPreferences("CURRENT_COUPON_CODE", MODE_PRIVATE);
+        SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
+        editorCode.remove("COUPON_CODE");
+        editorCode.commit();
+
+
+        clearAllItemsAtAddCartTableUsingDeviceID();
 
     }
 

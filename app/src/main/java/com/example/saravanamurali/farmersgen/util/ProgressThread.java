@@ -7,7 +7,7 @@ public class  ProgressThread extends Thread {
        for(int count=0;count<=2;count++){
 
            try {
-               Thread.sleep(200);
+               Thread.sleep(800);
            } catch (InterruptedException e) {
                e.printStackTrace();
            }

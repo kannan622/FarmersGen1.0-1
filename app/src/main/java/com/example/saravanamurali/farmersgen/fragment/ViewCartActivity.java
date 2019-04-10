@@ -42,6 +42,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExisti
 import com.example.saravanamurali.farmersgen.signin.LoginActivityForViewCart;
 import com.example.saravanamurali.farmersgen.signup.SignupActivity;
 import com.example.saravanamurali.farmersgen.util.Network_config;
+import com.example.saravanamurali.farmersgen.util.ProgressThread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -165,17 +166,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         //loadViewCartProductList();
 
-        //Data From Coupon Activity
-        /*Intent getCouponIntent = getIntent();
-        String applied_Coupon_Code = getCouponIntent.getStringExtra("COUPON_CODE");
-        String apply_CouponID = getCouponIntent.getStringExtra("COUPON_ID");*/
 
-
-        /*SharedPreferences current_CouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editorID = current_CouponID.edit();
-        editorID.putString("COUPONID", apply_CouponID);
-        editorID.commit();
-*/
         SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
         String curUser_CouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
 
@@ -340,6 +331,11 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
 
+                        //Thread to slow the process
+                        ProgressThread progressThread=new ProgressThread();
+                        progressThread.run();
+
+
                         if (csprogress.isShowing()) {
                             csprogress.dismiss();
                         }
@@ -390,7 +386,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 startActivity(coupon);
             } else {
 
-                Toast toast = Toast.makeText(ViewCartActivity.this, "Please login to avil offer. To login Click on  CheckOut Button", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(ViewCartActivity.this, "Please login to get offer. To login Click on  CheckOut Button", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER, 0, 0);
                 toast.show();
 
@@ -398,62 +394,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         }
 
-        //Get AddressID from Existing User
-        private void getAddressID () {
-
-            final ProgressDialog csprogress;
-            csprogress = new ProgressDialog(ViewCartActivity.this);
-            csprogress.setMessage("Loading...");
-            csprogress.show();
-            csprogress.setCanceledOnTouchOutside(false);
-
-
-            ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
-
-            SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
-
-            String curUser = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
-
-            CurrentUserDTO currentUserDTO = new CurrentUserDTO(curUser);
-
-            Call<GetDeliveryAddressDTO> call = api.getExistingAddress(currentUserDTO);
-
-            call.enqueue(new Callback<GetDeliveryAddressDTO>() {
-                @Override
-                public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
-
-                    if (response.isSuccessful()) {
-
-                        if (csprogress.isShowing()) {
-                            csprogress.dismiss();
-                        }
-
-                        GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
-
-                        addressID = getDeliveryAddressDTO.getAddressID();
-
-                        SharedPreferences sharedPreferences = getSharedPreferences("ADDRESS_ID", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("ADDRESSID", addressID);
-                        editor.commit();
-
-
-                        System.out.println("CUreent user Address ID" + addressID);
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
-
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-
-                }
-            });
-
-        }
 
 
         //To Display list of ordered items in ViewCart Avtivity From ProductList Activity without COUPONID
@@ -484,6 +424,11 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
                         System.out.println("Null Values");
                         if (response.isSuccessful()) {
+
+                            //Thread to slow the process
+                            ProgressThread progressThread=new ProgressThread();
+                            progressThread.run();
+
 
                             if (csprogress.isShowing()) {
                                 csprogress.dismiss();
@@ -556,6 +501,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 @Override
                 public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
 
+                    //Thread to slow the process
+                    ProgressThread progressThread=new ProgressThread();
+                    progressThread.run();
+
                     if (response.isSuccessful()) {
 
                         if (csprogress.isShowing()) {
@@ -575,6 +524,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
                     }
+                    toPayAmountTextView.setText(GrandTotal);
 
 
                 }
@@ -621,6 +571,11 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     //  if(response.isSuccessful()){
 
                     // JSONResponseUpdateCartDTO  jsonResponseUpdateCartDTO=response.body();
+
+                    //Thread to slow the process
+                    ProgressThread progressThread=new ProgressThread();
+                    progressThread.run();
+
 
                     if (response.isSuccessful()) {
                         if (csprogress.isShowing()) {
@@ -679,6 +634,11 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                     JSONResponseDeleteCartDTO jsonResponseDeleteCartDTO = response.body();
 
+                    //Thread to slow the process
+                    ProgressThread progressThread=new ProgressThread();
+                    progressThread.run();
+
+
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
@@ -705,6 +665,24 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                         emptViewCartImage.setVisibility(View.VISIBLE);
                         proceedButton.setVisibility(View.GONE);
                         bottomView.setVisibility(View.GONE);
+                        couponAppliedBlock.setVisibility(View.GONE);
+
+                        //Removes the couponID
+
+                        //Remove Current User COUPON ID From Shared Preferences
+                        SharedPreferences getCurrentUser_CouponID = getSharedPreferences("CURRENT_COUPON_ID", context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = getCurrentUser_CouponID.edit();
+                        editor.remove("COUPONID");
+                        editor.commit();
+
+
+                        //Remove Current User COUPON CODE From Shared Preferences
+                        SharedPreferences getCurrentUser_CouponCODE = getSharedPreferences("CURRENT_COUPON_CODE", context.MODE_PRIVATE);
+                        SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
+                        editorCode.remove("COUPON_CODE");
+                        editorCode.commit();
+
+
 
                     }
 
@@ -722,7 +700,71 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         } //End of Delete Count in ViewCart when it reaches zero
 
 
-    /*public void offers(View view) {
+
+    //Get AddressID from Existing User
+    private void getAddressID () {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ViewCartActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
+        ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
+
+        SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+
+        String curUser = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+        CurrentUserDTO currentUserDTO = new CurrentUserDTO(curUser);
+
+        Call<GetDeliveryAddressDTO> call = api.getExistingAddress(currentUserDTO);
+
+        call.enqueue(new Callback<GetDeliveryAddressDTO>() {
+            @Override
+            public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
+
+                if (response.isSuccessful()) {
+
+                    //Thread to slow the process
+                    ProgressThread progressThread=new ProgressThread();
+                    progressThread.run();
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+                    GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
+
+                    addressID = getDeliveryAddressDTO.getAddressID();
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("ADDRESS_ID", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("ADDRESSID", addressID);
+                    editor.commit();
+
+
+                    System.out.println("CUreent user Address ID" + addressID);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
+            }
+        });
+
+    }
+
+
+
+   /* public void offers(View view) {
         Toast.makeText(ViewCartActivity.this, "Offers Clicked", Toast.LENGTH_LONG).show();
     }*/
 

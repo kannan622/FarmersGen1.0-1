@@ -202,6 +202,21 @@ public class PaymentGatewayActivity extends AppCompatActivity {
             public void onResponse(Call<JsonOrderResponse> call, Response<JsonOrderResponse> response) {
                 if(response.isSuccessful()){
 
+
+                    //Remove Current User COUPON ID From Shared Preferences
+                    SharedPreferences getCurrentUser_CouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = getCurrentUser_CouponID.edit();
+                    editor.remove("COUPONID");
+                    editor.commit();
+
+
+                    //Remove Current User COUPON CODE From Shared Preferences
+                    SharedPreferences getCurrentUser_CouponCODE = getSharedPreferences("CURRENT_COUPON_CODE", MODE_PRIVATE);
+                    SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
+                    editorCode.remove("COUPON_CODE");
+                    editorCode.commit();
+
+
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
 

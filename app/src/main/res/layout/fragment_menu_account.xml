@@ -233,7 +233,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="15dp"
-                        android:src="@drawable/profilefavourite" />
+                        android:src="@drawable/cancel_order" />
 
                     <TextView
                         android:id="@+id/cancelOrder"
@@ -278,7 +278,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="15dp"
-                        android:src="@drawable/profilefavourite" />
+                        android:src="@drawable/past_order" />
 
                     <TextView
                         android:id="@+id/pastOrder"
@@ -326,7 +326,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="15dp"
-                        android:src="@drawable/profilefavourite" />
+                        android:src="@drawable/log_out" />
 
                     <TextView
                         android:id="@+id/profileLogout"
