@@ -173,8 +173,15 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         SharedPreferences getCouponCODE = getSharedPreferences("CURRENT_COUPON_CODE", Context.MODE_PRIVATE);
         String curUser_Coupon_CODE = getCouponCODE.getString("COUPON_CODE", "NO_CURRENT_COUPON_CODE");
 
+        if(curUser_CouponID.equals(NO_CURRENT_COUPON_ID) && curUser_Coupon_CODE.equals(NO_CURRENT_COUPON_CODE)){
+            showCouponLayout.setVisibility(View.VISIBLE);
+            couponAppliedBlock.setVisibility(View.GONE);
+
+        }
+
 
         if (curUser_CouponID.equals(NO_CURRENT_COUPON_ID)) {
+
 
             loadViewCartProductList();
 
@@ -322,6 +329,16 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             String curUserCouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
 
 
+            //Current Coupon CODE
+            SharedPreferences getCouponCODE = getSharedPreferences("CURRENT_COUPON_CODE", MODE_PRIVATE);
+            String curUserCouponCODE = getCouponCODE.getString("COUPON_CODE", "NO_CURRENT_COUPON_CODE");
+
+
+
+
+
+
+
             CancelCouponDTO cancelCouponDTO = new CancelCouponDTO(curUserID_ForDeleteCoupon, curUserCouponID);
 
             Call<ResponseBody> call = api.cancelCoupon(cancelCouponDTO);
@@ -461,6 +478,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                             csprogress.dismiss();
                         }
 
+                        Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+
                         Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
 
                         // Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
@@ -489,12 +508,17 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
             String curUser_CouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
 
+            //Getting Current User
+            SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+            String curUserToGetOffer = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+
             String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                     Settings.Secure.ANDROID_ID);
 
             ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
 
-            AddCartDTO loadViewCartWithCouponID = new AddCartDTO(ANDROID_MOBILE_ID, curUser_CouponID);
+            AddCartDTO loadViewCartWithCouponID = new AddCartDTO(ANDROID_MOBILE_ID, curUser_CouponID,curUserToGetOffer);
             Call<JSONResponseViewCartListDTO> call = api.getViewCartWithCouponID(loadViewCartWithCouponID);
 
             call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
@@ -531,6 +555,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                 @Override
                 public void onFailure(Call<JSONResponseViewCartListDTO> call, Throwable t) {
+
+                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
@@ -602,6 +628,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
+
+                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -693,6 +721,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
+
+                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
 

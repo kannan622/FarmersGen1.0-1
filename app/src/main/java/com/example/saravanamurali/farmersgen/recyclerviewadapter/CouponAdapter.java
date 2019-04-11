@@ -92,9 +92,10 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
                     CouponDTO  couponDTO=jsonResponseCouponDTOList.get(getCouponAdapterPosition);
                     String couponCode=couponDTO.getCouponCode();
                     String coupID=couponDTO.getCouponId();
+                    String offerPrice=couponDTO.getCoupon_OffPrice();
 
 
-                    shareCouponCode.applyCouponCode(couponCode,coupID,couponDTO.getCoupon_OffPrice());
+                    shareCouponCode.applyCouponCode(couponCode,coupID,offerPrice);
 
                 }
             });

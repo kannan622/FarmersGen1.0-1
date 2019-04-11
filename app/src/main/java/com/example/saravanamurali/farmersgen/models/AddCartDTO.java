@@ -18,9 +18,13 @@ public class AddCartDTO {
     @SerializedName("coupon_id")
     String couponID;
 
-    public AddCartDTO(String addCartMobile_ID, String couponID) {
+    @SerializedName("off_userid")
+    String currentUserToGetOffer;
+
+    public AddCartDTO(String addCartMobile_ID, String couponID,String currnetUser) {
         this.addCartMobile_ID = addCartMobile_ID;
         this.couponID = couponID;
+        this.currentUserToGetOffer=currnetUser;
     }
 
     public AddCartDTO(String addCartMobile_ID){
@@ -34,6 +38,14 @@ public class AddCartDTO {
         this.addCartCount = addCartCount;
         this.productPrice=productPrice;
         this.addCartMobile_ID = addCartMobile_ID;
+    }
+
+    public String getProductPrice() {
+        return productPrice;
+    }
+
+    public String getCurrentUserToGetOffer() {
+        return currentUserToGetOffer;
     }
 
     public String getCouponID() {

@@ -232,7 +232,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                     csprogress.dismiss();
                 }
 
-                Toast.makeText(Product_List_Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                /*Toast.makeText(Product_List_Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();*/
 
             }
         });
@@ -272,16 +272,16 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                 if (response.isSuccessful()) {
 
                     //Thread to slow the process
-                    ProgressThread progressThread=new ProgressThread();
+                    /*ProgressThread progressThread=new ProgressThread();
                     progressThread.run();
-
+*/
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
                     }
 
                     // Toast.makeText(Product_List_Activity.this,"Success",Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(Product_List_Activity.this, "Error", Toast.LENGTH_LONG).show();
+                    /*Toast.makeText(Product_List_Activity.this, "Error", Toast.LENGTH_LONG).show();*/
                 }
 
             }
@@ -293,10 +293,14 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                     csprogress.dismiss();
                 }
 
-                Toast.makeText(Product_List_Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                if(t.getMessage()!=null){
 
-                Toast.makeText(Product_List_Activity.this,"I am here"+t.getMessage(), Toast.LENGTH_LONG).show();
+                    loadRetrofitProductList();
+                }
 
+                /*Toast.makeText(Product_List_Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+
+                Toast.makeText(Product_List_Activity.this,"I am here add"+t.getMessage(), Toast.LENGTH_LONG).show();*/
             }
         });
 
@@ -334,9 +338,9 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                 if (response.isSuccessful()) {
 
                     //Thread to slow the process
-                    ProgressThread progressThread=new ProgressThread();
+                    /*ProgressThread progressThread=new ProgressThread();
                     progressThread.run();
-
+*/
 
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
@@ -346,7 +350,10 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
                     // Toast.makeText(Product_List_Activity.this,"Success",Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(Product_List_Activity.this, "Error", Toast.LENGTH_LONG).show();
+
+
+                   /* Toast.makeText(Product_List_Activity.this, "Error", Toast.LENGTH_LONG).show();*/
+
                 }
             }
 
@@ -357,6 +364,15 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                     csprogress.dismiss();
                 }
 
+
+
+                if(t.getMessage()!=null){
+
+                    loadRetrofitProductList();
+                }
+
+                /*Toast.makeText(Product_List_Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(Product_List_Activity.this,"I am here update"+t.getMessage(), Toast.LENGTH_LONG).show();*/
             }
         });
 
@@ -389,9 +405,9 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                 if (response.isSuccessful()) {
 
                     //Thread to slow the process
-                    ProgressThread progressThread=new ProgressThread();
+                   /* ProgressThread progressThread=new ProgressThread();
                     progressThread.run();
-
+*/
 
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
@@ -404,6 +420,11 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                if(t.getMessage()!=null){
+
+                    loadRetrofitProductList();
+                }
+               /* Toast.makeText(Product_List_Activity.this,"I am here delete"+t.getMessage(), Toast.LENGTH_LONG).show();*/
 
             }
         });
