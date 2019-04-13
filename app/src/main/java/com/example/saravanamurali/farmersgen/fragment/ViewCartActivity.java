@@ -78,6 +78,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     TextView couponCodeApplied;
     ImageView cancelCoupon;
 
+    TextView applyCoupon;
+
 
     String addressID;
     String checked_MobileID;
@@ -138,6 +140,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         showCouponLayout = (RelativeLayout) findViewById(R.id.coupon);
 
+        applyCoupon=(TextView)findViewById(R.id.applyCouponText);
+
         //Coupon Code Applied
         couponAppliedBlock = (RelativeLayout) findViewById(R.id.couponAppliedBlock);
         couponCodeApplied = (TextView) findViewById(R.id.couponCode);
@@ -176,6 +180,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         if(curUser_CouponID.equals(NO_CURRENT_COUPON_ID) && curUser_Coupon_CODE.equals(NO_CURRENT_COUPON_CODE)){
             showCouponLayout.setVisibility(View.VISIBLE);
             couponAppliedBlock.setVisibility(View.GONE);
+            applyCoupon.setVisibility(View.VISIBLE);
 
         }
 

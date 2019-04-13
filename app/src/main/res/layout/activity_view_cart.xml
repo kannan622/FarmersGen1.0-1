@@ -98,8 +98,7 @@
                 android:background="@color/gray"
                 android:padding="@dimen/ten_dp"
                 android:layout_above="@id/bottom"
-                android:gravity="bottom"
-                >
+                android:gravity="bottom" >
 
                 <TextView
                     android:id="@+id/couponCode"
