@@ -41,6 +41,7 @@ import com.example.saravanamurali.farmersgen.models.OrderDTO;
 import com.example.saravanamurali.farmersgen.models.OrderID_DTO;
 import com.example.saravanamurali.farmersgen.models.PostReviewDTO;
 import com.example.saravanamurali.farmersgen.models.ReviewDTO;
+import com.example.saravanamurali.farmersgen.models.SendOrderConfirmationSMSDTO;
 import com.example.saravanamurali.farmersgen.models.SignUpJSONResponse;
 import com.example.saravanamurali.farmersgen.models.SignedInJSONResponse;
 import com.example.saravanamurali.farmersgen.models.JSONResponseHomeBrandDTO;
@@ -213,9 +214,17 @@ public interface ApiInterface {
     Call<ResponseBody> getLogOutUsingDeviceID(@Body LogOutDeviceIDDTO logOutDeviceIDDTO);
 
 
+    //To Send Sms for Order confirmation
+    @POST("order_sms.php")
+    Call<ResponseBody> sendOrderConfirmationSMS(@Body SendOrderConfirmationSMSDTO  sendOrderConfirmationSMSDTO);
+
+
     //Cancel Order List
     @POST("to_delivery.php")
     Call<JSONResponseToFetchCancelOrderDTO> getCancelOrderList(@Body CurrentUserDTO currentUserDTO);
+
+
+
 
     //Cancel Order using OrderID
     @POST("clear.php")

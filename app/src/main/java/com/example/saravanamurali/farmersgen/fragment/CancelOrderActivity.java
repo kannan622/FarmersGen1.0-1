@@ -125,10 +125,13 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
         csprogress.show();
         csprogress.setCanceledOnTouchOutside(false);
 
+        SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String curUserToCancelOrder = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+
 
         ApiInterface api= APIClientToCancelOrderUsingOrderID.getAPIInterfaceToCancelOrderUsingOrderID();
 
-        OrderID_DTO order_ID=new OrderID_DTO(orderID);
+        OrderID_DTO order_ID=new OrderID_DTO(orderID,curUserToCancelOrder);
 
      Call<ResponseBody> call= api.getCancelOrder(order_ID);
 
@@ -142,8 +145,7 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
                  }
 
 
-
-                 Toast.makeText(CancelOrderActivity.this,"Your order"+orderID+"has been cancelled",Toast.LENGTH_LONG).show();
+                 Toast.makeText(CancelOrderActivity.this,"Your Order No"+" "+orderID+" " +"has been cancelled",Toast.LENGTH_LONG).show();
                  loadCancelOrderList();
 
               /*int getSize=checkOrderIsThereToCancel();

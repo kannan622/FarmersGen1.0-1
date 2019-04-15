@@ -69,6 +69,9 @@ public interface BaseUrl {
     //TO Order
     public  static final  String ROOT_URL_TO_ORDER="http://farmersgen.com/service/order/";
 
+    //TO Send SMS for Order Confirmation
+    public  static final  String ROOT_URL_TO_SEND_ORDER_CONFIRMATION_SMS="http://farmersgen.com/service/order/";
+
 
     //Cancel Order List
     public  static final  String ROOT_URL_TO_GET_CANCEL_ORDER_LIST="http://farmersgen.com/service/order/";
