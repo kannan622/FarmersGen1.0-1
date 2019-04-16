@@ -20,14 +20,17 @@ import com.example.saravanamurali.farmersgen.models.JSONResponseViewCartOrdersat
 import com.example.saravanamurali.farmersgen.models.JsonOrderResponse;
 import com.example.saravanamurali.farmersgen.models.OrderDTO;
 import com.example.saravanamurali.farmersgen.models.OrderDetailsDTO;
+import com.example.saravanamurali.farmersgen.models.SendOrderConfirmationSMSDTO;
 import com.example.saravanamurali.farmersgen.models.ViewCartPaymentGatewayDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForViewCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToOrder;
+import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendOrderConfirmationSMS;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -204,17 +207,44 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
+
                     }
 
                     JsonOrderResponse jsonOrderResponse=response.body();
 
-                    Intent thanksActivity=new Intent(PaymentGatewayActivity.this,ThanksActivity.class);
-                    startActivity(thanksActivity);
-                    finish();
+                    if(jsonOrderResponse.getResponseCode()==200){
 
+                       String orderIDToSendSMS=jsonOrderResponse.getOrderId();
+
+                        //Remove Current User COUPON ID From Shared Preferences
+                        SharedPreferences getCurrentUser_CouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = getCurrentUser_CouponID.edit();
+                        editor.remove("COUPONID");
+                        editor.commit();
+
+
+                        //Remove Current User COUPON CODE From Shared Preferences
+                        SharedPreferences getCurrentUser_CouponCODE = getSharedPreferences("CURRENT_COUPON_CODE", MODE_PRIVATE);
+                        SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
+                        editorCode.remove("COUPON_CODE");
+                        editorCode.commit();
+
+                        orderConfirmaationSMSToCustomer(orderIDToSendSMS);
+
+                        Intent thanksActivity=new Intent(PaymentGatewayActivity.this,ThanksActivity.class);
+                        startActivity(thanksActivity);
+                        finish();
+
+
+
+                    }
+
+                    else if(jsonOrderResponse.getResponseCode()==500){
+                        System.out.println("Order is not Confirmed");
+                    }
                     System.out.println("Order Confirmed");
 
-                    Toast.makeText(PaymentGatewayActivity.this,"Order Confirmed",Toast.LENGTH_LONG).show();
+
 
 
                                     }
@@ -227,10 +257,54 @@ public class PaymentGatewayActivity extends AppCompatActivity {
                     csprogress.dismiss();
                 }
 
+                System.out.println("Order is not Confirmed");
+
             }
         });
     }
 
+    private void orderConfirmaationSMSToCustomer(String orderIDToSendSMS) {
+
+        /*final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(PaymentGatewayActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+*/
+
+        ApiInterface api= APIClientToSendOrderConfirmationSMS.getApiInterfaceToSendOrderConfirmationSMS();
+
+        SendOrderConfirmationSMSDTO sendOrderConfirmationSMSDTO=new SendOrderConfirmationSMSDTO(orderIDToSendSMS,curUser);
+
+        Call<ResponseBody> call=api.sendOrderConfirmationSMS(sendOrderConfirmationSMSDTO);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+               /* if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }*/
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                /*if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }*/
+
+            }
+        });
+
+
+
+
+
+
+
+    }
 
 
 }

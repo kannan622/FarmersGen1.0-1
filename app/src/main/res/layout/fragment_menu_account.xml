@@ -233,7 +233,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="15dp"
-                        android:src="@drawable/profilefavourite" />
+                        android:src="@drawable/cancel_order" />
 
                     <TextView
                         android:id="@+id/cancelOrder"
@@ -278,7 +278,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="15dp"
-                        android:src="@drawable/profilefavourite" />
+                        android:src="@drawable/past_order" />
 
                     <TextView
                         android:id="@+id/pastOrder"
@@ -326,7 +326,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginLeft="2dp"
                         android:layout_marginTop="15dp"
-                        android:src="@drawable/profilefavourite" />
+                        android:src="@drawable/log_out" />
 
                     <TextView
                         android:id="@+id/profileLogout"
@@ -358,6 +358,26 @@
                         android:padding="5dp"
                         android:src="@drawable/profilerightarrow" />
 
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profileLogoutBlock"
+                    android:layout_marginTop="@dimen/five_dp"
+                    >
+
+                    <Button
+                        android:id="@+id/shareApp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="Share App"
+                        android:background="@color/FragmentGreen"
+                        android:layout_marginLeft="@dimen/ten_dp"
+                        android:layout_marginRight="@dimen/ten_dp"
+                        />
 
                 </RelativeLayout>
 

@@ -15,6 +15,7 @@ import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
 import com.example.saravanamurali.farmersgen.models.GetExistingAddressDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
+import com.example.saravanamurali.farmersgen.util.ProgressThread;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -110,7 +111,8 @@ public class ExistingAddressActivity extends AppCompatActivity {
             public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
 
                 if (response.isSuccessful()) {
-
+                    ProgressThread progressThread=new ProgressThread();
+                    progressThread.run();
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
                     }
@@ -143,11 +145,4 @@ public class ExistingAddressActivity extends AppCompatActivity {
 
     }
 
-   /* @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-
-        Intent viewCartActivity=new Intent(ExistingAddressActivity.this,ViewCartActivity.class);
-        startActivity(viewCartActivity);
-    }*/
 }

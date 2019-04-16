@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 import java.io.Serializable;
 
@@ -19,13 +18,12 @@ import com.example.saravanamurali.farmersgen.models.JSONResponseToFetchCancelOrd
 import com.example.saravanamurali.farmersgen.models.JSONResponseToViewOrderedProductList;
 import com.example.saravanamurali.farmersgen.models.JsonResponseToViewOrderedProductListDTO;
 import com.example.saravanamurali.farmersgen.models.OrderID_DTO;
-import com.example.saravanamurali.farmersgen.recyclerviewadapter.CancelOrderAdapter;
 
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientOrderedProductListView;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToCancelOrderUsingOrderID;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetCancelOrderList;
+import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +35,12 @@ import retrofit2.Response;
 public class CancelOrderActivity extends AppCompatActivity implements CancelOrderAdapter.CancelOrderUsingOrderIDInterace,CancelOrderAdapter.ViewProductDetailUsingOrderIDInterface {
 
     private String NO_CURRENT_USER = "NO_CURRENT_USER";
-    
+    int o_Size;
+
+    //For Cancel Order Snack Bar
+    List<JSONResponseForCancelOrderDTO> jsonResponseForCancelOrderDTOSForSnakcerBar;
+
+
     List<JSONResponseForCancelOrderDTO> jsonResponseForCancelOrderDTOS;
     RecyclerView recyclerViewCancelOrder;
     
@@ -122,10 +125,13 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
         csprogress.show();
         csprogress.setCanceledOnTouchOutside(false);
 
+        SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String curUserToCancelOrder = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+
 
         ApiInterface api= APIClientToCancelOrderUsingOrderID.getAPIInterfaceToCancelOrderUsingOrderID();
 
-        OrderID_DTO order_ID=new OrderID_DTO(orderID);
+        OrderID_DTO order_ID=new OrderID_DTO(orderID,curUserToCancelOrder);
 
      Call<ResponseBody> call= api.getCancelOrder(order_ID);
 
@@ -138,8 +144,29 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
                      csprogress.dismiss();
                  }
 
+
+                 Toast.makeText(CancelOrderActivity.this,"Your Order No"+" "+orderID+" " +"has been cancelled",Toast.LENGTH_LONG).show();
                  loadCancelOrderList();
-                 Toast.makeText(CancelOrderActivity.this,"Your order"+orderID+"has been cancelled",Toast.LENGTH_LONG).show();
+
+              /*int getSize=checkOrderIsThereToCancel();
+
+                 if(csprogress.isShowing()){
+                     csprogress.dismiss();
+                 }
+
+
+
+                 if(getSize==0){
+                     Toast.makeText(CancelOrderActivity.this,"You dont have any order to cancel",Toast.LENGTH_LONG).show();
+                        Intent homeActivity=new Intent(CancelOrderActivity.this,HomeActivity.class);
+                        startActivity(homeActivity);
+                    }
+                    else {
+                     Toast.makeText(CancelOrderActivity.this,"Your order"+orderID+"has been cancelled",Toast.LENGTH_LONG).show();
+                     loadCancelOrderList();
+
+                    }
+*/
              }
          }
 
@@ -157,6 +184,53 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
 
 
     }
+
+   /* private int checkOrderIsThereToCancel() {
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(CancelOrderActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+        jsonResponseForCancelOrderDTOSForSnakcerBar = new ArrayList<JSONResponseForCancelOrderDTO>();
+
+        ApiInterface api = APIClientToGetCancelOrderList.getApiInterfaceToGetCancelOrderList();
+
+        SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String curUserAtCancelOrder = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+        CurrentUserDTO currentUserDTO = new CurrentUserDTO(curUserAtCancelOrder);
+        Call<JSONResponseToFetchCancelOrderDTO> call = api.getCancelOrderList(currentUserDTO);
+
+        call.enqueue(new Callback<JSONResponseToFetchCancelOrderDTO>() {
+            @Override
+            public void onResponse(Call<JSONResponseToFetchCancelOrderDTO> call, Response<JSONResponseToFetchCancelOrderDTO> response) {
+
+                if(response.isSuccessful()){
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
+                    JSONResponseToFetchCancelOrderDTO jsonResponseToFetchCancelOrderDTO = response.body();
+                    jsonResponseForCancelOrderDTOSForSnakcerBar = jsonResponseToFetchCancelOrderDTO.getJsonResponseForCancelOrderDTO();
+
+                    o_Size=jsonResponseForCancelOrderDTOSForSnakcerBar.size();
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponseToFetchCancelOrderDTO> call, Throwable t) {
+
+            }
+        });
+
+
+
+return o_Size;
+    }*/
 
     //View ordered products using orderID when ordered# is pressed
     @Override

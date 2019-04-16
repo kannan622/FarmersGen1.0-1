@@ -39,7 +39,7 @@
     <!--Checkout-->
     <string name="checkout">CHECKOUT</string>
 
-    <string name="pleaseenterMo">Please Enter Mobile Number</string>
+    <string name="pleaseenterMo">Please Enter Your Mobile Number</string>
 
     <string name="saveDetails">After your first payment, we will save your details like Name,Address for future use</string>
 

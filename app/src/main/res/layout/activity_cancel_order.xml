@@ -16,6 +16,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tap on Order# to view Order Details"
+            android:textColor="@color/FragmentGreen"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+            android:textSize="@dimen/twenty_sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
@@ -30,11 +33,12 @@
 
         <TextView
             android:id="@+id/orderNo"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/ten_dp"
             android:text="Order id"
+            android:layout_alignParentLeft="true"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
             android:textStyle="bold" />
 
@@ -62,14 +66,19 @@
 
         <TextView
             android:id="@+id/ordercancel"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/orderGrandTotal"
-            android:gravity="center"
-            android:padding="@dimen/ten_dp"
-            android:text="Order"
+            android:layout_alignParentEnd="true"
+            android:gravity="end"
+            android:text="Cancel Order"
+            android:paddingTop="@dimen/ten_dp"
+            android:layout_alignBaseline="@id/orderGrandTotal"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
             android:textStyle="bold" />
+
+
+
 
 
     </RelativeLayout>

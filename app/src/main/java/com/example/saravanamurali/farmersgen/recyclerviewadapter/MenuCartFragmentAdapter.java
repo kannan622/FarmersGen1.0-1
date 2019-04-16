@@ -118,6 +118,11 @@ public class MenuCartFragmentAdapter extends RecyclerView.Adapter<MenuCartFragme
         return menuCartFragmentViewCartDTO.size();
     }
 
+    public void removeItemAtMenuCart(int position) {
+        menuCartFragmentViewCartDTO.remove(position);
+        notifyItemRemoved(position);
+    }
+
     public interface MenuCartFragmentDeleteInterface {
 
         void menuCartFragmentDelete(String productCode);
@@ -166,7 +171,7 @@ public class MenuCartFragmentAdapter extends RecyclerView.Adapter<MenuCartFragme
                 }
             });
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+           /* itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -182,7 +187,7 @@ public class MenuCartFragmentAdapter extends RecyclerView.Adapter<MenuCartFragme
 
                 }
             });
-
+*/
             homeCartMinus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -202,10 +207,12 @@ public class MenuCartFragmentAdapter extends RecyclerView.Adapter<MenuCartFragme
                         //notifyDataSetChanged();
 
                     } else if (menuCartDecCount == 0) {
+                        removeItemAtMenuCart(menuCartAdapterPosition);
                         menuCartFragmentDeleteInterface.menuCartFragmentDelete(menuCartProdductCode);
 
                     } else if (menuCartDecCount < 0) {
-
+                        notifyItemRemoved(menuCartAdapterPosition);
+                        notifyDataSetChanged();
 
                         return;
                     }

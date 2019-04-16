@@ -192,7 +192,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
-                    Toast.makeText(LoginActivity.this, "You have Entered Wrong Password", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "You have Entered Wrong Mobile Number or Password!!!", Toast.LENGTH_LONG).show();
                 }
 
             }

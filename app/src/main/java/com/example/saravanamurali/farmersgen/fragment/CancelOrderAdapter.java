@@ -1,6 +1,8 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -98,12 +100,36 @@ public class CancelOrderAdapter extends RecyclerView.Adapter<CancelOrderAdapter.
             orderCancelButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int getCancelOrderAdapterPosition = getAdapterPosition();
-                    JSONResponseForCancelOrderDTO getJsonResponseForCancelOrderDTO = cancelOrderDTO.get(getCancelOrderAdapterPosition);
-                    String get_OrderID = getJsonResponseForCancelOrderDTO.getOrderId();
 
-                    cancelOrderUsingOrderID_Interface.getCancelOrderUsingOrderID(get_OrderID);
-                    System.out.println(get_OrderID);
+                    AlertDialog.Builder a_Builder = new AlertDialog.Builder(cancelOrderContext);
+                    a_Builder.setMessage("Do you want to Cancel this order")
+                            .setCancelable(false)
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    int getCancelOrderAdapterPosition = getAdapterPosition();
+                                    JSONResponseForCancelOrderDTO getJsonResponseForCancelOrderDTO = cancelOrderDTO.get(getCancelOrderAdapterPosition);
+                                    String get_OrderID = getJsonResponseForCancelOrderDTO.getOrderId();
+
+                                    cancelOrderUsingOrderID_Interface.getCancelOrderUsingOrderID(get_OrderID);
+                                    System.out.println(get_OrderID);
+
+
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    dialog.cancel();
+
+                                }
+                            });
+
+                    AlertDialog alertDialog = a_Builder.create();
+                    alertDialog.setTitle("Cancel Order");
+                    alertDialog.show();
 
 
                 }
@@ -117,6 +143,7 @@ public class CancelOrderAdapter extends RecyclerView.Adapter<CancelOrderAdapter.
                     String getProductDetail = getOrderedProductDetail.getOrderId();
 
                     viewProductDetailUsingOrderIDInterface.getViewProductDetailUsingOrderID(getProductDetail);
+
 
                 }
             });

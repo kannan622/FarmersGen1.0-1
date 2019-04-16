@@ -16,7 +16,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-
             android:layout_marginLeft="18dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
@@ -24,14 +23,30 @@
             android:textColor="@color/app_black"
             android:textSize="18sp"
             android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/useMyLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RLayoutDeliveryAddress">
+
+        <Button
+            android:id="@+id/myLocationButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Use  My Location"
+            android:textColor="@color/FragmentGreen"
+            android:layout_margin="@dimen/ten_dp" />
 
     </RelativeLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/RLayoutDeliveryAddress"
+        android:layout_below="@+id/useMyLocation"
         android:paddingLeft="@dimen/fifteen_dp"
+        android:layout_marginTop="@dimen/ten_dp"
         android:paddingRight="@dimen/fifteen_dp">
 
         <LinearLayout

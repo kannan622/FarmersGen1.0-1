@@ -15,6 +15,13 @@ public class ProductListDTO {
     @SerializedName("count")
     private String count;
 
+    @SerializedName("product_quantity")
+    private String productQuantity;
+
+    @SerializedName("actual_price")
+    private String acutalPrice;
+
+
     int countFromHomeMenuFragment;
 
     //ViewCart
@@ -29,12 +36,14 @@ public class ProductListDTO {
     }
 
 
-    public ProductListDTO(String productCode, String count,  String productName, String productImage, String productPrice) {
+    public ProductListDTO(String productCode, String count,  String productName, String productImage, String productPrice,String productQuantity,String auctalPrice) {
         this.productCode = productCode;
         this.count=count;
         this.productName = productName;
         this.productImage = productImage;
         this.productPrice = productPrice;
+        this.productQuantity=productQuantity;
+        this.acutalPrice=auctalPrice;
     }
 
     public String getProductCode() {
@@ -62,6 +71,14 @@ public class ProductListDTO {
 
     public String getProductName() {
         return productName;
+    }
+
+    public String getProductQuantity() {
+        return productQuantity;
+    }
+
+    public String getAcutalPrice() {
+        return acutalPrice;
     }
 
     public String getProductImage() {

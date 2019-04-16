@@ -120,19 +120,35 @@ public class LoginForgetPasswordActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
 
                     if(csprogress.isShowing()){
-                        csprogress.dismiss();
+                         csprogress.dismiss();
                     }
 
-                    Toast.makeText(LoginForgetPasswordActivity.this,"Success",Toast.LENGTH_LONG).show();
-                    Intent otpActivityforLoginForgetPasssord=new Intent(LoginForgetPasswordActivity.this,OTPActivityForLoginForgetPassword.class);
-                    otpActivityforLoginForgetPasssord.putExtra("MOBILENO_FOR_LOGIN_FORGET_PASSWORD",logMMobileForForgetMobile);
-                    startActivity(otpActivityforLoginForgetPasssord);
+                    JSONResponseToSendMobileNoFromLoginForgetPasswordDTO jsonResponseToSendMobileNoFromLoginForgetPasswordDTO=response.body();
+
+
+                    if(jsonResponseToSendMobileNoFromLoginForgetPasswordDTO.getStatus()==200) {
+
+                        Toast.makeText(LoginForgetPasswordActivity.this, "Success", Toast.LENGTH_LONG).show();
+                        Intent otpActivityforLoginForgetPasssord = new Intent(LoginForgetPasswordActivity.this, OTPActivityForLoginForgetPassword.class);
+                        otpActivityforLoginForgetPasssord.putExtra("MOBILENO_FOR_LOGIN_FORGET_PASSWORD", logMMobileForForgetMobile);
+                        startActivity(otpActivityforLoginForgetPasssord);
+                        finish();
+                    }
+
+                    else if(jsonResponseToSendMobileNoFromLoginForgetPasswordDTO.getStatus() == 500){
+
+                        Toast.makeText(LoginForgetPasswordActivity.this,"We dont have your mobile number please Signup",Toast.LENGTH_LONG).show();
+                    }
                 }
 
             }
 
             @Override
             public void onFailure(Call<JSONResponseToSendMobileNoFromLoginForgetPasswordDTO> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

@@ -17,13 +17,13 @@
             android:id="@+id/thanksImage"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:src="@drawable/thanks"
+            android:src="@drawable/thank_you"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Thanks for the order, your order will be delivered within 24 hours, at your mentioned address."
+            android:text="Your order is getting ready, will be delivered within 24 hours, at your mentioned address."
             android:textSize="@dimen/twenty_sp"
             android:layout_marginTop="@dimen/ten_dp"
             android:textColor="@color/FragmentGreen"

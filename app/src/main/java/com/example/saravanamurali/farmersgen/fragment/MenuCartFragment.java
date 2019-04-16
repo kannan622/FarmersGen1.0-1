@@ -9,16 +9,19 @@ import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
+import com.example.saravanamurali.farmersgen.models.CancelCouponDTO;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseMenuCartFragDeleteDTO;
@@ -30,14 +33,17 @@ import com.example.saravanamurali.farmersgen.models.MenuCartUpdateDTO;
 import com.example.saravanamurali.farmersgen.recyclerviewadapter.MenuCartFragmentAdapter;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForDeleteItemInMenuCartFragment;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForUpdateCountInMenuCartFragment;
+import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToCancelCouponCode;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToViewCartFromMenuCartFragment;
+import com.example.saravanamurali.farmersgen.signin.LoginActivityForViewCart;
 import com.example.saravanamurali.farmersgen.signup.SignupActivity;
 import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,8 +52,19 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapter.MenuCartFragmentUpdateInterface, MenuCartFragmentAdapter.MenuCartFragmentDeleteInterface {
 
-    Button menuCartCheckout;
+    TextView menuCartCheckout;
     String menuCartGrandTotal;
+
+    RelativeLayout bottomMenuCart;
+
+    //RelativeLayout showCoupon_MenuCart;
+
+    //Coupon Applied
+    /*RelativeLayout couponAppliedBlock_MenuCart;
+    TextView couponCodeApplied_MenuCart;
+    ImageView cancelCoupon_MenuCart;
+*/
+
     String menuCartAddressID;
     TextView menuCart_ToPayAmountTextView;
     TextView mauCart_Topay;
@@ -59,6 +76,11 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
     List<MenuCartFragmentViewCartDTO> menuCartFragmentViewCartDTOList;
     String currentUserId;
     private String NO_CURRENT_USER = "NO_CURRENT_USER";
+
+    private String NO_CURRENT_COUPON_ID = "NO_CURRENT_COUPON_ID";
+
+    private String NO_CURRENT_COUPON_CODE = "NO_CURRENT_COUPON_CODE";
+
 
     /* @SuppressLint("ValidFragment")
      public MenuCartFragment(String currentUserId) {
@@ -77,11 +99,43 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
 
         dialog = new Dialog(getActivity());
-        menuCartCheckout = (Button) view.findViewById(R.id.menuCartCheckOut);
 
-        menuCartRecyclerView = (RecyclerView) view.findViewById(R.id.menuCartRecyclerView);
+        //Checkout Button
+        menuCartCheckout = (TextView) view.findViewById(R.id.CheckOut_MenuCart);
+        mauCart_Topay = (TextView) view.findViewById(R.id.m_CartToPayAmount);
+
+        menuCartRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_MenuCart);
         menuCartRecyclerView.setHasFixedSize(true);
         menuCartRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+
+        imageView = (ImageView) view.findViewById(R.id.emptyMenuCartImage);
+
+        bottomMenuCart=(RelativeLayout)view.findViewById(R.id.bottom_menuCart);
+
+       /* showCoupon_MenuCart=(RelativeLayout)view.findViewById(R.id.coupon_MenuCart);
+
+        //Coupon Code Applied
+        couponAppliedBlock_MenuCart = (RelativeLayout)view.findViewById(R.id.couponAppliedBlock_MenuCart);
+        couponCodeApplied_MenuCart = (TextView)view.findViewById(R.id.couponCode_MenuCart);
+        cancelCoupon_MenuCart = (ImageView)view.findViewById(R.id.couponCodeCancelMenuCart);
+
+        cancelCoupon_MenuCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteCouponCode_MenuCart();
+            }
+        });
+*/
+        //offer block cliked
+        /*showCoupon_MenuCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                proceedOffers();
+            }
+        });
+*/
+
 
         /*menuCartFragmentViewCartDTOList = new ArrayList<MenuCartFragmentViewCartDTO>();
 
@@ -92,11 +146,11 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
         menuCartFragmentAdapter.setMenuCartFragmentUpdateInterface(MenuCartFragment.this);
         menuCartFragmentAdapter.setMenuCartFragmentDeleteInterface(MenuCartFragment.this);
 */
-        imageView = (ImageView) view.findViewById(R.id.emptyCartImage);
 
-        menuCart_ToPayAmountTextView = (TextView) view.findViewById(R.id.m_CartToPayAmount);
 
-        mauCart_Topay = (TextView) view.findViewById(R.id.m_CartToPay);
+       // menuCart_ToPayAmountTextView = (TextView) view.findViewById(R.id.m_CartToPayAmount);
+
+
 
 
         //loadViewCartProductList();
@@ -126,11 +180,55 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
         return view;
     }
 
+    //Check whether user is logged in or not
+    private void proceedOffers() {
+
+        //Getting Current User
+        SharedPreferences getCurrentUser = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String curUserToCheckOffer = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+        if (!curUserToCheckOffer.equals(NO_CURRENT_USER)) {
+
+            Intent coupon = new Intent(this.getActivity(), CouponActivity.class);
+            startActivity(coupon);
+        } else {
+
+            Toast toast = Toast.makeText(this.getActivity(), "Please login to avil offer. To login Click on  CheckOut Button", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER, 0, 0);
+            toast.show();
+
+        }
+
+
+
+    }
+
+
+
+    private void removeCouponCodeAndCouponID() {
+
+        //Remove Current User COUPON ID From Shared Preferences
+        SharedPreferences getCurrentUser_CouponID =this.getActivity().getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+        SharedPreferences.Editor editor = getCurrentUser_CouponID.edit();
+        editor.remove("COUPONID");
+        editor.commit();
+
+
+        //Remove Current User COUPON CODE From Shared Preferences
+        SharedPreferences getCurrentUser_CouponCODE =this.getActivity().getSharedPreferences("CURRENT_COUPON_CODE", MODE_PRIVATE);
+        SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
+        editorCode.remove("COUPON_CODE");
+        editorCode.commit();
+
+    }
+
     @Override
     public void onResume() {
         super.onResume();
 
         if (Network_config.is_Network_Connected_flag(getActivity())) {
+
+            //Display all ordered products from product list activity
             loadViewCartProductList();
 
             menuCartFragmentViewCartDTOList = new ArrayList<MenuCartFragmentViewCartDTO>();
@@ -149,36 +247,6 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
     }
 
-    //Get Address Id at MenuCartFragment
-    private void getAddressID() {
-        ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
-
-        SharedPreferences getCurUserAddressID = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
-        String curUserAtAddressId = getCurUserAddressID.getString("CURRENTUSER", NO_CURRENT_USER);
-
-        CurrentUserDTO currentUserDTO = new CurrentUserDTO(curUserAtAddressId);
-
-        Call<GetDeliveryAddressDTO> call = api.getExistingAddress(currentUserDTO);
-
-        call.enqueue(new Callback<GetDeliveryAddressDTO>() {
-            @Override
-            public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
-                if (response.isSuccessful()) {
-
-                    GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
-                    menuCartAddressID = getDeliveryAddressDTO.getAddressID();
-                    storeCurrentUserAddressID();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
-
-            }
-        });
-
-    }
 
     private void storeCurrentUserAddressID() {
 
@@ -200,7 +268,7 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
             //Toast.makeText(this.getActivity(), "No Current Cuser", Toast.LENGTH_LONG).show();
 
-            Intent registerUserAtMenuCart = new Intent(this.getActivity(), SignupActivity.class);
+            Intent registerUserAtMenuCart = new Intent(this.getActivity(), LoginActivityForViewCart.class);
             startActivity(registerUserAtMenuCart);
 
         }
@@ -227,7 +295,7 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
     }
 
     //User not logged in yet fetching data using deviceID
-    public void loadViewCartProductList() {
+    private void loadViewCartProductList() {
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(this.getActivity().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -263,6 +331,7 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
                         imageView.setVisibility(View.GONE);
                         menuCartRecyclerView.setVisibility(View.VISIBLE);
                         mauCart_Topay.setVisibility(View.VISIBLE);
+                        bottomMenuCart.setVisibility(View.VISIBLE);
 
                         //loadViewCartProductList();
 
@@ -272,14 +341,19 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
                         mauCart_Topay.setVisibility(View.GONE);
                         imageView.setVisibility(View.VISIBLE);
                         menuCartCheckout.setVisibility(View.GONE);
+                        bottomMenuCart.setVisibility(View.GONE);
+                        bottomMenuCart.setVisibility(View.GONE);
 
 
                     }
 
                     menuCartFragmentAdapter.setData(viewCartAtCartFragment);
+                    menuCartFragmentAdapter.notifyDataSetChanged();
 
                 }
-                menuCart_ToPayAmountTextView.setText(menuCartGrandTotal);
+                mauCart_Topay.setText(menuCartGrandTotal);
+
+
 
             }
 
@@ -328,7 +402,7 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
                 }
 
-                menuCart_ToPayAmountTextView.setText(menuCartGrandTotal);
+                mauCart_Topay.setText(menuCartGrandTotal);
 
             }
 
@@ -380,12 +454,14 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
                     }
                     if (toPayDeleteCheck > 0) {
 
-                        menuCart_ToPayAmountTextView.setText(menuCartGrandTotal);
+                        mauCart_Topay.setText(menuCartGrandTotal);
+                        bottomMenuCart.setVisibility(View.VISIBLE);
                     } else {
-                        menuCart_ToPayAmountTextView.setText("");
+                        mauCart_Topay.setText("");
                         mauCart_Topay.setVisibility(View.GONE);
                         imageView.setVisibility(View.VISIBLE);
                         menuCartCheckout.setVisibility(View.GONE);
+                        bottomMenuCart.setVisibility(View.GONE);
 
                     }
                 }
@@ -402,5 +478,83 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
     }
 
+    //Get Address Id at MenuCartFragment
+    private void getAddressID() {
+        ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
+
+        SharedPreferences getCurUserAddressID = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String curUserAtAddressId = getCurUserAddressID.getString("CURRENTUSER", NO_CURRENT_USER);
+
+        CurrentUserDTO currentUserDTO = new CurrentUserDTO(curUserAtAddressId);
+
+        Call<GetDeliveryAddressDTO> call = api.getExistingAddress(currentUserDTO);
+
+        call.enqueue(new Callback<GetDeliveryAddressDTO>() {
+            @Override
+            public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
+                if (response.isSuccessful()) {
+
+                    GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
+                    menuCartAddressID = getDeliveryAddressDTO.getAddressID();
+                    storeCurrentUserAddressID();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+
+
+   /* private void deleteCouponCode_MenuCart() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(this.getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
+        ApiInterface api = APIClientToCancelCouponCode.getApiInterfaceToCancelCouponCode();
+
+        //Current User
+        SharedPreferences getCurrentUser_ForDeleteCoupon = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String curUserID_ForDeleteCoupon_MenuCart = getCurrentUser_ForDeleteCoupon.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+        //Current Coupon ID
+        SharedPreferences getCouponID = this.getActivity().getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+        String curUserCouponID_MenuCart = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
+
+        CancelCouponDTO cancelCouponDTO_MenuCart = new CancelCouponDTO(curUserID_ForDeleteCoupon_MenuCart, curUserCouponID_MenuCart);
+
+        Call<ResponseBody> call = api.cancelCoupon(cancelCouponDTO_MenuCart);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                removeCouponCodeAndCouponID();
+
+                showCoupon_MenuCart.setVisibility(View.VISIBLE);
+                couponAppliedBlock_MenuCart.setVisibility(View.GONE);
+
+                loadViewCartProductList();
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+
+
+    }*/
 
 }

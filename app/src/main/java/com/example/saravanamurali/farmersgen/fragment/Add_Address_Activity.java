@@ -75,6 +75,8 @@ public class Add_Address_Activity extends AppCompatActivity {
 
     }
 
+
+
     public void onClickProceed(View view) {
 
 
@@ -142,6 +144,8 @@ public class Add_Address_Activity extends AppCompatActivity {
 
 
     }
+
+
 
     private boolean validateFlatNo(){
         boolean status=false;
