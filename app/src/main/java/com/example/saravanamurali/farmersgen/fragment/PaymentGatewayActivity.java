@@ -3,6 +3,7 @@ package com.example.saravanamurali.farmersgen.fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -229,7 +230,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
                         editorCode.remove("COUPON_CODE");
                         editorCode.commit();
 
-                        orderConfirmaationSMSToCustomer(orderIDToSendSMS);
+                         orderConfirmaationSMSToCustomer(orderIDToSendSMS);
 
                         Intent thanksActivity=new Intent(PaymentGatewayActivity.this,ThanksActivity.class);
                         startActivity(thanksActivity);
@@ -263,7 +264,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         });
     }
 
-    private void orderConfirmaationSMSToCustomer(String orderIDToSendSMS) {
+     private void orderConfirmaationSMSToCustomer(String orderIDToSendSMS) {
 
         /*final ProgressDialog csprogress;
         csprogress = new ProgressDialog(PaymentGatewayActivity.this);

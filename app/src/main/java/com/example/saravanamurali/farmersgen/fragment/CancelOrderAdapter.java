@@ -114,16 +114,12 @@ public class CancelOrderAdapter extends RecyclerView.Adapter<CancelOrderAdapter.
 
                                     cancelOrderUsingOrderID_Interface.getCancelOrderUsingOrderID(get_OrderID);
                                     System.out.println(get_OrderID);
-
-
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-
                                     dialog.cancel();
-
                                 }
                             });
 
