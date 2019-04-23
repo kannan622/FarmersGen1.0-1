@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -139,7 +140,15 @@ public class OTPActivityForLoginForgetPasswordAtViewCart extends AppCompatActivi
 
                 ms=millisUntilFinished;
 
-                timeShow_ForgetPassword_AtViewCart.setText(""+millisUntilFinished/1000);
+                int seconds = (int) (millisUntilFinished / 1000);
+                int minutes = seconds / 60;
+                seconds = seconds % 60;
+                timeShow_ForgetPassword_AtViewCart.setText("TIME : " + String.format("%02d", minutes)
+                        + ":" + String.format("%02d", seconds));
+
+               // Log.d("test", "testing22");
+
+              //  timeShow_ForgetPassword_AtViewCart.setText(""+millisUntilFinished/1000);
 
 
             }
@@ -156,6 +165,16 @@ public class OTPActivityForLoginForgetPasswordAtViewCart extends AppCompatActivi
                         resendClick_ForgetPassword_AtViewCart.setVisibility(View.VISIBLE);
                         countDownTimerAtForgetPassword_AtViewCart();
                         sendOTP();
+                        new android.os.Handler().postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                //csprogress.dismiss();
+//whatever you want just you have to launch overhere.
+
+
+                            }
+                        }, 1000);
 
                         sendOTPForResendAtForgetPasswordActivity_AtViewCart();
 
