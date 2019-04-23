@@ -83,10 +83,9 @@ public class MenuAccountFragment extends Fragment {
     RelativeLayout relativeLayoutProfileLoginBlock;
     Button logout;
     String currentUserId;
-    private FragmentActivity myContext;
-    
     //Share App
     Button share_App;
+    private FragmentActivity myContext;
 
 
     public MenuAccountFragment() {
@@ -139,10 +138,10 @@ public class MenuAccountFragment extends Fragment {
         relativeLayoutCancelOrderBlock = (RelativeLayout) view.findViewById(R.id.cancelOrderBlock);
 
         relativeLayoutLogoutBlock = (RelativeLayout) view.findViewById(R.id.profileLogoutBlock);
-        
+
         //Share App
-        share_App=(Button)view.findViewById(R.id.shareApp);
-        
+        share_App = (Button) view.findViewById(R.id.shareApp);
+
         share_App.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -254,14 +253,14 @@ public class MenuAccountFragment extends Fragment {
     }
 
     private void shareAppToOtherApp() {
-        Intent shareIntent =   new Intent(Intent.ACTION_SEND);
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
 
-        String shareBody="Body of the message";
-        String shareSub="Share sub";
+        String shareBody = "Body of the message";
+        String shareSub = "Share sub";
 
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT,shareBody);
-        shareIntent.putExtra(Intent.EXTRA_TEXT,shareBody);
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareBody);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
 
         startActivity(Intent.createChooser(shareIntent, "Share Using"));
 
@@ -317,20 +316,19 @@ public class MenuAccountFragment extends Fragment {
             @Override
             public void onResponse(Call<JSONResponseToGetPastOrderDetails> call, Response<JSONResponseToGetPastOrderDetails> response) {
                 if (response.isSuccessful()) {
-                    if(csprogress.isShowing()){
+                    if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
                     JSONResponseToGetPastOrderDetails jsonResponseToGetPastOrderDetails = response.body();
 
                     jsonResponseToGetPastOrderDTOListSnackBar = jsonResponseToGetPastOrderDetails.getJsonResponseToGetPastOrderDTOList();
 
-                    int pastOrderSize = jsonResponseToGetPastOrderDTOListSnackBar.size();
 
-                    if (pastOrderSize == 0) {
-                        callPastOrderSnackBar();
-                    } else {
+                    if (jsonResponseToGetPastOrderDTOListSnackBar != null) {
                         Intent pastOrderActivity = new Intent(getActivity(), PastOrderListActivity.class);
                         startActivity(pastOrderActivity);
+                    } else {
+                        callPastOrderSnackBar();
                     }
 
 
@@ -339,7 +337,7 @@ public class MenuAccountFragment extends Fragment {
 
             @Override
             public void onFailure(Call<JSONResponseToGetPastOrderDetails> call, Throwable t) {
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -387,7 +385,7 @@ public class MenuAccountFragment extends Fragment {
 
                 if (response.isSuccessful()) {
 
-                    if(csprogress.isShowing()){
+                    if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
@@ -396,16 +394,12 @@ public class MenuAccountFragment extends Fragment {
 
 
                     System.out.println();
-                    int orderSize = jsonResponseForCancelOrderDTOSForSnakcerBar.size();
-
-                    if (orderSize == 0) {
-
-                        callCancelOrderSnackerBar();
-
-                    } else {
-
+                    if (jsonResponseForCancelOrderDTOSForSnakcerBar != null) {
                         Intent cancelOrder = new Intent(getActivity(), CancelOrderActivity.class);
                         startActivity(cancelOrder);
+                    } else {
+
+                        callCancelOrderSnackerBar();
 
                     }
 
@@ -415,7 +409,7 @@ public class MenuAccountFragment extends Fragment {
 
             @Override
             public void onFailure(Call<JSONResponseToFetchCancelOrderDTO> call, Throwable t) {
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -451,7 +445,7 @@ public class MenuAccountFragment extends Fragment {
             public void onResponse(Call<JSONResponseProfileEdit> call, Response<JSONResponseProfileEdit> response) {
 
                 if (response.isSuccessful()) {
-                    if(csprogress.isShowing()){
+                    if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
@@ -467,7 +461,7 @@ public class MenuAccountFragment extends Fragment {
 
             @Override
             public void onFailure(Call<JSONResponseProfileEdit> call, Throwable t) {
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -489,22 +483,10 @@ public class MenuAccountFragment extends Fragment {
     private void logout() {
 
 
-        //Get Current User From Shared Preferences
-        SharedPreferences deleteCartUsingCurrentUSer = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
-        String deletecart = deleteCartUsingCurrentUSer.getString("CURRENTUSER", NO_CURRENT_USER);
-
-
-        //Remove Current User From Shared Preferences
-        SharedPreferences getCurrentUser = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
-        SharedPreferences.Editor editor = getCurrentUser.edit();
-        editor.remove("CURRENTUSER");
-        editor.commit();
-
-        //Remove Current User COUPON ID From Shared Preferences
         SharedPreferences getCurrentUser_CouponID = this.getActivity().getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
-        SharedPreferences.Editor editorID = getCurrentUser_CouponID.edit();
-        editor.remove("COUPONID");
-        editor.commit();
+        SharedPreferences.Editor editor1 = getCurrentUser_CouponID.edit();
+        editor1.remove("COUPONID");
+        editor1.commit();
 
 
         //Remove Current User COUPON CODE From Shared Preferences
@@ -514,7 +496,23 @@ public class MenuAccountFragment extends Fragment {
         editorCode.commit();
 
 
+        //Get Current User From Shared Preferences
+        SharedPreferences deleteCartUsingCurrentUSer = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String deletecart = deleteCartUsingCurrentUSer.getString("CURRENTUSER", NO_CURRENT_USER);
+
+        System.out.println(deletecart);
+
+        //Remove Current User From Shared Preferences
+        SharedPreferences getCurrentUser = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        SharedPreferences.Editor editor = getCurrentUser.edit();
+        editor.remove("CURRENTUSER");
+        editor.commit();
+
         clearAllItemsAtAddCartTableUsingDeviceID();
+
+        /*Intent loginIntent = new Intent(getActivity(), MenuAccountFragmentLoginActivity.class);
+        startActivity(loginIntent);
+*/
 
     }
 
