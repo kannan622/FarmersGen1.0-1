@@ -111,8 +111,8 @@ public class ExistingAddressActivity extends AppCompatActivity {
             public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
 
                 if (response.isSuccessful()) {
-                    ProgressThread progressThread=new ProgressThread();
-                    progressThread.run();
+                    /*ProgressThread progressThread=new ProgressThread();
+                    progressThread.run();*/
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
                     }

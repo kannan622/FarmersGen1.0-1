@@ -23,13 +23,29 @@
             android:textColor="#4a8cf6"
             android:textSize="25sp" />
 
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/useMyLocationInUpdateAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RLayoutDeliveryAddress">
+
+        <Button
+            android:id="@+id/myLocationButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Use My Location"
+            android:textColor="@color/FragmentGreen"
+            android:layout_margin="@dimen/ten_dp" />
 
     </RelativeLayout>
 
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:layout_below="@id/RLayoutDeliveryAddress"
+        android:layout_height="350dp"
+        android:layout_below="@id/useMyLocationInUpdateAddress"
         android:divider="@android:color/transparent"
         android:dividerHeight="25px"
         >

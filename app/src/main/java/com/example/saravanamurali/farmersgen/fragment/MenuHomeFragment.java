@@ -255,7 +255,11 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         });
 
 
+
     }
+
+
+
 
     @Override
     public void onItemClick(int position) {
@@ -391,4 +395,6 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
 
     }*/
+
+
 }
