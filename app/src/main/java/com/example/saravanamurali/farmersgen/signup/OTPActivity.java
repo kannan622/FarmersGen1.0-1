@@ -139,6 +139,18 @@ public class OTPActivity extends AppCompatActivity {
                         callCountDownTimerAtLoginActivity();
                         getOTPAtLoginActivity();
 
+                        new android.os.Handler().postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                //csprogress.dismiss();
+//whatever you want just you have to launch overhere.
+
+
+                            }
+                        }, 1000);
+
+
                         sendOTP_Alone_For_LoginActivity();
 
                     }

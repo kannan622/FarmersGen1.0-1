@@ -125,7 +125,19 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
                         resendClick.setVisibility(View.INVISIBLE);
                         callCountDownTimer();
                         gettingOTP();
-                        
+
+                        new android.os.Handler().postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                //csprogress.dismiss();
+//whatever you want just you have to launch overhere.
+
+
+                            }
+                        }, 1000);
+
+
                         sendOTPForResend();
 
                     }

@@ -125,7 +125,7 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
 
                         getOTPAtSignup();
 
-                        /*new android.os.Handler().postDelayed(new Runnable() {
+                        new android.os.Handler().postDelayed(new Runnable() {
 
                             @Override
                             public void run() {
@@ -135,7 +135,6 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
 
                             }
                         }, 1000);
-*/
 
 
                         reSendOTP();
