@@ -162,10 +162,10 @@ public class OTPActivityForLoginForgetPasswordAtViewCart extends AppCompatActivi
                     @Override
                     public void onClick(View v) {
                         otpButton_AtLoginForgetPassword_AtViewCart.setVisibility(View.VISIBLE);
-                        resendClick_ForgetPassword_AtViewCart.setVisibility(View.VISIBLE);
+                        resendClick_ForgetPassword_AtViewCart.setVisibility(View.INVISIBLE);
                         countDownTimerAtForgetPassword_AtViewCart();
                         sendOTP();
-                        new android.os.Handler().postDelayed(new Runnable() {
+                        /*new android.os.Handler().postDelayed(new Runnable() {
 
                             @Override
                             public void run() {
@@ -175,7 +175,7 @@ public class OTPActivityForLoginForgetPasswordAtViewCart extends AppCompatActivi
 
                             }
                         }, 1000);
-
+*/
                         sendOTPForResendAtForgetPasswordActivity_AtViewCart();
 
                     }

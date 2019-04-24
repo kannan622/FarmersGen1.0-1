@@ -117,7 +117,11 @@ public class OTPActivity extends AppCompatActivity {
 
                 ms=millisUntilFinished;
 
-                timeShow_LoginActivity.setText(""+millisUntilFinished/1000);
+                int seconds = (int) (millisUntilFinished / 1000);
+                int minutes = seconds / 60;
+                seconds = seconds % 60;
+                timeShow_LoginActivity.setText("TIME : " + String.format("%02d", minutes)
+                        + ":" + String.format("%02d", seconds));
 
 
             }

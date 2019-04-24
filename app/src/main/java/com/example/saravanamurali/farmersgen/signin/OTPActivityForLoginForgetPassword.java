@@ -123,7 +123,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
                         countDownTimerAtForgetPassword();
                         getOTP();
 
-                        new android.os.Handler().postDelayed(new Runnable() {
+                       /* new android.os.Handler().postDelayed(new Runnable() {
 
                             @Override
                             public void run() {
@@ -133,7 +133,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
 
                             }
                         }, 1000);
-
+*/
 
                         sendOTPForResendAtForgetPasswordActivity();
 
@@ -197,6 +197,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
 
     }
 
+    //Send mobile and OTP to server
     private void sendMobileNoandOTPForLoginForgetPassword() {
 
         final ProgressDialog csprogress;

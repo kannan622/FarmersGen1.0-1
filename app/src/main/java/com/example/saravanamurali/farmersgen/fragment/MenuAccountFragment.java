@@ -252,23 +252,7 @@ public class MenuAccountFragment extends Fragment {
         return view;
     }
 
-    private void shareAppToOtherApp() {
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
 
-        String shareBody = "Body of the message";
-        String shareSub = "Share sub";
-
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareBody);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-
-        startActivity(Intent.createChooser(shareIntent, "Share Using"));
-
-        /* shareIntent.putExtra(Intent.EXTRA_SUBJECT,"Insert Subject here");
-        String app_url = " https://play.google.com/store/apps/details?id=my.example.javatpoint";
-        shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,app_url);*/
-
-    }
 
     //Manage Address show,add,edit adress
     private void manageAddressInMenuAccountFragment() {
@@ -556,6 +540,26 @@ public class MenuAccountFragment extends Fragment {
 
             }
         });
+
+    }
+
+
+    //Share app to other APP
+    private void shareAppToOtherApp() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+
+        String shareBody = "Body of the message";
+        String shareSub = "Share sub";
+
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareBody);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+
+        startActivity(Intent.createChooser(shareIntent, "Share Using"));
+
+        /* shareIntent.putExtra(Intent.EXTRA_SUBJECT,"Insert Subject here");
+        String app_url = " https://play.google.com/store/apps/details?id=my.example.javatpoint";
+        shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,app_url);*/
 
     }
 

@@ -6,8 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".signup.OTPActForSuccRegistrationAtViewCart">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/otpTextForForgetPasswordAtSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OTP has been sent to "
+                android:textStyle="bold"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+                android:layout_marginTop="@dimen/twenty_dp" />
+
+            <TextView
+                android:id="@+id/otp_MobileNumber_AtForgetPasswordAtSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/five_dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+                android:layout_marginTop="@dimen/twenty_sp"
+                android:layout_toRightOf="@+id/otpTextForForgetPasswordAtSignUp"
+                />
+
+
+        </RelativeLayout>
+
+
     <com.goodiebag.pinview.Pinview
-        android:id="@+id/otpForRegistrationAtViewCart"
+        android:id="@+id/otpForRegistrationAtSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:pinLength="4"
@@ -17,14 +52,59 @@
         app:password="false">
     </com.goodiebag.pinview.Pinview>
 
-    <Button
-        android:id="@+id/otpRegistrationSubmitAtViewCart"
-        android:layout_width="match_parent"
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/timeShower_ForgetPasswordAtSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time"
+            android:layout_marginTop="@dimen/five_dp"
+            android:layout_toLeftOf="@id/reSend_ForgetPasswordAtSignUp"
+            android:padding="@dimen/five_dp"
+            android:layout_marginRight="@dimen/five_dp"
+            />
+
+        <TextView
+            android:id="@+id/reSend_ForgetPasswordAtSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RESEND"
+            android:layout_marginTop="@dimen/five_dp"
+            android:layout_alignParentEnd="true"
+            android:padding="@dimen/five_dp"
+            android:visibility="invisible"
+            />
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/otpErrorForLoginForgetPasswordAtSignUp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/otpForRegistrationAtViewCart"
-        android:text="Submit OTP"
+        android:text="otp"
+        android:visibility="gone"
+        android:layout_below="@+id/otpForRegistrationAtSignUp"
         />
 
 
+
+
+    <Button
+        android:id="@+id/otpRegistrationSubmitAtViewCartAtSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/otpForRegistrationAtSignUp"
+        android:background="@drawable/rec_gradiant"
+        android:layout_marginTop="@dimen/twenty_dp"
+        android:textColor="@color/white"
+        android:text="Submit OTP"
+        />
+
+    </LinearLayout>
 
 </RelativeLayout>
