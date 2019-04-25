@@ -120,7 +120,7 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
                     public void onClick(View v) {
 
                         otpButtonRegistration.setVisibility(View.VISIBLE);
-                        resendClick_ForgetPassword_AtSignup.setVisibility(View.VISIBLE);
+                        resendClick_ForgetPassword_AtSignup.setVisibility(View.INVISIBLE);
                         countDownTimerAtForgetPasswordAtSignUp();
 
                         getOTPAtSignup();

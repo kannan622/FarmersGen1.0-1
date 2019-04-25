@@ -119,7 +119,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
                     public void onClick(View v) {
 
                         otpButton_AtLoginForgetPassword.setVisibility(View.VISIBLE);
-                        resendClick_ForgetPassword.setVisibility(View.VISIBLE);
+                        resendClick_ForgetPassword.setVisibility(View.INVISIBLE);
                         countDownTimerAtForgetPassword();
                         getOTP();
 
