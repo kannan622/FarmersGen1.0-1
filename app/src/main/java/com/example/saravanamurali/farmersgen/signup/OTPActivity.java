@@ -144,7 +144,7 @@ public class OTPActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 //csprogress.dismiss();
-//whatever you want just you have to launch overhere.
+ //whatever you want just you have to launch overhere.
 
 
                             }

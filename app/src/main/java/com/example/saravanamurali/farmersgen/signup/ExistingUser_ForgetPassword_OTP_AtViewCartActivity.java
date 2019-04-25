@@ -113,7 +113,7 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
                         CallCountDown_Timer();
                         getOTP();
 
-                       /* new android.os.Handler().postDelayed(new Runnable() {
+                        new android.os.Handler().postDelayed(new Runnable() {
 
                             @Override
                             public void run() {
@@ -123,7 +123,6 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
 
                             }
                         }, 1000);
-*/
                         sendOTPForResendSer();
 
 

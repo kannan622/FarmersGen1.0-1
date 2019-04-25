@@ -53,20 +53,19 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
         Intent getMobileNumber = getIntent();
         mobileNumberToSendOTP = getMobileNumber.getStringExtra("MOBILENOTOLOGIN");
 
-        mobileShow_ForgetPassword_Signup=(TextView)findViewById(R.id.otp_MobileNumber_AtForgetPasswordAtSignUp);
+        mobileShow_ForgetPassword_Signup = (TextView) findViewById(R.id.otp_MobileNumber_AtForgetPasswordAtSignUp);
 
         mobileShow_ForgetPassword_Signup.setText(mobileNumberToSendOTP);
 
         pinviewRegistration = (Pinview) findViewById(R.id.otpForRegistrationAtSignUp);
         otpButtonRegistration = (Button) findViewById(R.id.otpRegistrationSubmitAtViewCartAtSignUp);
 
-        timeShow_ForgetPassword_AtSignup=(TextView)findViewById(R.id.timeShower_ForgetPasswordAtSignUp);
-        resendClick_ForgetPassword_AtSignup=(TextView)findViewById(R.id.reSend_ForgetPasswordAtSignUp);
+        timeShow_ForgetPassword_AtSignup = (TextView) findViewById(R.id.timeShower_ForgetPasswordAtSignUp);
+        resendClick_ForgetPassword_AtSignup = (TextView) findViewById(R.id.reSend_ForgetPasswordAtSignUp);
 
         getOTPAtSignup();
 
         countDownTimerAtForgetPasswordAtSignUp();
-
 
 
         otpButtonRegistration.setOnClickListener(new View.OnClickListener() {
@@ -94,11 +93,11 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
 
     private void countDownTimerAtForgetPasswordAtSignUp() {
 
-        CountDownTimer countDownTimer=new CountDownTimer(120*1000,1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(120 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
-                ms=millisUntilFinished;
+                ms = millisUntilFinished;
 
                 int seconds = (int) (millisUntilFinished / 1000);
                 int minutes = seconds / 60;
@@ -130,7 +129,7 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
                             @Override
                             public void run() {
                                 //csprogress.dismiss();
-//whatever you want just you have to launch overhere.
+ //whatever you want just you have to launch overhere.
 
 
                             }
@@ -155,17 +154,17 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
         csprogress.show();
         csprogress.setCanceledOnTouchOutside(false);
 
-        ApiInterface api=APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
+        ApiInterface api = APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
 
-        OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_fp_Login=new OTPSendToMobileDTOFrom_FP(mobileNumberToSendOTP);
+        OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_fp_Login = new OTPSendToMobileDTOFrom_FP(mobileNumberToSendOTP);
 
-        Call<JSONResponseToSendOTPFromForgetPasswordDTO> call= api.getOTPTOForgetPassword(otpSendToMobileDTOFrom_fp_Login);
+        Call<JSONResponseToSendOTPFromForgetPasswordDTO> call = api.getOTPTOForgetPassword(otpSendToMobileDTOFrom_fp_Login);
 
         call.enqueue(new Callback<JSONResponseToSendOTPFromForgetPasswordDTO>() {
             @Override
             public void onResponse(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Response<JSONResponseToSendOTPFromForgetPasswordDTO> response) {
-                if(response.isSuccessful()){
-                    if(csprogress.isShowing()){
+                if (response.isSuccessful()) {
+                    if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
                 }
@@ -174,13 +173,12 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
             @Override
             public void onFailure(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Throwable t) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
             }
         });
-
 
 
     }
@@ -228,7 +226,7 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
 
-                    if(csprogress.isShowing()){
+                    if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
@@ -246,7 +244,7 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
             @Override
             public void onFailure(Call<JSONOTPResponseFromOTPActivity> call, Throwable t) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
