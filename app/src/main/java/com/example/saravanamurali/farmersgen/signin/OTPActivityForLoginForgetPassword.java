@@ -103,8 +103,8 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
 
                 ms = millisUntilFinished;
 
-                 seconds = (int) (millisUntilFinished / 1000);
-                 minutes = seconds / 60;
+                seconds = (int) (millisUntilFinished / 1000);
+                minutes = seconds / 60;
                 seconds = seconds % 60;
                 timeShow_ForgetPassword.setText("TIME : " + String.format("%02d", minutes)
                         + ":" + String.format("%02d", seconds));
@@ -237,15 +237,10 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
 
                         Toast.makeText(OTPActivityForLoginForgetPassword.this, "You have entered wrong OTP", Toast.LENGTH_LONG).show();
 
-                        mTimeLeftInMillies = ms;
-
-                         updateCountDownTimer();
-
 
                     }
                 }
 
-               // updateCountDownTimer();
             }
 
 
@@ -263,47 +258,4 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
     }
 
 
-    //When user enters wrong OTP this method will be called
-
-    private void updateCountDownTimer() {
-         minutes = (int) (mTimeLeftInMillies / 1000) / 60;
-         seconds = (int) (mTimeLeftInMillies / 1000) % 60;
-        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d" +minutes +":"+ +seconds +"%02d", minutes, seconds);
-
-        timeShow_ForgetPassword.setText(timeLeftFormatted);
-
-        otpButton_AtLoginForgetPassword.setVisibility(View.INVISIBLE);
-
-        resendClick_ForgetPassword.setVisibility(View.VISIBLE);
-
-        resendClick_ForgetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                otpButton_AtLoginForgetPassword.setVisibility(View.VISIBLE);
-                resendClick_ForgetPassword.setVisibility(View.INVISIBLE);
-
-                countDownTimerAtForgetPassword();
-                getOTP();
-
-                new android.os.Handler().postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        //csprogress.dismiss();
-//whatever you want just you have to launch overhere.
-
-
-                    }
-                }, 1000);
-
-                sendOTPForResendAtForgetPasswordActivity();
-
-
-            }
-        });
-
-
-
-
-    }
 }

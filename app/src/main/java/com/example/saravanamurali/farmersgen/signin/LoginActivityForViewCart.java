@@ -53,13 +53,13 @@ public class LoginActivityForViewCart extends AppCompatActivity {
         setContentView(R.layout.activity_login_for_view_cart);
 
 
-        mobileNumberAtViewCart =(TextInputLayout) findViewById(R.id.loginMobileNoAtViewCart);
-        passwordAtViewCart =(TextInputLayout) findViewById(R.id.loginPasswordAtViewCart);
+        mobileNumberAtViewCart = (TextInputLayout) findViewById(R.id.loginMobileNoAtViewCart);
+        passwordAtViewCart = (TextInputLayout) findViewById(R.id.loginPasswordAtViewCart);
 
-        editTextMAtViewCart=findViewById(R.id.editTextLMAtViewCart);
-        editTextPAtViewCart=findViewById(R.id.editTextLPAtViewCart);
+        editTextMAtViewCart = findViewById(R.id.editTextLMAtViewCart);
+        editTextPAtViewCart = findViewById(R.id.editTextLPAtViewCart);
 
-      // getAddressIDAtViewCartLogin();
+        // getAddressIDAtViewCartLogin();
 
 
     }
@@ -87,7 +87,7 @@ public class LoginActivityForViewCart extends AppCompatActivity {
             public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
                 if (response.isSuccessful()) {
 
-                    if(csprogress.isShowing()){
+                    if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
@@ -95,9 +95,9 @@ public class LoginActivityForViewCart extends AppCompatActivity {
 
                     addressIDForViewCartLogin = getDeliveryAddressDTO.getAddressID();
 
-                    SharedPreferences sharedPreferences=getSharedPreferences("ADDRESS_ID",MODE_PRIVATE);
-                    SharedPreferences.Editor editor=sharedPreferences.edit();
-                    editor.putString("ADDRESSID",addressIDForViewCartLogin);
+                    SharedPreferences sharedPreferences = getSharedPreferences("ADDRESS_ID", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("ADDRESSID", addressIDForViewCartLogin);
                     editor.commit();
 
                     System.out.println("CUreent user Address ID" + addressIDForViewCartLogin);
@@ -108,7 +108,7 @@ public class LoginActivityForViewCart extends AppCompatActivity {
             @Override
             public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -123,24 +123,24 @@ public class LoginActivityForViewCart extends AppCompatActivity {
         final String mobileNumberAtCart = editTextMAtViewCart.getText().toString();
         final String passwordAtCart = editTextPAtViewCart.getText().toString();
 
-        if(!TextUtils.isEmpty(mobileNumberAtCart)) {
-            if(Utils.isValidMobile(mobileNumberAtCart)) {
-                if(!TextUtils.isEmpty(passwordAtCart)) {
-                    getLoginUserAtViewCart(mobileNumberAtCart,passwordAtCart);
+        if (!TextUtils.isEmpty(mobileNumberAtCart)) {
+            if (Utils.isValidMobile(mobileNumberAtCart)) {
+                if (!TextUtils.isEmpty(passwordAtCart)) {
+                    getLoginUserAtViewCart(mobileNumberAtCart, passwordAtCart);
                 } else {
-                    Toast.makeText(this,"Enter Password", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Enter Password", Toast.LENGTH_LONG).show();
                 }
             } else {
-                Toast.makeText(this,"Enter Valid Mobile number", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Enter Valid Mobile number", Toast.LENGTH_LONG).show();
             }
         } else {
-            Toast.makeText(this,"Enter Mobile number", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Enter Mobile number", Toast.LENGTH_LONG).show();
         }
 
 
     }
 
-    private void getLoginUserAtViewCart(final String mobileNumberAtCart,final String passwordAtCart) {
+    private void getLoginUserAtViewCart(final String mobileNumberAtCart, final String passwordAtCart) {
 
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(LoginActivityForViewCart.this);
@@ -161,14 +161,14 @@ public class LoginActivityForViewCart extends AppCompatActivity {
             @Override
             public void onResponse(Call<SignedInJSONResponse> call, Response<SignedInJSONResponse> response) {
 
-                if (response.isSuccessful()) {
 
-                    if(csprogress.isShowing()){
-                        csprogress.dismiss();
-                    }
-                    SignedInJSONResponse signedInJSONResponse = response.body();
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+                SignedInJSONResponse signedInJSONResponse = response.body();
+                if (signedInJSONResponse.getResponseCode() == 200) {
 
-                    if(signedInJSONResponse.getUser_ID()!=null) {
+                    if (signedInJSONResponse.getUser_ID() != null) {
 
 
                         SharedPreferences current_User = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
@@ -181,54 +181,30 @@ public class LoginActivityForViewCart extends AppCompatActivity {
                         startActivity(openViewCartActivity);
                         finish();
 
-/*
-
-                        //Getting Current User
-                        SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
-                        String curUser = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
-                        System.out.println("Current User at ViewCart Activity" + curUser);
-
-                        //GetAddressID
-                        getAddressIDAtViewCartLogin();
-
-                        if(curUser!=null && addressIDForViewCartLogin!=null){
-                            Intent deliveryAddressActivity = new Intent(LoginActivityForViewCart.this, ExistingAddressActivity.class);
-                            startActivity(deliveryAddressActivity);
-                        }
-
-                        if(curUser!=null && addressIDForViewCartLogin==null) {
-
-                            Intent addAddressActivity = new Intent(LoginActivityForViewCart.this, Add_Address_Activity.class);
-                            startActivity(addAddressActivity);
-
-                        }*/
-
 
                     }
 
-                    else {
-                        if (csprogress.isShowing()) {
-                            csprogress.dismiss();
-                        }
-                        Toast.makeText(LoginActivityForViewCart.this, "You have Entered Wrong Mobile Number or Password!!!", Toast.LENGTH_LONG).show();
+                } else if (signedInJSONResponse.getResponseCode() == 500) {
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
                     }
+                    Toast.makeText(LoginActivityForViewCart.this, "You have Entered Wrong Mobile Number or Password!!!", Toast.LENGTH_LONG).show();
+                }
 
 
-
-                    }
             }
+
             @Override
             public void onFailure(Call<SignedInJSONResponse> call, Throwable t) {
 
                 Toast.makeText(LoginActivityForViewCart.this, "You have Entered Wrong Mobile Number or Password!!!", Toast.LENGTH_LONG).show();
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
             }
         });
-
 
 
     }
@@ -248,7 +224,7 @@ public class LoginActivityForViewCart extends AppCompatActivity {
 
 
     public void onClickSignupInLoginAtViewCartActivity(View view) {
-        Intent intent=new Intent(LoginActivityForViewCart.this,RegisterUserAtCartActivity.class);
+        Intent intent = new Intent(LoginActivityForViewCart.this, RegisterUserAtCartActivity.class);
         startActivity(intent);
         finish();
     }

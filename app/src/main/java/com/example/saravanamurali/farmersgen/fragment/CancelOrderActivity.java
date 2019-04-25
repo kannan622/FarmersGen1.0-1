@@ -221,8 +221,6 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
         });
 
 
-
-
     }
 
 

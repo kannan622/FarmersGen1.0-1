@@ -17,6 +17,9 @@ public class SignedInJSONResponse {
     @SerializedName("email")
     String email;
 
+    @SerializedName("responsecode")
+    int responseCode;
+
     public class Success {
         @SerializedName("response code")
         String responseCode;
@@ -26,6 +29,10 @@ public class SignedInJSONResponse {
         String message;
 
 
+    }
+
+    public int getResponseCode() {
+        return responseCode;
     }
 
     public Success getSuccess() {
