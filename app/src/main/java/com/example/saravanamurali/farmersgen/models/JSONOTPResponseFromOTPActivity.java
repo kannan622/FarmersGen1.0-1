@@ -5,16 +5,16 @@ import com.google.gson.annotations.SerializedName;
 public class JSONOTPResponseFromOTPActivity {
 
     @SerializedName("Status")
-    String status;
+    int status;
     @SerializedName("Message")
     String message;
 
-    public JSONOTPResponseFromOTPActivity(String status, String message) {
+    public JSONOTPResponseFromOTPActivity(int status, String message) {
         this.status = status;
         this.message = message;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 

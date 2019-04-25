@@ -25,6 +25,8 @@ import com.example.saravanamurali.farmersgen.signup.OTPActivity;
 import com.example.saravanamurali.farmersgen.signup.OTPActivityForViewCart2;
 import com.goodiebag.pinview.Pinview;
 
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +49,11 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
 
     long ms;
 
+    long mTimeLeftInMillies;
+
+    int minutes;
+    int seconds;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,34 +62,33 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-         mobileNumberForLoginForgetPassword=intent.getStringExtra("MOBILENO_FOR_LOGIN_FORGET_PASSWORD");
+        mobileNumberForLoginForgetPassword = intent.getStringExtra("MOBILENO_FOR_LOGIN_FORGET_PASSWORD");
 
         pinview_AtLoginForgetPassword = (Pinview) findViewById(R.id.otpPinViewForLoginForgetPassword);
         otpButton_AtLoginForgetPassword = (Button) findViewById(R.id.otpSubmitForLoginForgetPassword);
         errorText_AtLoginForgetPassword = (TextView) findViewById(R.id.otpErrorForLoginForgetPassword);
 
-        mobileShow_ForgetPassword=(TextView)findViewById(R.id.otp_MobileNumber_AtForgetPassword);
+        mobileShow_ForgetPassword = (TextView) findViewById(R.id.otp_MobileNumber_AtForgetPassword);
 
 
         mobileShow_ForgetPassword.setText(mobileNumberForLoginForgetPassword);
 
 
-        timeShow_ForgetPassword=(TextView)findViewById(R.id.timeShower_ForgetPassword);
-        resendClick_ForgetPassword=(TextView)findViewById(R.id.reSend_ForgetPassword);
+        timeShow_ForgetPassword = (TextView) findViewById(R.id.timeShower_ForgetPassword);
+        resendClick_ForgetPassword = (TextView) findViewById(R.id.reSend_ForgetPassword);
 
         getOTP();
 
         countDownTimerAtForgetPassword();
 
 
-
         otpButton_AtLoginForgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!TextUtils.isEmpty(entered_OTP_AtLoginForgetPassword)) {
+                if (!TextUtils.isEmpty(entered_OTP_AtLoginForgetPassword)) {
                     sendMobileNoandOTPForLoginForgetPassword();
                 } else {
-                    Toast.makeText(OTPActivityForLoginForgetPassword.this,"Please enter OTP",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OTPActivityForLoginForgetPassword.this, "Please enter OTP", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -91,21 +97,19 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
 
     private void countDownTimerAtForgetPassword() {
 
-        CountDownTimer countDownTimer=new CountDownTimer(120*1000,1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(120 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
-                ms=millisUntilFinished;
+                ms = millisUntilFinished;
 
-                int seconds = (int) (millisUntilFinished / 1000);
-                int minutes = seconds / 60;
+                 seconds = (int) (millisUntilFinished / 1000);
+                 minutes = seconds / 60;
                 seconds = seconds % 60;
                 timeShow_ForgetPassword.setText("TIME : " + String.format("%02d", minutes)
                         + ":" + String.format("%02d", seconds));
 
-               // Log.d("test", "testing11");
-
-
+                // Log.d("test", "testing11");
 
 
             }
@@ -137,7 +141,6 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
                         sendOTPForResendAtForgetPasswordActivity();
 
 
-
                     }
                 });
 
@@ -153,17 +156,17 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
         csprogress.show();
         csprogress.setCanceledOnTouchOutside(false);
 
-        ApiInterface api=APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
+        ApiInterface api = APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
 
-        OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_fp_Login=new OTPSendToMobileDTOFrom_FP(mobileNumberForLoginForgetPassword);
+        OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_fp_Login = new OTPSendToMobileDTOFrom_FP(mobileNumberForLoginForgetPassword);
 
-        Call<JSONResponseToSendOTPFromForgetPasswordDTO> call= api.getOTPTOForgetPassword(otpSendToMobileDTOFrom_fp_Login);
+        Call<JSONResponseToSendOTPFromForgetPasswordDTO> call = api.getOTPTOForgetPassword(otpSendToMobileDTOFrom_fp_Login);
 
         call.enqueue(new Callback<JSONResponseToSendOTPFromForgetPasswordDTO>() {
             @Override
             public void onResponse(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Response<JSONResponseToSendOTPFromForgetPasswordDTO> response) {
-                if(response.isSuccessful()){
-                    if(csprogress.isShowing()){
+                if (response.isSuccessful()) {
+                    if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
                 }
@@ -172,15 +175,12 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
             @Override
             public void onFailure(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Throwable t) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
             }
         });
-
-
-
 
 
     }
@@ -190,7 +190,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
         pinview_AtLoginForgetPassword.setPinViewEventListener(new Pinview.PinViewEventListener() {
             @Override
             public void onDataEntered(Pinview pinview, boolean b) {
-                entered_OTP_AtLoginForgetPassword =pinview.getValue();
+                entered_OTP_AtLoginForgetPassword = pinview.getValue();
             }
         });
 
@@ -206,54 +206,103 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
         csprogress.setCanceledOnTouchOutside(false);
 
 
-        ApiInterface api=APIClientToSendMobileNoAndOTPForLoginForgetPassword.getApiInterfaceToSendMobileNoAndOTPForLoginForgetPassword();
+        ApiInterface api = APIClientToSendMobileNoAndOTPForLoginForgetPassword.getApiInterfaceToSendMobileNoAndOTPForLoginForgetPassword();
 
         OTPandMobileNoDTO otpAndMobileNoDTO = new OTPandMobileNoDTO(mobileNumberForLoginForgetPassword, entered_OTP_AtLoginForgetPassword);
 
-        Call<JSONOTPResponseFromOTPActivity> call=api.sendMobileNoandOTPFromLoginForgetPasswordActivity(otpAndMobileNoDTO);
+        Call<JSONOTPResponseFromOTPActivity> call = api.sendMobileNoandOTPFromLoginForgetPasswordActivity(otpAndMobileNoDTO);
 
         call.enqueue(new Callback<JSONOTPResponseFromOTPActivity>() {
             @Override
             public void onResponse(Call<JSONOTPResponseFromOTPActivity> call, Response<JSONOTPResponseFromOTPActivity> response) {
 
-               /* if(response.isSuccessful()){
+                if (response.isSuccessful()) {
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
 
                     JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
-*/
-                    if(response.isSuccessful())  {
 
-                        if(csprogress.isShowing()){
-                            csprogress.dismiss();
-                        }
 
-                        //(jsonotpResponseFromOTPActivity.getStatus()=="200")
+                    if (jsonotpResponseFromOTPActivity.getStatus() == 200) {
+
                         Intent newPassintent = new Intent(OTPActivityForLoginForgetPassword.this, NewPassAndConfirmPassForLoginForgetPassword.class);
                         newPassintent.putExtra("MOBILENO_FOR_NEW_PASS_AND_CONFIRM_PASSWORD", mobileNumberForLoginForgetPassword);
                         startActivity(newPassintent);
                         finish();
-                    }
-                    else  {
-                        //if (jsonotpResponseFromOTPActivity.getStatus()=="500")
 
-                        //Resend OTP
+                        //When user enters wrong otp
+                    } else if (jsonotpResponseFromOTPActivity.getStatus() == 500) {
 
-                        //sendMobileNoandOTPForLoginForgetPassword();
+                        Toast.makeText(OTPActivityForLoginForgetPassword.this, "You have entered wrong OTP", Toast.LENGTH_LONG).show();
 
-                        Toast.makeText(OTPActivityForLoginForgetPassword.this,"500 Eror",Toast.LENGTH_LONG).show();
+                        mTimeLeftInMillies = ms;
+
+                         updateCountDownTimer();
+
 
                     }
                 }
+
+               // updateCountDownTimer();
+            }
 
 
             @Override
             public void onFailure(Call<JSONOTPResponseFromOTPActivity> call, Throwable t) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
             }
         });
+
+
+    }
+
+
+    //When user enters wrong OTP this method will be called
+
+    private void updateCountDownTimer() {
+         minutes = (int) (mTimeLeftInMillies / 1000) / 60;
+         seconds = (int) (mTimeLeftInMillies / 1000) % 60;
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d" +minutes +":"+ +seconds +"%02d", minutes, seconds);
+
+        timeShow_ForgetPassword.setText(timeLeftFormatted);
+
+        otpButton_AtLoginForgetPassword.setVisibility(View.INVISIBLE);
+
+        resendClick_ForgetPassword.setVisibility(View.VISIBLE);
+
+        resendClick_ForgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                otpButton_AtLoginForgetPassword.setVisibility(View.VISIBLE);
+                resendClick_ForgetPassword.setVisibility(View.INVISIBLE);
+
+                countDownTimerAtForgetPassword();
+                getOTP();
+
+                new android.os.Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        //csprogress.dismiss();
+//whatever you want just you have to launch overhere.
+
+
+                    }
+                }, 1000);
+
+                sendOTPForResendAtForgetPasswordActivity();
+
+
+            }
+        });
+
+
 
 
     }
