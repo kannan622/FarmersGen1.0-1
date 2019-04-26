@@ -1,6 +1,7 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -14,14 +15,17 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
+import com.example.saravanamurali.farmersgen.models.AddCartDTO;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
 import com.example.saravanamurali.farmersgen.models.GetOrdersUsingDeviceID_DTO;
+import com.example.saravanamurali.farmersgen.models.JSONResponseViewCartListDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseViewCartOrdersatPaymentGateway;
 import com.example.saravanamurali.farmersgen.models.JsonOrderResponse;
 import com.example.saravanamurali.farmersgen.models.OrderDTO;
 import com.example.saravanamurali.farmersgen.models.OrderDetailsDTO;
 import com.example.saravanamurali.farmersgen.models.SendOrderConfirmationSMSDTO;
+import com.example.saravanamurali.farmersgen.models.ViewCartDTO;
 import com.example.saravanamurali.farmersgen.models.ViewCartPaymentGatewayDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForViewCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
@@ -50,6 +54,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
     TextView cashOnDeliveryPay;
 
+    private String NO_CURRENT_COUPON_ID = "NO_CURRENT_COUPON_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +67,96 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
         getAddressID();
 
-        loadViewCartProductList();
+        //If coupon is applied we need to get discount GrandTotal
+        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
+        String curUser_CouponID_To_Get_GrandTotal = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
+
+        if(curUser_CouponID_To_Get_GrandTotal.equals(NO_CURRENT_COUPON_ID)){
+            loadViewCartProductList();
+        }
+
+        else if (!curUser_CouponID_To_Get_GrandTotal.equals(NO_CURRENT_COUPON_ID)) {
+
+            loadViewCartProductList_With_Dicount_Price();
+
+        }
+
+
+
+
 
         orderDetailsList=new ArrayList<OrderDetailsDTO>();
+
+
+    }
+
+    private void loadViewCartProductList_With_Dicount_Price() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(PaymentGatewayActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
+        String curUser_CouponID_ForPaymentGatway = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
+
+        //Getting Current User
+        SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String curUserToGetOffer_ForPaymentGatway = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+        String ANDROID_MOBILE_ID = Settings.Secure.getString(PaymentGatewayActivity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
+
+        AddCartDTO loadViewCartWithCouponID_OfferPrice = new AddCartDTO(ANDROID_MOBILE_ID, curUser_CouponID_ForPaymentGatway,curUserToGetOffer_ForPaymentGatway);
+        Call<JSONResponseViewCartListDTO> call = api.getViewCartWithCouponID(loadViewCartWithCouponID_OfferPrice);
+
+        call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
+            @Override
+            public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
+                JSONResponseViewCartListDTO jsonResponseViewCartListDTO=response.body();
+
+
+                List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
+
+                grandTotal = jsonResponseViewCartListDTO.getGrandTotal();
+
+
+                String ANDROID_MOBILE_ID = Settings.Secure.getString(PaymentGatewayActivity.this.getContentResolver(),
+                        Settings.Secure.ANDROID_ID);
+
+                for (int i = 0; i < viewCartProductListDTO.size(); i++) {
+
+                    String pay_ProductCode = viewCartProductListDTO.get(i).getProduct_Code();
+                    String pay_ProductCount = viewCartProductListDTO.get(i).getCount();
+                    String pay_ProductPrice = viewCartProductListDTO.get(i).getTotal_price();
+
+                    OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO(pay_ProductCode, pay_ProductCount, pay_ProductPrice, ANDROID_MOBILE_ID);
+                    orderDetailsList.add(orderDetailsDTO);
+
+                }
+
+                cashOnDeliveryPay.setText(grandTotal);
+
+            }
+
+            @Override
+            public void onFailure(Call<JSONResponseViewCartListDTO> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+            }
+        });
+
+
 
 
     }

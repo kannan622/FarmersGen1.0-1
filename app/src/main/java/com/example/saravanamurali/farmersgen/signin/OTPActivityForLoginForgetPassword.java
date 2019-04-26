@@ -216,30 +216,28 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONOTPResponseFromOTPActivity> call, Response<JSONOTPResponseFromOTPActivity> response) {
 
-                if (response.isSuccessful()) {
-
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-
-                    JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
-
-
-                    if (jsonotpResponseFromOTPActivity.getStatus() == 200) {
-
-                        Intent newPassintent = new Intent(OTPActivityForLoginForgetPassword.this, NewPassAndConfirmPassForLoginForgetPassword.class);
-                        newPassintent.putExtra("MOBILENO_FOR_NEW_PASS_AND_CONFIRM_PASSWORD", mobileNumberForLoginForgetPassword);
-                        startActivity(newPassintent);
-                        finish();
-
-                        //When user enters wrong otp
-                    } else if (jsonotpResponseFromOTPActivity.getStatus() == 500) {
-
-                        Toast.makeText(OTPActivityForLoginForgetPassword.this, "You have entered wrong OTP", Toast.LENGTH_LONG).show();
-
-
-                    }
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
                 }
+
+                JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
+
+
+                if (jsonotpResponseFromOTPActivity.getStatus() == 200) {
+
+                    Intent newPassintent = new Intent(OTPActivityForLoginForgetPassword.this, NewPassAndConfirmPassForLoginForgetPassword.class);
+                    newPassintent.putExtra("MOBILENO_FOR_NEW_PASS_AND_CONFIRM_PASSWORD", mobileNumberForLoginForgetPassword);
+                    startActivity(newPassintent);
+                    finish();
+
+                    //When user enters wrong otp
+                } else if (jsonotpResponseFromOTPActivity.getStatus() == 500) {
+
+                    Toast.makeText(OTPActivityForLoginForgetPassword.this, "You have entered wrong OTP", Toast.LENGTH_LONG).show();
+
+
+                }
+
 
             }
 

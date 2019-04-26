@@ -166,25 +166,22 @@ public class LoginActivityForViewCart extends AppCompatActivity {
                     csprogress.dismiss();
                 }
                 SignedInJSONResponse signedInJSONResponse = response.body();
-                if (signedInJSONResponse.getResponseCode() == 200) {
-
-                    if (signedInJSONResponse.getUser_ID() != null) {
+                if (signedInJSONResponse.getUser_ID() != null) {
 
 
-                        SharedPreferences current_User = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = current_User.edit();
-                        editor.putString("CURRENTUSER", signedInJSONResponse.getUser_ID());
-                        editor.commit();
+                    SharedPreferences current_User = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = current_User.edit();
+                    editor.putString("CURRENTUSER", signedInJSONResponse.getUser_ID());
+                    editor.commit();
 
-                        Intent openViewCartActivity = new Intent(LoginActivityForViewCart.this, ViewCartActivity.class);
-                        openViewCartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(openViewCartActivity);
-                        finish();
+                    Intent openViewCartActivity = new Intent(LoginActivityForViewCart.this, ViewCartActivity.class);
+                    openViewCartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(openViewCartActivity);
+                    finish();
 
+                } else
 
-                    }
-
-                } else if (signedInJSONResponse.getResponseCode() == 500) {
+                {
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
