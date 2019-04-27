@@ -24,6 +24,7 @@ import com.example.saravanamurali.farmersgen.models.JSONResponseProductListDTO;
 import com.example.saravanamurali.farmersgen.models.ProductListDTO;
 import com.example.saravanamurali.farmersgen.models.UpdateCountInCartDTO;
 import com.example.saravanamurali.farmersgen.models.ViewProductListDTO;
+import com.example.saravanamurali.farmersgen.productdescription.ProductDescriptionActivity;
 import com.example.saravanamurali.farmersgen.recyclerviewadapter.ProductListAdapter;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForBrand;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForCart;
@@ -40,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Product_List_Activity extends AppCompatActivity implements ProductListAdapter.ShowDataInFragment, ProductListAdapter.AddCart, ProductListAdapter.UpdateCartInAddCart, ProductListAdapter.DeleteItemWhenCountZeroInterface {
+public class Product_List_Activity extends AppCompatActivity implements ProductListAdapter.ShowDataInFragment, ProductListAdapter.AddCart, ProductListAdapter.UpdateCartInAddCart, ProductListAdapter.DeleteItemWhenCountZeroInterface, ProductListAdapter.OnImageClickListener {
 
 
     private final String NO_CURRENT_USER = "null";
@@ -143,6 +144,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         productListAdapter.setUpdateCartInAddCart(Product_List_Activity.this);
 
         productListAdapter.setDeleteItemWhenCountZero(Product_List_Activity.this);
+        productListAdapter.setOnImageClickListener(Product_List_Activity.this);
 
     }
 
@@ -432,6 +434,19 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     } //End of Delete Count
 
 
+    //To Display Each Product Description
+    @Override
+    public void onImageClick(String imageCode) {
+
+        Intent productDescription=new Intent(Product_List_Activity.this,ProductDescriptionActivity.class);
+        productDescription.putExtra("BRANDID_FOR_PRODUCT_DESC",brand_ID_For_ProductList);
+        productDescription.putExtra("PRODUCT_CODE",imageCode);
+        startActivity(productDescription);
+
+
+    } //End of Each Product Description
+
+
     //Show Fragment when customer adds item
     @Override
     public void showInFragment(int fragmentCount) {
@@ -449,4 +464,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         }
 
     }
+
+
 }

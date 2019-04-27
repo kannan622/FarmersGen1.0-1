@@ -21,7 +21,7 @@ public interface BaseUrl {
 
 
     //Add Cart
-    public static final String ROOT_URL_FOR_ADDCART = "http://farmersgen.com/service/cart/";
+    public static final String ROOT_URL_FOR_ADDCART ="http://farmersgen.com/service/cart/";
 
     //Update Count in Cart(+ Button)
     public static final String ROOT_URL_FOR_UPDATE_COUNT_IN_ADDCART ="http://farmersgen.com/service/cart/";

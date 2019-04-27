@@ -104,7 +104,12 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
 
                 ms=millisUntilFinished;
 
-                timeShow.setText(""+millisUntilFinished/1000);
+                int seconds = (int) (millisUntilFinished / 1000);
+                int minutes = seconds / 60;
+                seconds = seconds % 60;
+                timeShow.setText("TIME : " + String.format("%02d", minutes)
+                        + ":" + String.format("%02d", seconds));
+
 
             }
 
@@ -120,7 +125,19 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
                         resendClick.setVisibility(View.INVISIBLE);
                         callCountDownTimer();
                         gettingOTP();
-                        
+
+                        new android.os.Handler().postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                //csprogress.dismiss();
+//whatever you want just you have to launch overhere.
+
+
+                            }
+                        }, 1000);
+
+
                         sendOTPForResend();
 
                     }

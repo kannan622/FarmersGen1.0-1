@@ -6,8 +6,6 @@ import java.util.List;
 
 public class SignedInJSONResponse {
 
-    @SerializedName("success")
-    Success success;
     @SerializedName("user_id")
     String user_ID;
     @SerializedName("name")
@@ -17,20 +15,20 @@ public class SignedInJSONResponse {
     @SerializedName("email")
     String email;
 
-    public class Success {
-        @SerializedName("response code")
-        String responseCode;
-        @SerializedName("status")
-        int status;
-        @SerializedName("message")
-        String message;
+    @SerializedName("responsecode")
+    int responseCode;
 
+    @SerializedName("status")
+    int status;
 
+    public int getStatus() {
+        return status;
     }
 
-    public Success getSuccess() {
-        return success;
+    public int getResponseCode() {
+        return responseCode;
     }
+
 
     public String getUser_ID() {
         return user_ID;

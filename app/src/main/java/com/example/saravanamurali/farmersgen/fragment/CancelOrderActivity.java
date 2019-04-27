@@ -146,27 +146,12 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
 
 
                  Toast.makeText(CancelOrderActivity.this,"Your Order No"+" "+orderID+" " +"has been cancelled",Toast.LENGTH_LONG).show();
-                 loadCancelOrderList();
 
-              /*int getSize=checkOrderIsThereToCancel();
+                 checkOrderListIsAvaliableOrNot();
 
-                 if(csprogress.isShowing()){
-                     csprogress.dismiss();
-                 }
+                // loadCancelOrderList();
 
 
-
-                 if(getSize==0){
-                     Toast.makeText(CancelOrderActivity.this,"You dont have any order to cancel",Toast.LENGTH_LONG).show();
-                        Intent homeActivity=new Intent(CancelOrderActivity.this,HomeActivity.class);
-                        startActivity(homeActivity);
-                    }
-                    else {
-                     Toast.makeText(CancelOrderActivity.this,"Your order"+orderID+"has been cancelled",Toast.LENGTH_LONG).show();
-                     loadCancelOrderList();
-
-                    }
-*/
              }
          }
 
@@ -185,52 +170,60 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
 
     }
 
-   /* private int checkOrderIsThereToCancel() {
+    private void checkOrderListIsAvaliableOrNot() {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(CancelOrderActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
         csprogress.setCanceledOnTouchOutside(false);
 
-        jsonResponseForCancelOrderDTOSForSnakcerBar = new ArrayList<JSONResponseForCancelOrderDTO>();
-
-        ApiInterface api = APIClientToGetCancelOrderList.getApiInterfaceToGetCancelOrderList();
+        ApiInterface api=APIClientToGetCancelOrderList.getApiInterfaceToGetCancelOrderList();
 
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
-        String curUserAtCancelOrder = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+        String curUserAtCancelOrderList = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
 
-        CurrentUserDTO currentUserDTO = new CurrentUserDTO(curUserAtCancelOrder);
-        Call<JSONResponseToFetchCancelOrderDTO> call = api.getCancelOrderList(currentUserDTO);
+        CurrentUserDTO currentUserDTO=new CurrentUserDTO(curUserAtCancelOrderList);
+        Call<JSONResponseToFetchCancelOrderDTO> call= api.getCancelOrderList(currentUserDTO);
 
         call.enqueue(new Callback<JSONResponseToFetchCancelOrderDTO>() {
             @Override
             public void onResponse(Call<JSONResponseToFetchCancelOrderDTO> call, Response<JSONResponseToFetchCancelOrderDTO> response) {
-
                 if(response.isSuccessful()){
+
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
                     }
 
-                    JSONResponseToFetchCancelOrderDTO jsonResponseToFetchCancelOrderDTO = response.body();
-                    jsonResponseForCancelOrderDTOSForSnakcerBar = jsonResponseToFetchCancelOrderDTO.getJsonResponseForCancelOrderDTO();
+                    JSONResponseToFetchCancelOrderDTO jsonResponseToFetchCancelOrderDTO=response.body();
+                    jsonResponseForCancelOrderDTOS =jsonResponseToFetchCancelOrderDTO.getJsonResponseForCancelOrderDTO();
 
-                    o_Size=jsonResponseForCancelOrderDTOSForSnakcerBar.size();
+                    if(jsonResponseForCancelOrderDTOS!=null){
+                        loadCancelOrderList();
+                    }
 
+                    else {
+
+                        Toast.makeText(CancelOrderActivity.this,"You dont have any orders to cancel",Toast.LENGTH_SHORT).show();
+
+                        startActivity(new Intent(CancelOrderActivity.this,HomeActivity.class));
+                    }
                 }
-
-
             }
 
             @Override
             public void onFailure(Call<JSONResponseToFetchCancelOrderDTO> call, Throwable t) {
 
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
             }
         });
 
 
+    }
 
-return o_Size;
-    }*/
+
 
     //View ordered products using orderID when ordered# is pressed
     @Override

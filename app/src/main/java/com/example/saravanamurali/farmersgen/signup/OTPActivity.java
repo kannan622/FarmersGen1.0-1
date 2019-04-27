@@ -117,7 +117,11 @@ public class OTPActivity extends AppCompatActivity {
 
                 ms=millisUntilFinished;
 
-                timeShow_LoginActivity.setText(""+millisUntilFinished/1000);
+                int seconds = (int) (millisUntilFinished / 1000);
+                int minutes = seconds / 60;
+                seconds = seconds % 60;
+                timeShow_LoginActivity.setText("TIME : " + String.format("%02d", minutes)
+                        + ":" + String.format("%02d", seconds));
 
 
             }
@@ -134,6 +138,18 @@ public class OTPActivity extends AppCompatActivity {
                         resendClick_LoginActivity.setVisibility(View.INVISIBLE);
                         callCountDownTimerAtLoginActivity();
                         getOTPAtLoginActivity();
+
+                        new android.os.Handler().postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                //csprogress.dismiss();
+ //whatever you want just you have to launch overhere.
+
+
+                            }
+                        }, 1000);
+
 
                         sendOTP_Alone_For_LoginActivity();
 

@@ -49,22 +49,38 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     DeleteItemWhenCountZeroInterface deleteItemWhenCountZeroInterface;
     private OnProductItemClickListener mItemClickListener;
 
-    public ProductListAdapter() {
+    OnImageClickListener onImageClickListener;
+
+
+    public interface DeleteItemWhenCountZeroInterface {
+        public void deleteItemWhenCountZero(String produceCode);
+    }
+
+    public interface UpdateCartInAddCart {
+        public void updateCartInAddCart(String updateProductCode, int updateCount, String prouctPrice);
+    }
+
+
+    public interface AddCart {
+        public void addCart(int countNum, String product_Code, String productPrice);
+    }
+
+    public interface ShowDataInFragment {
+
+        public void showInFragment(int fragmentCount);
 
     }
 
-    public ProductListAdapter(Context mListContext, List<ProductListDTO> productListDTOList) {
-        this.mListContext = mListContext;
-        this.productListDTOList = productListDTOList;
+
+    public interface OnProductItemClickListener {
+
+        void OnProductItemClick(int position);
+
     }
 
-    public int getCartCount() {
-        int count = 0;
-        for (ProductListDTO product : productListDTOList) {
-            if (product.getCount() != null && !product.getCount().isEmpty())
-                count = count + Integer.parseInt(product.getCount());
-        }
-        return count;
+    public interface OnImageClickListener{
+
+        void onImageClick(String imageCode);
     }
 
     public void setAddCart(AddCart addCountInDb) {
@@ -92,6 +108,31 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         mItemClickListener = clickListener;
 
     }
+
+    public void setOnImageClickListener(OnImageClickListener imageClickListener){
+        onImageClickListener=imageClickListener;
+    }
+
+
+
+    public ProductListAdapter() {
+
+    }
+
+    public ProductListAdapter(Context mListContext, List<ProductListDTO> productListDTOList) {
+        this.mListContext = mListContext;
+        this.productListDTOList = productListDTOList;
+    }
+
+    public int getCartCount() {
+        int count = 0;
+        for (ProductListDTO product : productListDTOList) {
+            if (product.getCount() != null && !product.getCount().isEmpty())
+                count = count + Integer.parseInt(product.getCount());
+        }
+        return count;
+    }
+
 
     public void setDataListChanged() {
         notifyDataSetChanged();
@@ -150,18 +191,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         return productListDTOList.size();
     }
 
-    public interface DeleteItemWhenCountZeroInterface {
-        public void deleteItemWhenCountZero(String produceCode);
-    }
-
-    public interface UpdateCartInAddCart {
-        public void updateCartInAddCart(String updateProductCode, int updateCount, String prouctPrice);
-    }
-
-
-    public interface AddCart {
-        public void addCart(int countNum, String product_Code, String productPrice);
-    }
 
     /*public void onBackPressedAtViewCart(List<ViewCartDTO> viewCartOnBackPressedDTO){
 
@@ -170,18 +199,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }*/
 
 
-    public interface ShowDataInFragment {
-
-        public void showInFragment(int fragmentCount);
-
-    }
-
-
-    public interface OnProductItemClickListener {
-
-        void OnProductItemClick(int position);
-
-    }
 
     //get previous added count from DB
 
@@ -320,8 +337,23 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 }
             });
 
+            productListImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int imageAdapterPosition=getAdapterPosition();
+                    ProductListDTO productListDTO = productListDTOList.get(imageAdapterPosition);
+
+                    String imageProductCode=productListDTO.getProductCode();
+
+                    onImageClickListener.onImageClick(imageProductCode);
+                }
+            });
+
 
         }
+
+
+
 
         private int loadForFragment() {
             final ProgressDialog csprogress;

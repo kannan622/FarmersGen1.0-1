@@ -530,9 +530,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 @Override
                 public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
 
-                    //Thread to slow the process
-                    ProgressThread progressThread=new ProgressThread();
-                    progressThread.run();
 
                     if (response.isSuccessful()) {
 

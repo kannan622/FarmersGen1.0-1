@@ -123,7 +123,6 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
 
                             }
                         }, 1000);
-
                         sendOTPForResendSer();
 
 
