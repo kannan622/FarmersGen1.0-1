@@ -74,7 +74,8 @@
         <activity android:name=".review.ReviewPostActivity" />
         <activity android:name=".signin.LoginForgetPasswordActivityAtViewCart" />
         <activity android:name=".signin.OTPActivityForLoginForgetPasswordAtViewCart" />
-        <activity android:name=".signin.NewPassAndConfirmPassForLoginForgetPassword_At_ViewCart"></activity>
+        <activity android:name=".signin.NewPassAndConfirmPassForLoginForgetPassword_At_ViewCart" />
+        <activity android:name=".productdescription.ProductDescriptionActivity"></activity>
     </application>
 
 </manifest>

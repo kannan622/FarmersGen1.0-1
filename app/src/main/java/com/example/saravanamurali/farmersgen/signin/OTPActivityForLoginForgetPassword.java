@@ -235,7 +235,6 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
 
                     Toast.makeText(OTPActivityForLoginForgetPassword.this, "You have entered wrong OTP", Toast.LENGTH_LONG).show();
 
-
                 }
 
 
