@@ -2,6 +2,8 @@ package com.example.saravanamurali.farmersgen.baseurl;
 
 public interface BaseUrl {
 
+    public static final String BASE_URL="http://farmersgen.com/service/";
+
     public static final String ROOT_URL_FOR_SIGNUP="http://farmersgen.com/service/web_apis/";
 
     public static final String ROOT_URL_FOR_LOGIN ="http://farmersgen.com/service/auth/";
@@ -113,6 +115,9 @@ public interface BaseUrl {
 
     //LogOut using deviceID(clears all items from addCart Table)
     public static final String ROOT_URL_TO_LOGOUT_USING_DEVICEID="http://farmersgen.com/service/web_apis/";
+
+    public static final String ROOT_URL_FOR_PRODUCT_DESC=BASE_URL;
+
 
 
 
