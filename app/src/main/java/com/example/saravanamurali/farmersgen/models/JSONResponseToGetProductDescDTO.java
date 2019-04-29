@@ -4,36 +4,39 @@ import com.google.gson.annotations.SerializedName;
 
 public class JSONResponseToGetProductDescDTO {
 
-    @SerializedName("product_image")
-    private String productImage;
-    @SerializedName("brand_name")
-    private String brandName;
+
     @SerializedName("product_name")
     private String productName;
 
-    @SerializedName("productquantity")
+    @SerializedName("brand_name")
+    private String brandName;
+
+    @SerializedName("product_image")
+    private String productImage;
+    @SerializedName("youtube_link")
+    private String youtubeLink;
+    @SerializedName("product_price")
+    private String productPrice;
+
+    @SerializedName("product_quantity")
     private String productQuantity;
 
-    @SerializedName("actualprice")
+    @SerializedName("actual_price")
     private String productActualPrice;
 
-    @SerializedName("offerprice")
-    private String productPrice;
 
     @SerializedName("rating")
     private String proudctRating;
-    @SerializedName("productandpack")
+    @SerializedName("product_and_packaging")
     private String productAndPackagingText;
-    @SerializedName("ingredients_used")
+    @SerializedName("ingredients")
     private String ingredientUsed;
-    @SerializedName("usage_benefits")
+    @SerializedName("usage_and_benifits")
     private String usage_benefits;
-    @SerializedName("fbLink")
+    @SerializedName("facebook")
     private String fbLink;
-    @SerializedName("instaLink")
+    @SerializedName("instagram")
     private String instaLink;
-    @SerializedName("youtubeLink")
-    private String youtubeLink;
 
     public JSONResponseToGetProductDescDTO(String productImage, String brandName, String productName, String productQuantity, String productActualPrice, String productPrice, String proudctRating, String productAndPackagingText, String ingredientUsed, String usage_benefits, String fbLink, String instaLink, String youtubeLink) {
         this.productImage = productImage;

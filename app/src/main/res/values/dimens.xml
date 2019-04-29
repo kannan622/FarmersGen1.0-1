@@ -31,6 +31,7 @@
     <dimen name="one_fifty_dp">150dp</dimen>
 
     <dimen name="eight_dp">8dp</dimen>
+    <dimen name="eighteen_dp">18dp</dimen>
     <dimen name="ninty_dp">90dp</dimen>
     <dimen name="two_hundrend_dp">200dp</dimen>
     <dimen name="one_eighty_dp">180dp</dimen>

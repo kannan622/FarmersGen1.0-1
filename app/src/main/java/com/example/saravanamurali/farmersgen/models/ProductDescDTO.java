@@ -6,7 +6,7 @@ public class ProductDescDTO {
 
     @SerializedName("brand_id")
     String brandID;
-    @SerializedName("product_id")
+    @SerializedName("product_code")
     String productID;
 
     public ProductDescDTO(String brandID, String productID) {

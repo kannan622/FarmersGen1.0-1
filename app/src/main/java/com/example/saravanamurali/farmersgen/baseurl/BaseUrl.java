@@ -116,7 +116,9 @@ public interface BaseUrl {
     //LogOut using deviceID(clears all items from addCart Table)
     public static final String ROOT_URL_TO_LOGOUT_USING_DEVICEID="http://farmersgen.com/service/web_apis/";
 
-    public static final String ROOT_URL_FOR_PRODUCT_DESC=BASE_URL;
+    public static final String ROOT_URL_FOR_PRODUCT_DESC="http://farmersgen.com/service/product/";
+
+    public static final String ROOT_URL_FOR_CARD_PAYMENT="http://farmersgen.com/service/payment/";
 
 
 

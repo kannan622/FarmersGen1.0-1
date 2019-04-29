@@ -21,14 +21,14 @@
                 android:id="@+id/poductDescImage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/two_hundred_dp"
-                android:src="@drawable/ic_launcher_one"
-                android:visibility="gone" />
+                android:src="@drawable/ic_launcher_one" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/five_dp"
-                android:background="@color/gray">
+                android:background="@color/grey_lighti"
+                >
 
                 <TextView
                     android:id="@+id/productDescBrand"
@@ -68,8 +68,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="200dp"
@@ -178,7 +177,7 @@
                     android:layout_alignParentLeft="true"
                     android:text="Product And Packageing"
                     android:textColor="@color/FragmentGreen"
-                    android:textSize="@dimen/fifteen_dp" />
+                    android:textSize="@dimen/eighteen_dp" />
 
                 <ImageView
                     android:id="@+id/plusInProductDesc"
@@ -202,8 +201,10 @@
                 android:id="@+id/productAndPackText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/fifteen_dp"
+                android:layout_marginLeft="@dimen/twenty_dp"
+                android:layout_marginRight="@dimen/three_dp"
                 android:layout_marginTop="@dimen/three_dp"
+
                 android:maxLines="2"
                 android:text="This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is ." />
 
@@ -219,7 +220,7 @@
                     android:layout_alignParentLeft="true"
                     android:text="Ingredients Used"
                     android:textColor="@color/FragmentGreen"
-                    android:textSize="@dimen/fifteen_dp" />
+                    android:textSize="@dimen/eighteen_dp" />
 
                 <ImageView
                     android:id="@+id/plusInIngredientsUsed"
@@ -241,7 +242,8 @@
                 android:id="@+id/ingredientsUsedText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/fifteen_dp"
+                android:layout_marginLeft="@dimen/twenty_dp"
+                android:layout_marginRight="@dimen/three_dp"
                 android:layout_marginTop="@dimen/three_dp"
                 android:maxLines="2"
                 android:text="This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is ." />
@@ -258,7 +260,7 @@
                     android:layout_alignParentLeft="true"
                     android:text="Usage and Benefits"
                     android:textColor="@color/FragmentGreen"
-                    android:textSize="@dimen/fifteen_dp" />
+                    android:textSize="@dimen/eighteen_dp" />
 
                 <ImageView
                     android:id="@+id/plusBenefits"
@@ -280,7 +282,8 @@
                 android:id="@+id/benefitsText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/fifteen_dp"
+                android:layout_marginLeft="@dimen/twenty_dp"
+                android:layout_marginRight="@dimen/three_dp"
                 android:layout_marginTop="@dimen/three_dp"
                 android:maxLines="2"
                 android:text="This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is ." />
@@ -298,7 +301,7 @@
                     android:layout_alignParentLeft="true"
                     android:text="Manufacturing Video"
                     android:textColor="@color/FragmentGreen"
-                    android:textSize="@dimen/fifteen_dp" />
+                    android:textSize="@dimen/eighteen_dp" />
 
                 <ImageView
                     android:id="@+id/plusManufacturing"
@@ -396,7 +399,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Rate Me" />
+                    android:text="Rate Me"
+                    android:textColor="@color/FragmentGreen"
+                    android:textSize="@dimen/eighteen_dp" />
             </RelativeLayout>
 
             <RatingBar
@@ -405,7 +410,6 @@
                 android:layout_height="wrap_content"
                 android:numStars="5"
                 android:stepSize=".5" />
-
 
         </LinearLayout>
 

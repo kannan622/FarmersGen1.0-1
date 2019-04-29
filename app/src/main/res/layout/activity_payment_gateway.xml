@@ -7,44 +7,194 @@
     android:orientation="vertical"
     tools:context=".fragment.PaymentGatewayActivity">
 
-    <RelativeLayout
-        android:id="@+id/paymentBlock"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/twenty_dp"
-        android:layout_marginLeft="@dimen/ten_dp"
-        android:layout_marginRight="@dimen/ten_dp"
-        >
-
-    <TextView
-        android:id="@+id/paytext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pay"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
-        android:textSize="@dimen/twenty_four_sp"
-        android:textStyle="bold"
-        />
-
-        <ImageView
-            android:id="@+id/indianRupee"
-            android:layout_width="@dimen/twenty_five"
-            android:layout_height="@dimen/thirty_five_dp"
-            android:src="@drawable/ic_launcher_indian_rupee"
-            android:layout_toRightOf="@id/paytext"
-            android:layout_marginLeft="@dimen/ten_dp"
-            />
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/grandTotalAtPaymentGateway"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/three_dp"
+            android:text="Cash On Delivery"
+            android:textColor="@color/FragmentGreen"
+            android:textSize="@dimen/twenty_sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/ten_dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/paytext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pay"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+                    android:textSize="@dimen/twenty_four_sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/indianRupee"
+                    android:layout_width="@dimen/twenty_five"
+                    android:layout_height="@dimen/thirty_five_dp"
+                    android:layout_marginLeft="@dimen/ten_dp"
+                    android:layout_toRightOf="@id/paytext"
+                    android:src="@drawable/ic_launcher_indian_rupee" />
+
+                <TextView
+                    android:id="@+id/grandTotalAtPaymentGateway"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ten_dp"
+                    android:layout_toRightOf="@id/indianRupee"
+                    android:text="3000"
+                    android:textSize="30sp" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupCOD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <RadioButton
+                        android:id="@+id/radioCOD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="checkRadioButtonForCashOnDelivery" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/codText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Please keep exact change handy to help us server you better"
+            android:textSize="@dimen/twenty_sp"
+            android:visibility="gone"
+            />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/ten_dp"
+            android:layout_marginTop="@dimen/twenty_dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CREDIT/DEBIT/NETBANKING" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupCardPayment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <RadioButton
+                        android:id="@+id/radioCardPayment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="checkRadioButtonForCardPayment" />
+
+                </RadioGroup>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/netBankingText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/ten_dp"
+            android:text="You can made your payment using Credit Card,
+            Debit Card and Net Banking"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:id="@+id/netBankingProceedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/ten_dp"
+            android:background="@color/FragmentGreen"
+            android:text="Proceed Online Payment"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            />
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/paymentBlock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/ten_dp"
+        android:layout_marginTop="@dimen/twenty_dp"
+        android:layout_marginRight="@dimen/ten_dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/paytext1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/indianRupee"
+            android:text="Pay"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+            android:textSize="@dimen/twenty_four_sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/indianRupee1"
+            android:layout_width="@dimen/twenty_five"
+            android:layout_height="@dimen/thirty_five_dp"
             android:layout_marginLeft="@dimen/ten_dp"
+            android:layout_toRightOf="@id/paytext1"
+            android:src="@drawable/ic_launcher_indian_rupee" />
+
+        <TextView
+            android:id="@+id/grandTotalAtPaymentGateway1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:layout_toRightOf="@id/indianRupee1"
             android:text="3000"
             android:textSize="30sp" />
 
     </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/detailsBlock"
@@ -52,9 +202,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/paymentBlock"
         android:layout_marginLeft="@dimen/ten_dp"
-        android:layout_marginRight="@dimen/ten_dp"
         android:layout_marginTop="@dimen/thirty_dp"
-        >
+        android:layout_marginRight="@dimen/ten_dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/details"
@@ -63,43 +213,42 @@
             android:text="Details"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
             android:textSize="@dimen/twenty_four_sp"
-            android:textStyle="bold"
-            />
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/details"
             android:layout_marginTop="@dimen/ten_dp"
-            android:text="@string/saveDetails"
-            />
+            android:text="@string/saveDetails" />
 
     </RelativeLayout>
-
 
     <RelativeLayout
         android:id="@+id/cashOnDeliveryBlock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/ten_dp"
-        android:layout_marginRight="@dimen/ten_dp"
         android:layout_below="@id/detailsBlock"
-        android:layout_marginTop="@dimen/thirty_dp">
+        android:layout_marginLeft="@dimen/ten_dp"
+        android:layout_marginTop="@dimen/thirty_dp"
+        android:layout_marginRight="@dimen/ten_dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/cash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cash on Delivery"
-            android:textStyle="bold"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
             android:textSize="@dimen/twenty_four_sp"
-            />
+            android:textStyle="bold" />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/thirty_five_dp"
-            android:src="@drawable/cod"
             android:layout_toRightOf="@id/cash"
-            />
+            android:src="@drawable/cod" />
+
         <TextView
             android:id="@+id/cashOnDelivery"
             android:layout_width="match_parent"
@@ -109,10 +258,7 @@
             android:text="@string/codScript" />
 
 
-
     </RelativeLayout>
-
-
 
 
     <RelativeLayout
@@ -124,16 +270,16 @@
             android:id="@+id/payButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Confirm"
-            android:background="@color/FragmentGreen"
-            android:textColor="@color/White"
             android:layout_alignParentBottom="true"
-            android:onClick="payOnclick" />
+            android:background="@color/FragmentGreen"
+            android:onClick="payOnclick"
+            android:text="Proceed Cash On Delivery"
+            android:textColor="@color/White"
+            android:visibility="gone"
+            />
 
 
     </RelativeLayout>
-
-
 
 
 </RelativeLayout>

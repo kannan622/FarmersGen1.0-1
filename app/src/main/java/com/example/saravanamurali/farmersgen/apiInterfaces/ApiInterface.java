@@ -4,6 +4,7 @@ import com.example.saravanamurali.farmersgen.models.ADDAddessDTO;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
 import com.example.saravanamurali.farmersgen.models.ApplyCouponDTO;
 import com.example.saravanamurali.farmersgen.models.CancelCouponDTO;
+import com.example.saravanamurali.farmersgen.models.CardPaymentDTO;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.models.DeleteCountInCartDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
@@ -22,6 +23,7 @@ import com.example.saravanamurali.farmersgen.models.JSONResponseProfileEdit;
 import com.example.saravanamurali.farmersgen.models.JSONResponseToFetchCancelOrderDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseToGetPastOrderDetails;
 import com.example.saravanamurali.farmersgen.models.JSONResponseToGetProductDescDTO;
+import com.example.saravanamurali.farmersgen.models.JSONResponseToGetProductDescListDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseToSendMobileNoFromLoginForgetPasswordDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseToSendOTPFromForgetPasswordDTO;
 import com.example.saravanamurali.farmersgen.models.JSONResponseToViewCartAtHomeMenuCartFragmentDTO;
@@ -32,6 +34,7 @@ import com.example.saravanamurali.farmersgen.models.JSONResponseViewCartOrdersat
 import com.example.saravanamurali.farmersgen.models.JsonOrderResponse;
 import com.example.saravanamurali.farmersgen.models.JsonResponseForBannerDTO;
 import com.example.saravanamurali.farmersgen.models.JsonResponseForBrandReview;
+import com.example.saravanamurali.farmersgen.models.JsonResponseForCardPayment;
 import com.example.saravanamurali.farmersgen.models.LogOutDeviceIDDTO;
 import com.example.saravanamurali.farmersgen.models.MenuCartFragmentDTO;
 import com.example.saravanamurali.farmersgen.models.MenuCartUpdateDTO;
@@ -262,8 +265,11 @@ public interface ApiInterface {
     @GET("get_auth_users.php")
     Call<SignedInJSONResponse> getAllUser();
 
-    @POST("get_product_desc.php")
-    Call<JSONResponseToGetProductDescDTO> getProductDesc(@Body ProductDescDTO productDescDTO);
+    @POST("fetch_product_description.php")
+    Call<JSONResponseToGetProductDescListDTO> getProductDesc(@Body ProductDescDTO productDescDTO);
+
+    @POST("payment.php")
+    Call<JsonResponseForCardPayment> doCardPayment(@Body CardPaymentDTO cardPaymentDTO);
 
 
 }

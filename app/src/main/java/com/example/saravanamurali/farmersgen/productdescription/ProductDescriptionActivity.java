@@ -1,8 +1,11 @@
 package com.example.saravanamurali.farmersgen.productdescription;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -11,10 +14,14 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
+import com.example.saravanamurali.farmersgen.fragment.PaymentGatewayActivity;
 import com.example.saravanamurali.farmersgen.models.JSONResponseToGetProductDescDTO;
+import com.example.saravanamurali.farmersgen.models.JSONResponseToGetProductDescListDTO;
 import com.example.saravanamurali.farmersgen.models.ProductDescDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientForProductDescription;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -172,49 +179,77 @@ public class ProductDescriptionActivity extends AppCompatActivity {
 
     private void loadProductDescription() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ProductDescriptionActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         ApiInterface apiInterface = ApiClientForProductDescription.getApiInterfaceForProdictDesctiption();
 
         ProductDescDTO productDescDTO = new ProductDescDTO(brandIDForProductDesc, productCodeForProductDesc);
 
-        Call<JSONResponseToGetProductDescDTO> call = apiInterface.getProductDesc(productDescDTO);
+        Call<JSONResponseToGetProductDescListDTO> call = apiInterface.getProductDesc(productDescDTO);
 
-        call.enqueue(new Callback<JSONResponseToGetProductDescDTO>() {
+        call.enqueue(new Callback<JSONResponseToGetProductDescListDTO>() {
             @Override
-            public void onResponse(Call<JSONResponseToGetProductDescDTO> call, Response<JSONResponseToGetProductDescDTO> response) {
+            public void onResponse(Call<JSONResponseToGetProductDescListDTO> call, Response<JSONResponseToGetProductDescListDTO> response) {
 
-                JSONResponseToGetProductDescDTO jsonResponseToGetProductDescDTO = response.body();
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
-                setProductDescValues(jsonResponseToGetProductDescDTO);
+                JSONResponseToGetProductDescListDTO jsonResponseToGetProductDescListDTO=response.body();
+                List<JSONResponseToGetProductDescDTO> jsonResponseToGetProductDescDTOList=jsonResponseToGetProductDescListDTO.getJsonResponseToGetProductDescDTOList();
 
-
+                setProductDescValues(jsonResponseToGetProductDescDTOList);
             }
 
             @Override
-            public void onFailure(Call<JSONResponseToGetProductDescDTO> call, Throwable t) {
+            public void onFailure(Call<JSONResponseToGetProductDescListDTO> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });
 
+
     }
 
-    private void setProductDescValues(JSONResponseToGetProductDescDTO jsonResponseToGetProductDescDTO) {
+    private void setProductDescValues(List<JSONResponseToGetProductDescDTO> jsonResponseToGetProductDesc) {
 
-        Picasso.with(ProductDescriptionActivity.this).load(jsonResponseToGetProductDescDTO.getProductImage()).into(productDescImage);
-        productDescBrandName.setText(jsonResponseToGetProductDescDTO.getBrandName());
-        productDesc_productName.setText(jsonResponseToGetProductDescDTO.getProductName());
-        productDesc_productQuantity.setText(jsonResponseToGetProductDescDTO.getProductQuantity());
+        for(JSONResponseToGetProductDescDTO jsonResponseToGetProductDescDTO:jsonResponseToGetProductDesc ) {
 
-        productDesc_productActualPrice.setText(jsonResponseToGetProductDescDTO.getProductActualPrice());
-        productDesc_productPrice.setText(jsonResponseToGetProductDescDTO.getProductPrice());
-        productDesc_productRating.setText(jsonResponseToGetProductDescDTO.getProudctRating());
+            Picasso.with(ProductDescriptionActivity.this).load(jsonResponseToGetProductDescDTO.getProductImage()).into(productDescImage);
+            productDescBrandName.setText(jsonResponseToGetProductDescDTO.getBrandName());
+            productDesc_productName.setText(jsonResponseToGetProductDescDTO.getProductName());
+            productDesc_productQuantity.setText(jsonResponseToGetProductDescDTO.getProductQuantity());
+
+            productDesc_productActualPrice.setText(jsonResponseToGetProductDescDTO.getProductActualPrice());
+            productDesc_productPrice.setText(jsonResponseToGetProductDescDTO.getProductPrice());
+            productDesc_productRating.setText(jsonResponseToGetProductDescDTO.getProudctRating());
 
 
-        descofProductAndPacking.setText(jsonResponseToGetProductDescDTO.getProductAndPackagingText());
-        ingredientsUsedText.setText(jsonResponseToGetProductDescDTO.getIngredientUsed());
-        benefitsText.setText(jsonResponseToGetProductDescDTO.getUsage_benefits());
-        fbLink.setText(jsonResponseToGetProductDescDTO.getFbLink());
-        instaLink.setText(jsonResponseToGetProductDescDTO.getInstaLink());
-        youTubeLink.setText(jsonResponseToGetProductDescDTO.getYoutubeLink());
+            descofProductAndPacking.setText(jsonResponseToGetProductDescDTO.getProductAndPackagingText());
+            ingredientsUsedText.setText(jsonResponseToGetProductDescDTO.getIngredientUsed());
+            benefitsText.setText(jsonResponseToGetProductDescDTO.getUsage_benefits());
+
+            fbLink.setText(Html.fromHtml("<a href=\""+ jsonResponseToGetProductDescDTO.getFbLink() + "\">" + "Fb Link" + "</a>"));
+            fbLink.setClickable(true);
+            fbLink.setMovementMethod (LinkMovementMethod.getInstance());
+
+            instaLink.setText(Html.fromHtml("<a href=\""+ jsonResponseToGetProductDescDTO.getInstaLink() + "\">" + "Insta Link" + "</a>"));
+            instaLink.setClickable(true);
+            instaLink.setMovementMethod(LinkMovementMethod.getInstance());
+
+            youTubeLink.setText(Html.fromHtml("<a href=\""+ jsonResponseToGetProductDescDTO.getYoutubeLink() + "\">" + "YouTube Link" + "</a>"));
+            youTubeLink.setClickable(true);
+            youTubeLink.setMovementMethod(LinkMovementMethod.getInstance());
+
+        }
 
     }
 }
