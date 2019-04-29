@@ -94,6 +94,8 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         netBankingText = (TextView) findViewById(R.id.netBankingText);
         cardPaymentProceedButton = (Button) findViewById(R.id.netBankingProceedButton);
 
+        getUserDetailsForPaymentGateway();
+
         cardPaymentProceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +103,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
             }
         });
 
-        getUserDetailsForPaymentGateway();
+
 
         getAddressID();
 
@@ -181,8 +183,8 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
 
         ApiInterface api = ApiClientForPaymentGateway.getApiInterfaceForCardPayment();
-        int price=Integer.parseInt(grandTotal);
-        CardPaymentDTO cardPaymentDTO = new CardPaymentDTO(price,userName, userEmail, userMobileNo);
+       // int price=Integer.parseInt(grandTotal);
+        CardPaymentDTO cardPaymentDTO = new CardPaymentDTO(grandTotal,userName, userEmail, userMobileNo);
         Call<JsonResponseForCardPayment> call = api.doCardPayment(cardPaymentDTO);
 
         call.enqueue(new Callback<JsonResponseForCardPayment>() {

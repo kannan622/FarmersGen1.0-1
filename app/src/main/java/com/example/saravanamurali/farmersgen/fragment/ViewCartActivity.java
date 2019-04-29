@@ -354,9 +354,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     if (response.isSuccessful()) {
 
                         //Thread to slow the process
-                        ProgressThread progressThread=new ProgressThread();
+                        /*ProgressThread progressThread=new ProgressThread();
                         progressThread.run();
-
+*/
 
                         if (csprogress.isShowing()) {
                             csprogress.dismiss();
@@ -448,9 +448,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                         if (response.isSuccessful()) {
 
                             //Thread to slow the process
-                            ProgressThread progressThread=new ProgressThread();
+                            /*ProgressThread progressThread=new ProgressThread();
                             progressThread.run();
-
+*/
 
                             if (csprogress.isShowing()) {
                                 csprogress.dismiss();
@@ -601,9 +601,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     // JSONResponseUpdateCartDTO  jsonResponseUpdateCartDTO=response.body();
 
                     //Thread to slow the process
-                    ProgressThread progressThread=new ProgressThread();
+                    /*ProgressThread progressThread=new ProgressThread();
                     progressThread.run();
-
+*/
 
                     if (response.isSuccessful()) {
                         if (csprogress.isShowing()) {
@@ -665,9 +665,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     JSONResponseDeleteCartDTO jsonResponseDeleteCartDTO = response.body();
 
                     //Thread to slow the process
-                    ProgressThread progressThread=new ProgressThread();
+                   /* ProgressThread progressThread=new ProgressThread();
                     progressThread.run();
-
+*/
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
@@ -760,9 +760,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 if (response.isSuccessful()) {
 
                     //Thread to slow the process
-                    ProgressThread progressThread=new ProgressThread();
+                    /*ProgressThread progressThread=new ProgressThread();
                     progressThread.run();
-
+*/
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
