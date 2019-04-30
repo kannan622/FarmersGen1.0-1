@@ -269,7 +269,7 @@ public interface ApiInterface {
     Call<JSONResponseToGetProductDescListDTO> getProductDesc(@Body ProductDescDTO productDescDTO);
 
     @POST("payment.php")
-    Call<JsonResponseForCardPayment> doCardPayment(@Body CardPaymentDTO cardPaymentDTO);
+    Call<ResponseBody> doCardPayment(@Body CardPaymentDTO cardPaymentDTO);
 
 
 }

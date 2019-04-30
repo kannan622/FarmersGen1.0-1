@@ -104,7 +104,6 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         });
 
 
-
         getAddressID();
 
         //If coupon is applied we need to get discount GrandTotal
@@ -149,7 +148,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONResponseProfileEdit> call, Response<JSONResponseProfileEdit> response) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -162,7 +161,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JSONResponseProfileEdit> call, Throwable t) {
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -183,28 +182,26 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
 
         ApiInterface api = ApiClientForPaymentGateway.getApiInterfaceForCardPayment();
-       // int price=Integer.parseInt(grandTotal);
-        CardPaymentDTO cardPaymentDTO = new CardPaymentDTO(grandTotal,userName, userEmail, userMobileNo);
-        Call<JsonResponseForCardPayment> call = api.doCardPayment(cardPaymentDTO);
+        // int price=Integer.parseInt(grandTotal);
+        CardPaymentDTO cardPaymentDTO = new CardPaymentDTO(grandTotal, userName, userEmail, userMobileNo);
+        Call<ResponseBody> call = api.doCardPayment(cardPaymentDTO);
 
-        call.enqueue(new Callback<JsonResponseForCardPayment>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<JsonResponseForCardPayment> call, Response<JsonResponseForCardPayment> response) {
-
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(csprogress.isShowing()){
                     csprogress.dismiss();
                 }
 
-                JsonResponseForCardPayment jsonResponseForCardPayment = response.body();
-
-
+                Toast.makeText(PaymentGatewayActivity.this,"Success",Toast.LENGTH_LONG).show();
             }
 
             @Override
-            public void onFailure(Call<JsonResponseForCardPayment> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
             }
         });
+
 
 
     }
@@ -343,54 +340,8 @@ public class PaymentGatewayActivity extends AppCompatActivity {
     }
 
 
-    //Getting addressId for that current user
-    private void getAddressID() {
 
-        final ProgressDialog csprogress;
-        csprogress = new ProgressDialog(PaymentGatewayActivity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
-        csprogress.setCanceledOnTouchOutside(false);
-
-        ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
-
-        SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
-
-        curUser = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
-
-        CurrentUserDTO currentUserDTO = new CurrentUserDTO(curUser);
-
-        Call<GetDeliveryAddressDTO> call = api.getExistingAddress(currentUserDTO);
-
-        call.enqueue(new Callback<GetDeliveryAddressDTO>() {
-            @Override
-            public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
-                if (response.isSuccessful()) {
-
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-
-                    GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
-
-                    addressID = getDeliveryAddressDTO.getAddressID();
-
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
-
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
-
-            }
-        });
-
-    }
-
+    //Cash On Delivery Payment
     public void payOnclick(View view) {
 
         final ProgressDialog csprogress;
@@ -467,6 +418,33 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         });
     }
 
+
+
+
+    public void checkRadioButtonForCashOnDelivery(View view) {
+
+        int radioIdForCOD = radioGroupForCOD.getCheckedRadioButtonId();
+        radioButtonForCOD = findViewById(radioIdForCOD);
+
+        codText.setVisibility(View.VISIBLE);
+        netBankingText.setVisibility(View.GONE);
+        cardPaymentProceedButton.setVisibility(View.GONE);
+        payButton.setVisibility(View.VISIBLE);
+
+
+    }
+
+    public void checkRadioButtonForCardPayment(View view) {
+
+        int radioIDForCardPayment = radioGroupForCardPayment.getCheckedRadioButtonId();
+        radioButtonForCardPayment = findViewById(radioIDForCardPayment);
+
+        codText.setVisibility(View.GONE);
+        netBankingText.setVisibility(View.VISIBLE);
+        cardPaymentProceedButton.setVisibility(View.VISIBLE);
+        payButton.setVisibility(View.GONE);
+    }
+
     private void orderConfirmaationSMSToCustomer(String orderIDToSendSMS) {
 
         /*final ProgressDialog csprogress;
@@ -505,32 +483,54 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
     }
 
+    //Getting addressId for that current user
+    private void getAddressID() {
 
-    public void checkRadioButtonForCashOnDelivery(View view) {
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(PaymentGatewayActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
 
-        int radioIdForCOD = radioGroupForCOD.getCheckedRadioButtonId();
-        radioButtonForCOD = findViewById(radioIdForCOD);
+        ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
 
-        codText.setVisibility(View.VISIBLE);
-        netBankingText.setVisibility(View.GONE);
-        cardPaymentProceedButton.setVisibility(View.GONE);
-        payButton.setVisibility(View.VISIBLE);
+        SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
 
+        curUser = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+        CurrentUserDTO currentUserDTO = new CurrentUserDTO(curUser);
+
+        Call<GetDeliveryAddressDTO> call = api.getExistingAddress(currentUserDTO);
+
+        call.enqueue(new Callback<GetDeliveryAddressDTO>() {
+            @Override
+            public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
+                if (response.isSuccessful()) {
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+                    GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
+
+                    addressID = getDeliveryAddressDTO.getAddressID();
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
+            }
+        });
 
     }
 
-    public void checkRadioButtonForCardPayment(View view) {
-
-        int radioIDForCardPayment = radioGroupForCardPayment.getCheckedRadioButtonId();
-        radioButtonForCardPayment = findViewById(radioIDForCardPayment);
-
-        codText.setVisibility(View.GONE);
-        netBankingText.setVisibility(View.VISIBLE);
-        cardPaymentProceedButton.setVisibility(View.VISIBLE);
-        payButton.setVisibility(View.GONE);
-
-
-    }
 
 
 }

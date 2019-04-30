@@ -21,14 +21,13 @@
                 android:id="@+id/poductDescImage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/two_hundred_dp"
-                android:src="@drawable/ic_launcher_one" />
+                android:src="@drawable/ic_launcher_one"
+                />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/five_dp"
-                android:background="@color/grey_lighti"
-                >
+                android:layout_marginTop="@dimen/five_dp">
 
                 <TextView
                     android:id="@+id/productDescBrand"
@@ -68,6 +67,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/five_dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -78,34 +78,34 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left"
                         android:text="ProductName" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="ProductQuantity" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="Product Actual Price" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="Product Offer Price" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="Rating" />
 
@@ -121,14 +121,14 @@
                         android:id="@+id/productDesName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left"
                         android:text="Grandmas Oil" />
 
                     <TextView
                         android:id="@+id/productDescQuantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="50grams" />
 
@@ -136,7 +136,7 @@
                         android:id="@+id/productDescActualPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="50" />
 
@@ -144,7 +144,7 @@
                         android:id="@+id/productDescOfferPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="45" />
 
@@ -152,10 +152,9 @@
                         android:id="@+id/productDescRating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:background="@color/FragmentGreen"
-
                         android:text="4.5" />
 
 
@@ -168,14 +167,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/five_dp"
-                android:layout_marginTop="@dimen/eight_dp">
+
+                android:layout_marginTop="@dimen/twenty_dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="Product And Packageing"
+                    android:text="Product And Packaging"
                     android:textColor="@color/FragmentGreen"
                     android:textSize="@dimen/eighteen_dp" />
 
@@ -202,17 +201,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/twenty_dp"
+                android:layout_marginTop="@dimen/eight_dp"
                 android:layout_marginRight="@dimen/three_dp"
-                android:layout_marginTop="@dimen/three_dp"
-
                 android:maxLines="2"
                 android:text="This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is ." />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/five_dp"
-                android:layout_marginTop="@dimen/fifteen_dp">
+                android:layout_marginTop="@dimen/twenty_dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -243,16 +240,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/twenty_dp"
+                android:layout_marginTop="@dimen/eight_dp"
                 android:layout_marginRight="@dimen/three_dp"
-                android:layout_marginTop="@dimen/three_dp"
                 android:maxLines="2"
                 android:text="This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is ." />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/five_dp"
-                android:layout_marginTop="@dimen/fifteen_dp">
+                android:layout_marginTop="@dimen/twenty_dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -283,8 +279,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/twenty_dp"
+                android:layout_marginTop="@dimen/eight_dp"
                 android:layout_marginRight="@dimen/three_dp"
-                android:layout_marginTop="@dimen/three_dp"
                 android:maxLines="2"
                 android:text="This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is ." />
 
@@ -292,8 +288,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/five_dp"
-                android:layout_marginTop="@dimen/fifteen_dp">
+                android:layout_marginTop="@dimen/twenty_dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -323,7 +318,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ten_dp">
 
                 <TextView
                     android:id="@+id/followFB"
@@ -340,7 +336,7 @@
                     android:layout_marginLeft="@dimen/five_dp"
                     android:layout_marginTop="@dimen/three_dp"
                     android:layout_toRightOf="@id/followFB"
-                    android:text="fblink" />
+                    android:text="" />
 
             </RelativeLayout>
 
@@ -363,7 +359,7 @@
                     android:layout_marginLeft="@dimen/five_dp"
                     android:layout_marginTop="@dimen/eight_dp"
                     android:layout_toRightOf="@id/followInsta"
-                    android:text="instalink" />
+                    android:text="" />
 
             </RelativeLayout>
 
@@ -386,7 +382,7 @@
                     android:layout_marginLeft="@dimen/five_dp"
                     android:layout_marginTop="@dimen/eight_dp"
                     android:layout_toRightOf="@id/followYouTube"
-                    android:text="youlink" />
+                    android:text="" />
 
             </RelativeLayout>
 

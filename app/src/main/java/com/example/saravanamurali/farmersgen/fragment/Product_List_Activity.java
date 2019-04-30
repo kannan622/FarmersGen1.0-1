@@ -367,6 +367,13 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                 }
 
 
+                try {
+                    t.getMessage();
+                }
+
+                catch (RuntimeException e){
+
+                }
 
                 if(t.getMessage()!=null){
 

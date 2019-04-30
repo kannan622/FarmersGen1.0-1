@@ -23,6 +23,7 @@
              android:layout_height="wrap_content"
              android:text="OTP has been sent to "
              android:textStyle="bold"
+             android:layout_marginLeft="@dimen/five_dp"
              android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
              android:layout_marginTop="@dimen/twenty_sp" />
 
@@ -30,11 +31,12 @@
              android:id="@+id/otp_MobileNumber_LoginActivity"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text=""
+             android:text="8015386062"
              android:textStyle="bold"
              android:layout_marginLeft="@dimen/five_dp"
              android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
              android:layout_marginTop="@dimen/twenty_sp"
+             android:textColor="@color/FragmentGreen"
              android:layout_toRightOf="@+id/otpText_LoginActivity"
              />
 
