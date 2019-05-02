@@ -57,7 +57,7 @@
         <activity android:name=".signin.LoginForgetPasswordActivity" />
         <activity android:name=".signin.OTPActivityForLoginForgetPassword" />
         <activity android:name=".signin.NewPassAndConfirmPassForLoginForgetPassword" />
-        <activity android:name=".cancelorder.ThanksActivity" />
+        <activity android:name=".paymentgateway.ThanksActivity" />
         <activity android:name=".cancelorder.CancelOrderActivity" />
         <activity android:name=".cancelorder.OrderedProductListView" />
         <activity android:name=".pastorder.PastOrderListActivity" />

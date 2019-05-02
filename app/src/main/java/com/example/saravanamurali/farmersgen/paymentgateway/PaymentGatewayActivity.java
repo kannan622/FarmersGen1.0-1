@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
-import com.example.saravanamurali.farmersgen.cancelorder.ThanksActivity;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
 import com.example.saravanamurali.farmersgen.models.CardPaymentDTO;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
