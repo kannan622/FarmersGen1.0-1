@@ -7,11 +7,12 @@ public class ReviewDTO {
     @SerializedName("brand_id")
     String brandID;
 
-    public ReviewDTO(String brandID) {
-        this.brandID = brandID;
+    @SerializedName("product_code")
+    String productCode;
+
+    public ReviewDTO(String productCode) {
+        this.productCode = productCode;
     }
 
-    public String getBrandID() {
-        return brandID;
-    }
+
 }

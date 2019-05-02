@@ -19,6 +19,7 @@ import com.example.saravanamurali.farmersgen.models.JSONResponseToGetProductDesc
 import com.example.saravanamurali.farmersgen.models.JSONResponseToGetProductDescListDTO;
 import com.example.saravanamurali.farmersgen.models.ProductDescDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientForProductDescription;
+import com.example.saravanamurali.farmersgen.review.ProductReviewActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -57,11 +58,16 @@ public class ProductDescriptionActivity extends AppCompatActivity {
 
     RatingBar ratingBar;
 
+    TextView productReview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_description);
+
+        //Product Review
+        productReview=(TextView)findViewById(R.id.productReview);
 
         //Input from ProductListActivity
         Intent intent = getIntent();
@@ -102,6 +108,18 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         youTubeLink = (TextView) findViewById(R.id.youtubeLink);
 
         ratingBar=(RatingBar)findViewById(R.id.rating);
+
+        productReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent productReview=new Intent(ProductDescriptionActivity.this,ProductReviewActivity.class);
+                productReview.putExtra("BRAND_ID",brandIDForProductDesc);
+                productReview.putExtra("PRODUCT_CODE",productCodeForProductDesc);
+                startActivity(productReview);
+
+            }
+        });
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override

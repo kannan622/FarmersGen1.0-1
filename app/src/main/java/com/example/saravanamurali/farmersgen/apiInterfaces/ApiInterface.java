@@ -35,6 +35,7 @@ import com.example.saravanamurali.farmersgen.models.JsonOrderResponse;
 import com.example.saravanamurali.farmersgen.models.JsonResponseForBannerDTO;
 import com.example.saravanamurali.farmersgen.models.JsonResponseForBrandReview;
 import com.example.saravanamurali.farmersgen.models.JsonResponseForCardPayment;
+import com.example.saravanamurali.farmersgen.models.JsonResponseForProductPostReviewDTO;
 import com.example.saravanamurali.farmersgen.models.LogOutDeviceIDDTO;
 import com.example.saravanamurali.farmersgen.models.MenuCartFragmentDTO;
 import com.example.saravanamurali.farmersgen.models.MenuCartUpdateDTO;
@@ -99,7 +100,7 @@ public interface ApiInterface {
 
     //Add Review
     @POST("add_review.php")
-    Call<ResponseBody> postBrandReview(@Body PostReviewDTO reviewDTO);
+    Call<JsonResponseForProductPostReviewDTO> postBrandReview(@Body PostReviewDTO reviewDTO);
 
 
     @POST("add-cart.php")

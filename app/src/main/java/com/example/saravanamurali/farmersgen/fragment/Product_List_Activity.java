@@ -97,14 +97,15 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         //Brand Review
         brand_Review=(TextView)findViewById(R.id.brand_Review);
 
-        brand_Review.setOnClickListener(new View.OnClickListener() {
+        //Review has been enabled for product not for brand
+        /*brand_Review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 callReviewDisplayActivity();
             }
         });
-
+*/
 
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
         currentUserIdFromSharedPreferences = getCurrentUser.getString("CURRENTUSER", NO_CURRENT_USER);

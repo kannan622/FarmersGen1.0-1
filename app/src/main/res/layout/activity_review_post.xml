@@ -23,8 +23,9 @@
             android:id="@+id/postButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="POST"
+            android:text="POST REVIEW"
             android:layout_gravity="center"
+            android:padding="@dimen/two_dp"
             android:background="@color/FragmentGreen"
             android:textColor="@color/white"
             />

@@ -10,12 +10,16 @@ public class PostReviewDTO {
     @SerializedName("brand_id")
     String brandId;
 
+    @SerializedName("product_code")
+    String productCode;
+
     @SerializedName("review_text")
     String reviewText;
 
-    public PostReviewDTO(String user_ID, String brandId, String reviewText) {
+    public PostReviewDTO(String user_ID, String brandId, String productCode, String reviewText) {
         this.user_ID = user_ID;
         this.brandId = brandId;
+        this.productCode = productCode;
         this.reviewText = reviewText;
     }
 
@@ -25,6 +29,10 @@ public class PostReviewDTO {
 
     public String getBrandId() {
         return brandId;
+    }
+
+    public String getProductCode() {
+        return productCode;
     }
 
     public String getReviewText() {

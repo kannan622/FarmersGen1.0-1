@@ -89,10 +89,10 @@ public class BrandReviewActivity extends AppCompatActivity {
 
         else{
 
-            Intent reviewPostIntent=new Intent(BrandReviewActivity.this,ReviewPostActivity.class);
+           /* Intent reviewPostIntent=new Intent(BrandReviewActivity.this,ReviewPostActivity.class);
             reviewPostIntent.putExtra("BRANDID_FOR_REVIEW_POST",brandID_For_Review);
             startActivity(reviewPostIntent);
-
+*/
         }
 
     }
