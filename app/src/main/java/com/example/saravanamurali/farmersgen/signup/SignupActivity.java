@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
-import com.example.saravanamurali.farmersgen.fragment.ForgetPassword;
+import com.example.saravanamurali.farmersgen.signin.ForgetPassword;
 import com.example.saravanamurali.farmersgen.models.SignUpDTO;
 import com.example.saravanamurali.farmersgen.models.SignUpJSONResponse;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToSignUp;

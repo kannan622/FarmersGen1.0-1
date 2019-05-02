@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/White"
     android:orientation="vertical"
-    tools:context=".fragment.MenuAccountFragmentLoginActivity">
+    tools:context=".signin.MenuAccountFragmentLoginActivity">
 
     <ImageView
         android:layout_width="@dimen/hundred_dp"

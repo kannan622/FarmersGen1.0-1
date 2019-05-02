@@ -11,11 +11,9 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
-import com.example.saravanamurali.farmersgen.fragment.NewPassAndConfirmPass;
-import com.example.saravanamurali.farmersgen.models.JSONResponseForNPasswordAndCPasswrod;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseForNPasswordAndCPasswrod;
 import com.example.saravanamurali.farmersgen.models.NewPassAndConfirmPassDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForNewPassAndConfirmPass;
-import com.example.saravanamurali.farmersgen.signin.LoginActivity;
 import com.example.saravanamurali.farmersgen.signin.LoginActivityForViewCart;
 
 import retrofit2.Call;

@@ -18,6 +18,7 @@
             android:textSize="@dimen/twenty_dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
             android:textStyle="bold"
+            android:textColor="@color/FragmentGreen"
             />
 
         <TextView

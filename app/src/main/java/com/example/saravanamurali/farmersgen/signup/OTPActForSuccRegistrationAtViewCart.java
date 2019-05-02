@@ -13,14 +13,13 @@ import android.widget.TextView;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
-import com.example.saravanamurali.farmersgen.models.JSONOTPResponseFromOTPActivity;
-import com.example.saravanamurali.farmersgen.models.JSONResponseToSendOTPFromForgetPasswordDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONOTPResponseFromOTPActivity;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToSendOTPFromForgetPasswordDTO;
 import com.example.saravanamurali.farmersgen.models.OTPSendToMobileDTOFrom_FP;
 import com.example.saravanamurali.farmersgen.models.OTPandMobileNoDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendMobileNoAndOTP;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendOTPToMFrom_FP;
 import com.example.saravanamurali.farmersgen.signin.LoginActivity;
-import com.example.saravanamurali.farmersgen.signin.OTPActivityForLoginForgetPassword;
 import com.example.saravanamurali.farmersgen.util.Network_config;
 import com.goodiebag.pinview.Pinview;
 

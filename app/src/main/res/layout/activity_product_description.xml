@@ -24,10 +24,10 @@
                 android:layout_margin="@dimen/ten_dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Review About Me"
+                android:text="Review"
                 android:layout_gravity="end"
                 android:background="@color/FragmentGreen"
-                android:padding="@dimen/one_dp"/>
+                android:padding="@dimen/three_dp"/>
 
 
             <ImageView

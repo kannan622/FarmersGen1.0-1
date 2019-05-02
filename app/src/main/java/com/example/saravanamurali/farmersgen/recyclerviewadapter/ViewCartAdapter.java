@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.saravanamurali.farmersgen.R;
-import com.example.saravanamurali.farmersgen.models.JSONResponseUpdateCartDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseUpdateCartDTO;
 import com.example.saravanamurali.farmersgen.models.ViewCartDTO;
 
 import java.util.List;

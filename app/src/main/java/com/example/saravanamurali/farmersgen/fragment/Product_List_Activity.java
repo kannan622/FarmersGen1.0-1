@@ -1,7 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,15 +11,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
 import com.example.saravanamurali.farmersgen.models.DeleteCountInCartDTO;
-import com.example.saravanamurali.farmersgen.models.JSONResponseProductListDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseProductListDTO;
 import com.example.saravanamurali.farmersgen.models.ProductListDTO;
 import com.example.saravanamurali.farmersgen.models.UpdateCountInCartDTO;
 import com.example.saravanamurali.farmersgen.models.ViewProductListDTO;
@@ -31,7 +28,6 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForDeleteItemInCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForUpdateCountInCart;
 import com.example.saravanamurali.farmersgen.review.BrandReviewActivity;
-import com.example.saravanamurali.farmersgen.util.ProgressThread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -338,26 +334,25 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
+
 
                     //Thread to slow the process
                     /*ProgressThread progressThread=new ProgressThread();
                     progressThread.run();
 */
-
                     if(csprogress.isShowing()){
                         csprogress.dismiss();
                     }
-
+                    response.raw().body().close();
 
 
                     // Toast.makeText(Product_List_Activity.this,"Success",Toast.LENGTH_LONG).show();
-                } else {
+                 /*else {
 
 
-                   /* Toast.makeText(Product_List_Activity.this, "Error", Toast.LENGTH_LONG).show();*/
+                   *//* Toast.makeText(Product_List_Activity.this, "Error", Toast.LENGTH_LONG).show();*//*
 
-                }
+                }*/
             }
 
             @Override

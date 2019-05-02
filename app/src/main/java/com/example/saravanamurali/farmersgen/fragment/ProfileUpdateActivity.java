@@ -9,14 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
-import com.example.saravanamurali.farmersgen.models.JSONResponseProfileEdit;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseProfileEdit;
 import com.example.saravanamurali.farmersgen.models.UpdateNameEmailDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForProfileEdit;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToUpdateNameAndEmail;

@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
-import com.example.saravanamurali.farmersgen.models.JsonResponseForBrandReview;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForBrandReview;
 import com.example.saravanamurali.farmersgen.models.ReviewDTO;
 import com.example.saravanamurali.farmersgen.models.ReviewDetailsDTO;
 import com.example.saravanamurali.farmersgen.recyclerviewadapter.ReviewAdapter;

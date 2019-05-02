@@ -6,17 +6,14 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
-import com.example.saravanamurali.farmersgen.fragment.CancelOrderActivity;
-import com.example.saravanamurali.farmersgen.models.JSONResponseToSendMobileNoFromLoginForgetPasswordDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToSendMobileNoFromLoginForgetPasswordDTO;
 import com.example.saravanamurali.farmersgen.models.OTPSendToMobileDTOFrom_FP;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendMobileNoFromLoginForgetPassword;
-import com.example.saravanamurali.farmersgen.util.Utils;
 
 import java.util.regex.Pattern;
 

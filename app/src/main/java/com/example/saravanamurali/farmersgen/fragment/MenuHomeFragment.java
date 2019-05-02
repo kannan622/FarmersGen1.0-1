@@ -26,10 +26,8 @@ import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.BannerDTO;
 import com.example.saravanamurali.farmersgen.models.HomeProductDTO;
-import com.example.saravanamurali.farmersgen.models.JSONResponseForBannerImages;
-import com.example.saravanamurali.farmersgen.models.JSONResponseHomeBrandDTO;
-import com.example.saravanamurali.farmersgen.models.JsonResponseForBannerDTO;
-import com.example.saravanamurali.farmersgen.models.MenuBannerDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseHomeBrandDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForBannerDTO;
 import com.example.saravanamurali.farmersgen.recyclerviewadapter.MenuBannerAdapter;
 import com.example.saravanamurali.farmersgen.recyclerviewadapter.Menuhome_Adapter;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForBannerImages;
@@ -72,24 +70,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
     }
 
-   /* B_ShowExistingCount b_showExistingCount;
 
-    @Override
-    public void backToDisplayCount(int existingCount) {
-        ProductListAdapter productListAdapter=new ProductListAdapter();
-        productListAdapter.back_ToShowExisting_Count(existingCount);
-
-    }
-
-    public interface B_ShowExistingCount{
-        public void b_ShowExistingCount(int existing_Count);
-    }
-
-    void setB_showExistingCount(B_ShowExistingCount b_showExistingCount){
-        this.b_showExistingCount=b_showExistingCount;
-
-    }
-*/
     //EditText searchEditText;
 
     @Nullable

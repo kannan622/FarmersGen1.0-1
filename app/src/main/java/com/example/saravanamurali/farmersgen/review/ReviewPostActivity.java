@@ -8,16 +8,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
-import com.example.saravanamurali.farmersgen.models.JsonResponseForProductPostReviewDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForProductPostReviewDTO;
 import com.example.saravanamurali.farmersgen.models.PostReviewDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToPostReview;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

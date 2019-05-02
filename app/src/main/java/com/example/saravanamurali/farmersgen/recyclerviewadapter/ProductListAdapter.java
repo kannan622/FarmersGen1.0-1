@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
-import com.example.saravanamurali.farmersgen.models.JSONResponseViewCartListDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseViewCartListDTO;
 import com.example.saravanamurali.farmersgen.models.ProductListDTO;
 import com.example.saravanamurali.farmersgen.models.ViewCartDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForViewCart;

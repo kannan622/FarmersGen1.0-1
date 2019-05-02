@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.saravanamurali.farmersgen.R;
-import com.example.saravanamurali.farmersgen.models.JSONResponseMenuCartFragUpdateDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseMenuCartFragUpdateDTO;
 import com.example.saravanamurali.farmersgen.models.MenuCartFragmentViewCartDTO;
 
 import java.util.List;

@@ -14,9 +14,8 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
-import com.example.saravanamurali.farmersgen.fragment.PaymentGatewayActivity;
-import com.example.saravanamurali.farmersgen.models.JSONResponseToGetProductDescDTO;
-import com.example.saravanamurali.farmersgen.models.JSONResponseToGetProductDescListDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToGetProductDescDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToGetProductDescListDTO;
 import com.example.saravanamurali.farmersgen.models.ProductDescDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientForProductDescription;
 import com.example.saravanamurali.farmersgen.review.ProductReviewActivity;
@@ -67,7 +66,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_description);
 
         //Product Review
-        productReview=(TextView)findViewById(R.id.productReview);
+        productReview = (TextView) findViewById(R.id.productReview);
 
         //Input from ProductListActivity
         Intent intent = getIntent();
@@ -83,11 +82,11 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         descofProductAndPacking = (TextView) findViewById(R.id.productAndPackText);
         //End of Product and Packaging
 
-        productDesc_productName=(TextView)findViewById(R.id.productDesName);
-        productDesc_productQuantity=(TextView)findViewById(R.id.productDescQuantity);
-        productDesc_productActualPrice=(TextView)findViewById(R.id.productDescActualPrice);
-        productDesc_productPrice=(TextView)findViewById(R.id.productDescOfferPrice);
-        productDesc_productRating=(TextView)findViewById(R.id.productDescRating);
+        productDesc_productName = (TextView) findViewById(R.id.productDesName);
+        productDesc_productQuantity = (TextView) findViewById(R.id.productDescQuantity);
+        productDesc_productActualPrice = (TextView) findViewById(R.id.productDescActualPrice);
+        productDesc_productPrice = (TextView) findViewById(R.id.productDescOfferPrice);
+        productDesc_productRating = (TextView) findViewById(R.id.productDescRating);
 
 
         //Ingredients Used
@@ -107,15 +106,15 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         instaLink = (TextView) findViewById(R.id.instaLink);
         youTubeLink = (TextView) findViewById(R.id.youtubeLink);
 
-        ratingBar=(RatingBar)findViewById(R.id.rating);
+        ratingBar = (RatingBar) findViewById(R.id.rating);
 
         productReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent productReview=new Intent(ProductDescriptionActivity.this,ProductReviewActivity.class);
-                productReview.putExtra("BRAND_ID",brandIDForProductDesc);
-                productReview.putExtra("PRODUCT_CODE",productCodeForProductDesc);
+                Intent productReview = new Intent(ProductDescriptionActivity.this, ProductReviewActivity.class);
+                productReview.putExtra("BRAND_ID", brandIDForProductDesc);
+                productReview.putExtra("PRODUCT_CODE", productCodeForProductDesc);
                 startActivity(productReview);
 
             }
@@ -124,7 +123,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                Toast.makeText(ProductDescriptionActivity.this,"You have Rated me" +ratingBar.getRating()+"Thank you",Toast.LENGTH_LONG).show();
+                Toast.makeText(ProductDescriptionActivity.this, "You have Rated me" + ratingBar.getRating() + "Thank you", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -214,12 +213,12 @@ public class ProductDescriptionActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONResponseToGetProductDescListDTO> call, Response<JSONResponseToGetProductDescListDTO> response) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
-                JSONResponseToGetProductDescListDTO jsonResponseToGetProductDescListDTO=response.body();
-                List<JSONResponseToGetProductDescDTO> jsonResponseToGetProductDescDTOList=jsonResponseToGetProductDescListDTO.getJsonResponseToGetProductDescDTOList();
+                JSONResponseToGetProductDescListDTO jsonResponseToGetProductDescListDTO = response.body();
+                List<JSONResponseToGetProductDescDTO> jsonResponseToGetProductDescDTOList = jsonResponseToGetProductDescListDTO.getJsonResponseToGetProductDescDTOList();
 
                 setProductDescValues(jsonResponseToGetProductDescDTOList);
             }
@@ -227,7 +226,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<JSONResponseToGetProductDescListDTO> call, Throwable t) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -239,7 +238,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
 
     private void setProductDescValues(List<JSONResponseToGetProductDescDTO> jsonResponseToGetProductDesc) {
 
-        for(JSONResponseToGetProductDescDTO jsonResponseToGetProductDescDTO:jsonResponseToGetProductDesc ) {
+        for (JSONResponseToGetProductDescDTO jsonResponseToGetProductDescDTO : jsonResponseToGetProductDesc) {
 
             Picasso.with(ProductDescriptionActivity.this).load(jsonResponseToGetProductDescDTO.getProductImage()).into(productDescImage);
             productDescBrandName.setText(jsonResponseToGetProductDescDTO.getBrandName());
@@ -255,15 +254,15 @@ public class ProductDescriptionActivity extends AppCompatActivity {
             ingredientsUsedText.setText(jsonResponseToGetProductDescDTO.getIngredientUsed());
             benefitsText.setText(jsonResponseToGetProductDescDTO.getUsage_benefits());
 
-            fbLink.setText(Html.fromHtml("<a href=\""+ jsonResponseToGetProductDescDTO.getFbLink() + "\">" + "Fb Link" + "</a>"));
+            fbLink.setText(Html.fromHtml("<a href=\"" + jsonResponseToGetProductDescDTO.getFbLink() + "\">" + "Fb Link" + "</a>"));
             fbLink.setClickable(true);
-            fbLink.setMovementMethod (LinkMovementMethod.getInstance());
+            fbLink.setMovementMethod(LinkMovementMethod.getInstance());
 
-            instaLink.setText(Html.fromHtml("<a href=\""+ jsonResponseToGetProductDescDTO.getInstaLink() + "\">" + "Insta Link" + "</a>"));
+            instaLink.setText(Html.fromHtml("<a href=\"" + jsonResponseToGetProductDescDTO.getInstaLink() + "\">" + "Insta Link" + "</a>"));
             instaLink.setClickable(true);
             instaLink.setMovementMethod(LinkMovementMethod.getInstance());
 
-            youTubeLink.setText(Html.fromHtml("<a href=\""+ jsonResponseToGetProductDescDTO.getYoutubeLink() + "\">" + "YouTube Link" + "</a>"));
+            youTubeLink.setText(Html.fromHtml("<a href=\"" + jsonResponseToGetProductDescDTO.getYoutubeLink() + "\">" + "YouTube Link" + "</a>"));
             youTubeLink.setClickable(true);
             youTubeLink.setMovementMethod(LinkMovementMethod.getInstance());
 

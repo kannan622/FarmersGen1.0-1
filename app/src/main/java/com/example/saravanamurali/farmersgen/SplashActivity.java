@@ -8,12 +8,7 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.saravanamurali.farmersgen.fragment.Add_Address_Activity;
-import com.example.saravanamurali.farmersgen.fragment.Product_List_Activity;
 import com.example.saravanamurali.farmersgen.signin.LoginActivity;
-import com.example.saravanamurali.farmersgen.signin.NewPassAndConfirmPassForLoginForgetPassword;
-import com.example.saravanamurali.farmersgen.signup.OTPActivity;
-import com.example.saravanamurali.farmersgen.signup.SignupActivity;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 
 public class SplashActivity extends AppCompatActivity {
