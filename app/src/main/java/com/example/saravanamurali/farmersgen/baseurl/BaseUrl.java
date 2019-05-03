@@ -112,6 +112,9 @@ public interface BaseUrl {
     //Cancel Copuon
     public  static final String ROOT_URL_TO_CANCEL_COUPON="http://farmersgen.com/service/offers/";
 
+    //Add Favourite Item
+    public  static final String ROOT_URL_TO_ADD_FAVOURITE="http://www.farmersgen.com/service/favorite/";
+
 
     //LogOut using deviceID(clears all items from addCart Table)
     public static final String ROOT_URL_TO_LOGOUT_USING_DEVICEID="http://farmersgen.com/service/web_apis/";

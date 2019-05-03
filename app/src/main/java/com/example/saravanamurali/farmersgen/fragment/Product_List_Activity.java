@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
@@ -27,7 +30,10 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForBrand;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForDeleteItemInCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForUpdateCountInCart;
+import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToAddFavouriteItems;
 import com.example.saravanamurali.farmersgen.review.BrandReviewActivity;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +45,7 @@ import retrofit2.Response;
 
 public class Product_List_Activity extends AppCompatActivity implements ProductListAdapter.ShowDataInFragment, ProductListAdapter.AddCart, ProductListAdapter.UpdateCartInAddCart, ProductListAdapter.DeleteItemWhenCountZeroInterface, ProductListAdapter.OnImageClickListener {
 
-
+    private String NO_CURRENT_USER_FOR_FAV_LIST = "NO_CURRENT_USER_FOR_FAV_LIST";
     private final String NO_CURRENT_USER = "null";
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction;
@@ -60,6 +66,12 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
     //Brand Review
     TextView brand_Review;
+
+    //Favourite List
+    LikeButton likeButton;
+    CoordinatorLayout coordinatorLayoutForFav;
+    //End of Favourite List
+
 
 
     @Override
@@ -90,6 +102,67 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(Product_List_Activity.this, 2));
 
+        //Favourite List
+        likeButton=(LikeButton)findViewById(R.id.favIcon);
+        coordinatorLayoutForFav=(CoordinatorLayout)findViewById(R.id.coordnatorLayoutForFav);
+        //End of Favourite List
+
+        SharedPreferences getCurrentUserForFav = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String curUser_Favourite = getCurrentUserForFav.getString("CURRENTUSER", "NO_CURRENT_USER_FOR_FAV_LIST");
+
+        if(curUser_Favourite.equals(NO_CURRENT_USER_FOR_FAV_LIST)){
+            Toast.makeText(Product_List_Activity.this,"Please Login To Add Favourite Items",Toast.LENGTH_LONG).show();
+        }
+        else {
+
+
+            likeButton.setOnLikeListener(new OnLikeListener() {
+                @Override
+                public void liked(LikeButton likeButton) {
+                    Snackbar snackbar = Snackbar.make(coordinatorLayoutForFav, "Added to your Favourite List", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+
+                    new android.os.Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            //Can do some process here
+
+
+                        }
+                    }, 1000);
+
+                    addFavouriteItems();
+
+                }
+
+                @Override
+                public void unLiked(LikeButton likeButton) {
+
+                    Snackbar snackbar = Snackbar.make(coordinatorLayoutForFav, "Removed from Favourite List", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+
+                    new android.os.Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+
+                            //Can do some process here
+
+
+                        }
+                    }, 1000);
+
+                    removeFavouriteItems();
+
+
+
+                }
+            });
+
+        }
+
         //Brand Review
         brand_Review=(TextView)findViewById(R.id.brand_Review);
 
@@ -108,6 +181,18 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
 
     }
+
+    //Add Favourite Items
+    private void addFavouriteItems() {
+
+        ApiInterface api=ApiClientToAddFavouriteItems.getApiInterfaceAddFavouriteItem();
+    }
+
+
+    //Remove Favourite Items
+    private void removeFavouriteItems() {
+    }
+
 
     //Review Display method
     private void callReviewDisplayActivity() {

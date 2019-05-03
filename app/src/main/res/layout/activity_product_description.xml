@@ -83,7 +83,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/five_dp"
                 android:orientation="horizontal"
-                android:visibility="gone"
                 >
 
                 <LinearLayout

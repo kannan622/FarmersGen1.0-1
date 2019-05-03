@@ -1,7 +1,9 @@
 package com.example.saravanamurali.farmersgen.apiInterfaces;
 
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForAddFavourite;
 import com.example.saravanamurali.farmersgen.models.ADDAddessDTO;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
+import com.example.saravanamurali.farmersgen.models.AddFavouriteDTO;
 import com.example.saravanamurali.farmersgen.models.ApplyCouponDTO;
 import com.example.saravanamurali.farmersgen.models.CancelCouponDTO;
 import com.example.saravanamurali.farmersgen.models.CardPaymentDTO;
@@ -264,6 +266,9 @@ public interface ApiInterface {
 
     @POST("fetch_product_description.php")
     Call<JSONResponseToGetProductDescListDTO> getProductDesc(@Body ProductDescDTO productDescDTO);
+
+    @POST("add_favorite.php")
+    Call<JsonResponseForAddFavourite>addFavourite(@Body AddFavouriteDTO addFavouriteDTO);
 
     @POST("payment.php")
     Call<ResponseBody> doCardPayment(@Body CardPaymentDTO cardPaymentDTO);
