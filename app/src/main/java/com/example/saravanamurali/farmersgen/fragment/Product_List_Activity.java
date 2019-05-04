@@ -57,20 +57,25 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     private final String NO_CURRENT_USER = "null";
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction;
+
     String brand_ID_For_ProductList;
     String brand_Name_For_ProductList;
     String brand_Name_For_ProductRating;
     String android_id = null;
     //Current User From Login Page
     String curentUser = "";
+
     //Current User From Shared Preferences
     String currentUserIdFromSharedPreferences;
+
     RecyclerView recyclerView;
     List<ProductListDTO> productListDTOList;
     ProductListAdapter productListAdapter;
 
     TextView textViewProductName;
     TextView textViewShortDesc;
+
+    TextView productRating;
 
     //Brand Review
     TextView brand_Review;
@@ -88,12 +93,11 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product__list_);
 
+        productRating = (TextView) findViewById(R.id.proListRating);
+
 
         Intent intent = getIntent();
-
         curentUser = intent.getStringExtra("CURRENTUSER");
-
-        System.out.println("Current User In Product List Activity" + curentUser);
 
         // ViewCartActivity viewCartActivity=new ViewCartActivity(curentUser);
 
@@ -110,6 +114,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         recyclerView.setLayoutManager(new GridLayoutManager(Product_List_Activity.this, 2));
         //End of Brand Details
 
+        productRating.setText(brand_Name_For_ProductRating);
 
         //Favourite List
         likeButton = (LikeButton) findViewById(R.id.favIcon);
@@ -122,7 +127,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
         if (curUser_Favourite_check.equals(NO_CURRENT_USER_FOR_FAV_LIST)) {
             return;
-        } else {
+        } else if (!curUser_Favourite_check.equals(NO_CURRENT_USER_FOR_FAV_LIST)) {
 
             checkFavouriteForThisBrand();
         }
@@ -134,7 +139,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
         if (curUser_Favourite.equals(NO_CURRENT_USER_FOR_FAV_LIST)) {
             Toast.makeText(Product_List_Activity.this, "Please Login To Add Favourite Items", Toast.LENGTH_LONG).show();
-        } else {
+        } else if (!curUser_Favourite.equals(NO_CURRENT_USER_FOR_FAV_LIST)) {
 
 
             likeButton.setOnLikeListener(new OnLikeListener() {
@@ -309,7 +314,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
             }
         });
-
 
 
     }

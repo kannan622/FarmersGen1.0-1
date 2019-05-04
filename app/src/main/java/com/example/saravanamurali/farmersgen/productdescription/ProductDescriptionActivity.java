@@ -44,6 +44,8 @@ public class ProductDescriptionActivity extends AppCompatActivity {
     TextView productDesc_productActualPrice;
     TextView productDesc_productPrice;
     TextView productDesc_productRating;
+    TextView productDes_ManufacDate;
+    TextView productDes_ExpairyDate;
 
 
     ImageView plusInIngredients, minusIngredients;
@@ -87,6 +89,8 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         productDesc_productActualPrice = (TextView) findViewById(R.id.productDescActualPrice);
         productDesc_productPrice = (TextView) findViewById(R.id.productDescOfferPrice);
         productDesc_productRating = (TextView) findViewById(R.id.productDescRating);
+        productDes_ManufacDate = (TextView) findViewById(R.id.productDescManuDate);
+        productDes_ExpairyDate = (TextView) findViewById(R.id.productDescExpairyDate);
 
 
         //Ingredients Used
@@ -249,6 +253,8 @@ public class ProductDescriptionActivity extends AppCompatActivity {
             productDesc_productPrice.setText(jsonResponseToGetProductDescDTO.getProductPrice());
             productDesc_productRating.setText(jsonResponseToGetProductDescDTO.getProudctRating());
 
+            productDes_ManufacDate.setText(jsonResponseToGetProductDescDTO.getProductManuDate());
+            productDes_ExpairyDate.setText(jsonResponseToGetProductDescDTO.getProductExpairyDate());
 
             descofProductAndPacking.setText(jsonResponseToGetProductDescDTO.getProductAndPackagingText());
             ingredientsUsedText.setText(jsonResponseToGetProductDescDTO.getIngredientUsed());

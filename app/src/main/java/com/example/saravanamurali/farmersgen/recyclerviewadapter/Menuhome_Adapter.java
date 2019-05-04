@@ -69,7 +69,7 @@ public class Menuhome_Adapter extends RecyclerView.Adapter<Menuhome_Adapter.MyVi
         System.out.println("This is brand id of brand" + brand_Id);
         holder.mtName.setText(contactListFiltered.get(position).getProductName());
         holder.mDescription.setText(contactListFiltered.get(position).getProductDesc());
-        holder.mMinOrder.setText(contactListFiltered.get(position).getProductMinOrder());
+        //holder.mMinOrder.setText(contactListFiltered.get(position).getProductMinOrder());
         holder.mRating.setText(contactListFiltered.get(position).getProductRating());
         Picasso.with(context).load(contactListFiltered.get(position).getProductImage()).into(holder.mImage);
     }

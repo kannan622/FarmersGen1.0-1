@@ -13,7 +13,6 @@
         android:layout_height="550dp">
 
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -21,13 +20,13 @@
 
             <TextView
                 android:id="@+id/productReview"
-                android:layout_margin="@dimen/ten_dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Review"
                 android:layout_gravity="end"
+                android:layout_margin="@dimen/ten_dp"
                 android:background="@color/FragmentGreen"
-                android:padding="@dimen/three_dp"/>
+                android:padding="@dimen/three_dp"
+                android:text="Review" />
 
 
             <ImageView
@@ -82,8 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/five_dp"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="200dp"
@@ -92,37 +90,60 @@
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
                         android:layout_gravity="left"
                         android:text="ProductName" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="ProductQuantity" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="Product Actual Price" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="Product Offer Price" />
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="Rating" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="@dimen/five_dp"
+                        android:textColor="@color/FragmentGreen"
+                        android:text="Manufacturing Date" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="@dimen/five_dp"
+                        android:textColor="@color/FragmentGreen"
+                        android:text="Expairy Date" />
 
 
                 </LinearLayout>
@@ -135,14 +156,16 @@
                     <TextView
                         android:id="@+id/productDesName"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
                         android:layout_gravity="left"
                         android:text="Grandmas Oil" />
 
                     <TextView
                         android:id="@+id/productDescQuantity"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="50grams" />
@@ -150,7 +173,8 @@
                     <TextView
                         android:id="@+id/productDescActualPrice"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="50" />
@@ -158,7 +182,8 @@
                     <TextView
                         android:id="@+id/productDescOfferPrice"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:text="45" />
@@ -166,11 +191,32 @@
                     <TextView
                         android:id="@+id/productDescRating"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:background="@color/FragmentGreen"
+                        android:paddingLeft="@dimen/four_dp"
+                        android:paddingRight="@dimen/four_dp"
                         android:text="4.5" />
+
+                    <TextView
+                        android:id="@+id/productDescManuDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="@dimen/five_dp"
+                        android:inputType="date" />
+
+                    <TextView
+                        android:id="@+id/productDescExpairyDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:gravity="center"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="@dimen/five_dp"
+                        android:inputType="date" />
 
 
                 </LinearLayout>

@@ -2,31 +2,37 @@ package com.example.saravanamurali.farmersgen.modeljsonresponse;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class JSONResponseToGetProductDescDTO {
 
 
     @SerializedName("product_name")
     private String productName;
-
     @SerializedName("brand_name")
     private String brandName;
-
     @SerializedName("product_image")
     private String productImage;
     @SerializedName("youtube_link")
     private String youtubeLink;
     @SerializedName("product_price")
     private String productPrice;
-
     @SerializedName("product_quantity")
     private String productQuantity;
-
     @SerializedName("actual_price")
     private String productActualPrice;
-
-
     @SerializedName("rating")
     private String proudctRating;
+
+    @SerializedName("manufacturing_date")
+    private String productManuDate;
+
+    @SerializedName("expiry_date")
+    private String productExpairyDate;
+
+
+
+
     @SerializedName("product_and_packaging")
     private String productAndPackagingText;
     @SerializedName("ingredients")
@@ -52,6 +58,14 @@ public class JSONResponseToGetProductDescDTO {
         this.fbLink = fbLink;
         this.instaLink = instaLink;
         this.youtubeLink = youtubeLink;
+    }
+
+    public String getProductManuDate() {
+        return productManuDate;
+    }
+
+    public String getProductExpairyDate() {
+        return productExpairyDate;
     }
 
     public String getProductImage() {
