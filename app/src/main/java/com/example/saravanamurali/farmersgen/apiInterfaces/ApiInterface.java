@@ -1,6 +1,7 @@
 package com.example.saravanamurali.farmersgen.apiInterfaces;
 
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForAddFavourite;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForDeleteFavDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForFavBrandsDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseToCheckFavourite;
 import com.example.saravanamurali.farmersgen.models.ADDAddessDTO;
@@ -284,8 +285,8 @@ public interface ApiInterface {
     @POST("view_favorite_for_single_brand.php")
     Call<JsonResponseToCheckFavourite> checkFavList(@Body CheckFavDTO checkFavDTO);
 
-    @POST("")
-    Call<ResponseBody> removeFavBrand(@Body CheckFavDTO checkFavDTO);
+    @POST("delete_favorite.php")
+    Call<JsonResponseForDeleteFavDTO> removeFavBrand(@Body CheckFavDTO checkFavDTO);
 
 
     @POST("payment.php")

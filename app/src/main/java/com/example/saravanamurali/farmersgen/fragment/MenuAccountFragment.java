@@ -2,6 +2,7 @@ package com.example.saravanamurali.farmersgen.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,18 +24,21 @@ import com.example.saravanamurali.farmersgen.address.ExistingAddressActivity_AtM
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.cancelorder.CancelOrderActivity;
 import com.example.saravanamurali.farmersgen.favourite.FavouriteListActivity;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForFavBrandsDTO;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseForCancelOrderDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseProfileEdit;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToFetchCancelOrderDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToGetPastOrderDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToGetPastOrderDetails;
+import com.example.saravanamurali.farmersgen.models.FavBrandDTO;
 import com.example.saravanamurali.farmersgen.models.LogOutDeviceIDDTO;
 import com.example.saravanamurali.farmersgen.pastorder.PastOrderListActivity;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForProfileEdit;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientLogOutUsingDeviceID;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetCancelOrderList;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetPastOrderDetails;
+import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToGetFavBrands;
 import com.example.saravanamurali.farmersgen.signin.LoginActivity;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 
@@ -90,6 +94,9 @@ public class MenuAccountFragment extends Fragment {
     //Share App
     Button share_App;
     private FragmentActivity myContext;
+
+    //Favourite List Check
+    List<FavBrandDTO> getCheck_FavList;
 
 
     public MenuAccountFragment() {
@@ -268,8 +275,61 @@ public class MenuAccountFragment extends Fragment {
 
     private void showFavouriteList() {
 
-        Intent getFavouriteList=new Intent(this.getActivity(),FavouriteListActivity.class);
-        startActivity(getFavouriteList);
+        getCheck_FavList = new ArrayList<FavBrandDTO>();
+        //Checking whether Favourite list there or not
+        checkFavListIsThere();
+    }
+
+    private void checkFavListIsThere() {
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(this.getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+        //Getting Current User
+        SharedPreferences getCheckFavList = this.getActivity().getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
+        String checFav = getCheckFavList.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+        ApiInterface api = ApiClientToGetFavBrands.getApiInterfaceToGetFavBrands();
+
+        CurrentUserDTO currentUserDTO = new CurrentUserDTO(checFav);
+
+        Call<JsonResponseForFavBrandsDTO> call = api.getFavouriteBrands(currentUserDTO);
+
+        call.enqueue(new Callback<JsonResponseForFavBrandsDTO>() {
+            @Override
+            public void onResponse(Call<JsonResponseForFavBrandsDTO> call, Response<JsonResponseForFavBrandsDTO> response) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
+                JsonResponseForFavBrandsDTO jsonResponseForFavBrandsDTO = response.body();
+                getCheck_FavList = jsonResponseForFavBrandsDTO.getFavRecords();
+
+                if (getCheck_FavList != null) {
+                    Intent getFavouriteList = new Intent(getActivity(), FavouriteListActivity.class);
+                    startActivity(getFavouriteList);
+                }
+                else {
+                    callFavouriteListSnackBar();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonResponseForFavBrandsDTO> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
+    private void callFavouriteListSnackBar() {
+        Snackbar snackbar = Snackbar.make(coordinatorLayout, "You haven't added any favourite list yet!!!", Snackbar.LENGTH_LONG);
+        snackbar.show();
 
     }
 

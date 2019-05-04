@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForAddFavourite;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForDeleteFavDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseToCheckFavourite;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
 import com.example.saravanamurali.farmersgen.models.AddFavouriteDTO;
@@ -96,13 +97,10 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
         // ViewCartActivity viewCartActivity=new ViewCartActivity(curentUser);
 
-
+        //Brand Details
         brand_ID_For_ProductList = intent.getStringExtra("BRAND_ID");
-
         brand_Name_For_ProductList = intent.getStringExtra("BRAND_NAME");
         brand_Name_For_ProductRating = intent.getStringExtra("BRAND_RATING");
-
-
         textViewProductName = (TextView) findViewById(R.id.proListBrandName);
         textViewShortDesc = (TextView) findViewById(R.id.proListShortDesc);
         textViewProductName.setText(brand_Name_For_ProductList);
@@ -110,6 +108,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_activity_product_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(Product_List_Activity.this, 2));
+        //End of Brand Details
+
 
         //Favourite List
         likeButton = (LikeButton) findViewById(R.id.favIcon);
@@ -285,20 +285,24 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
         CheckFavDTO checkFavDTO = new CheckFavDTO(brand_ID_For_ProductList, cur_User);
 
-        Call<ResponseBody> call = apiInterface.removeFavBrand(checkFavDTO);
+        Call<JsonResponseForDeleteFavDTO> call = apiInterface.removeFavBrand(checkFavDTO);
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<JsonResponseForDeleteFavDTO>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<JsonResponseForDeleteFavDTO> call, Response<JsonResponseForDeleteFavDTO> response) {
 
                 if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
+                Snackbar snackbar = Snackbar.make(coordinatorLayoutForFav, "Removed from Favourite List", Snackbar.LENGTH_LONG);
+                snackbar.show();
+
+
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<JsonResponseForDeleteFavDTO> call, Throwable t) {
                 if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
@@ -307,8 +311,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         });
 
 
-        Snackbar snackbar = Snackbar.make(coordinatorLayoutForFav, "Removed from Favourite List", Snackbar.LENGTH_LONG);
-        snackbar.show();
 
     }
 
