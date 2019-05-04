@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:layout_margin="@dimen/half_dp"
+    android:background="@color/white"
     app:cardCornerRadius="@dimen/three_dp">
 
     <LinearLayout
@@ -45,8 +45,8 @@
                     android:layout_height="wrap_content"
                     android:text="Tamizhan Agro Oil"
 
-                    android:textSize="@dimen/large_font"
                     android:textColor="#000000"
+                    android:textSize="@dimen/large_font"
                     android:textStyle="bold" />
 
                 <TextView
@@ -107,97 +107,8 @@
 
         </LinearLayout>
 
-
     </LinearLayout>
-
 
 </android.support.v7.widget.CardView>
 
 
-    <!-- <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="145dp"
-            android:layout_margin="0.5dp"
-            app:cardCornerRadius="0.5dp">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/productImage"
-                    android:layout_width="120dp"
-                    android:layout_height="110dp"
-                    android:layout_margin="5dp"
-                    android:src="@drawable/ic_launcher_one" />
-
-                <TextView
-                    android:id="@+id/productName"
-                    android:layout_width="228dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_toRightOf="@+id/productImage"
-                    android:text="Tamizhan Agro Oil"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/productDescription"
-                    android:layout_width="240dp"
-                    android:layout_height="40dp"
-                    android:layout_below="@id/productName"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_toRightOf="@id/productImage"
-                    android:text="Organic Nuts and Wood Pressed Oil" />
-
-                <TextView
-                    android:id="@+id/dashProduct"
-                    android:layout_width="240dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/productDescription"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_toRightOf="@id/productImage"
-                    android:text="" />
-
-                <TextView
-                    android:id="@+id/minOrderProduct"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/dashProduct"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_toRightOf="@+id/productImage"
-                    android:text="NO MIN ORDER"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/Black" />
-
-                <TextView
-                    android:id="@+id/ratingProduct"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/dashProduct"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@color/GreenSignup"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="4.1" />
-
-                <TextView
-                    android:id="@+id/freeDeliveryFG"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/productImage"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginLeft="1dp"
-                    android:text="Free Delivery by FarmersGen"
-                    android:textColor="@color/Orange" />
-
-            </RelativeLayout>
-
-        </android.support.v7.widget.CardView>-->

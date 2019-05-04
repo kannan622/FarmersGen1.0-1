@@ -22,6 +22,7 @@ import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.address.ExistingAddressActivity_AtMenuAccFragment;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.cancelorder.CancelOrderActivity;
+import com.example.saravanamurali.farmersgen.favourite.FavouriteListActivity;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseForCancelOrderDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseProfileEdit;
@@ -189,6 +190,16 @@ public class MenuAccountFragment extends Fragment {
                 }
             });
 
+            //Favourite Block
+
+            relativeLayoutFavouriteBlock.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    showFavouriteList();
+                }
+            });
+
             //Cancel Order List(Cancel order Block is pressed)
             relativeLayoutCancelOrderBlock.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -255,6 +266,12 @@ public class MenuAccountFragment extends Fragment {
         return view;
     }
 
+    private void showFavouriteList() {
+
+        Intent getFavouriteList=new Intent(this.getActivity(),FavouriteListActivity.class);
+        startActivity(getFavouriteList);
+
+    }
 
 
     //Manage Address show,add,edit adress
