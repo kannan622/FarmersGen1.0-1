@@ -38,6 +38,16 @@
             android:layout_margin="@dimen/ten_dp"
             android:text="Use My Location"
             android:textColor="@color/FragmentGreen" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/myLocationButton"
+            android:text="Tab to auto fill the address fields"
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:layout_marginRight="@dimen/ten_dp"
+            android:gravity="center"
+            android:textSize="@dimen/fifteen_dp"
+            />
 
     </RelativeLayout>
 
@@ -66,6 +76,7 @@
                 app:errorEnabled="true">
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/getSetFlat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="House /Flat No" />
@@ -80,6 +91,7 @@
                 app:errorEnabled="true">
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/getSetStreetName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Street Name" />
@@ -94,6 +106,7 @@
                 app:errorEnabled="true">
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/getSetArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Area" />
@@ -107,6 +120,7 @@
                 app:errorEnabled="true">
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/getSetCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="City" />
@@ -120,6 +134,7 @@
                 app:errorEnabled="true">
 
                 <android.support.design.widget.TextInputEditText
+                    android:id="@+id/getSetPinCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Pincode" />

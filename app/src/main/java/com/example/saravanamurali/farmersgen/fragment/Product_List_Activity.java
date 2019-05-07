@@ -18,8 +18,11 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForAddCartDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForAddFavourite;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForDeleteCartDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForDeleteFavDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForUpdateCartDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseToCheckFavourite;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
 import com.example.saravanamurali.farmersgen.models.AddFavouriteDTO;
@@ -137,14 +140,12 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         SharedPreferences getCurrentUserForFav = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
         final String curUser_Favourite = getCurrentUserForFav.getString("CURRENTUSER", "NO_CURRENT_USER_FOR_FAV_LIST");
 
-        if (curUser_Favourite.equals(NO_CURRENT_USER_FOR_FAV_LIST)) {
-            Toast.makeText(Product_List_Activity.this, "Please Login To Add Favourite Items", Toast.LENGTH_LONG).show();
-        } else if (!curUser_Favourite.equals(NO_CURRENT_USER_FOR_FAV_LIST)) {
-
-
-            likeButton.setOnLikeListener(new OnLikeListener() {
-                @Override
-                public void liked(LikeButton likeButton) {
+        likeButton.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                if (curUser_Favourite.equals(NO_CURRENT_USER_FOR_FAV_LIST)) {
+                    Toast.makeText(Product_List_Activity.this, "Please Login To Add Favourite Items", Toast.LENGTH_LONG).show();
+                } else if (!curUser_Favourite.equals(NO_CURRENT_USER_FOR_FAV_LIST)) {
 
                     new android.os.Handler().postDelayed(new Runnable() {
 
@@ -160,28 +161,28 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                     addFavouriteItems(curUser_Favourite);
 
                 }
+            }
 
-                @Override
-                public void unLiked(LikeButton likeButton) {
+            @Override
+            public void unLiked(LikeButton likeButton) {
 
-                    new android.os.Handler().postDelayed(new Runnable() {
+                new android.os.Handler().postDelayed(new Runnable() {
 
-                        @Override
-                        public void run() {
+                    @Override
+                    public void run() {
 
-                            //Can do some process here
-
-
-                        }
-                    }, 1000);
-
-                    removeFavouriteItems(curUser_Favourite);
+                        //Can do some process here
 
 
-                }
-            });
+                    }
+                }, 1000);
 
-        }
+                removeFavouriteItems(curUser_Favourite);
+
+
+            }
+        });
+
 
         //Brand Review
         brand_Review = (TextView) findViewById(R.id.brand_Review);
@@ -471,31 +472,30 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
         AddCartDTO addCartDTO = new AddCartDTO(product_Code, addCount, productPrice, android_id);
 
-        Call<ResponseBody> call = apiInterface.addCart(addCartDTO);
+        Call<JsonResponseForAddCartDTO> call = apiInterface.addCart(addCartDTO);
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<JsonResponseForAddCartDTO>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<JsonResponseForAddCartDTO> call, Response<JsonResponseForAddCartDTO> response) {
 
-                if (response.isSuccessful()) {
 
-                    //Thread to slow the process
-                    /*ProgressThread progressThread=new ProgressThread();
-                    progressThread.run();
-*/
+                JsonResponseForAddCartDTO jsonResponseForAddCartDTO = response.body();
+
+                if (jsonResponseForAddCartDTO.getResponseCode() == 200) {
+
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
-                    // Toast.makeText(Product_List_Activity.this,"Success",Toast.LENGTH_LONG).show();
                 } else {
-                    /*Toast.makeText(Product_List_Activity.this, "Error", Toast.LENGTH_LONG).show();*/
+                    Toast.makeText(Product_List_Activity.this, "Please check your internet connection", Toast.LENGTH_LONG).show();
                 }
+
 
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<JsonResponseForAddCartDTO> call, Throwable t) {
 
                 if (csprogress.isShowing()) {
                     csprogress.dismiss();
@@ -538,21 +538,23 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
         UpdateCountInCartDTO upateCountInAddCart = new UpdateCountInCartDTO(upCount, updateProductCode, prouctPrice, ANDROID_MOBILE_ID);
 
-        Call<ResponseBody> call = apiInterface.updateCountatAddCart(upateCountInAddCart);
+        Call<JsonResponseForUpdateCartDTO> call = apiInterface.updateCountatAddCart(upateCountInAddCart);
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<JsonResponseForUpdateCartDTO>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<JsonResponseForUpdateCartDTO> call, Response<JsonResponseForUpdateCartDTO> response) {
 
+                JsonResponseForUpdateCartDTO jsonResponseForUpdateCartDTO = response.body();
 
-                //Thread to slow the process
-                    /*ProgressThread progressThread=new ProgressThread();
-                    progressThread.run();
-*/
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
+                if (jsonResponseForUpdateCartDTO.getUpdateResponseCode() == 200) {
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+                } else {
+                    Toast.makeText(Product_List_Activity.this, "Please check your internet connection", Toast.LENGTH_LONG).show();
                 }
-                response.raw().body().close();
 
 
                 // Toast.makeText(Product_List_Activity.this,"Success",Toast.LENGTH_LONG).show();
@@ -565,7 +567,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<JsonResponseForUpdateCartDTO> call, Throwable t) {
 
                 if (csprogress.isShowing()) {
                     csprogress.dismiss();
@@ -609,29 +611,35 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
         DeleteCountInCartDTO deleteItemFromCart = new DeleteCountInCartDTO(ANDROID_MOBILE_ID, produceCode);
 
-        Call<ResponseBody> call = api.deleteItemFromCart(deleteItemFromCart);
+        Call<JsonResponseForDeleteCartDTO> call = api.deleteItemFromCart(deleteItemFromCart);
 
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<JsonResponseForDeleteCartDTO>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
+            public void onResponse(Call<JsonResponseForDeleteCartDTO> call, Response<JsonResponseForDeleteCartDTO> response) {
 
-                    //Thread to slow the process
-                   /* ProgressThread progressThread=new ProgressThread();
-                    progressThread.run();
-*/
+                JsonResponseForDeleteCartDTO jsonResponseForDeleteCartDTO = response.body();
+
+                if (jsonResponseForDeleteCartDTO.getDeleteResponseCode() == 200) {
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
+                } else {
 
-                    // Toast.makeText(Product_List_Activity.this,"Deleted",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Product_List_Activity.this, "Please check your internet connection", Toast.LENGTH_LONG).show();
+
                 }
+
             }
 
+
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<JsonResponseForDeleteCartDTO> call, Throwable t) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
                 if (t.getMessage() != null) {
 
                     loadRetrofitProductList();
