@@ -1,14 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/unknown"
     android:orientation="vertical"
     tools:context=".fragment.Product_List_Activity">
 
-    <RelativeLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="@dimen/five_dp"
+                android:padding="@dimen/five_dp">
+
+                <TextView
+                    android:id="@+id/proListRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Rating" />
+
+
+                <TextView
+                    android:id="@+id/proListDeliveryTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="24 Hours Delivery"
+                    android:textColor="@color/FragmentGreen"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="?homeAsUpIndicator">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/proListBrandName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="56dp"
+                        android:text="Tamizhan Agro"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/twenty_sp"
+                        android:textStyle="bold" />
+
+
+                    <com.like.LikeButton
+                        android:id="@+id/favIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        app:icon_size="25dp"
+                        app:icon_type="heart">
+
+                    </com.like.LikeButton>
+
+                </RelativeLayout>
+
+
+            </android.support.v7.widget.Toolbar>
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_activity_product_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/five_dp"
+            android:layout_marginEnd="@dimen/five_dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+        <FrameLayout
+            android:id="@+id/countPriceShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </FrameLayout>
+
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/coordnatorLayoutForFav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"></android.support.design.widget.CoordinatorLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>
+
+
+    <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:gravity="center_horizontal">
@@ -24,17 +145,6 @@
             android:textSize="@dimen/twenty_sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/proListShortDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/proListBrandName"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="98dp"
-            android:text="Short Description"
-            android:textSize="20sp"
-            android:visibility="gone" />
 
         <TextView
             android:id="@+id/proListDash"
@@ -42,7 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/proListShortDesc"
             android:layout_marginTop="3dp"
-            android:text="-------------------------------------------------"
+            android:text="-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;"
             android:visibility="gone" />
 
         <RelativeLayout
@@ -94,51 +204,15 @@
                 app:icon_type="heart">
 
             </com.like.LikeButton>
-
-
         </RelativeLayout>
 
 
-        <!--<RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/thirty_dp"
-            android:layout_below="@+id/proListBrandName"
-            android:layout_marginStart="@dimen/ten_dp"
-            android:layout_marginEnd="@dimen/ten_dp"
-            android:layout_marginBottom="@dimen/ten_dp"
-            android:gravity="center"
-            android:paddingStart="@dimen/five_dp"
-            android:paddingEnd="@dimen/three_dp">
-
-
-            <TextView
-                android:id="@+id/proListRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="4.1"
-                android:padding="@dimen/two_dp"
-                android:background="@color/FragmentGreen"
-                android:textColor="@color/white"
-                android:textSize="@dimen/medium_font" />
-
-            <TextView
-                android:id="@+id/proListDeliveryTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="24 Hours Delivery"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/medium_font" />
-
-        </RelativeLayout>
--->
         <TextView
             android:id="@+id/proListDash1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="-------------------------------------------------"
+            android:text="-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;"
             android:visibility="gone" />
 
     </RelativeLayout>
@@ -152,20 +226,14 @@
         android:layout_marginEnd="@dimen/five_dp"
         android:layout_weight="1" />
 
-
     <FrameLayout
         android:id="@+id/countPriceShow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </FrameLayout>
+        android:layout_height="wrap_content"></FrameLayout>
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/coordnatorLayoutForFav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-    </android.support.design.widget.CoordinatorLayout>
-
-
-</LinearLayout>
+        android:layout_alignParentBottom="true"></android.support.design.widget.CoordinatorLayout>
+-->

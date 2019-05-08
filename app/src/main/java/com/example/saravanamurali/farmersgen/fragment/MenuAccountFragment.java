@@ -168,7 +168,7 @@ public class MenuAccountFragment extends Fragment {
         System.out.println("Curent User in Menu Acount Fragment" + currentUserId);
 
         if (currentUserId != NO_CURRENT_USER) {
-            System.out.println("User is there");
+            //System.out.println("User is there");
 
             relativeLayoutMenuAccountProfile.setVisibility(View.VISIBLE);
 
@@ -235,7 +235,7 @@ public class MenuAccountFragment extends Fragment {
             });
 
 
-            Toast.makeText(getActivity(), "User is there", Toast.LENGTH_LONG).show();
+          //  Toast.makeText(getActivity(), "User is there", Toast.LENGTH_LONG).show();
 
         } else {
             System.out.println("User is not there");

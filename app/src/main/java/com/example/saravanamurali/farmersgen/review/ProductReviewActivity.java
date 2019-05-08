@@ -60,13 +60,15 @@ public class ProductReviewActivity extends AppCompatActivity {
 
         recyclerView_Review.setAdapter(reviewAdapter);
 
-//Get List of Brands
-        getProductReview();
 
 
         Intent getData = getIntent();
         brandID = getData.getStringExtra("BRAND_ID");
         productCode = getData.getStringExtra("PRODUCT_CODE");
+
+        //Get List of Brands
+        getProductReview();
+
 
         product_Post_Review.setOnClickListener(new View.OnClickListener() {
             @Override

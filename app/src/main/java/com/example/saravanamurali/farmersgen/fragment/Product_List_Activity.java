@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -94,7 +97,16 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+       /* requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_product__list_);
+       /* getSupportActionBar().hide();
+        //getSupportActionBar().setTitle("ProductList Activity");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+*/
 
         productRating = (TextView) findViewById(R.id.proListRating);
 
@@ -109,7 +121,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         brand_Name_For_ProductList = intent.getStringExtra("BRAND_NAME");
         brand_Name_For_ProductRating = intent.getStringExtra("BRAND_RATING");
         textViewProductName = (TextView) findViewById(R.id.proListBrandName);
-        textViewShortDesc = (TextView) findViewById(R.id.proListShortDesc);
+       // textViewShortDesc = (TextView) findViewById(R.id.proListShortDesc);
         textViewProductName.setText(brand_Name_For_ProductList);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_activity_product_list);
@@ -137,6 +149,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         //End of Favourite Check Block
 
 
+        //If user is logged favourite should add otherwise should toast like please login to add favorite
         SharedPreferences getCurrentUserForFav = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
         final String curUser_Favourite = getCurrentUserForFav.getString("CURRENTUSER", "NO_CURRENT_USER_FOR_FAV_LIST");
 
@@ -185,7 +198,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
 
         //Brand Review
-        brand_Review = (TextView) findViewById(R.id.brand_Review);
+        //brand_Review = (TextView) findViewById(R.id.brand_Review);
 
         //Review has been enabled for product not for brand
         /*brand_Review.setOnClickListener(new View.OnClickListener() {
@@ -260,7 +273,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                     csprogress.dismiss();
                 }
 
-                Snackbar snackbar = Snackbar.make(coordinatorLayoutForFav, "Added to your Favourite List", Snackbar.LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(coordinatorLayoutForFav, "Added to your Favourite List", Snackbar.LENGTH_SHORT);
                 snackbar.show();
 
             }
@@ -301,7 +314,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                     csprogress.dismiss();
                 }
 
-                Snackbar snackbar = Snackbar.make(coordinatorLayoutForFav, "Removed from Favourite List", Snackbar.LENGTH_LONG);
+                Snackbar snackbar = Snackbar.make(coordinatorLayoutForFav, "Removed from Favourite List", Snackbar.LENGTH_SHORT);
                 snackbar.show();
 
 
@@ -445,6 +458,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
             }
         });
+
 
     }
 

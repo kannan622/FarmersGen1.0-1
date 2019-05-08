@@ -435,7 +435,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:padding="20dp"
-                android:src="@drawable/organic" />
+                android:src="@drawable/icon_logo" />
 
         </RelativeLayout>
 
@@ -534,6 +534,8 @@
                 android:id="@+id/homeBtnAtMenuAccFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:text="HOME"
                 android:textColor="@color/GreenSignup" />
 

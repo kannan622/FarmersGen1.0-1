@@ -23,6 +23,16 @@
             android:textColor="#4a8cf6"
             android:textSize="25sp" />
 
+        <ImageView
+            android:id="@+id/locationIcon"
+            android:layout_width="30dp"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_marginTop="@dimen/three_dp"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/updateDeliveryDeliveryAddress"
+            android:src="@drawable/location" />
+
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -31,11 +41,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/RLayoutDeliveryAddress">
 
+
         <Button
             android:id="@+id/myLocationButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/ten_dp"
+            android:layout_alignParentEnd="true"
             android:text="Use My Location"
             android:textColor="@color/FragmentGreen" />
         <TextView

@@ -312,8 +312,6 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
     @Override
     public void onClick(View v) {
 
-
-
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
@@ -321,8 +319,6 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
         } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             getLocation();
         }
-
-
     }
 
     private void getLocation() {
@@ -407,7 +403,11 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
 */
                 String doorNo=address;
                 String[] d_No=doorNo.split(",",2);
-                geoSetFlatNo.setText(d_No[0]);
+                if(d_No.length>=7){
+                    geoSetFlatNo.setText("");
+                }else {
+                    geoSetFlatNo.setText(d_No[0]);
+                }
                 geoSetArea.setText(subLocality);
                 geoSetCity.setText(area);
                 geoSetPincode.setText(postalCode);

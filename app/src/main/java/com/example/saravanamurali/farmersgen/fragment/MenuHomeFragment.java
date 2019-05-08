@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
@@ -47,7 +48,10 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     RecyclerView recyclerView;
     Menuhome_Adapter menuHomeFragmentAdapter;
     List<HomeProductDTO> homeProductDTOSList;
+    LinearLayoutManager linearLayoutManager;
     String brandId;
+
+    ProgressBar progressBar;
 
     Toolbar toolbar;
 
@@ -59,6 +63,15 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     RecyclerView recyclerViewHorizontal;
     MenuBannerAdapter menuBannerAdapter;
     List<BannerDTO> menuBannerDTOList;
+
+    //Pagination
+    private boolean isLoading=true;
+    private int pastVisibleItems,visibleItemCount,totalItemCount,previous_total=0;
+    private int view_threshold=10;
+
+    private int page_number=1;
+    private int item_count=10;
+
 
 
     /* @SuppressLint("ValidFragment")
@@ -97,7 +110,10 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+        linearLayoutManager=new LinearLayoutManager(this.getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        progressBar=(ProgressBar)view.findViewById(R.id.progressBar);
 
         //Banner Horizontal
         recyclerViewHorizontal=(RecyclerView)view.findViewById(R.id.recyclerViewHorizonal);
@@ -150,6 +166,8 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     //Display All Banner Images
     private void loadBannerImages() {
 
+
+
         ApiInterface api=APIClientForBannerImages.getApiInterfaceForBannerImages();
         Call<JsonResponseForBannerDTO> call=api.getAllBannerImages();
 
@@ -196,8 +214,13 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
             @Override
             public void onResponse(Call<JSONResponseHomeBrandDTO> call, Response<JSONResponseHomeBrandDTO> response) {
 
+                if (response.isSuccessful()) {
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
 
-                JSONResponseHomeBrandDTO jsonResponse = response.body();
+
+                    JSONResponseHomeBrandDTO jsonResponse = response.body();
 
                 List<HomeProductDTO> homeProductDTOList = jsonResponse.getRecords();
 
@@ -216,10 +239,6 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
                 }
 
 
-                if (response.isSuccessful()) {
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
                     menuHomeFragmentAdapter.setData(homeProductDTOList);
                     //  Toast.makeText(getActivity(), "Sucesss Running", Toast.LENGTH_LONG).show();
                 }
@@ -235,7 +254,35 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
             }
         });
 
+         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+             @Override
+             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                 super.onScrolled(recyclerView, dx, dy);
+                 visibleItemCount=linearLayoutManager.getChildCount();
+                 totalItemCount=linearLayoutManager.getItemCount();
+                 pastVisibleItems=linearLayoutManager.findFirstVisibleItemPosition();
 
+                 if(dy>0){
+                     if(isLoading){
+                         if(totalItemCount>previous_total){
+                             isLoading=false;
+                             previous_total=totalItemCount;
+                         }
+                     }
+                     if(!isLoading && (totalItemCount-visibleItemCount)<=(pastVisibleItems+view_threshold)){
+
+                         page_number++;
+                         loadRetrofitforProductDisplay();
+                         isLoading=true;
+
+                     }
+
+
+                     }
+
+
+             }
+         });
 
     }
 

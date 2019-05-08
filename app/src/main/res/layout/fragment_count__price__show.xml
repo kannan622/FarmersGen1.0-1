@@ -1,22 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/FragmentGreen"
     android:orientation="horizontal"
     tools:context=".fragment.Count_Price_Show_Fragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="start|center"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        >
+
+        <TextView
+            android:id="@+id/totalItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1000"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/four_dp"
+            android:text="item"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/eight_dp"
+
+            android:text="|"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/totalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/four_dp"
+            android:text="1000"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <TextView
         android:id="@+id/viewCart"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_gravity="end"
         android:gravity="center"
+        android:paddingRight="10dp"
         android:text="View Cart"
         android:textColor="@color/White"
-        android:paddingRight="10dp"
         android:textSize="18sp" />
+
+
+    </RelativeLayout>
+
 
 
 </FrameLayout>
