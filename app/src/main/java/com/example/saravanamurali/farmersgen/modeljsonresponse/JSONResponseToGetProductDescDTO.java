@@ -30,15 +30,14 @@ public class JSONResponseToGetProductDescDTO {
     @SerializedName("expiry_date")
     private String productExpairyDate;
 
-
-
-
     @SerializedName("product_and_packaging")
     private String productAndPackagingText;
     @SerializedName("ingredients")
     private String ingredientUsed;
-    @SerializedName("usage_and_benifits")
+
+    @SerializedName("usage_and_benefits")
     private String usage_benefits;
+
     @SerializedName("facebook")
     private String fbLink;
     @SerializedName("instagram")

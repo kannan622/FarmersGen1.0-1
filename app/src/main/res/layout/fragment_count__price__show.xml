@@ -55,15 +55,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/viewCart"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:paddingRight="10dp"
-        android:text="View Cart"
-        android:textColor="@color/White"
-        android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/cartImage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="6dp"
+            android:padding="@dimen/four_dp"
+            android:src="@drawable/viewcart" />
+        <TextView
+            android:id="@+id/viewCart"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_toLeftOf="@id/cartImage"
+            android:paddingRight="8dp"
+            android:text="VIEW CART"
+            android:textColor="@color/White"
+            android:textSize="18sp" />
+
 
 
     </RelativeLayout>

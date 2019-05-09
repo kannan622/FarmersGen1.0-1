@@ -14,8 +14,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToAddFavour
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToCheckFavourite;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToRemoveFav;
 import com.example.saravanamurali.farmersgen.review.BrandReviewActivity;
+import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 import com.example.saravanamurali.farmersgen.util.FavStatus;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
@@ -93,6 +96,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     int favStatus;
     //End of Favourite List
 
+    ImageView imageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +112,15 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         //getSupportActionBar().setTitle("ProductList Activity");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 */
+
+       imageView=(ImageView)findViewById(R.id.leftArrow);
+
+       imageView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               startActivity(new Intent(Product_List_Activity.this,HomeActivity.class));
+           }
+       });
 
         productRating = (TextView) findViewById(R.id.proListRating);
 

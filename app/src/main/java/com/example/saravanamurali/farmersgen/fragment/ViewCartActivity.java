@@ -65,6 +65,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     TextView proceedButton;
 
 
+
     RelativeLayout bottomView;
 
     // JSONResponseUpdateCartDTO jsonResponseUpdateCartDTO;
@@ -239,7 +240,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
         //PROCEED Button Pressed in View Cart Activity
-        proceedButton.setOnClickListener(new View.OnClickListener() {
+        bottomView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -247,6 +248,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 csprogress = new ProgressDialog(ViewCartActivity.this);
                 csprogress.setMessage("Loading...");
                 csprogress.show();
+                csprogress.setCancelable(false);
                 csprogress.setCanceledOnTouchOutside(false);
 
 
@@ -678,6 +680,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     proceedButton.setVisibility(View.GONE);
                     bottomView.setVisibility(View.GONE);
                     couponAppliedBlock.setVisibility(View.GONE);
+                    toolbar.setVisibility(View.GONE);
 
                     //Removes the couponID
 

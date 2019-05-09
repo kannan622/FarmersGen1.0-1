@@ -40,13 +40,13 @@ public class ExistingAddressActivity_AtMenuAccFragment extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_existing_address__at_menu_acc_fragment);
+        /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_existing_address__at_menu_acc_fragment);
-        getSupportActionBar().hide();
 
+        getSupportActionBar().hide();
+*/
 
 
         flatNo = (TextView) findViewById(R.id.flatNoRightMenuAcc);

@@ -13,20 +13,28 @@
         android:background="@color/grey_lighti"
         android:minHeight="?attr/actionBarSize">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/twelve_dp">
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/viewBasket"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layout_centerInParent="true"
                 android:text="Your Basket"
                 android:textColor="@color/FragmentGreen"
                 android:textSize="@dimen/twenty_sp" />
 
-        </LinearLayout>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="@dimen/four_dp"
+                android:layout_toRightOf="@+id/viewBasket"
+                android:src="@drawable/cartgreen" />
+
+        </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 
@@ -89,15 +97,24 @@
                 android:clickable="true"
                 android:gravity="bottom"
                 android:orientation="horizontal"
-                android:padding="@dimen/ten_dp"
+                android:paddingTop="@dimen/ten_dp"
+                android:paddingRight="@dimen/ten_dp"
+                android:paddingBottom="@dimen/ten_dp"
                 android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/couponPercentage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/coupon" />
 
                 <TextView
                     android:id="@+id/applyCouponText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/couponPercentage"
                     android:text="APPLY COUPON"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
                     android:textStyle="bold" />
@@ -106,7 +123,7 @@
                     android:id="@+id/offersArrow"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:src="@drawable/profilerightarrow" />
 
 
@@ -176,8 +193,34 @@
                     android:textSize="14dp"
                     android:textStyle="bold" />
 
+                <ImageView
+                    android:id="@+id/rightArrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/right"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="@dimen/twelve_dp"
+
+                    />
 
                 <TextView
+                    android:id="@+id/viewCartProceed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_toLeftOf="@+id/rightArrow"
+                    android:text="CHECKOUT"
+                    android:textSize="20dp"
+                    android:layout_marginRight="@dimen/six_dp"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+
+                    />
+
+
+                <!--<TextView
                     android:id="@+id/viewCartProceed"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
@@ -194,7 +237,7 @@
                     android:textColor="@color/FragmentGreen"
                     android:textSize="14dp"
                     android:textStyle="bold" />
-
+-->
             </RelativeLayout>
 
 
