@@ -94,6 +94,11 @@ public class Count_Price_Show_Fragment extends Fragment {
 
     private void getAllDataFromSQLLiteDataBase() {
 
+        Product_List_Activity product_list_activity=new Product_List_Activity();
+
+
+        //DB connection and select query goes here
+
 
 
     }
