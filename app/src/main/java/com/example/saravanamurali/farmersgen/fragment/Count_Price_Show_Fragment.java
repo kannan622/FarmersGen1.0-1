@@ -17,14 +17,17 @@ import android.widget.TextView;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseViewCartListDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseFromServerDBDTO;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
 import com.example.saravanamurali.farmersgen.models.GetDataFromSqlLiteDTO;
 import com.example.saravanamurali.farmersgen.models.ViewCartDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForViewCart;
+import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToMoveDataFromSqlLiteToServerDB;
 import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -76,9 +79,10 @@ public class Count_Price_Show_Fragment extends Fragment {
             public void onClick(View v) {
 
                 getAllDataFromSQLLiteDataBase();
+                
+                moveDataFromSqlLiteToServerDB();
 
-                /*Intent viewCartIntent = new Intent(getActivity(), ViewCartActivity.class);
-                startActivity(viewCartIntent);*/
+
             }
         });
 
@@ -86,13 +90,44 @@ public class Count_Price_Show_Fragment extends Fragment {
         return view;
     }
 
+
+
     private void getAllDataFromSQLLiteDataBase() {
 
 
 
+    }
 
+    private void moveDataFromSqlLiteToServerDB() {
+
+        ApiInterface api=ApiClientToMoveDataFromSqlLiteToServerDB.getAPIInterfaceToMoveDataFromSqlLiteToServerDB();
+
+        Call<JsonResponseFromServerDBDTO> call=api.moveSqlLiteDataToSever();
+
+       call.enqueue(new Callback<JsonResponseFromServerDBDTO>() {
+           @Override
+           public void onResponse(Call<JsonResponseFromServerDBDTO> call, Response<JsonResponseFromServerDBDTO> response) {
+
+               JsonResponseFromServerDBDTO jsonResponseFromServerDBDTO=response.body();
+               if(jsonResponseFromServerDBDTO.getStatus()==200){
+
+                   startActivity(new Intent(getActivity(),ViewCartActivity.class));
+               }
+               else if(jsonResponseFromServerDBDTO.getStatus()==500){
+
+               }
+
+
+           }
+
+           @Override
+           public void onFailure(Call<JsonResponseFromServerDBDTO> call, Throwable t) {
+
+           }
+       });
 
     }
+
 
    /* private void loadViewCartProductList() {
 

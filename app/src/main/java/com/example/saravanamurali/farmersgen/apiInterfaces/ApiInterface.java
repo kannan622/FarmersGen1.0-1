@@ -6,6 +6,7 @@ import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForDe
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForDeleteFavDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForFavBrandsDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForUpdateCartDTO;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseFromServerDBDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseToCheckFavourite;
 import com.example.saravanamurali.farmersgen.models.ADDAddessDTO;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
@@ -97,6 +98,9 @@ public interface ApiInterface {
 
     @POST("view-product.php")
     Call<JSONResponseProductListDTO> getSingleBrandProductList(@Body ViewProductListDTO viewProductListDTO);
+
+    @POST("insert_view_cart.php  ")
+    Call<JsonResponseFromServerDBDTO>moveSqlLiteDataToSever();
 
     //Get Reviews
     @POST("fetch_review.php")
