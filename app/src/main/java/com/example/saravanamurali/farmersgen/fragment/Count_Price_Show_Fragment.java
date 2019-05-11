@@ -4,6 +4,7 @@ package com.example.saravanamurali.farmersgen.fragment;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseViewCartListDTO;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
+import com.example.saravanamurali.farmersgen.models.GetDataFromSqlLiteDTO;
 import com.example.saravanamurali.farmersgen.models.ViewCartDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForViewCart;
 import com.example.saravanamurali.farmersgen.util.Network_config;
@@ -45,14 +47,10 @@ public class Count_Price_Show_Fragment extends Fragment {
 
     }
 
-    @SuppressLint("ValidFragment")
-    public Count_Price_Show_Fragment(String curentUser) {
-        this.currentUser = curentUser;
-    }
 
-    public void getCountPrice(int productCount) {
+    public void getCountPrice() {
 
-        fragment_productCount = productCount;
+
     }
 
     TextView textViewName;
@@ -76,13 +74,24 @@ public class Count_Price_Show_Fragment extends Fragment {
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent viewCartIntent = new Intent(getActivity(), ViewCartActivity.class);
-                startActivity(viewCartIntent);
+
+                getAllDataFromSQLLiteDataBase();
+
+                /*Intent viewCartIntent = new Intent(getActivity(), ViewCartActivity.class);
+                startActivity(viewCartIntent);*/
             }
         });
 
 
         return view;
+    }
+
+    private void getAllDataFromSQLLiteDataBase() {
+
+
+
+
+
     }
 
    /* private void loadViewCartProductList() {

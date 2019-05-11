@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,8 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetPastOr
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToGetFavBrands;
 import com.example.saravanamurali.farmersgen.signin.LoginActivity;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +78,7 @@ public class MenuAccountFragment extends Fragment {
 */
     TextView profileLoggedInMobile;
     TextView profileLoggedInMailTextView;
-    TextView profileLoggedInEdit;
+    ImageView profileLoggedInEdit;
     TextView dot;
     View profileLine;
     TextView myAccount;
@@ -89,10 +92,11 @@ public class MenuAccountFragment extends Fragment {
     RelativeLayout relativeLayoutCancelOrderBlock;
     RelativeLayout relativeLayoutLogoutBlock;
     RelativeLayout relativeLayoutProfileLoginBlock;
+    RelativeLayout relativeLayoutShareAppBlock;
     Button logout;
     String currentUserId;
     //Share App
-    Button share_App;
+    TextView share_App;
     private FragmentActivity myContext;
 
     //Favourite List Check
@@ -125,7 +129,7 @@ public class MenuAccountFragment extends Fragment {
         profileLoggedInUserName = (TextView) view.findViewById(R.id.profileUserName);
         profileLoggedInMobile = (TextView) view.findViewById(R.id.profileMobileNumber);
         profileLoggedInMailTextView = (TextView) view.findViewById(R.id.profieMail);
-        profileLoggedInEdit = (TextView) view.findViewById(R.id.editProfile);
+        profileLoggedInEdit = (ImageView) view.findViewById(R.id.editProfile);
         dot = (TextView) view.findViewById(R.id.dot);
         profileLine = (View) view.findViewById(R.id.profileLine);
         myAccount = (TextView) view.findViewById(R.id.myAccount);
@@ -149,11 +153,11 @@ public class MenuAccountFragment extends Fragment {
         relativeLayoutCancelOrderBlock = (RelativeLayout) view.findViewById(R.id.cancelOrderBlock);
 
         relativeLayoutLogoutBlock = (RelativeLayout) view.findViewById(R.id.profileLogoutBlock);
-
         //Share App
-        share_App = (Button) view.findViewById(R.id.shareApp);
+        share_App = (TextView) view.findViewById(R.id.shareApp);
 
-        share_App.setOnClickListener(new View.OnClickListener() {
+        relativeLayoutShareAppBlock=(RelativeLayout)view.findViewById(R.id.shareAppBlock);
+        relativeLayoutShareAppBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 shareAppToOtherApp();

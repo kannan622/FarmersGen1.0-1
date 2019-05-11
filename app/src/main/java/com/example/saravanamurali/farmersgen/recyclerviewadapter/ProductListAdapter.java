@@ -21,6 +21,7 @@ import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseViewC
 import com.example.saravanamurali.farmersgen.models.ProductListDTO;
 import com.example.saravanamurali.farmersgen.models.ViewCartDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForViewCart;
+import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -31,91 +32,24 @@ import retrofit2.Response;
 
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductListAdapterViewHolder> {
 
-    int fragmentCount;
-
-
     Context mListContext;
     List<ProductListDTO> productListDTOList;
 
-    //OnBackPressed
-    List<ViewCartDTO> viewCartOnBackPressedDTO;
-
-    ShowDataInFragment showDataInFragment;
-
     AddCart addCartInDb;
 
-    UpdateCartInAddCart updateCartInAddCartInterface;
-
-    DeleteItemWhenCountZeroInterface deleteItemWhenCountZeroInterface;
-    private OnProductItemClickListener mItemClickListener;
-
-    OnImageClickListener onImageClickListener;
-
-
-    public interface DeleteItemWhenCountZeroInterface {
-        public void deleteItemWhenCountZero(String produceCode);
-    }
-
-    public interface UpdateCartInAddCart {
-        public void updateCartInAddCart(String updateProductCode, int updateCount, String prouctPrice);
-    }
-
-
     public interface AddCart {
-        public void addCart(int countNum, String product_Code, String productPrice);
-    }
 
-    public interface ShowDataInFragment {
+        public void addCartInSqlLite(int countNum, String product_Code, String productPrice);
 
-        public void showInFragment(int fragmentCount);
+        public void updateCartInSqlLite(String updateProductCode, int updateCount, String updateprouctPrice);
 
-    }
+        public void deleteItemWhenCountBecomesZero(String product_Code);
 
-
-    public interface OnProductItemClickListener {
+        public void showInFragment();
 
         void OnProductItemClick(int position);
 
-    }
-
-    public interface OnImageClickListener{
-
         void onImageClick(String imageCode);
-    }
-
-    public void setAddCart(AddCart addCountInDb) {
-        this.addCartInDb = addCountInDb;
-    }
-
-    public void setUpdateCartInAddCart(UpdateCartInAddCart updateCartInAddCartInterface) {
-        this.updateCartInAddCartInterface = updateCartInAddCartInterface;
-        notifyDataSetChanged();
-
-    }
-
-    public void setDeleteItemWhenCountZero(DeleteItemWhenCountZeroInterface deleteItemWhenCountZeroInterface) {
-        this.deleteItemWhenCountZeroInterface = deleteItemWhenCountZeroInterface;
-        notifyDataSetChanged();
-    }
-
-    public void setShowDataInFragment(ShowDataInFragment showDataInFragmentListener) {
-        this.showDataInFragment = showDataInFragmentListener;
-        notifyDataSetChanged();
-
-    }
-
-    public void setOnProductItemClickListener(OnProductItemClickListener clickListener) {
-        mItemClickListener = clickListener;
-
-    }
-
-    public void setOnImageClickListener(OnImageClickListener imageClickListener){
-        onImageClickListener=imageClickListener;
-    }
-
-
-
-    public ProductListAdapter() {
 
     }
 
@@ -123,6 +57,19 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         this.mListContext = mListContext;
         this.productListDTOList = productListDTOList;
     }
+
+
+    public void setAddCart(AddCart addCountInDb) {
+        this.addCartInDb = addCountInDb;
+    }
+
+    public void setDataSetChanged(List<ProductListDTO> productListDTOList) {
+        this.productListDTOList = productListDTOList;
+        notifyDataSetChanged();
+
+    }
+
+
 
     public int getCartCount() {
         int count = 0;
@@ -133,10 +80,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         return count;
     }
 
-
-    public void setDataListChanged() {
-        notifyDataSetChanged();
-    }
 
     @NonNull
     @Override
@@ -154,8 +97,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.productListName.setText(productListDTOList.get(position).getProductName());
 
         holder.productListPrice.setText("₹ " + productListDTOList.get(position).getProductPrice());
-        holder.productQuantity.setText(""+productListDTOList.get(position).getProductQuantity());
-        holder.list_actualprice.setText("₹"+productListDTOList.get(position).getAcutalPrice());
+        holder.productQuantity.setText("" + productListDTOList.get(position).getProductQuantity());
+        holder.list_actualprice.setText("₹" + productListDTOList.get(position).getAcutalPrice());
         Picasso.with(mListContext).load(productListDTOList.get(position).getProductImage()).into(holder.productListImage);
 
         int finalCount = 0;
@@ -192,30 +135,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     }
 
 
-    /*public void onBackPressedAtViewCart(List<ViewCartDTO> viewCartOnBackPressedDTO){
-
-        this.viewCartOnBackPressedDTO=viewCartOnBackPressedDTO;
-
-    }*/
-
-
-
-    //get previous added count from DB
-
-    /* private void getPreviousAddedCountFromDB(){
-
-         String ANDROID_MOBILE_ID = Settings.Secure.getString(mListContext.getContentResolver(),
-                 Settings.Secure.ANDROID_ID);
-
-     }
- */
     class ProductListAdapterViewHolder extends RecyclerView.ViewHolder {
 
 
         ImageView productListImage;
         TextView productListName;
-      //  ImageView productListIndianRupee;
-        TextView productListPrice,list_actualprice,productQuantity;
+        //  ImageView productListIndianRupee;
+        TextView productListPrice, list_actualprice, productQuantity;
 
         Button addButton;
         ImageView incButton;
@@ -226,14 +152,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         public ProductListAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            productQuantity=itemView.findViewById(R.id.product_quantity_avaliable);
+            productQuantity = itemView.findViewById(R.id.product_quantity_avaliable);
 
             productListImage = itemView.findViewById(R.id.listProductImage);
             productListName = itemView.findViewById(R.id.listProductName);
-          //  productListIndianRupee = itemView.findViewById(R.id.listProductindianRupee);
+            //  productListIndianRupee = itemView.findViewById(R.id.listProductindianRupee);
             productListPrice = itemView.findViewById(R.id.listProductprice);
             list_actualprice = itemView.findViewById(R.id.actualprice);
-
 
 
             addButton = itemView.findViewById(R.id.addButton);
@@ -256,17 +181,15 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                     String product_Code = productListDTO.getProductCode();
                     String prouctPrice = productListDTO.getProductPrice();
 
-                    /*int totalPrice=countAddInc*Integer.parseInt(prouctPrice);
 
-                    String add_total_Price=String.valueOf(totalPrice);
-*/
-                    addCartInDb.addCart(countAddInc, product_Code, prouctPrice);
+                    addCartInDb.addCartInSqlLite(countAddInc, product_Code, prouctPrice);
 
-                    int fragmentCount = loadForFragment();
+                    // addCartInDb.addCart(countAddInc, product_Code, prouctPrice);
+
 
                     productListDTO.setCount(String.valueOf(countAddInc));
                     notifyDataSetChanged();
-                    showDataInFragment.showInFragment(fragmentCount);
+                    addCartInDb.showInFragment();
 
 
                 }
@@ -284,21 +207,14 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                     System.out.println("I am First" + product_Code + "  " + countIncInc + "  " + prouctPrice);
 
 
-                    /*int total_price=countIncInc*Integer.parseInt(prouctPrice);
+                    addCartInDb.updateCartInSqlLite(product_Code, countIncInc, prouctPrice);
 
-                    String inc_total_price=String.valueOf(total_price);
-*/
-
-                    updateCartInAddCartInterface.updateCartInAddCart(product_Code, countIncInc, prouctPrice);
-                    int fragmentCount = loadForFragment();
-                    System.out.println("I am here" + product_Code + "  " + countIncInc + "  " + prouctPrice);
-                    System.out.println("I am here" + product_Code + "  " + countIncInc + "  " + prouctPrice);
-                    System.out.println("I am here" + product_Code + "  " + countIncInc + "  " + prouctPrice);
+                    //updateCartInAddCartInterface.updateCartInAddCart(product_Code, countIncInc, prouctPrice);
 
                     productListDTO.setCount(String.valueOf(countIncInc));
 
                     notifyDataSetChanged();
-                    showDataInFragment.showInFragment(fragmentCount);
+                    addCartInDb.showInFragment();
                 }
             });
 
@@ -316,23 +232,24 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                     countDecDec = countDecDec - 1;
                     if (countDecDec > 0) {
 
-                        /*int total_price=countDecDec*Integer.parseInt(prouctPrice);
-                        String dec_total_price=String.valueOf(total_price);
-*/
-                        updateCartInAddCartInterface.updateCartInAddCart(product_Code, countDecDec, prouctPrice);
+                        addCartInDb.updateCartInSqlLite(product_Code, countDecDec, prouctPrice);
+
+                        // updateCartInAddCartInterface.updateCartInAddCart(product_Code, countDecDec, prouctPrice);
 
                     } else if (countDecDec == 0) {
-                        deleteItemWhenCountZeroInterface.deleteItemWhenCountZero(product_Code);
+
+                        addCartInDb.deleteItemWhenCountBecomesZero(product_Code);
+
+                        //deleteItemWhenCountZeroInterface.deleteItemWhenCountZero(product_Code);
 
                     } else if (countDecDec < 0) {
                         return;
                     }
 
 
-                    int fragmentCount = loadForFragment();
                     productListDTO.setCount(String.valueOf(countDecDec));
                     notifyDataSetChanged();
-                    showDataInFragment.showInFragment(fragmentCount);
+                    addCartInDb.showInFragment();
 
                 }
             });
@@ -340,12 +257,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             productListImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int imageAdapterPosition=getAdapterPosition();
+                    int imageAdapterPosition = getAdapterPosition();
                     ProductListDTO productListDTO = productListDTOList.get(imageAdapterPosition);
 
-                    String imageProductCode=productListDTO.getProductCode();
+                    String imageProductCode = productListDTO.getProductCode();
 
-                    onImageClickListener.onImageClick(imageProductCode);
+                    addCartInDb.onImageClick(imageProductCode);
                 }
             });
 
@@ -353,64 +270,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
 
 
-
-
-        private int loadForFragment() {
-            final ProgressDialog csprogress;
-            csprogress = new ProgressDialog(mListContext);
-            csprogress.setMessage("Loading...");
-            csprogress.show();
-            csprogress.setCanceledOnTouchOutside(false);
-
-            String ANDROID_MOBILE_ID = Settings.Secure.getString(mListContext.getContentResolver(),
-                    Settings.Secure.ANDROID_ID);
-
-
-            ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
-            AddCartDTO loadFragment = new AddCartDTO(ANDROID_MOBILE_ID);
-            Call<JSONResponseViewCartListDTO> call = api.getViewCart(loadFragment);
-
-            call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
-                @Override
-                public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
-
-
-                    if (response.isSuccessful()) {
-
-                        if (csprogress.isShowing()) {
-                            csprogress.dismiss();
-                        }
-                        JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
-                        List<ViewCartDTO> viewCart = jsonResponseViewCartListDTO.getViewCartListRecord();
-
-                        /*fragmentCount = 0;
-                        for (int i = 0; i < viewCart.size(); i++) {
-                            fragmentCount += Integer.parseInt(viewCart.get(i).getCount());
-                        }
-                        System.out.println("Fragment Total Count" + fragmentCount);*/
-
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<JSONResponseViewCartListDTO> call, Throwable t) {
-
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-                    Toast.makeText(mListContext, "" + t.getMessage(), Toast.LENGTH_LONG).show();
-
-                    Log.e("Error", t.getMessage());
-
-                }
-            });
-
-            // notifyDataSetChanged();
-
-            return fragmentCount;
-
-        }
     }
 
 

@@ -3,6 +3,8 @@ package com.example.saravanamurali.farmersgen.fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -21,6 +23,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForAddCartDTO;
@@ -34,6 +39,8 @@ import com.example.saravanamurali.farmersgen.models.AddFavouriteDTO;
 import com.example.saravanamurali.farmersgen.models.CheckFavDTO;
 import com.example.saravanamurali.farmersgen.models.DeleteCountInCartDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseProductListDTO;
+import com.example.saravanamurali.farmersgen.models.GetDataFromSqlLiteDTO;
+import com.example.saravanamurali.farmersgen.models.GetOrdersUsingDeviceID_DTO;
 import com.example.saravanamurali.farmersgen.models.ProductListDTO;
 import com.example.saravanamurali.farmersgen.models.UpdateCountInCartDTO;
 import com.example.saravanamurali.farmersgen.models.ViewProductListDTO;
@@ -47,20 +54,32 @@ import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToAddFavour
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToCheckFavourite;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToRemoveFav;
 import com.example.saravanamurali.farmersgen.review.BrandReviewActivity;
+import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 import com.example.saravanamurali.farmersgen.util.FavStatus;
+import com.google.gson.JsonObject;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Product_List_Activity extends AppCompatActivity implements ProductListAdapter.ShowDataInFragment, ProductListAdapter.AddCart, ProductListAdapter.UpdateCartInAddCart, ProductListAdapter.DeleteItemWhenCountZeroInterface, ProductListAdapter.OnImageClickListener {
+public class Product_List_Activity extends AppCompatActivity implements ProductListAdapter.AddCart {
 
     private String NO_CURRENT_USER_FOR_FAV_LIST = "NO_CURRENT_USER_FOR_FAV_LIST";
     private final String NO_CURRENT_USER = "null";
@@ -70,8 +89,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     String brand_ID_For_ProductList;
     String brand_Name_For_ProductList;
     String brand_Name_For_ProductRating;
-    String android_id = null;
-    //Current User From Login Page
     String curentUser = "";
 
     //Current User From Shared Preferences
@@ -82,12 +99,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     ProductListAdapter productListAdapter;
 
     TextView textViewProductName;
-    TextView textViewShortDesc;
-
     TextView productRating;
 
-    //Brand Review
-    TextView brand_Review;
 
     //Favourite List
     LikeButton likeButton;
@@ -98,29 +111,30 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
     ImageView imageView;
 
+    //SQLLITE DATABASE
+    SQLiteDatabase mSqLiteDatabase;
+    List<GetDataFromSqlLiteDTO> getDataFromSqlLiteDTOS;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-       /* requestWindowFeature(Window.FEATURE_ACTION_BAR);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_product__list_);
-       /* getSupportActionBar().hide();
-        //getSupportActionBar().setTitle("ProductList Activity");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-*/
 
-       imageView=(ImageView)findViewById(R.id.leftArrow);
+        //SQLLITE DATABASE
+        mSqLiteDatabase = openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
+        createTable();
+        getDataFromSqlLiteDTOS = new ArrayList<GetDataFromSqlLiteDTO>();
 
-       imageView.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               startActivity(new Intent(Product_List_Activity.this,HomeActivity.class));
-           }
-       });
+
+        imageView = (ImageView) findViewById(R.id.leftArrow);
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Product_List_Activity.this, HomeActivity.class));
+            }
+        });
 
         productRating = (TextView) findViewById(R.id.proListRating);
 
@@ -128,14 +142,13 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         Intent intent = getIntent();
         curentUser = intent.getStringExtra("CURRENTUSER");
 
-        // ViewCartActivity viewCartActivity=new ViewCartActivity(curentUser);
 
         //Brand Details
         brand_ID_For_ProductList = intent.getStringExtra("BRAND_ID");
         brand_Name_For_ProductList = intent.getStringExtra("BRAND_NAME");
         brand_Name_For_ProductRating = intent.getStringExtra("BRAND_RATING");
         textViewProductName = (TextView) findViewById(R.id.proListBrandName);
-       // textViewShortDesc = (TextView) findViewById(R.id.proListShortDesc);
+        // textViewShortDesc = (TextView) findViewById(R.id.proListShortDesc);
         textViewProductName.setText(brand_Name_For_ProductList);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView_activity_product_list);
@@ -211,23 +224,22 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         });
 
 
-        //Brand Review
-        //brand_Review = (TextView) findViewById(R.id.brand_Review);
-
-        //Review has been enabled for product not for brand
-        /*brand_Review.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                callReviewDisplayActivity();
-            }
-        });
-*/
-
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
         currentUserIdFromSharedPreferences = getCurrentUser.getString("CURRENTUSER", NO_CURRENT_USER);
 
 
+    }
+
+    private void createTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS add_cart (\n" +
+                "    id INTEGER NOT NULL CONSTRAINT add_cart_pk PRIMARY KEY AUTOINCREMENT,\n" +
+                "    product_code varchar(200) NOT NULL,\n" +
+                "    count tinyint(4) NOT NULL,\n" +
+                "    total_price varchar(2000) NOT NULL,\n" +
+                "    device_id varchar(200) NOT NULL\n" +
+                ");";
+
+        mSqLiteDatabase.execSQL(sql);
     }
 
     //Checking to enable favourite icon for this user
@@ -347,19 +359,11 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     }
 
 
-    //Review Display method
-    private void callReviewDisplayActivity() {
-
-        Intent brandReviewActivity = new Intent(Product_List_Activity.this, BrandReviewActivity.class);
-        brandReviewActivity.putExtra("BRAND_ID_FOR_REVIEW", brand_ID_For_ProductList);
-        startActivity(brandReviewActivity);
-
-
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
+
+        loadProductListDataFromSqlLite();
 
         //Guest User
         //Display all products list from Brand
@@ -371,14 +375,36 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         recyclerView.setAdapter(productListAdapter);
         // productListAdapter.setOnProductItemClickListener(Product_List_Activity.this);
 
-        productListAdapter.setShowDataInFragment(Product_List_Activity.this);
 
         productListAdapter.setAddCart(Product_List_Activity.this);
 
-        productListAdapter.setUpdateCartInAddCart(Product_List_Activity.this);
 
-        productListAdapter.setDeleteItemWhenCountZero(Product_List_Activity.this);
-        productListAdapter.setOnImageClickListener(Product_List_Activity.this);
+    }
+
+    private void loadProductListDataFromSqlLite() {
+
+        String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        Cursor cursor = mSqLiteDatabase.rawQuery("select count,product_code from add_cart where device_id=?", new String[]{ANDROID_MOBILE_ID});
+
+        if (cursor.moveToFirst()) {
+
+            do {
+
+                GetDataFromSqlLiteDTO getDataFromSqlLiteDTO = new GetDataFromSqlLiteDTO(cursor.getString(0), cursor.getString(1));
+
+                System.out.println("SQL LISTE SELECT");
+                System.out.println(getDataFromSqlLiteDTO.getCount());
+                System.out.println(getDataFromSqlLiteDTO.getProductCode());
+                getDataFromSqlLiteDTOS.add(getDataFromSqlLiteDTO);
+
+            }
+            while (cursor.moveToNext());
+
+
+        }
+
 
     }
 
@@ -405,59 +431,54 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
             @Override
             public void onResponse(Call<JSONResponseProductListDTO> call, Response<JSONResponseProductListDTO> response) {
 
-                JSONResponseProductListDTO jsonResponseProductListDTO = response.body();
-
-                List<ProductListDTO> productListDTO = jsonResponseProductListDTO.getProductListRecord();
-
-                int totalCount = 0;
-
-
-                for (int i = 0; i < productListDTO.size(); i++) {
-                    String product_Name = productListDTO.get(i).getProductName();
-
-                    String pro_Code = String.valueOf(productListDTO.get(i).getProductCode());
-
-                    String product_Image = productListDTO.get(i).getProductImage();
-                    String product_Price = productListDTO.get(i).getProductPrice();
-                    String count = productListDTO.get(i).getCount();
-                    String productQuatity = productListDTO.get(i).getProductQuantity();
-                    String productActualPrice = productListDTO.get(i).getAcutalPrice();
-
-                    if (count != null && !count.isEmpty())
-                        totalCount = totalCount + Integer.parseInt(count);
-
-                    ProductListDTO productList = new ProductListDTO(pro_Code, count, product_Name, product_Image, product_Price, productQuatity, productActualPrice);
-                    productListDTOList.add(productList);
-                    // System.out.println("Product Name of Every Product" + product_Name);
-                }
-
                 if (response.isSuccessful()) {
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
-                    productListAdapter.notifyDataSetChanged();
-                    // Toast.makeText(Product_List_Activity.this, "Success", Toast.LENGTH_SHORT).show();
+                }
 
-                    if (totalCount > 0) {
-                        try {
-                            Count_Price_Show_Fragment count_price_show_fragment = new Count_Price_Show_Fragment();
-                            fragmentManager.beginTransaction().replace(R.id.countPriceShow, count_price_show_fragment).show(count_price_show_fragment).commit();
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                JSONResponseProductListDTO jsonResponseProductListDTO = response.body();
+
+                List<ProductListDTO> productListDTO = jsonResponseProductListDTO.getProductListRecord();
+
+
+
+                int totalCount = 0;
+
+                for (int i = 0; i < productListDTO.size(); i++) {
+
+
+                    for (int j = 0; j < getDataFromSqlLiteDTOS.size(); j++) {
+
+                        if (productListDTO.get(i).getProductCode().equals(getDataFromSqlLiteDTOS.get(j).getProductCode())) {
+                            productListDTO.remove(productListDTO.get(i).getCount());
+                            productListDTO.get(i).setCount(getDataFromSqlLiteDTOS.get(j).getCount());
+                            totalCount = totalCount + Integer.parseInt(productListDTO.get(i).getCount());
+
                         }
+                    }
 
 
-                    } else {
-                        Fragment cartView = fragmentManager.findFragmentById(R.id.countPriceShow);
-                        if (cartView != null)
-                            fragmentManager.beginTransaction().remove(cartView).commit();
+                }
+
+                productListAdapter.setDataSetChanged(productListDTO);
+
+
+                if (totalCount > 0) {
+                    try {
+                        Count_Price_Show_Fragment count_price_show_fragment = new Count_Price_Show_Fragment();
+                        fragmentManager.beginTransaction().replace(R.id.countPriceShow, count_price_show_fragment).show(count_price_show_fragment).commit();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
 
 
                 } else {
-
-                    // Toast.makeText(Product_List_Activity.this, "Error", Toast.LENGTH_LONG).show();
+                    Fragment cartView = fragmentManager.findFragmentById(R.id.countPriceShow);
+                    if (cartView != null)
+                        fragmentManager.beginTransaction().remove(cartView).commit();
                 }
+
 
             }
 
@@ -468,8 +489,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                     csprogress.dismiss();
                 }
 
-                /*Toast.makeText(Product_List_Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();*/
-
             }
         });
 
@@ -477,207 +496,83 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     }
 
 
-    //Adding items to Cart
     @Override
-    public void addCart(int countNum, String product_Code, String productPrice) {
-
-        final ProgressDialog csprogress;
-        csprogress = new ProgressDialog(Product_List_Activity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
-        csprogress.setCanceledOnTouchOutside(false);
-
-
-        android_id = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-
-        //Need to Change here.
-        ApiInterface apiInterface = APIClientForCart.getApiInterfaceForCount();
-
-        System.out.println("LIST OF YOUR ORDERED PORUDCT" + "     " + product_Code + "      " + countNum + "       " + android_id);
-
-        String addCount = String.valueOf(countNum);
-
-        AddCartDTO addCartDTO = new AddCartDTO(product_Code, addCount, productPrice, android_id);
-
-        Call<JsonResponseForAddCartDTO> call = apiInterface.addCart(addCartDTO);
-
-        call.enqueue(new Callback<JsonResponseForAddCartDTO>() {
-            @Override
-            public void onResponse(Call<JsonResponseForAddCartDTO> call, Response<JsonResponseForAddCartDTO> response) {
-
-
-                JsonResponseForAddCartDTO jsonResponseForAddCartDTO = response.body();
-
-                if (jsonResponseForAddCartDTO.getResponseCode() == 200) {
-
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-
-                } else {
-                    Toast.makeText(Product_List_Activity.this, "Please check your internet connection", Toast.LENGTH_LONG).show();
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(Call<JsonResponseForAddCartDTO> call, Throwable t) {
-
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
-
-                if (t.getMessage() != null) {
-
-                    loadRetrofitProductList();
-                }
-
-                /*Toast.makeText(Product_List_Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-
-                Toast.makeText(Product_List_Activity.this,"I am here add"+t.getMessage(), Toast.LENGTH_LONG).show();*/
-            }
-        });
-
-
-    }
-
-
-    //Updating Count to AddCart Table
-    @Override
-    public void updateCartInAddCart(String updateProductCode, int updateCount, String prouctPrice) {
-
-        final ProgressDialog csprogress;
-        csprogress = new ProgressDialog(Product_List_Activity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
-        csprogress.setCanceledOnTouchOutside(false);
-
-
-        System.out.println("I am inside updateCartInAddCart");
+    public void addCartInSqlLite(int countNum, String product_Code, String productPrice) {
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
+        String countVal = String.valueOf(countNum);
 
-        ApiInterface apiInterface = APIClientForUpdateCountInCart.getApiInterfaceForUpdateCountInAddCart();
+        String insertVal = "INSERT INTO add_cart \n" +
+                "(product_code, count, total_price, device_id)\n" +
+                "VALUES \n" +
+                "(?,?,?,?);";
 
-        String upCount = String.valueOf(updateCount);
+        mSqLiteDatabase.execSQL(insertVal, new String[]{product_Code, countVal, productPrice, ANDROID_MOBILE_ID});
 
-        UpdateCountInCartDTO upateCountInAddCart = new UpdateCountInCartDTO(upCount, updateProductCode, prouctPrice, ANDROID_MOBILE_ID);
+        System.out.println("SQL LITE" + product_Code + " " + countVal + " " + productPrice);
 
-        Call<JsonResponseForUpdateCartDTO> call = apiInterface.updateCountatAddCart(upateCountInAddCart);
-
-        call.enqueue(new Callback<JsonResponseForUpdateCartDTO>() {
-            @Override
-            public void onResponse(Call<JsonResponseForUpdateCartDTO> call, Response<JsonResponseForUpdateCartDTO> response) {
-
-                JsonResponseForUpdateCartDTO jsonResponseForUpdateCartDTO = response.body();
-
-                if (jsonResponseForUpdateCartDTO.getUpdateResponseCode() == 200) {
-
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-
-                } else {
-                    Toast.makeText(Product_List_Activity.this, "Please check your internet connection", Toast.LENGTH_LONG).show();
-                }
+        Toast.makeText(Product_List_Activity.this, "Employee Added", Toast.LENGTH_LONG).show();
 
 
-                // Toast.makeText(Product_List_Activity.this,"Success",Toast.LENGTH_LONG).show();
-                /*else {
+    }
+
+    @Override
+    public void updateCartInSqlLite(String updateProductCode, int updateCount, String updateprouctPrice) {
+
+        String device_id = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        String u_Count = String.valueOf(updateCount);
+
+        int u_ProductPrice = Integer.parseInt(updateprouctPrice);
+        int productMulPrice = updateCount * u_ProductPrice;
+        String u_totalPrice = String.valueOf(productMulPrice);
+
+        String u_query = "UPDATE add_cart SET count=?, total_price=? where product_code=? and device_id =? ";
+
+        mSqLiteDatabase.execSQL(u_query, new String[]{u_Count, u_totalPrice, updateProductCode, device_id});
+
+        System.out.println("Update" + u_Count + u_totalPrice + updateProductCode);
+
+        Toast.makeText(Product_List_Activity.this, "Updated", Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void deleteItemWhenCountBecomesZero(String product_Code) {
+
+        String delete_device_id = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
 
 
-                 *//* Toast.makeText(Product_List_Activity.this, "Error", Toast.LENGTH_LONG).show();*//*
+        String delete = "delete from add_cart where product_code=? and device_id=? ";
 
-                }*/
-            }
+        mSqLiteDatabase.execSQL(delete, new String[]{product_Code, delete_device_id});
 
-            @Override
-            public void onFailure(Call<JsonResponseForUpdateCartDTO> call, Throwable t) {
+        Toast.makeText(Product_List_Activity.this, "Deleted", Toast.LENGTH_LONG).show();
 
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
-
-
-                try {
-                    t.getMessage();
-                } catch (RuntimeException e) {
-
-                }
-
-                if (t.getMessage() != null) {
-
-                    loadRetrofitProductList();
-                }
-
-                /*Toast.makeText(Product_List_Activity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                Toast.makeText(Product_List_Activity.this,"I am here update"+t.getMessage(), Toast.LENGTH_LONG).show();*/
-            }
-        });
 
     }
 
 
-    //Delete item from Cart when Count is Zero
+    //Show Fragment when customer adds item
     @Override
-    public void deleteItemWhenCountZero(String produceCode) {
+    public void showInFragment() {
+        if (productListAdapter.getCartCount() > 0) {
 
-        final ProgressDialog csprogress;
-        csprogress = new ProgressDialog(Product_List_Activity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
-        csprogress.setCanceledOnTouchOutside(false);
+            Count_Price_Show_Fragment count_price_show_fragment = new Count_Price_Show_Fragment();
+            count_price_show_fragment.getCountPrice();
+            fragmentManager.beginTransaction().replace(R.id.countPriceShow, count_price_show_fragment)
+                    .show(count_price_show_fragment)
+                    .commit();
+        } else {
+            Fragment cartView = fragmentManager.findFragmentById(R.id.countPriceShow);
+            if (cartView != null)
+                fragmentManager.beginTransaction().remove(cartView).commit();
+        }
 
-
-        String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-
-        ApiInterface api = APIClientForDeleteItemInCart.getApiInterfaceForDeleteItemFromCart();
-
-        DeleteCountInCartDTO deleteItemFromCart = new DeleteCountInCartDTO(ANDROID_MOBILE_ID, produceCode);
-
-        Call<JsonResponseForDeleteCartDTO> call = api.deleteItemFromCart(deleteItemFromCart);
-
-        call.enqueue(new Callback<JsonResponseForDeleteCartDTO>() {
-            @Override
-            public void onResponse(Call<JsonResponseForDeleteCartDTO> call, Response<JsonResponseForDeleteCartDTO> response) {
-
-                JsonResponseForDeleteCartDTO jsonResponseForDeleteCartDTO = response.body();
-
-                if (jsonResponseForDeleteCartDTO.getDeleteResponseCode() == 200) {
-
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-
-                } else {
-
-                    Toast.makeText(Product_List_Activity.this, "Please check your internet connection", Toast.LENGTH_LONG).show();
-
-                }
-
-            }
-
-
-            @Override
-            public void onFailure(Call<JsonResponseForDeleteCartDTO> call, Throwable t) {
-
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
-                if (t.getMessage() != null) {
-
-                    loadRetrofitProductList();
-                }
-                /* Toast.makeText(Product_List_Activity.this,"I am here delete"+t.getMessage(), Toast.LENGTH_LONG).show();*/
-
-            }
-        });
-
-    } //End of Delete Count
+    }
 
 
     //To Display Each Product Description
@@ -693,23 +588,12 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     } //End of Each Product Description
 
 
-    //Show Fragment when customer adds item
     @Override
-    public void showInFragment(int fragmentCount) {
-        if (productListAdapter.getCartCount() > 0) {
-            Count_Price_Show_Fragment currentUser = new Count_Price_Show_Fragment(curentUser);
-            Count_Price_Show_Fragment count_price_show_fragment = new Count_Price_Show_Fragment();
-            count_price_show_fragment.getCountPrice(fragmentCount);
-            fragmentManager.beginTransaction().replace(R.id.countPriceShow, count_price_show_fragment)
-                    .show(count_price_show_fragment)
-                    .commit();
-        } else {
-            Fragment cartView = fragmentManager.findFragmentById(R.id.countPriceShow);
-            if (cartView != null)
-                fragmentManager.beginTransaction().remove(cartView).commit();
-        }
+    public void OnProductItemClick(int position) {
 
     }
 
-
 }
+
+
+
