@@ -1,36 +1,35 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
 
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
-import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseViewCartListDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseFromServerDBDTO;
-import com.example.saravanamurali.farmersgen.models.AddCartDTO;
 import com.example.saravanamurali.farmersgen.models.GetDataFromSqlLiteDTO;
-import com.example.saravanamurali.farmersgen.models.ViewCartDTO;
-import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForViewCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToMoveDataFromSqlLiteToServerDB;
-import com.example.saravanamurali.farmersgen.util.Network_config;
+import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +58,9 @@ public class Count_Price_Show_Fragment extends Fragment {
     TextView textViewName;
     TextView totalItem;
     TextView totalPrice;
+    SQLiteDatabase mSqLiteDatabase;
+    List<GetDataFromSqlLiteDTO> getDataFromSqlLiteDTOS;
+    GetDataFromSqlLiteDTO getDataFromSqlLiteDTO;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +68,11 @@ public class Count_Price_Show_Fragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_count__price__show, container, false);
 
+
+        mSqLiteDatabase = getActivity().openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
         //loadViewCartProductList();
+
+        getDataFromSqlLiteDTOS = new ArrayList<GetDataFromSqlLiteDTO>();
 
         textViewName = (TextView) view.findViewById(R.id.viewCart);
         totalItem = (TextView) view.findViewById(R.id.totalItem);
@@ -79,8 +85,6 @@ public class Count_Price_Show_Fragment extends Fragment {
             public void onClick(View v) {
 
                 getAllDataFromSQLLiteDataBase();
-                
-                moveDataFromSqlLiteToServerDB();
 
 
             }
@@ -91,45 +95,92 @@ public class Count_Price_Show_Fragment extends Fragment {
     }
 
 
-
     private void getAllDataFromSQLLiteDataBase() {
 
-        Product_List_Activity product_list_activity=new Product_List_Activity();
+        Product_List_Activity product_list_activity = new Product_List_Activity();
 
 
         //DB connection and select query goes here
-
+        loadProductListDataFromSqlLite();
 
 
     }
 
+    private void loadProductListDataFromSqlLite() {
+
+        String ANDROID_MOBILE_ID = Settings.Secure.getString(getActivity().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        Cursor cursor = mSqLiteDatabase.rawQuery("select product_code,count,total_price,device_id from add_cart where device_id=?", new String[]{ANDROID_MOBILE_ID});
+
+        if (cursor.moveToFirst()) {
+
+            do {
+
+
+                getDataFromSqlLiteDTO = new GetDataFromSqlLiteDTO(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+
+                System.out.println("SQL LISTE SELECT count priceeeeeee>>>>>>>>>>>>");
+                System.out.println(getDataFromSqlLiteDTO.getCount());
+                System.out.println(getDataFromSqlLiteDTO.getProductCode());
+                System.out.println(getDataFromSqlLiteDTO.getTotal_price());
+                System.out.println(getDataFromSqlLiteDTO.getDevice_ID());
+                getDataFromSqlLiteDTOS.add(getDataFromSqlLiteDTO);
+
+
+
+
+
+
+            }
+            while (cursor.moveToNext());
+
+
+        }
+
+        moveDataFromSqlLiteToServerDB();
+    }
+
     private void moveDataFromSqlLiteToServerDB() {
 
-        ApiInterface api=ApiClientToMoveDataFromSqlLiteToServerDB.getAPIInterfaceToMoveDataFromSqlLiteToServerDB();
-
-        Call<JsonResponseFromServerDBDTO> call=api.moveSqlLiteDataToSever();
-
-       call.enqueue(new Callback<JsonResponseFromServerDBDTO>() {
-           @Override
-           public void onResponse(Call<JsonResponseFromServerDBDTO> call, Response<JsonResponseFromServerDBDTO> response) {
-
-               JsonResponseFromServerDBDTO jsonResponseFromServerDBDTO=response.body();
-               if(jsonResponseFromServerDBDTO.getStatus()==200){
-
-                   startActivity(new Intent(getActivity(),ViewCartActivity.class));
-               }
-               else if(jsonResponseFromServerDBDTO.getStatus()==500){
-
-               }
+        ApiInterface api = ApiClientToMoveDataFromSqlLiteToServerDB.getAPIInterfaceToMoveDataFromSqlLiteToServerDB();
 
 
-           }
 
-           @Override
-           public void onFailure(Call<JsonResponseFromServerDBDTO> call, Throwable t) {
+        Call<JsonResponseFromServerDBDTO> call = api.moveSqlLiteDataToSever(getDataFromSqlLiteDTOS);
 
-           }
-       });
+
+
+        call.enqueue(new Callback<JsonResponseFromServerDBDTO>() {
+            @Override
+            public void onResponse(Call<JsonResponseFromServerDBDTO> call, Response<JsonResponseFromServerDBDTO> response) {
+
+                JsonResponseFromServerDBDTO jsonResponseFromServerDBDTO = response.body();
+
+                Log.d("respo", response.toString());
+
+                Log.d("status", ""+jsonResponseFromServerDBDTO.getStatus());
+
+
+                if (jsonResponseFromServerDBDTO.getStatus() == 200) {
+
+                    Log.d("respo1111", "11");
+
+                    Toast.makeText(getActivity(),jsonResponseFromServerDBDTO.getStatus()+":"+jsonResponseFromServerDBDTO.getMessage(),Toast.LENGTH_SHORT).show();
+
+                    startActivity(new Intent(getActivity(), ViewCartActivity.class));
+                } else if (jsonResponseFromServerDBDTO.getStatus() == 500) {
+                    Log.d("respo2222", "22");
+                } else {
+                    Log.d("end","end");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonResponseFromServerDBDTO> call, Throwable t) {
+                Log.d("lass","last");
+            }
+        });
 
     }
 
