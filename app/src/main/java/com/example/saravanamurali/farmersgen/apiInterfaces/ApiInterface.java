@@ -17,6 +17,7 @@ import com.example.saravanamurali.farmersgen.models.CardPaymentDTO;
 import com.example.saravanamurali.farmersgen.models.CheckFavDTO;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.models.DeleteCountInCartDTO;
+import com.example.saravanamurali.farmersgen.models.GetDataFromSqlLiteDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
 import com.example.saravanamurali.farmersgen.models.GetOrdersUsingDeviceID_DTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONOTPResponseFromOTPActivity;
@@ -69,6 +70,8 @@ import com.example.saravanamurali.farmersgen.models.UpdateNameEmailDTO;
 import com.example.saravanamurali.farmersgen.models.ViewCartUpdateDTO;
 import com.example.saravanamurali.farmersgen.models.ViewProductListDTO;
 
+import java.util.List;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -99,8 +102,8 @@ public interface ApiInterface {
     @POST("view-product.php")
     Call<JSONResponseProductListDTO> getSingleBrandProductList(@Body ViewProductListDTO viewProductListDTO);
 
-    @POST("insert_view_cart.php  ")
-    Call<JsonResponseFromServerDBDTO>moveSqlLiteDataToSever();
+    @POST("insert_view_cart.php")
+    Call<JsonResponseFromServerDBDTO>moveSqlLiteDataToSever(@Body List<GetDataFromSqlLiteDTO> getDataFromSqlLiteDTO);
 
     //Get Reviews
     @POST("fetch_review.php")
