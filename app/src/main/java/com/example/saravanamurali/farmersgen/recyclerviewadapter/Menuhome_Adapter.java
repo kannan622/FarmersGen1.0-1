@@ -117,6 +117,7 @@ public class Menuhome_Adapter extends RecyclerView.Adapter<Menuhome_Adapter.MyVi
         void onItemClick(int position);
     }
 
+
     public interface ContactsAdapterListener {
         void onContactSelected(HomeProductDTO contact);
     }

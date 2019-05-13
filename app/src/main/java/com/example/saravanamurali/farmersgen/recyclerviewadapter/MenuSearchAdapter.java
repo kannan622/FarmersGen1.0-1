@@ -40,6 +40,7 @@ public class MenuSearchAdapter extends RecyclerView.Adapter<MenuSearchAdapter.Se
 
     @Override
     public Filter getFilter() {
+
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {

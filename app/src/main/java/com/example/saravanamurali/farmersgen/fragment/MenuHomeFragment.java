@@ -364,6 +364,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         productListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(productListIntent);
 
+
         //  Toast.makeText(getActivity(), "Selected: " + contact.getProductName() + ", " + contact.getProductDesc(), Toast.LENGTH_LONG).show();
 
     }
