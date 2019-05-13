@@ -386,17 +386,21 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
-        Cursor cursor = mSqLiteDatabase.rawQuery("select count,product_code from add_cart where device_id=?", new String[]{ANDROID_MOBILE_ID});
+        Cursor cursor = mSqLiteDatabase.rawQuery("select product_code,count,total_price,device_id from add_cart where device_id=?", new String[]{ANDROID_MOBILE_ID});
 
         if (cursor.moveToFirst()) {
 
             do {
 
-                GetDataFromSqlLiteDTO getDataFromSqlLiteDTO = new GetDataFromSqlLiteDTO(cursor.getString(0), cursor.getString(1));
+                GetDataFromSqlLiteDTO getDataFromSqlLiteDTO = new GetDataFromSqlLiteDTO(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
 
                 System.out.println("SQL LISTE SELECT");
+
+
                 System.out.println(getDataFromSqlLiteDTO.getCount());
                 System.out.println(getDataFromSqlLiteDTO.getProductCode());
+                System.out.println(getDataFromSqlLiteDTO.getTotal_price());
+                System.out.println(getDataFromSqlLiteDTO.getDevice_ID());
                 getDataFromSqlLiteDTOS.add(getDataFromSqlLiteDTO);
 
             }
@@ -442,7 +446,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                 List<ProductListDTO> productListDTO = jsonResponseProductListDTO.getProductListRecord();
 
 
-
                 int totalCount = 0;
 
                 for (int i = 0; i < productListDTO.size(); i++) {
@@ -452,8 +455,11 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
                         if (productListDTO.get(i).getProductCode().equals(getDataFromSqlLiteDTOS.get(j).getProductCode())) {
                             productListDTO.remove(productListDTO.get(i).getCount());
+
+
                             productListDTO.get(i).setCount(getDataFromSqlLiteDTOS.get(j).getCount());
                             totalCount = totalCount + Integer.parseInt(productListDTO.get(i).getCount());
+
 
                         }
                     }
