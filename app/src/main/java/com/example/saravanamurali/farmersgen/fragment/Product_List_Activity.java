@@ -380,11 +380,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
     private void loadProductListDataFromSqlLite() {
 
-        final ProgressDialog csprogress;
-        csprogress = new ProgressDialog(Product_List_Activity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
-        csprogress.setCanceledOnTouchOutside(false);
 
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
@@ -410,9 +405,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
             }
             while (cursor.moveToNext());
 
-            if (csprogress.isShowing()) {
-                csprogress.dismiss();
-            }
+
 
 
         }

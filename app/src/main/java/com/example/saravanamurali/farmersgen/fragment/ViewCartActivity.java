@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
@@ -44,11 +45,20 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToCancelCou
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
 import com.example.saravanamurali.farmersgen.signin.LoginActivityForViewCart;
 import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
+import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 import com.example.saravanamurali.farmersgen.util.Network_config;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -581,7 +591,74 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     }
 
 
-    //Update Count in ViewCart
+
+
+    /*public void updateCartInAddCart(String updateProductCode, int updateCount, String prouctPrice) {
+        String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        new AsyncTask<Void,Void,String>(){
+
+            @Override
+            protected String doInBackground(Void... voids) {
+                return null;
+            }
+        }.execute();
+
+
+        OkHttpClient client=new OkHttpClient();
+
+        String url="http://farmersgen.com/service/cart/update_cart.php";
+
+        MediaType json=MediaType.parse("application/json;charset=utf-8");
+        JSONObject actualData=new JSONObject();
+        String s=String.valueOf(updateCount);
+        try {
+            actualData.put("product_code",updateProductCode);
+            actualData.put("count",s);
+            actualData.put("product_price",prouctPrice);
+            actualData.put("device_id",ANDROID_MOBILE_ID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        RequestBody requestBody=RequestBody.create(json,actualData.toString());
+
+        final Request request=new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .header("Connection","close")
+                .build();
+
+        client.newCall(request).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+
+                ResponseBody jsonResponseUpdateCartDTO= response.body();
+
+
+
+
+
+                //jsonResponseUpdateCartDTO.
+
+            }
+        });
+
+    }
+*/
+
+
+
+
+
+        //Update Count in ViewCart
     @Override
     public void viewCartUpdateInterface(int viewCartCount, String viewCartProductCode, String
             viewCartProductPrice) {
@@ -824,9 +901,14 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     }
 
+    /*@Override
+    public void onBackPressed() {
+        Intent intent=new Intent(this,Product_List_Activity.class);
+        intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }*/
 
-
-   /* public void offers(View view) {
+    /* public void offers(View view) {
         Toast.makeText(ViewCartActivity.this, "Offers Clicked", Toast.LENGTH_LONG).show();
     }*/
 

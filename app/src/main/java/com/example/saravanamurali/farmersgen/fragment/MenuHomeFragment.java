@@ -205,6 +205,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         csprogress.setMessage("Loading...");
         csprogress.show();
         csprogress.setCanceledOnTouchOutside(false);
+
         ApiInterface api = APIClientForBrand.getApiInterfaceForBrand();
 
         Call<JSONResponseHomeBrandDTO> call = api.getAllBrands();
