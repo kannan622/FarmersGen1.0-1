@@ -76,7 +76,6 @@ public class MenuSearchAdapter extends RecyclerView.Adapter<MenuSearchAdapter.Se
         };
     }
 
-
     public interface ContactsAdapterSearchListener {
         void onSearchItemSelected(HomeProductDTO search);
     }
@@ -124,11 +123,11 @@ public class MenuSearchAdapter extends RecyclerView.Adapter<MenuSearchAdapter.Se
         public SearchViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mImageSearch = itemView.findViewById(R.id.productImage);
-            mtNameSearch = itemView.findViewById(R.id.productName);
-            mDescriptionSearch = itemView.findViewById(R.id.productDescription);
-            mMinOrderSearch = itemView.findViewById(R.id.minOrderProduct);
-            mRatingSearch = itemView.findViewById(R.id.ratingProduct);
+            mImageSearch = itemView.findViewById(R.id.productImageSearch);
+            mtNameSearch = itemView.findViewById(R.id.productNameSearch);
+            mDescriptionSearch = itemView.findViewById(R.id.productDescriptionSearch);
+            mMinOrderSearch = itemView.findViewById(R.id.minOrderProductSearch);
+            mRatingSearch = itemView.findViewById(R.id.ratingProductSearch);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

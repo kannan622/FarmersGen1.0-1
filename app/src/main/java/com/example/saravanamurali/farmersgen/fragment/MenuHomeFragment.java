@@ -65,12 +65,12 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     List<BannerDTO> menuBannerDTOList;
 
     //Pagination
-    private boolean isLoading=true;
-    private int pastVisibleItems,visibleItemCount,totalItemCount,previous_total=0;
-    private int view_threshold=10;
+    private boolean isLoading = true;
+    private int pastVisibleItems, visibleItemCount, totalItemCount, previous_total = 0;
+    private int view_threshold = 10;
 
-    private int page_number=1;
-    private int item_count=10;
+    private int page_number = 1;
+    private int item_count = 10;
 
 
 
@@ -94,37 +94,34 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
         dialog = new Dialog(getActivity());
 
-        toolbar = (Toolbar) view.findViewById(R.id.toolBar);
+        //toolbar = (Toolbar) view.findViewById(R.id.toolBar);
 
         System.out.println("Current User" + currentUserId);
 
-       /* ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        //((AppCompatActivity)getContext()).getSupportActionBar().setHomeButtonEnabled(true);
-*/
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+       /* AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
-        // activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         activity.getSupportActionBar().setHomeButtonEnabled(true);
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true);  */
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        linearLayoutManager=new LinearLayoutManager(this.getActivity());
+        linearLayoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        progressBar=(ProgressBar)view.findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         //Banner Horizontal
-        recyclerViewHorizontal=(RecyclerView)view.findViewById(R.id.recyclerViewHorizonal);
+        recyclerViewHorizontal = (RecyclerView) view.findViewById(R.id.recyclerViewHorizonal);
         recyclerViewHorizontal.setHasFixedSize(true);
-        recyclerViewHorizontal.setLayoutManager(new LinearLayoutManager(this.getActivity(),LinearLayoutManager.HORIZONTAL,true));
+        recyclerViewHorizontal.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL, true));
 
         if (Network_config.is_Network_Connected_flag(getActivity())) {
 
 
             loadRetrofitforProductDisplay();
-            
+
 
             homeProductDTOSList = new ArrayList<HomeProductDTO>();
 
@@ -136,27 +133,17 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
             loadBannerImages();
 
-            menuBannerDTOList=new ArrayList<BannerDTO>();
-            menuBannerAdapter=new MenuBannerAdapter(this.getActivity(),menuBannerDTOList);
+            menuBannerDTOList = new ArrayList<BannerDTO>();
+            menuBannerAdapter = new MenuBannerAdapter(this.getActivity(), menuBannerDTOList);
             recyclerViewHorizontal.setAdapter(menuBannerAdapter);
 
-           // menuBannerAdapter.setOnBannerImageClick(MenuHomeFragment.this);
-
-
-
+            // menuBannerAdapter.setOnBannerImageClick(MenuHomeFragment.this);
 
 
         } else {
             Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                     getResources().getString(R.string.connection_message));
         }
-
-        //System.out.println(" Hi I am here MenuHomeFragment");
-
-
-        //productListAdapter.setBackToShowExistingCount(MenuHomeFragment.this);
-
-        // doSearch(searchWord);
 
 
         return view;
@@ -167,14 +154,13 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     private void loadBannerImages() {
 
 
-
-        ApiInterface api=APIClientForBannerImages.getApiInterfaceForBannerImages();
-        Call<JsonResponseForBannerDTO> call=api.getAllBannerImages();
+        ApiInterface api = APIClientForBannerImages.getApiInterfaceForBannerImages();
+        Call<JsonResponseForBannerDTO> call = api.getAllBannerImages();
 
         call.enqueue(new Callback<JsonResponseForBannerDTO>() {
             @Override
             public void onResponse(Call<JsonResponseForBannerDTO> call, Response<JsonResponseForBannerDTO> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     JsonResponseForBannerDTO jsonBannerResponse = response.body();
 
@@ -195,7 +181,6 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
 
     }
-
 
 
     //Display All Brands
@@ -220,21 +205,21 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
                     }
                     JSONResponseHomeBrandDTO jsonResponse = response.body();
 
-                List<HomeProductDTO> homeProductDTOList = jsonResponse.getRecords();
+                    List<HomeProductDTO> homeProductDTOList = jsonResponse.getRecords();
 
-                for (int i = 0; i < homeProductDTOList.size(); i++) {
+                    for (int i = 0; i < homeProductDTOList.size(); i++) {
 
-                    brandId = homeProductDTOList.get(i).getBrandId();
-                    String brandImage = homeProductDTOList.get(i).getProductImage();
-                    String brandName = homeProductDTOList.get(i).getProductName();
-                    String brandDesc = homeProductDTOList.get(i).getProductDesc();
-                    String brandRating = homeProductDTOList.get(i).getProductRating();
-                    String minOrder = homeProductDTOList.get(i).getProductMinOrder();
+                        brandId = homeProductDTOList.get(i).getBrandId();
+                        String brandImage = homeProductDTOList.get(i).getProductImage();
+                        String brandName = homeProductDTOList.get(i).getProductName();
+                        String brandDesc = homeProductDTOList.get(i).getProductDesc();
+                        String brandRating = homeProductDTOList.get(i).getProductRating();
+                        String minOrder = homeProductDTOList.get(i).getProductMinOrder();
 
-                    HomeProductDTO homeProductDTO = new HomeProductDTO(brandId, brandImage, brandName, brandDesc, brandRating, minOrder);
-                    homeProductDTOSList.add(homeProductDTO);
+                        HomeProductDTO homeProductDTO = new HomeProductDTO(brandId, brandImage, brandName, brandDesc, brandRating, minOrder);
+                        homeProductDTOSList.add(homeProductDTO);
 
-                }
+                    }
 
 
                     menuHomeFragmentAdapter.setData(homeProductDTOList);
@@ -252,39 +237,37 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
             }
         });
 
-         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-             @Override
-             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                 super.onScrolled(recyclerView, dx, dy);
-                 visibleItemCount=linearLayoutManager.getChildCount();
-                 totalItemCount=linearLayoutManager.getItemCount();
-                 pastVisibleItems=linearLayoutManager.findFirstVisibleItemPosition();
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                visibleItemCount = linearLayoutManager.getChildCount();
+                totalItemCount = linearLayoutManager.getItemCount();
+                pastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
 
-                 if(dy>0){
-                     if(isLoading){
-                         if(totalItemCount>previous_total){
-                             isLoading=false;
-                             previous_total=totalItemCount;
-                         }
-                     }
-                     if(!isLoading && (totalItemCount-visibleItemCount)<=(pastVisibleItems+view_threshold)){
+                if (dy > 0) {
+                    if (isLoading) {
+                        if (totalItemCount > previous_total) {
+                            isLoading = false;
+                            previous_total = totalItemCount;
+                        }
+                    }
+                    if (!isLoading && (totalItemCount - visibleItemCount) <= (pastVisibleItems + view_threshold)) {
 
-                         page_number++;
-                         loadRetrofitforProductDisplay();
-                         isLoading=true;
+                        page_number++;
+                        loadRetrofitforProductDisplay();
+                        isLoading = true;
 
-                     }
-
-
-                     }
+                    }
 
 
-             }
-         });
+                }
+
+
+            }
+        });
 
     }
-
-
 
 
     @Override
@@ -320,23 +303,6 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-
-      /*  inflater.inflate(R.menu.menu_items, menu);
-
-        MenuItem menuItem = menu.findItem(R.id.action_searchm);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setOnQueryTextListener(MenuHomeFragment.this);*/
-
-
-
-      /*  getActivity().getMenuInflater().inflate(R.menu.main, menu);
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService( Context.SEARCH_SERVICE );
-        SearchView searchView = (SearchView) menu.findItem(R.id.menu_item_search).getActionView();
-
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(this);*/
-
 
         getActivity().getMenuInflater().inflate(R.menu.main, menu);
 
@@ -389,7 +355,6 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     @Override
     public void onContactSelected(HomeProductDTO contact) {
         Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
-
 
         productListIntent.putExtra("CURRENTUSER", currentUserId);
 

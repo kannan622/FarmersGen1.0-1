@@ -1,11 +1,15 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,7 +40,8 @@ public class MenuSearchFragment extends Fragment implements MenuSearchAdapter.Co
     List<HomeProductDTO> homeSearchList;
     LinearLayoutManager linearLayoutManagerSearch;
 
-    Toolbar toolbar;
+    Toolbar toolbarSearch;
+    private SearchView searchView;
 
     public MenuSearchFragment() {
 
@@ -47,21 +52,29 @@ public class MenuSearchFragment extends Fragment implements MenuSearchAdapter.Co
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_menu_search, container, false);
-        toolbar = (Toolbar) view.findViewById(R.id.toolBarForSearch);
+        toolbarSearch = (Toolbar) view.findViewById(R.id.toolBarForSearch);
 
-        recyclerViewSearch = (RecyclerView) view.findViewById(R.id.recyclerView);
+        AppCompatActivity activitySearch = (AppCompatActivity) getActivity();
+        activitySearch.setSupportActionBar(toolbarSearch);
+
+        activitySearch.getSupportActionBar().setHomeButtonEnabled(true);
+        setHasOptionsMenu(true);
+
+
+        recyclerViewSearch = (RecyclerView) view.findViewById(R.id.recyclerViewSearch);
         recyclerViewSearch.setHasFixedSize(true);
         linearLayoutManagerSearch=new LinearLayoutManager(this.getActivity());
         recyclerViewSearch.setLayoutManager(linearLayoutManagerSearch);
+
+
 
         homeSearchList = new ArrayList<HomeProductDTO>();
 
         menuSearchAdapter = new MenuSearchAdapter(getActivity(), homeSearchList, this);
 
+        recyclerViewSearch.setAdapter(menuSearchAdapter);
 
         loadProductToSearchDisplay();
-
-
 
         return view;
     }
@@ -77,9 +90,9 @@ public class MenuSearchFragment extends Fragment implements MenuSearchAdapter.Co
             public void onResponse(Call<JSONResponseHomeBrandDTO> call, Response<JSONResponseHomeBrandDTO> response) {
                 JSONResponseHomeBrandDTO jsonResponse = response.body();
 
-                List<HomeProductDTO> homeProductDTOList = jsonResponse.getRecords();
+                List<HomeProductDTO> homeProductDTOListSearch = jsonResponse.getRecords();
 
-                menuSearchAdapter.setDataSearchChanged(homeProductDTOList);
+                menuSearchAdapter.setDataSearchChanged(homeProductDTOListSearch);
 
 
 
@@ -99,12 +112,44 @@ public class MenuSearchFragment extends Fragment implements MenuSearchAdapter.Co
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        getActivity().getMenuInflater().inflate(R.menu.main, menu);
+        getActivity().getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.menu_search)
+                .getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getActivity().getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                menuSearchAdapter.getFilter().filter(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                menuSearchAdapter.getFilter().filter(s);
+                return false;
+            }
+        });
 
     }
 
     @Override
     public void onSearchItemSelected(HomeProductDTO search) {
+
+        Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
+
+        //productListIntent.putExtra("CURRENTUSER", currentUserId);
+
+        productListIntent.putExtra("BRAND_ID", search.getBrandId());
+        productListIntent.putExtra("BRAND_NAME", search.getProductName());
+        productListIntent.putExtra("BRAND_RATING", search.getProductRating());
+        productListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(productListIntent);
+
 
     }
 }

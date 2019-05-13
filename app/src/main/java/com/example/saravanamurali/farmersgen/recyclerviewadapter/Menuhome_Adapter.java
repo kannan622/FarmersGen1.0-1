@@ -5,9 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.saravanamurali.farmersgen.R;
@@ -58,6 +61,8 @@ public class Menuhome_Adapter extends RecyclerView.Adapter<Menuhome_Adapter.MyVi
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final HomeProductDTO contact = contactListFiltered.get(position);
+
+       holder.container.setAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_scale_animation));
 
         String brand_Id = contactListFiltered.get(position).getBrandId();
         System.out.println("This is brand id of brand" + brand_Id);
@@ -123,6 +128,7 @@ public class Menuhome_Adapter extends RecyclerView.Adapter<Menuhome_Adapter.MyVi
         TextView mDescription;
         TextView mMinOrder;
         TextView mRating;
+        LinearLayout container;
 
         public MyViewHolder(View view) {
             super(view);
@@ -132,6 +138,8 @@ public class Menuhome_Adapter extends RecyclerView.Adapter<Menuhome_Adapter.MyVi
             mDescription = view.findViewById(R.id.productDescription);
             mMinOrder = view.findViewById(R.id.minOrderProduct);
             mRating = view.findViewById(R.id.ratingProduct);
+
+            container=view.findViewById(R.id.animationContainer);
 
 
             view.setOnClickListener(new View.OnClickListener() {
