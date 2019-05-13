@@ -45,6 +45,8 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         public void deleteItemWhenCountBecomesZero(String product_Code);
 
+        public void deleteItemWhenCountZeroInServer(String product_Code);
+
         public void showInFragment();
 
         void OnProductItemClick(int position);
@@ -240,7 +242,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
                         addCartInDb.deleteItemWhenCountBecomesZero(product_Code);
 
-                        //deleteItemWhenCountZeroInterface.deleteItemWhenCountZero(product_Code);
+                        addCartInDb.deleteItemWhenCountZeroInServer(product_Code);
 
                     } else if (countDecDec < 0) {
                         return;

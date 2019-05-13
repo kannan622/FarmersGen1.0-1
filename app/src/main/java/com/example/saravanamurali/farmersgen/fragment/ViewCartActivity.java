@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
@@ -42,6 +43,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForViewCart
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToCancelCouponCode;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
 import com.example.saravanamurali.farmersgen.signin.LoginActivityForViewCart;
+import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
 import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import java.util.ArrayList;
@@ -110,6 +112,13 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     Toolbar toolbar;
 
+    //SQLLite
+
+    SQLiteDatabase mSqLiteDatabaseInViewCart;
+
+
+
+
     public ViewCartActivity() {
 
     }
@@ -119,6 +128,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_cart);
+
+        mSqLiteDatabaseInViewCart = openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
 
         //getSupportActionBar().hide();
 
@@ -600,15 +611,21 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     csprogress.dismiss();
                 }
                 JSONResponseUpdateCartDTO jsonResponseUpdateCartDTO = response.body();
-                //(jsonResponseUpdateCartDTO.getUpdateSuccess().getResponseCode()=="200")
-                System.out.println("Update Total Price" + jsonResponseUpdateCartDTO.getUpdateTotalPrice());
 
-                viewCartAdapter.setUpdateTotalPrice(jsonResponseUpdateCartDTO);
+                if(jsonResponseUpdateCartDTO.getStatus()==200){
 
-                GrandTotal = jsonResponseUpdateCartDTO.getGrandTotal();
+                    viewCartAdapter.setUpdateTotalPrice(jsonResponseUpdateCartDTO);
+
+                    GrandTotal = jsonResponseUpdateCartDTO.getGrandTotal();
+
+                    toPayAmountTextView.setText(GrandTotal);
 
 
-                toPayAmountTextView.setText(GrandTotal);
+                }else if(jsonResponseUpdateCartDTO.getStatus()==500){
+                    Toast.makeText(ViewCartActivity.this, "Cart was not Updated", Toast.LENGTH_LONG).show();
+                }
+
+
 
             }
 
@@ -626,6 +643,25 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     }//// End of Update Count in ViewCart
 
+    @Override
+    public void viewCartUpdateInterfaceSqlLite(int viewCartCount, String viewCartProductCode, String viewCart_Price) {
+        String device_id = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        String u_View_Count = String.valueOf(viewCartCount);
+
+        int u_View_ProductPrice = Integer.parseInt(viewCart_Price);
+        int productMulPrice = viewCartCount * u_View_ProductPrice;
+        String u_ViewCart_totalPrice = String.valueOf(productMulPrice);
+
+        String u_query = "UPDATE add_cart SET count=?, total_price=? where product_code=? and device_id =? ";
+
+        mSqLiteDatabaseInViewCart.execSQL(u_query, new String[]{u_View_Count, u_ViewCart_totalPrice, viewCartProductCode, device_id});
+
+        Toast.makeText(ViewCartActivity.this, " ViewCart Updated", Toast.LENGTH_LONG).show();
+
+
+    }
 
     //Delete Count in ViewCart when it reaches zero
     @Override
@@ -715,6 +751,22 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     } //End of Delete Count in ViewCart when it reaches zero
 
+    @Override
+    public void viewCartDeleteInterfaceSqlLite(String viewCartDecProductCode) {
+
+        String delete_device_id = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+
+        String delete = "delete from add_cart where product_code=? and device_id=? ";
+
+        mSqLiteDatabaseInViewCart.execSQL(delete, new String[]{viewCartDecProductCode, delete_device_id});
+
+        Toast.makeText(ViewCartActivity.this, "Deleted", Toast.LENGTH_LONG).show();
+
+
+
+    }
 
     //Get AddressID from Existing User
     private void getAddressID() {

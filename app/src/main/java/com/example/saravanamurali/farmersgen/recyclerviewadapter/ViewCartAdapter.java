@@ -38,6 +38,23 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
     }
 
+    //Update ViewCart Count
+    public interface ViewCartUpdateInterface {
+        public void viewCartUpdateInterface(int viewCartCount, String viewCartProductCode, String viewCart_Price);
+
+        public void viewCartUpdateInterfaceSqlLite(int viewCartCount, String viewCartProductCode, String viewCart_Price);
+
+    }
+
+    //Delete ViewCart Count
+    public interface ViewCartDeleteInterface {
+        public void viewCartDeleteInterface(String viewCartDecProductCode);
+
+        public void viewCartDeleteInterfaceSqlLite(String viewCartDecProductCode);
+
+    }
+
+
     public void setViewCartUpdateInterface(ViewCartUpdateInterface viewCartUpdateInterface) {
         this.viewCartUpdateInterface = viewCartUpdateInterface;
         notifyDataSetChanged();
@@ -106,14 +123,6 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
             holder.cartCount.setText("" + viewCartProductListDTO.get(i).getCount());
         } else {
 
-           /* viewCartProductListDTO.remove(i);
-            notifyDataSetChanged();
-            holder.cartProductName.setVisibility(View.GONE);
-            holder.cartCount.setVisibility(View.GONE);
-            holder.incCart.setVisibility(View.GONE);
-            holder.decCart.setVisibility(View.GONE);
-            holder.totalPrice.setVisibility(View.GONE);
-            holder.rel.setVisibility(View.GONE);*/
 
         } //End of ADD,DEC Button Pressed in View Cart Activity
 
@@ -162,16 +171,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
     }
 
-    //Update ViewCart Count
-    public interface ViewCartUpdateInterface {
-        public void viewCartUpdateInterface(int viewCartCount, String viewCartProductCode, String viewCart_Price);
 
-    }
-
-    //Delete ViewCart Count
-    public interface ViewCartDeleteInterface {
-        public void viewCartDeleteInterface(String viewCartDecProductCode);
-    }
 
     public class ViewCartHolder extends RecyclerView.ViewHolder {
 
@@ -210,22 +210,14 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
                     String viewCart_productCode = viewCartDTO.getProduct_Code();
                     String viewCart_Price = viewCartDTO.getPrice();
 
-                   /* int total_price = viewCartCount * Integer.parseInt(viewCart_Price);
 
-                    String inc_total_price = String.valueOf(total_price);
-
-                    System.out.println("View Cart Count" + viewCartCount);
-
-                    System.out.println("View Cart Product Code" + viewCart_productCoe);
-*/
                     viewCartDTO.setCount(String.valueOf(viewCartCount));
                     notifyDataSetChanged();
 
+                   viewCartUpdateInterface.viewCartUpdateInterfaceSqlLite(viewCartCount, viewCart_productCode, viewCart_Price);
+
                     viewCartUpdateInterface.viewCartUpdateInterface(viewCartCount, viewCart_productCode, viewCart_Price);
 
-
-                    //jsonResponseUpdateCartDTO=new JSONResponseUpdateCartDTO();
-                    //viewCartDTO.setTotal_price(jsonResponseUpdateCartDTO.getUpdateTotalPrice());
 
 
                 }
@@ -253,10 +245,8 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
                     if (viewCartDecCount > 0) {
 
-                        /*int total_price = viewCartDecCount * Integer.parseInt(viewCartDecPrice);
 
-                        String dec_total_price = String.valueOf(total_price);
-*/
+                        viewCartUpdateInterface.viewCartUpdateInterfaceSqlLite(viewCartDecCount, viewCartDecProductCode, viewCartDecPrice);
                         viewCartUpdateInterface.viewCartUpdateInterface(viewCartDecCount, viewCartDecProductCode, viewCartDecPrice);
                         notifyDataSetChanged();
 
@@ -264,10 +254,9 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
                         removeItem(decrementAdapterPosition);
 
-                        // loadViewCartProductList();
+
+                      viewCartDeleteInterface.viewCartDeleteInterfaceSqlLite(viewCartDecProductCode);
                         viewCartDeleteInterface.viewCartDeleteInterface(viewCartDecProductCode);
-                        // notifyItemRemoved(decrementAdapterPosition);
-                        // notifyDataSetChanged();
 
 
                     } else if (viewCartDecCount < 0) {
@@ -277,7 +266,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
                     }
 
                     viewCartDTODec.setCount(String.valueOf(viewCartDecCount));
-                    // viewCartDTODec.setTotal_price(jsonResponseUpdateCartDTO.getUpdateTotalPrice());
+
 
                     notifyDataSetChanged();
                 }

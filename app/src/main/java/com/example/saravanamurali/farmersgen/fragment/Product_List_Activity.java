@@ -23,9 +23,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForAddCartDTO;
@@ -383,6 +380,13 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
     private void loadProductListDataFromSqlLite() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(Product_List_Activity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
         String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
@@ -398,13 +402,17 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
 
                 System.out.println(getDataFromSqlLiteDTO.getCount());
-                System.out.println(getDataFromSqlLiteDTO.getProductCode());
+                System.out.println(getDataFromSqlLiteDTO.getProduct_code());
                 System.out.println(getDataFromSqlLiteDTO.getTotal_price());
                 System.out.println(getDataFromSqlLiteDTO.getDevice_ID());
                 getDataFromSqlLiteDTOS.add(getDataFromSqlLiteDTO);
 
             }
             while (cursor.moveToNext());
+
+            if (csprogress.isShowing()) {
+                csprogress.dismiss();
+            }
 
 
         }
@@ -453,9 +461,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
                     for (int j = 0; j < getDataFromSqlLiteDTOS.size(); j++) {
 
-                        if (productListDTO.get(i).getProductCode().equals(getDataFromSqlLiteDTOS.get(j).getProductCode())) {
+                        if (productListDTO.get(i).getProductCode().equals(getDataFromSqlLiteDTOS.get(j).getProduct_code())) {
                             productListDTO.remove(productListDTO.get(i).getCount());
-
 
                             productListDTO.get(i).setCount(getDataFromSqlLiteDTOS.get(j).getCount());
                             totalCount = totalCount + Integer.parseInt(productListDTO.get(i).getCount());
@@ -518,7 +525,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
         System.out.println("SQL LITE" + product_Code + " " + countVal + " " + productPrice);
 
-        Toast.makeText(Product_List_Activity.this, "Employee Added", Toast.LENGTH_LONG).show();
+        Toast.makeText(Product_List_Activity.this, " Added", Toast.LENGTH_LONG).show();
 
 
     }
@@ -560,6 +567,68 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
 
     }
+
+
+    //Delete item from Cart when Count is Zero
+    @Override
+    public void deleteItemWhenCountZeroInServer(String produceCode) {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(Product_List_Activity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
+        String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        ApiInterface api = APIClientForDeleteItemInCart.getApiInterfaceForDeleteItemFromCart();
+
+        DeleteCountInCartDTO deleteItemFromCart = new DeleteCountInCartDTO(ANDROID_MOBILE_ID, produceCode);
+
+        Call<JsonResponseForDeleteCartDTO> call = api.deleteItemFromCart(deleteItemFromCart);
+
+        call.enqueue(new Callback<JsonResponseForDeleteCartDTO>() {
+            @Override
+            public void onResponse(Call<JsonResponseForDeleteCartDTO> call, Response<JsonResponseForDeleteCartDTO> response) {
+
+                JsonResponseForDeleteCartDTO jsonResponseForDeleteCartDTO = response.body();
+
+                if (jsonResponseForDeleteCartDTO.getDeleteResponseCode() == 200) {
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+                } else {
+
+                    Toast.makeText(Product_List_Activity.this, "Please check your internet connection", Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+
+
+            @Override
+            public void onFailure(Call<JsonResponseForDeleteCartDTO> call, Throwable t) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+                if (t.getMessage() != null) {
+
+                    loadRetrofitProductList();
+                }
+                /* Toast.makeText(Product_List_Activity.this,"I am here delete"+t.getMessage(), Toast.LENGTH_LONG).show();*/
+
+            }
+        });
+
+    } //End of Delete Count
+
+
+
 
 
     //Show Fragment when customer adds item

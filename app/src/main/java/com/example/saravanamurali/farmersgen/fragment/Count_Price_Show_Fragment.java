@@ -121,14 +121,11 @@ public class Count_Price_Show_Fragment extends Fragment {
                 getDataFromSqlLiteDTO = new GetDataFromSqlLiteDTO(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
 
                 System.out.println("SQL LISTE SELECT count priceeeeeee>>>>>>>>>>>>");
-                System.out.println(getDataFromSqlLiteDTO.getCount());
-                System.out.println(getDataFromSqlLiteDTO.getProductCode());
-                System.out.println(getDataFromSqlLiteDTO.getTotal_price());
-                System.out.println(getDataFromSqlLiteDTO.getDevice_ID());
+                System.out.println("productCode"+getDataFromSqlLiteDTO.getProduct_code());
+                System.out.println("count"+getDataFromSqlLiteDTO.getCount());
+                System.out.println("price"+getDataFromSqlLiteDTO.getTotal_price());
+                System.out.println("deviceID"+getDataFromSqlLiteDTO.getDevice_ID());
                 getDataFromSqlLiteDTOS.add(getDataFromSqlLiteDTO);
-
-
-
 
 
 
@@ -145,11 +142,7 @@ public class Count_Price_Show_Fragment extends Fragment {
 
         ApiInterface api = ApiClientToMoveDataFromSqlLiteToServerDB.getAPIInterfaceToMoveDataFromSqlLiteToServerDB();
 
-
-
         Call<JsonResponseFromServerDBDTO> call = api.moveSqlLiteDataToSever(getDataFromSqlLiteDTOS);
-
-
 
         call.enqueue(new Callback<JsonResponseFromServerDBDTO>() {
             @Override
