@@ -100,7 +100,7 @@ public class LoginActivityForViewCart extends AppCompatActivity {
                     editor.putString("ADDRESSID", addressIDForViewCartLogin);
                     editor.commit();
 
-                    System.out.println("CUreent user Address ID" + addressIDForViewCartLogin);
+                    //System.out.println("CUreent user Address ID" + addressIDForViewCartLogin);
 
                 }
             }

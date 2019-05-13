@@ -190,7 +190,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
                     csprogress.dismiss();
                 }
 
-                Toast.makeText(PaymentGatewayActivity.this,"Success",Toast.LENGTH_LONG).show();
+                //Toast.makeText(PaymentGatewayActivity.this,"Success",Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -292,7 +292,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         call.enqueue(new Callback<JSONResponseViewCartOrdersatPaymentGateway>() {
             @Override
             public void onResponse(Call<JSONResponseViewCartOrdersatPaymentGateway> call, Response<JSONResponseViewCartOrdersatPaymentGateway> response) {
-                if (response.isSuccessful()) {
+
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
@@ -317,7 +317,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
                     }
 
-                }
+
 
                 cashOnDeliveryPay.setText(grandTotal);
 
@@ -360,7 +360,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         call.enqueue(new Callback<JsonOrderResponse>() {
             @Override
             public void onResponse(Call<JsonOrderResponse> call, Response<JsonOrderResponse> response) {
-                if (response.isSuccessful()) {
+
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
@@ -394,12 +394,12 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
 
                     } else if (jsonOrderResponse.getResponseCode() == 500) {
-                        System.out.println("Order is not Confirmed");
+                        //System.out.println("Order is not Confirmed");
                     }
-                    System.out.println("Order Confirmed");
+                    //System.out.println("Order Confirmed");
 
 
-                }
+
             }
 
             @Override
@@ -502,7 +502,6 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         call.enqueue(new Callback<GetDeliveryAddressDTO>() {
             @Override
             public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
-                if (response.isSuccessful()) {
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
@@ -513,7 +512,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
                     addressID = getDeliveryAddressDTO.getAddressID();
 
 
-                }
+
             }
 
             @Override

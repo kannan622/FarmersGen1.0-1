@@ -189,7 +189,9 @@
                 android:layout_height="1dp"
                 android:layout_below="@+id/stateMenuAcc"
                 android:layout_marginTop="5dp"
-                android:background="@color/gray" />
+                android:background="@color/gray"
+                android:visibility="gone"
+                />
 
             <Button
                 android:id="@+id/callMenuAcc"

@@ -2,12 +2,15 @@ package com.example.saravanamurali.farmersgen.recyclerviewadapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Filter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
@@ -58,8 +61,12 @@ public class MenuHomeFragmentAdapter extends RecyclerView.Adapter<MenuHomeFragme
     @Override
     public void onBindViewHolder(@NonNull MenuHomeFragmentViewHolder holder, int position) {
 
-        String brand_Id=homeProductDTOList.get(position).getBrandId();
-        System.out.println("This is brand id of brand"+brand_Id);
+
+
+        /*String brand_Id=homeProductDTOList.get(position).getBrandId();
+        System.out.println("This is brand id of brand"+brand_Id);*/
+        holder.animationContainer.setAnimation(AnimationUtils.loadAnimation(mCtx,R.anim.fade_scale_animation));
+
         holder.mtName.setText(homeProductDTOList.get(position).getProductName());
         holder.mDescription.setText(homeProductDTOList.get(position).getProductDesc());
         holder.mMinOrder.setText(homeProductDTOList.get(position).getProductMinOrder());
@@ -80,10 +87,12 @@ public class MenuHomeFragmentAdapter extends RecyclerView.Adapter<MenuHomeFragme
         TextView mDescription;
         TextView mMinOrder;
         TextView mRating;
+        LinearLayout animationContainer;
 
         public MenuHomeFragmentViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            animationContainer=itemView.findViewById(R.id.animationContainer);
             mImage=itemView.findViewById(R.id.productImage);
             mtName=itemView.findViewById(R.id.productName);
             mDescription=itemView.findViewById(R.id.productDescription);

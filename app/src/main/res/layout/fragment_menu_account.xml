@@ -6,541 +6,567 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="@dimen/fifteen_dp"
-    tools:context=".fragment.MenuAccountFragment">
-
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
-            android:fillViewport="true"
-
-            android:overScrollMode="never"
-            android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/fifteen_dp"
+        tools:context=".fragment.MenuAccountFragment">
 
 
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-            <!--Current User Details-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:id="@+id/currentUserprofileBlock"
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
+                android:layout_height="match_parent"
+                android:layout_marginTop="30dp"
+                android:fillViewport="true"
+
+                android:overScrollMode="never"
+                android:scrollbars="none"
 
 
-                <TextView
-                    android:id="@+id/profileUserName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="Murali"
-
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/profileMobileNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profileUserName"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginTop="8dp"
-                    android:text="8015386062" />
-
-                <TextView
-                    android:id="@+id/dot"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profileUserName"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toRightOf="@id/profileMobileNumber"
-                    android:text="."
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/profieMail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profileUserName"
-                    android:layout_alignBaseline="@id/profileMobileNumber"
-                    android:layout_marginLeft="8dp"
-                    android:layout_toRightOf="@id/dot"
-                    android:text="saravanamurali18@gmail.com" />
-
-                <TextView
-                    android:id="@+id/editProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="edit"
-                    android:textAllCaps="true"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
-                    android:textColor="@color/GreenSignup"
-                    android:textStyle="bold" />
-
-                <View
-                    android:id="@+id/profileLine"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/profileMobileNumber"
-                    android:layout_marginTop="15dp"
-                    android:background="@color/gray" />
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                <!--Current User Details-->
 
                 <RelativeLayout
-                    android:id="@+id/myAccountBlock"
+                    android:id="@+id/currentUserprofileBlock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/profileLine"
                     android:layout_marginTop="20dp">
 
+
                     <TextView
-                        android:id="@+id/myAccount"
+                        android:id="@+id/profileUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="My Account"
+                        android:layout_alignParentLeft="true"
+                        android:text="Murali"
+
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/black"
                         android:textSize="16sp"
+
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/myAccDetail"
+                        android:id="@+id/profileMobileNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/myAccount"
-                        android:layout_marginTop="5dp"
-                        android:text="Address, Favourites, Offers" />
+                        android:layout_below="@id/profileUserName"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginTop="8dp"
+                        android:text="8015386062" />
+
+                    <TextView
+                        android:id="@+id/dot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/profileUserName"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@id/profileMobileNumber"
+                        android:text="."
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/profieMail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/profileUserName"
+                        android:layout_alignBaseline="@id/profileMobileNumber"
+                        android:layout_marginLeft="8dp"
+                        android:layout_toRightOf="@id/dot"
+                        android:text="saravanamurali18@gmail.com" />
+
+                    <!--<TextView
+                        android:id="@+id/editProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="edit"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+                        android:textColor="@color/GreenSignup"
+                        android:textStyle="bold" />
+
+                        -->
+
+                    <ImageView
+                        android:id="@+id/editProfile"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/mauser" />
+
+                    <View
+                        android:id="@+id/profileLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/profileMobileNumber"
+                        android:layout_marginTop="15dp"
+                        android:background="@color/gray" />
 
                     <RelativeLayout
-                        android:id="@+id/profileMannageAddressBlock"
+                        android:id="@+id/myAccountBlock"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/myAccDetail"
-                        android:layout_marginTop="10dp"
-                        android:background="#FFFFFF">
-
-                        <ImageView
-                            android:id="@+id/profileHomeIcon"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginTop="15dp"
-                            android:src="@drawable/profilehome" />
+                        android:layout_below="@id/profileLine"
+                        android:layout_marginTop="20dp">
 
                         <TextView
-                            android:id="@+id/manageAddress"
+                            android:id="@+id/myAccount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBaseline="@id/profileHomeIcon"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_toRightOf="@id/profileHomeIcon"
-                            android:text="Manage Address"
+                            android:text="My Account"
                             android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:textColor="@color/color_grey"
-                            android:textSize="12sp"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
                             android:textStyle="bold" />
 
-                        <ImageView
-                            android:id="@+id/profileRightArrowAddress"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginTop="15dp"
-                            android:padding="5dp"
-                            android:src="@drawable/profilerightarrow" />
+                        <TextView
+                            android:id="@+id/myAccDetail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/myAccount"
+                            android:layout_marginTop="5dp"
+                            android:text="Address, Favourites, Offers" />
+
+                        <RelativeLayout
+                            android:id="@+id/profileMannageAddressBlock"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/myAccDetail"
+                            android:layout_marginTop="10dp"
+                            android:background="#FFFFFF">
+
+                            <ImageView
+                                android:id="@+id/profileHomeIcon"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentLeft="true"
+                                android:src="@drawable/maaddress" />
+
+                            <TextView
+                                android:id="@+id/manageAddress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBaseline="@id/profileHomeIcon"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_toRightOf="@id/profileHomeIcon"
+                                android:text="Manage Address"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="@color/color_grey"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/profileRightArrowAddress"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="15dp"
+                                android:padding="5dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/maarrow" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/prfileFavouriteBlock"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/profileMannageAddressBlock"
+                            android:layout_marginTop="10dp"
+                            android:background="#FFFFFF">
+
+                            <ImageView
+                                android:id="@+id/profileFavouritesIcon"
+                                android:layout_width="30dp"
+                                android:layout_height="25dp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="2dp"
+                                android:layout_marginTop="15dp"
+                                android:src="@drawable/mafav" />
+
+                            <TextView
+                                android:id="@+id/profileFavourite"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_toRightOf="@id/profileFavouritesIcon"
+                                android:text="Favourites"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textColor="@color/color_grey"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:id="@+id/profileRightArrowFavourite"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="15dp"
+                                android:padding="5dp"
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/maarrow" />
+
+                        </RelativeLayout>
+
+
+                        <!--<View
+                            android:id="@+id/profileAccountLine"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/Black"
+                            android:layout_below="@id/profileFavouritesIcon"
+                            android:layout_marginTop="15dp" />
+            -->
                     </RelativeLayout>
 
                     <RelativeLayout
-                        android:id="@+id/prfileFavouriteBlock"
+                        android:id="@+id/cancelOrderBlock"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/profileMannageAddressBlock"
+                        android:layout_below="@id/myAccountBlock"
                         android:layout_marginTop="10dp"
-                        android:background="#FFFFFF">
+                        android:background="#FFFFFF"
+                        android:clickable="true">
 
                         <ImageView
-                            android:id="@+id/profileFavouritesIcon"
+                            android:id="@+id/profilecancelIcon"
                             android:layout_width="30dp"
                             android:layout_height="25dp"
                             android:layout_alignParentLeft="true"
                             android:layout_marginLeft="2dp"
                             android:layout_marginTop="15dp"
-                            android:src="@drawable/profilefavourite" />
+                            android:src="@drawable/macancel" />
 
                         <TextView
-                            android:id="@+id/profileFavourite"
+                            android:id="@+id/cancelOrder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="15dp"
-                            android:layout_toRightOf="@id/profileFavouritesIcon"
-                            android:text="Favourites"
+
+                            android:layout_toRightOf="@id/profilecancelIcon"
+
+                            android:text="Cancel Order"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/color_grey"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <ImageView
-                            android:id="@+id/profileRightArrowFavourite"
+                            android:id="@+id/profileRightArrowCancelOrder"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_alignParentRight="true"
                             android:layout_marginTop="15dp"
                             android:padding="5dp"
-                            android:src="@drawable/profilerightarrow" />
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/maarrow" />
 
                     </RelativeLayout>
 
 
-                    <!--<View
-                        android:id="@+id/profileAccountLine"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/Black"
-                        android:layout_below="@id/profileFavouritesIcon"
-                        android:layout_marginTop="15dp" />
-        -->
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/cancelOrderBlock"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/myAccountBlock"
-                    android:layout_marginTop="10dp"
-                    android:background="#FFFFFF"
-                    android:clickable="true">
-
-                    <ImageView
-                        android:id="@+id/profilecancelIcon"
-                        android:layout_width="30dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/cancel_order" />
-
-                    <TextView
-                        android:id="@+id/cancelOrder"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
-
-                        android:layout_toRightOf="@id/profilecancelIcon"
-
-                        android:text="Cancel Order"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/color_grey"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/profileRightArrowCancelOrder"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="15dp"
-                        android:padding="5dp"
-                        android:src="@drawable/profilerightarrow" />
-
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:id="@+id/profilePastOrderBlock"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/cancelOrderBlock"
-                    android:layout_marginTop="10dp"
-                    android:background="#FFFFFF"
-                    android:clickable="true">
-
-                    <ImageView
-                        android:id="@+id/profilepastIcon"
-                        android:layout_width="30dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/past_order" />
-
-                    <TextView
-                        android:id="@+id/pastOrder"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
-
-                        android:layout_toRightOf="@id/profilepastIcon"
-
-                        android:clickable="false"
-
-                        android:text="Past Order"
-
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/color_grey"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-
-                        />
-
-                    <ImageView
-                        android:id="@+id/profileRightArrowPastOrder"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="15dp"
-                        android:padding="5dp"
-                        android:src="@drawable/profilerightarrow" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/profileLogoutBlock"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/profilePastOrderBlock"
-                    android:layout_marginTop="10dp"
-                    android:background="#FFFFFF">
-
-                    <ImageView
-                        android:id="@+id/logoutIcon"
-                        android:layout_width="30dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginTop="15dp"
-                        android:src="@drawable/log_out" />
-
-                    <TextView
-                        android:id="@+id/profileLogout"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="15dp"
-
-                        android:layout_toRightOf="@id/logoutIcon"
-
-
-                        android:text="Logout"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="@color/color_grey"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-
-
-                        tools:ignore="OnClick" />
-
-
-                    <ImageView
-                        android:id="@+id/profileLogoutIcon"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="15dp"
-                        android:padding="5dp"
-                        android:src="@drawable/profilerightarrow" />
-
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/profileLogoutBlock"
-                    android:layout_marginTop="@dimen/five_dp"
-                    >
-
-                    <Button
-                        android:id="@+id/shareApp"
+                    <RelativeLayout
+                        android:id="@+id/profilePastOrderBlock"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="Share App"
-                        android:background="@color/FragmentGreen"
-                        android:layout_marginLeft="@dimen/ten_dp"
-                        android:layout_marginRight="@dimen/ten_dp"
-                        />
+                        android:layout_below="@id/cancelOrderBlock"
+                        android:layout_marginTop="10dp"
+                        android:background="#FFFFFF"
+                        android:clickable="true">
+
+                        <ImageView
+                            android:id="@+id/profilepastIcon"
+                            android:layout_width="30dp"
+                            android:layout_height="25dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/mapass" />
+
+                        <TextView
+                            android:id="@+id/pastOrder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+
+                            android:layout_toRightOf="@id/profilepastIcon"
+
+                            android:clickable="false"
+
+                            android:text="Past Order"
+
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/color_grey"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+
+                            />
+
+                        <ImageView
+                            android:id="@+id/profileRightArrowPastOrder"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="15dp"
+                            android:padding="5dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/maarrow" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/profileLogoutBlock"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/profilePastOrderBlock"
+                        android:layout_marginTop="10dp"
+                        android:background="#FFFFFF">
+
+                        <ImageView
+                            android:id="@+id/logoutIcon"
+                            android:layout_width="30dp"
+                            android:layout_height="25dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/malog" />
+
+                        <TextView
+                            android:id="@+id/profileLogout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+
+                            android:layout_toRightOf="@id/logoutIcon"
+
+
+                            android:text="Logout"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/color_grey"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+
+
+                            tools:ignore="OnClick" />
+
+
+                        <ImageView
+                            android:id="@+id/profileLogoutIcon"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginTop="15dp"
+                            android:padding="5dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/maarrow" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/shareAppBlock"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/profileLogoutBlock"
+                        android:layout_marginTop="@dimen/five_dp">
+
+                        <TextView
+                            android:id="@+id/shareApp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/ten_dp"
+                            android:background="@color/FragmentGreen"
+                            android:text="Share App"
+                            android:padding="@dimen/six_dp"
+                            android:gravity="center"
+                            android:layout_centerInParent="true"
+                            android:textColor="@color/white" />
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_toRightOf="@+id/shareApp"
+                            android:src="@drawable/mashare"
+                            />
+
+
+                    </RelativeLayout>
+
+                    <!--<FrameLayout
+                        android:id="@+id/updateFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/profileLogoutBlock">
+                    </FrameLayout>
+            -->
+                    <android.support.design.widget.CoordinatorLayout
+                        android:id="@+id/coordnatorLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"></android.support.design.widget.CoordinatorLayout>
+
+
+                    <!--<RelativeLayout-->
+                    <!--android:id="@+id/profileHomeButtonBlock"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentBottom="true">-->
+                    <!--<Button-->
+                    <!--android:id="@+id/homeButtonClick"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Home"-->
+                    <!--android:textColor="@color/GreenSignup" />-->
+
+
+                    <!--</RelativeLayout>-->
 
                 </RelativeLayout>
+            </android.support.v4.widget.NestedScrollView>
+            <!--End of Login Details-->
+        </RelativeLayout>
 
-                <!--<FrameLayout
-                    android:id="@+id/updateFragment"
-                    android:layout_width="match_parent"
+        <!--End of Current User Details-->
+
+        <!--Login Details-->
+        <RelativeLayout
+            android:id="@+id/profileLoginBlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:id="@+id/loginScreen"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/profileLogoutBlock">
-                </FrameLayout>
-        -->
-                <android.support.design.widget.CoordinatorLayout
-                    android:id="@+id/coordnatorLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true">
-                </android.support.design.widget.CoordinatorLayout>
-
-
-                <!--<RelativeLayout-->
-                <!--android:id="@+id/profileHomeButtonBlock"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentBottom="true">-->
-                <!--<Button-->
-                <!--android:id="@+id/homeButtonClick"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Home"-->
-                <!--android:textColor="@color/GreenSignup" />-->
-
-
-                <!--</RelativeLayout>-->
+                    android:layout_centerVertical="true"
+                    android:padding="20dp"
+                    android:src="@drawable/icon_logo" />
 
             </RelativeLayout>
-        </android.support.v4.widget.NestedScrollView>
-        <!--End of Login Details-->
-    </RelativeLayout>
 
-    <!--End of Current User Details-->
-
-    <!--Login Details-->
-    <RelativeLayout
-        android:id="@+id/profileLoginBlock"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-
-        <RelativeLayout
-            android:id="@+id/loginScreen"
-            android:layout_width="match_parent"
-            android:layout_height="200dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:padding="20dp"
-                android:src="@drawable/organic" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/accountBlock"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/loginScreen"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="8dp">
-
-            <TextView
-                android:id="@+id/loginAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ACCOUNT"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/loginAccSub"
+            <RelativeLayout
+                android:id="@+id/accountBlock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/loginAccount"
+                android:layout_below="@id/loginScreen"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="10dp"
-                android:text="Login / Create Acount quickly to manage orders" />
-        </RelativeLayout>
+                android:layout_marginRight="8dp">
 
-        <RelativeLayout
-            android:id="@+id/loginButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/accountBlock"
-            android:layout_marginTop="30dp">
+                <TextView
+                    android:id="@+id/loginAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ACCOUNT"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+                    android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btnLogin"
+                <TextView
+                    android:id="@+id/loginAccSub"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/loginAccount"
+                    android:layout_marginTop="10dp"
+                    android:text="Login / Create Acount quickly to manage orders" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/loginButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:text="Login"
-                android:textAllCaps="true"
-                android:textColor="@color/GreenSignup" />
+                android:layout_below="@+id/accountBlock"
+                android:layout_marginTop="30dp">
 
-        </RelativeLayout>
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="Login"
+                    android:textAllCaps="true"
+                    android:textColor="@color/GreenSignup" />
 
-        <RelativeLayout
-            android:id="@+id/sendFeedBackBlock"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/loginButton"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="8dp">
+            </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/sendFeedBackImage"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/mailicon" />
-
-            <TextView
-                android:id="@+id/sendFeedBackText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@id/sendFeedBackImage"
-                android:text="Send Feed"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/sendFeedBackText"
-                android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@id/sendFeedBackImage"
-                android:text="App Version 1.0" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/profilerightarrow" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-
-            <Button
-                android:id="@+id/homeBtnAtMenuAccFragment"
+            <RelativeLayout
+                android:id="@+id/sendFeedBackBlock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="HOME"
-                android:textColor="@color/GreenSignup" />
+                android:layout_below="@+id/loginButton"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="8dp">
+
+                <ImageView
+                    android:id="@+id/sendFeedBackImage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/mailicon" />
+
+                <TextView
+                    android:id="@+id/sendFeedBackText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@id/sendFeedBackImage"
+                    android:text="Send Feed"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sendFeedBackText"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@id/sendFeedBackImage"
+                    android:text="App Version 1.0" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/profilerightarrow" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+                <Button
+                    android:id="@+id/homeBtnAtMenuAccFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="HOME"
+                    android:textColor="@color/GreenSignup" />
+
+
+
+            </RelativeLayout>
 
         </RelativeLayout>
+
 
     </RelativeLayout>
-
-
-</RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

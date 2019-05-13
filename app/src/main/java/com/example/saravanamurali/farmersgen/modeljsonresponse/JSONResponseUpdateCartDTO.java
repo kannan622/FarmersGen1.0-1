@@ -4,8 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class JSONResponseUpdateCartDTO {
 
-    @SerializedName("success")
-    success updateSuccess;
+
+    @SerializedName("responsecode")
+    int status;
 
     @SerializedName("product_code")
     String updateProductCode;
@@ -23,31 +24,14 @@ public class JSONResponseUpdateCartDTO {
     String grandTotal;
 
 
-    public class success {
-
-        @SerializedName("responsecode")
-        String responseCode;
-
-        @SerializedName("message")
-        String message;
-
-        public String getResponseCode() {
-            return responseCode;
-        }
-
-        public String getMessage() {
-            return message;
-        }
+    public int getStatus() {
+        return status;
     }
 
     public String getGrandTotal() {
         return grandTotal;
     }
 
-
-    public success getUpdateSuccess() {
-        return updateSuccess;
-    }
 
     public String getUpdateProductCode() {
         return updateProductCode;

@@ -36,6 +36,8 @@ public class Menuhome_Adapter extends RecyclerView.Adapter<Menuhome_Adapter.MyVi
         this.contactListFiltered = contactList;
     }
 
+    //contactListFiltered from DB
+
     public void setData(List<HomeProductDTO> hoomeproduct) {
         this.contactListFiltered = hoomeproduct;
         notifyDataSetChanged();
@@ -56,14 +58,6 @@ public class Menuhome_Adapter extends RecyclerView.Adapter<Menuhome_Adapter.MyVi
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final HomeProductDTO contact = contactListFiltered.get(position);
-       /* holder.name.setText(contact.getName());
-        holder.phone.setText(contact.getPhone());
-
-        Glide.with(context)
-                .load(contact.getImage())
-                .apply(RequestOptions.circleCropTransform())
-                .into(holder.thumbnail);*/
-
 
         String brand_Id = contactListFiltered.get(position).getBrandId();
         System.out.println("This is brand id of brand" + brand_Id);

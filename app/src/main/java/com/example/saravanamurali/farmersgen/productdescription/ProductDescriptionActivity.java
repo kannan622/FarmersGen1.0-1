@@ -55,6 +55,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
     TextView benefitsText;
 
     TextView manufacturingVideo;
+    ImageView plusManu,minusManu;
     TextView fbLink, instaLink, youTubeLink;
 
     RatingBar ratingBar;
@@ -106,9 +107,14 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         //End of Benefits
 
         //Fb,Insta,Youtube
+
+
         fbLink = (TextView) findViewById(R.id.fbLink);
         instaLink = (TextView) findViewById(R.id.instaLink);
         youTubeLink = (TextView) findViewById(R.id.youtubeLink);
+
+        plusManu=(ImageView) findViewById(R.id.plusManufacturing);
+        minusManu=(ImageView)findViewById(R.id.minusManufacturing);
 
         ratingBar = (RatingBar) findViewById(R.id.rating);
 
@@ -195,6 +201,16 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         });
         //End Benefits
 
+        //ManuFacturing View
+
+        /*plusManu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                plusManu.setVisibility(View.GONE);
+                minusManu.setVisibility(View.VISIBLE);
+            }
+        });
+*/
 
     }
 

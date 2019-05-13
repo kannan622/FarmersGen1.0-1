@@ -34,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/two_hundred_dp"
                 android:src="@drawable/ic_launcher_one"
+                android:visibility="gone"
                 />
 
 
@@ -81,7 +82,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/five_dp"
-                android:orientation="horizontal">
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                >
 
                 <LinearLayout
                     android:layout_width="200dp"
@@ -91,59 +95,59 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
+                        android:gravity="center"
                         android:text="ProductName" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
+                        android:gravity="center"
                         android:text="ProductQuantity" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
+                        android:gravity="center"
                         android:text="Product Actual Price" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
+                        android:gravity="center"
                         android:text="Product Offer Price" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
+                        android:gravity="center"
                         android:text="Rating" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
-                        android:textColor="@color/FragmentGreen"
-                        android:text="Manufacturing Date" />
+                        android:gravity="center"
+                        android:text="Manufacturing Date"
+                        android:textColor="@color/FragmentGreen" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
-                        android:textColor="@color/FragmentGreen"
-                        android:text="Expairy Date" />
+                        android:gravity="center"
+                        android:text="Expairy Date"
+                        android:textColor="@color/FragmentGreen" />
 
 
                 </LinearLayout>
@@ -157,45 +161,45 @@
                         android:id="@+id/productDesName"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
+                        android:gravity="center"
                         android:text="Grandmas Oil" />
 
                     <TextView
                         android:id="@+id/productDescQuantity"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
+                        android:gravity="center"
                         android:text="50grams" />
 
                     <TextView
                         android:id="@+id/productDescActualPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
+                        android:gravity="center"
                         android:text="50" />
 
                     <TextView
                         android:id="@+id/productDescOfferPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
+                        android:gravity="center"
                         android:text="45" />
 
                     <TextView
                         android:id="@+id/productDescRating"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:background="@color/FragmentGreen"
+                        android:gravity="center"
                         android:paddingLeft="@dimen/four_dp"
                         android:paddingRight="@dimen/four_dp"
                         android:text="4.5" />
@@ -204,18 +208,18 @@
                         android:id="@+id/productDescManuDate"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
+                        android:gravity="center"
                         android:inputType="date" />
 
                     <TextView
                         android:id="@+id/productDescExpairyDate"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
-                        android:gravity="center"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
+                        android:gravity="center"
                         android:inputType="date" />
 
 
@@ -228,7 +232,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginTop="@dimen/twenty_dp">
 
                 <TextView
@@ -264,6 +267,7 @@
                 android:layout_marginLeft="@dimen/twenty_dp"
                 android:layout_marginTop="@dimen/eight_dp"
                 android:layout_marginRight="@dimen/three_dp"
+                android:background="@color/white"
                 android:maxLines="2"
                 android:text="This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is ." />
 
@@ -303,6 +307,7 @@
                 android:layout_marginLeft="@dimen/twenty_dp"
                 android:layout_marginTop="@dimen/eight_dp"
                 android:layout_marginRight="@dimen/three_dp"
+                android:background="@color/white"
                 android:maxLines="2"
                 android:text="This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is ." />
 
@@ -342,6 +347,7 @@
                 android:layout_marginLeft="@dimen/twenty_dp"
                 android:layout_marginTop="@dimen/eight_dp"
                 android:layout_marginRight="@dimen/three_dp"
+                android:background="@color/white"
                 android:maxLines="2"
                 android:text="This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is ." />
 
@@ -380,7 +386,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/ten_dp">
+                android:layout_marginTop="@dimen/ten_dp"
+                android:background="@color/white">
 
                 <TextView
                     android:id="@+id/followFB"
@@ -403,7 +410,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <TextView
                     android:id="@+id/followInsta"
@@ -426,7 +434,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <TextView
                     android:id="@+id/followYouTube"
@@ -462,15 +471,18 @@
                     android:textSize="@dimen/eighteen_dp" />
             </RelativeLayout>
 
+
             <RatingBar
                 android:id="@+id/rating"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:numStars="5"
-                android:stepSize=".5" />
+                android:background="@color/white"
+                android:numStars="5" />
+
 
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
 
 </RelativeLayout>

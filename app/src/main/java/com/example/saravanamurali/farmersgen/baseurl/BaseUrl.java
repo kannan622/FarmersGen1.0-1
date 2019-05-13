@@ -21,6 +21,10 @@ public interface BaseUrl {
     //To Post Brand Review
     public static final String ROOT_URL_TO_POST_BRAND_REVIEW ="http://farmersgen.com/service/review/";
 
+    //MoveDataFrom Sql Lite to Server DB
+    public static final String ROOT_URL_TO_MOVE_SQLLITE_TO_SERVER_DB ="http://farmersgen.com/service/cart/";
+
+
 
     //Add Cart
     public static final String ROOT_URL_FOR_ADDCART ="http://farmersgen.com/service/cart/";

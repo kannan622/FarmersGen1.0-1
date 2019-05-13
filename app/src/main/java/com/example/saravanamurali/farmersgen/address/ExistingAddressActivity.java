@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -45,6 +47,14 @@ public class ExistingAddressActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_existing_address);
+
+        /*requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
+
+//        getSupportActionBar().hide();
+
+
 
 
         //If user is logged in we need to show existing address in the Existing Address Activity
@@ -110,9 +120,7 @@ public class ExistingAddressActivity extends AppCompatActivity {
             public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
 
                 if (response.isSuccessful()) {
-                    /*ProgressThread progressThread=new ProgressThread();
-                    progressThread.run();*/
-                    if(csprogress.isShowing()){
+                     if(csprogress.isShowing()){
                         csprogress.dismiss();
                     }
 

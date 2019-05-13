@@ -7,6 +7,29 @@
     android:orientation="vertical"
     tools:context=".coupon.CouponActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/leftCoupon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/left"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="APPLY COUPON"
+            android:gravity="center"
+            android:layout_marginRight="30dp"
+            android:textSize="@dimen/twenty_sp"
+            android:textColor="@color/black"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewCoupon"
         android:layout_width="match_parent"

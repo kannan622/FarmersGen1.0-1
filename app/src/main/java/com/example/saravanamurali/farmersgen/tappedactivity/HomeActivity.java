@@ -21,6 +21,7 @@ import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.fragment.MenuAccountFragment;
 import com.example.saravanamurali.farmersgen.fragment.MenuCartFragment;
 import com.example.saravanamurali.farmersgen.fragment.MenuHomeFragment;
+import com.example.saravanamurali.farmersgen.fragment.MenuSearchFragment;
 
 //import com.example.saravanamurali.farmersgen.fragment.MenuCartFragment;
 
@@ -225,7 +226,7 @@ public class HomeActivity extends AppCompatActivity {
             if (position == 0) {
                 return new MenuHomeFragment();
             } else if (position == 1) {
-                return new MenuCartFragment();
+                return new MenuSearchFragment();
             } else if (position == 2) {
                 return new MenuAccountFragment(currentUserId);
             } else
