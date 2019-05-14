@@ -216,7 +216,10 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
                    viewCartUpdateInterface.viewCartUpdateInterfaceSqlLite(viewCartCount, viewCart_productCode, viewCart_Price);
 
+                    notifyDataSetChanged();
+
                     viewCartUpdateInterface.viewCartUpdateInterface(viewCartCount, viewCart_productCode, viewCart_Price);
+                    notifyDataSetChanged();
 
 
 
@@ -245,18 +248,20 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
                     if (viewCartDecCount > 0) {
 
-
-                        viewCartUpdateInterface.viewCartUpdateInterfaceSqlLite(viewCartDecCount, viewCartDecProductCode, viewCartDecPrice);
-                        viewCartUpdateInterface.viewCartUpdateInterface(viewCartDecCount, viewCartDecProductCode, viewCartDecPrice);
                         notifyDataSetChanged();
+                        viewCartUpdateInterface.viewCartUpdateInterfaceSqlLite(viewCartDecCount, viewCartDecProductCode, viewCartDecPrice);
+                        notifyDataSetChanged();
+                        viewCartUpdateInterface.viewCartUpdateInterface(viewCartDecCount, viewCartDecProductCode, viewCartDecPrice);
 
                     } else if (viewCartDecCount == 0) {
 
                         removeItem(decrementAdapterPosition);
 
-
+                        notifyDataSetChanged();
                       viewCartDeleteInterface.viewCartDeleteInterfaceSqlLite(viewCartDecProductCode);
+                        notifyDataSetChanged();
                         viewCartDeleteInterface.viewCartDeleteInterface(viewCartDecProductCode);
+
 
 
                     } else if (viewCartDecCount < 0) {

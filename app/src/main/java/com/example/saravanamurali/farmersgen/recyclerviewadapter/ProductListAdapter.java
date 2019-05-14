@@ -185,6 +185,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
 
                     addCartInDb.addCartInSqlLite(countAddInc, product_Code, prouctPrice);
+                    notifyDataSetChanged();
 
                     // addCartInDb.addCart(countAddInc, product_Code, prouctPrice);
 
@@ -211,6 +212,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
                     addCartInDb.updateCartInSqlLite(product_Code, countIncInc, prouctPrice);
 
+                    notifyDataSetChanged();
                     //updateCartInAddCartInterface.updateCartInAddCart(product_Code, countIncInc, prouctPrice);
 
                     productListDTO.setCount(String.valueOf(countIncInc));

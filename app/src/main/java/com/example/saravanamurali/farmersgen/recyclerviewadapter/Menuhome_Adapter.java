@@ -62,7 +62,7 @@ public class Menuhome_Adapter extends RecyclerView.Adapter<Menuhome_Adapter.MyVi
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final HomeProductDTO contact = contactListFiltered.get(position);
 
-       holder.container.setAnimation(AnimationUtils.loadAnimation(context,R.anim.fade_scale_animation));
+        holder.container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation));
 
         String brand_Id = contactListFiltered.get(position).getBrandId();
         System.out.println("This is brand id of brand" + brand_Id);
@@ -140,7 +140,7 @@ public class Menuhome_Adapter extends RecyclerView.Adapter<Menuhome_Adapter.MyVi
             mMinOrder = view.findViewById(R.id.minOrderProduct);
             mRating = view.findViewById(R.id.ratingProduct);
 
-            container=view.findViewById(R.id.animationContainer);
+            container = view.findViewById(R.id.animationContainer);
 
 
             view.setOnClickListener(new View.OnClickListener() {

@@ -386,6 +386,8 @@ public class PaymentGatewayActivity extends AppCompatActivity {
                         editorCode.remove("COUPON_CODE");
                         editorCode.commit();
 
+
+
                         orderConfirmaationSMSToCustomer(orderIDToSendSMS);
 
                         Intent thanksActivity = new Intent(PaymentGatewayActivity.this, ThanksActivity.class);

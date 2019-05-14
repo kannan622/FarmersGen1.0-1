@@ -240,6 +240,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
                 JSONResponseToGetProductDescListDTO jsonResponseToGetProductDescListDTO = response.body();
                 List<JSONResponseToGetProductDescDTO> jsonResponseToGetProductDescDTOList = jsonResponseToGetProductDescListDTO.getJsonResponseToGetProductDescDTOList();
 
+
                 setProductDescValues(jsonResponseToGetProductDescDTOList);
             }
 

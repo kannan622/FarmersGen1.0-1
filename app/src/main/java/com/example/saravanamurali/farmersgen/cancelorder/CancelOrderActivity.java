@@ -115,7 +115,7 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
 
     }
 
-    //Cancel order Using Order Id when cancel button is pressed
+    //Cancel order Using Order Id when cangetCancelOrderUsingOrderIDcel button is pressed
     @Override
     public void getCancelOrderUsingOrderID(final String orderID) {
 

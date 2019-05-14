@@ -293,12 +293,6 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
     }
 
-   /* @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.toolbar_menu,menu);
-
-        }*/
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

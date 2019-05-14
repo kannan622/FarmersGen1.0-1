@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
@@ -41,6 +42,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetCancel
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetPastOrderDetails;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToGetFavBrands;
 import com.example.saravanamurali.farmersgen.signin.LoginActivity;
+import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 
 import org.w3c.dom.Text;
@@ -102,6 +104,10 @@ public class MenuAccountFragment extends Fragment {
     //Favourite List Check
     List<FavBrandDTO> getCheck_FavList;
 
+    //SQLLite
+    SQLiteDatabase mSqLiteDatabaseInLogout;
+
+
 
     public MenuAccountFragment() {
         // Required empty public constructor
@@ -116,7 +122,11 @@ public class MenuAccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         View view = inflater.inflate(R.layout.fragment_menu_account, container, false);
+
+        mSqLiteDatabaseInLogout = getActivity().openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
 
 
         //
@@ -578,9 +588,22 @@ public class MenuAccountFragment extends Fragment {
 
         clearAllItemsAtAddCartTableUsingDeviceID();
 
+        clearAllItemFromSQLDataBase();
+
         /*Intent loginIntent = new Intent(getActivity(), MenuAccountFragmentLoginActivity.class);
         startActivity(loginIntent);
 */
+
+    }
+
+    private void clearAllItemFromSQLDataBase() {
+        String delete_device_id = Settings.Secure.getString(getActivity().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        String delete = "delete from add_cart where device_id=? ";
+
+        mSqLiteDatabaseInLogout.execSQL(delete, new String[]{delete_device_id});
+        Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_LONG).show();
 
     }
 

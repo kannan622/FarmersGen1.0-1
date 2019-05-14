@@ -360,6 +360,10 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     protected void onResume() {
         super.onResume();
 
+       // refreshSqlliteDatabase();
+
+
+
         loadProductListDataFromSqlLite();
 
         //Guest User
@@ -378,9 +382,45 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
     }
 
-    private void loadProductListDataFromSqlLite() {
+    private void refreshSqlliteDatabase() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(Product_List_Activity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+        String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        Cursor cursor = mSqLiteDatabase.rawQuery("select product_code,count,total_price,device_id from add_cart where device_id=?", new String[]{ANDROID_MOBILE_ID});
+
+        if (cursor.moveToFirst()) {
+
+            do {
+
+                GetDataFromSqlLiteDTO refresh = new GetDataFromSqlLiteDTO(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+
+            }
+            while (cursor.moveToNext());
+
+        }
+
+        if (csprogress.isShowing()) {
+            csprogress.dismiss();
+        }
 
 
+
+    }
+
+    public void loadProductListDataFromSqlLite() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(Product_List_Activity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -406,8 +446,10 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
             while (cursor.moveToNext());
 
 
+        }
 
-
+        if (csprogress.isShowing()) {
+            csprogress.dismiss();
         }
 
 

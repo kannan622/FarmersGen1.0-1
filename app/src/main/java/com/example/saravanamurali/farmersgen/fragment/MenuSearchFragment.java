@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -68,18 +69,36 @@ public class MenuSearchFragment extends Fragment implements MenuSearchAdapter.Co
 
 
 
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        loadProductToSearchDisplay();
+
         homeSearchList = new ArrayList<HomeProductDTO>();
 
         menuSearchAdapter = new MenuSearchAdapter(getActivity(), homeSearchList, this);
 
         recyclerViewSearch.setAdapter(menuSearchAdapter);
 
-        loadProductToSearchDisplay();
 
-        return view;
+
+
     }
 
     private void loadProductToSearchDisplay() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
 
         ApiInterface api = APIClientForBrand.getApiInterfaceForBrand();
 
@@ -88,6 +107,11 @@ public class MenuSearchFragment extends Fragment implements MenuSearchAdapter.Co
         call.enqueue(new Callback<JSONResponseHomeBrandDTO>() {
             @Override
             public void onResponse(Call<JSONResponseHomeBrandDTO> call, Response<JSONResponseHomeBrandDTO> response) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
                 JSONResponseHomeBrandDTO jsonResponse = response.body();
 
                 List<HomeProductDTO> homeProductDTOListSearch = jsonResponse.getRecords();
@@ -137,6 +161,8 @@ public class MenuSearchFragment extends Fragment implements MenuSearchAdapter.Co
         });
 
     }
+
+
 
     @Override
     public void onSearchItemSelected(HomeProductDTO search) {

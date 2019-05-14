@@ -36,7 +36,47 @@ public class MenuSearchAdapter extends RecyclerView.Adapter<MenuSearchAdapter.Se
         this.searchListener = searchListener;
     }
 
+    public interface ContactsAdapterSearchListener {
+        void onSearchItemSelected(HomeProductDTO search);
+    }
+
+    public void setDataSearchChanged(List<HomeProductDTO> searchList) {
+
+        this.searchList = searchList;
+        notifyDataSetChanged();
+
+    }
+
+
     //searchList comes from DB
+
+
+
+
+
+    @NonNull
+    @Override
+    public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View itemView = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.fragment_menu_search_product, viewGroup, false);
+
+        return new SearchViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull SearchViewHolder searchViewHolder, int i) {
+
+        searchViewHolder.mtNameSearch.setText(searchList.get(i).getProductName());
+        searchViewHolder.mDescriptionSearch.setText(searchList.get(i).getProductDesc());
+        searchViewHolder.mRatingSearch.setText(searchList.get(i).getProductRating());
+        Picasso.with(context).load(searchList.get(i).getProductImage()).into(searchViewHolder.mImageSearch);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return searchList.size();
+    }
 
     @Override
     public Filter getFilter() {
@@ -77,40 +117,7 @@ public class MenuSearchAdapter extends RecyclerView.Adapter<MenuSearchAdapter.Se
         };
     }
 
-    public interface ContactsAdapterSearchListener {
-        void onSearchItemSelected(HomeProductDTO search);
-    }
 
-    public void setDataSearchChanged(List<HomeProductDTO> searchList) {
-
-        this.searchList = searchList;
-        notifyDataSetChanged();
-
-    }
-
-    @NonNull
-    @Override
-    public SearchViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View itemView = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.fragment_menu_search_product, viewGroup, false);
-
-        return new MenuSearchAdapter.SearchViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull SearchViewHolder searchViewHolder, int i) {
-
-        searchViewHolder.mtNameSearch.setText(searchList.get(i).getProductName());
-        searchViewHolder.mDescriptionSearch.setText(searchList.get(i).getProductDesc());
-        searchViewHolder.mRatingSearch.setText(searchList.get(i).getProductRating());
-        Picasso.with(context).load(searchList.get(i).getProductImage()).into(searchViewHolder.mImageSearch);
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return searchList.size();
-    }
 
     class SearchViewHolder extends RecyclerView.ViewHolder {
 

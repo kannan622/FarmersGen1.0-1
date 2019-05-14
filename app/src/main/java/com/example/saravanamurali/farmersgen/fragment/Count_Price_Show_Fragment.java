@@ -1,6 +1,7 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -108,6 +109,12 @@ public class Count_Price_Show_Fragment extends Fragment {
 
     private void loadProductListDataFromSqlLite() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
         String ANDROID_MOBILE_ID = Settings.Secure.getString(getActivity().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
@@ -120,13 +127,13 @@ public class Count_Price_Show_Fragment extends Fragment {
 
                 getDataFromSqlLiteDTO = new GetDataFromSqlLiteDTO(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
 
-                System.out.println("SQL LISTE SELECT count priceeeeeee>>>>>>>>>>>>");
+                /*System.out.println("SQL LISTE SELECT count priceeeeeee>>>>>>>>>>>>");
                 System.out.println("productCode"+getDataFromSqlLiteDTO.getProduct_code());
                 System.out.println("count"+getDataFromSqlLiteDTO.getCount());
                 System.out.println("price"+getDataFromSqlLiteDTO.getTotal_price());
-                System.out.println("deviceID"+getDataFromSqlLiteDTO.getDevice_ID());
-                getDataFromSqlLiteDTOS.add(getDataFromSqlLiteDTO);
+                System.out.println("deviceID"+getDataFromSqlLiteDTO.getDevice_ID());*/
 
+                getDataFromSqlLiteDTOS.add(getDataFromSqlLiteDTO);
 
 
             }
@@ -135,10 +142,20 @@ public class Count_Price_Show_Fragment extends Fragment {
 
         }
 
+        if (csprogress.isShowing()) {
+            csprogress.dismiss();
+        }
+
         moveDataFromSqlLiteToServerDB();
     }
 
     private void moveDataFromSqlLiteToServerDB() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
 
         ApiInterface api = ApiClientToMoveDataFromSqlLiteToServerDB.getAPIInterfaceToMoveDataFromSqlLiteToServerDB();
 
@@ -150,28 +167,32 @@ public class Count_Price_Show_Fragment extends Fragment {
 
                 JsonResponseFromServerDBDTO jsonResponseFromServerDBDTO = response.body();
 
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
                 Log.d("respo", response.toString());
 
-                Log.d("status", ""+jsonResponseFromServerDBDTO.getStatus());
+                Log.d("status", "" + jsonResponseFromServerDBDTO.getStatus());
 
 
                 if (jsonResponseFromServerDBDTO.getStatus() == 200) {
 
                     Log.d("respo1111", "11");
 
-                    Toast.makeText(getActivity(),jsonResponseFromServerDBDTO.getStatus()+":"+jsonResponseFromServerDBDTO.getMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), jsonResponseFromServerDBDTO.getStatus() + ":" + jsonResponseFromServerDBDTO.getMessage(), Toast.LENGTH_SHORT).show();
 
                     startActivity(new Intent(getActivity(), ViewCartActivity.class));
                 } else if (jsonResponseFromServerDBDTO.getStatus() == 500) {
                     Log.d("respo2222", "22");
                 } else {
-                    Log.d("end","end");
+                    Log.d("end", "end");
                 }
             }
 
             @Override
             public void onFailure(Call<JsonResponseFromServerDBDTO> call, Throwable t) {
-                Log.d("lass","last");
+                Log.d("lass", "last");
             }
         });
 

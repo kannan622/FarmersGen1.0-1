@@ -77,7 +77,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     TextView proceedButton;
 
 
-
     RelativeLayout bottomView;
 
     // JSONResponseUpdateCartDTO jsonResponseUpdateCartDTO;
@@ -123,10 +122,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     Toolbar toolbar;
 
     //SQLLite
-
     SQLiteDatabase mSqLiteDatabaseInViewCart;
-
-
 
 
     public ViewCartActivity() {
@@ -144,10 +140,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         //getSupportActionBar().hide();
 
         toolbar = (Toolbar) findViewById(R.id.viewCartToolBar);
-       // toolbar.setTitle("Your Basket");
+        // toolbar.setTitle("Your Basket");
 
         setSupportActionBar(toolbar);
-
 
 
         //getSupportActionBar().setTitle("Your Basket");
@@ -593,18 +588,19 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
 
-    /*public void updateCartInAddCart(String updateProductCode, int updateCount, String prouctPrice) {
+/*    @Override
+    public void viewCartUpdateInterface(int updateCount, String updateProductCode,  String prouctPrice) {
         String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
-        new AsyncTask<Void,Void,String>(){
+        *//*new AsyncTask<Void,Void,String>(){
 
             @Override
             protected String doInBackground(Void... voids) {
                 return null;
             }
         }.execute();
-
+*//*
 
         OkHttpClient client=new OkHttpClient();
 
@@ -640,25 +636,17 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             @Override
             public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
 
-                ResponseBody jsonResponseUpdateCartDTO= response.body();
-
-
-
-
+                String jsonResponseUpdateCartDTO= response.body().toString();
+                System.out.println(jsonResponseUpdateCartDTO);
 
                 //jsonResponseUpdateCartDTO.
 
             }
         });
 
-    }
-*/
+    }*/
 
-
-
-
-
-        //Update Count in ViewCart
+    //Update Count in ViewCart
     @Override
     public void viewCartUpdateInterface(int viewCartCount, String viewCartProductCode, String
             viewCartProductPrice) {
@@ -689,7 +677,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 }
                 JSONResponseUpdateCartDTO jsonResponseUpdateCartDTO = response.body();
 
-                if(jsonResponseUpdateCartDTO.getStatus()==200){
+                if (jsonResponseUpdateCartDTO.getStatus() == 200) {
 
                     viewCartAdapter.setUpdateTotalPrice(jsonResponseUpdateCartDTO);
 
@@ -698,10 +686,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     toPayAmountTextView.setText(GrandTotal);
 
 
-                }else if(jsonResponseUpdateCartDTO.getStatus()==500){
+                } else if (jsonResponseUpdateCartDTO.getStatus() == 500) {
                     Toast.makeText(ViewCartActivity.this, "Cart was not Updated", Toast.LENGTH_LONG).show();
                 }
-
 
 
             }
@@ -838,9 +825,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         String delete = "delete from add_cart where product_code=? and device_id=? ";
 
         mSqLiteDatabaseInViewCart.execSQL(delete, new String[]{viewCartDecProductCode, delete_device_id});
-
         Toast.makeText(ViewCartActivity.this, "Deleted", Toast.LENGTH_LONG).show();
-
 
 
     }
@@ -903,9 +888,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     /*@Override
     public void onBackPressed() {
-        Intent intent=new Intent(this,Product_List_Activity.class);
-        intent.setFlags(intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        Product_List_Activity product_list_activity=new Product_List_Activity();
+        product_list_activity.loadProductListDataFromSqlLite();
     }*/
 
     /* public void offers(View view) {
