@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +22,11 @@ import com.example.saravanamurali.farmersgen.models.OTPandMobileNoDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendMobileNoAndOTP;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendOTPToMFrom_FP;
 import com.goodiebag.pinview.Pinview;
+import com.stfalcon.smsverifycatcher.OnSmsCatchListener;
+import com.stfalcon.smsverifycatcher.SmsVerifyCatcher;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +42,11 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
     private TextView mobileNoShow;
     private TextView timeShow_existingUser;
     private TextView resendClick_existingUser;
+
+   private String code;
+   private SmsVerifyCatcher smsVerifyCatcher;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +87,28 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
             }
         });
 
+        smsVerifyCatcher=new SmsVerifyCatcher(this, new OnSmsCatchListener<String>() {
+            @Override
+            public void onSmsCatch(String message) {
 
+                code=parseCode(message);
+                pinview_OTP.setValue(code);
+                getOTP();
+
+            }
+        });
+
+
+    }
+
+    private String parseCode(String message) {
+        Pattern p = Pattern.compile("\\b\\d{4}\\b");
+        Matcher m = p.matcher(message);
+        String code = "";
+        while (m.find()) {
+            code = m.group(0);
+        }
+        return code;
     }
 
     private void CallCountDown_Timer() {
@@ -239,6 +271,28 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
         });
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        smsVerifyCatcher.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        smsVerifyCatcher.onStop();
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        smsVerifyCatcher.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+
 
 
 }

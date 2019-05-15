@@ -3,6 +3,7 @@ package com.example.saravanamurali.farmersgen.signin;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,6 +21,11 @@ import com.example.saravanamurali.farmersgen.models.OTPandMobileNoDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendMobileNoAndOTPForLoginForgetPassword;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendOTPToMFrom_FP;
 import com.goodiebag.pinview.Pinview;
+import com.stfalcon.smsverifycatcher.OnSmsCatchListener;
+import com.stfalcon.smsverifycatcher.SmsVerifyCatcher;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,6 +46,9 @@ public class OTPActivityForLoginForgetPasswordAtViewCart extends AppCompatActivi
     String entered_OTP_AtLoginForgetPassword_AtViewCart;
 
     private long ms;
+
+    private String code;
+   private  SmsVerifyCatcher smsVerifyCatcher;
 
 
 
@@ -79,10 +88,33 @@ public class OTPActivityForLoginForgetPasswordAtViewCart extends AppCompatActivi
             }
         });
 
+        smsVerifyCatcher =new SmsVerifyCatcher(this, new OnSmsCatchListener<String>() {
+            @Override
+            public void onSmsCatch(String message) {
+                
+                code=parseCode(message);
+                pinview_AtLoginForgetPassword_AtViewCart.setValue(code);
+                sendOTP();
+
+
+
+            }
+        });
+
 
 
 
 }
+
+    private String parseCode(String message) {
+        Pattern p = Pattern.compile("\\b\\d{4}\\b");
+        Matcher m = p.matcher(message);
+        String code = "";
+        while (m.find()) {
+            code = m.group(0);
+        }
+        return code;
+    }
 
     private void sendMobileNoandOTPForLoginForgetPassword_AtViewCart() {
         final ProgressDialog csprogress;
@@ -218,7 +250,26 @@ public class OTPActivityForLoginForgetPasswordAtViewCart extends AppCompatActivi
         });
 
 
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        smsVerifyCatcher.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        smsVerifyCatcher.onStop();
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        smsVerifyCatcher.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void sendOTP() {

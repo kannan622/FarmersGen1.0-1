@@ -49,14 +49,15 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
     String entered_OTP_AtLoginForgetPassword;
 
     long ms;
-    String code;
+
 
     long mTimeLeftInMillies;
 
     int minutes;
     int seconds;
 
-    SmsVerifyCatcher smsVerifyCatcher;
+    private String code;
+    private SmsVerifyCatcher smsVerifyCatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +102,6 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
             @Override
             public void onSmsCatch(String message) {
                 code = parseCode(message);//Parse verification code
-
 
                 pinview_AtLoginForgetPassword.setValue(code);
 
@@ -199,7 +199,6 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
 
     private void getOTP() {
 
-
         pinview_AtLoginForgetPassword.setPinViewEventListener(new Pinview.PinViewEventListener() {
             @Override
             public void onDataEntered(Pinview pinview, boolean b) {
@@ -255,7 +254,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
                     }
 
                 }
-                
+
             }
 
 
@@ -284,6 +283,8 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
         super.onStop();
         smsVerifyCatcher.onStop();
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
