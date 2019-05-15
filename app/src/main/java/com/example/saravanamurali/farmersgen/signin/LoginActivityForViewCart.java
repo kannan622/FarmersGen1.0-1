@@ -161,25 +161,30 @@ public class LoginActivityForViewCart extends AppCompatActivity {
             @Override
             public void onResponse(Call<SignedInJSONResponse> call, Response<SignedInJSONResponse> response) {
 
-
                 if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
+
                 SignedInJSONResponse signedInJSONResponse = response.body();
-                if (signedInJSONResponse.getUser_ID() != null) {
+
+                if(signedInJSONResponse.getResponseCode()==200)
+
+                {
 
 
-                    SharedPreferences current_User = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = current_User.edit();
-                    editor.putString("CURRENTUSER", signedInJSONResponse.getUser_ID());
-                    editor.commit();
+                        SharedPreferences current_User = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = current_User.edit();
+                        editor.putString("CURRENTUSER", signedInJSONResponse.getUser_ID());
+                        editor.commit();
 
-                    Intent openViewCartActivity = new Intent(LoginActivityForViewCart.this, ViewCartActivity.class);
-                    openViewCartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(openViewCartActivity);
-                    finish();
+                        Intent openViewCartActivity = new Intent(LoginActivityForViewCart.this, ViewCartActivity.class);
+                        openViewCartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(openViewCartActivity);
+                        finish();
 
-                } else
+                    }
+
+                 else if(signedInJSONResponse.getResponseCode()==500)
 
                 {
                     if (csprogress.isShowing()) {

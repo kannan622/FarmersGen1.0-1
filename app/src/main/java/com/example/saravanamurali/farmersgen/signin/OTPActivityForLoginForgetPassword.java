@@ -57,6 +57,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
     int seconds;
 
     SmsVerifyCatcher smsVerifyCatcher;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,12 +97,10 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
         });
 
 
-
-         smsVerifyCatcher = new SmsVerifyCatcher(this, new OnSmsCatchListener<String>() {
+        smsVerifyCatcher = new SmsVerifyCatcher(this, new OnSmsCatchListener<String>() {
             @Override
             public void onSmsCatch(String message) {
-                 code = parseCode(message);//Parse verification code
-
+                code = parseCode(message);//Parse verification code
 
 
                 pinview_AtLoginForgetPassword.setValue(code);
@@ -125,10 +124,6 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
                 seconds = seconds % 60;
                 timeShow_ForgetPassword.setText("TIME : " + String.format("%02d", minutes)
                         + ":" + String.format("%02d", seconds));
-
-                // Log.d("test", "testing11");
-
-
             }
 
             @Override
@@ -205,7 +200,6 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
     private void getOTP() {
 
 
-
         pinview_AtLoginForgetPassword.setPinViewEventListener(new Pinview.PinViewEventListener() {
             @Override
             public void onDataEntered(Pinview pinview, boolean b) {
@@ -227,7 +221,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
 
         ApiInterface api = APIClientToSendMobileNoAndOTPForLoginForgetPassword.getApiInterfaceToSendMobileNoAndOTPForLoginForgetPassword();
 
-        Log.d("my otp",entered_OTP_AtLoginForgetPassword);
+        Log.d("my otp", entered_OTP_AtLoginForgetPassword);
         OTPandMobileNoDTO otpAndMobileNoDTO = new OTPandMobileNoDTO(mobileNumberForLoginForgetPassword, entered_OTP_AtLoginForgetPassword);
 
         Call<JSONOTPResponseFromOTPActivity> call = api.sendMobileNoandOTPFromLoginForgetPasswordActivity(otpAndMobileNoDTO);
@@ -237,14 +231,14 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
             public void onResponse(Call<JSONOTPResponseFromOTPActivity> call, Response<JSONOTPResponseFromOTPActivity> response) {
 
 
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
                     JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
-                    Log.d("res",response.toString());
+                    Log.d("res", response.toString());
 
                     if (jsonotpResponseFromOTPActivity.getStatus() == 200) {
 
@@ -261,9 +255,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
                     }
 
                 }
-
-
-
+                
             }
 
 
@@ -298,6 +290,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         smsVerifyCatcher.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
     private String parseCode(String message) {
         Pattern p = Pattern.compile("\\b\\d{4}\\b");
         Matcher m = p.matcher(message);

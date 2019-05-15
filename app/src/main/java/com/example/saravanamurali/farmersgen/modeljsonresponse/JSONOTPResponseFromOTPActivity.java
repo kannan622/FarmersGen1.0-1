@@ -6,7 +6,7 @@ public class JSONOTPResponseFromOTPActivity {
 
     @SerializedName("Status")
     int status;
-    @SerializedName("Message")
+    @SerializedName("message")
     String message;
 
     public JSONOTPResponseFromOTPActivity(int status, String message) {
