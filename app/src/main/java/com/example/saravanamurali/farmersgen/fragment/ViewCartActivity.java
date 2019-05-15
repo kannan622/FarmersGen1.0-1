@@ -568,6 +568,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 toPayAmountTextView.setText(GrandTotal);
 
 
+
             }
 
             @Override
@@ -684,6 +685,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     GrandTotal = jsonResponseUpdateCartDTO.getGrandTotal();
 
                     toPayAmountTextView.setText(GrandTotal);
+                    viewCartAdapter.notifyDataSetChanged();
 
 
                 } else if (jsonResponseUpdateCartDTO.getStatus() == 500) {
@@ -723,6 +725,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         mSqLiteDatabaseInViewCart.execSQL(u_query, new String[]{u_View_Count, u_ViewCart_totalPrice, viewCartProductCode, device_id});
 
         Toast.makeText(ViewCartActivity.this, " ViewCart Updated", Toast.LENGTH_LONG).show();
+        viewCartAdapter.notifyDataSetChanged();
 
 
     }
@@ -772,7 +775,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                     toPayAmountTextView.setText(GrandTotal);
                     bottomView.setVisibility(View.VISIBLE);
-                } else {
+                }
+
+
+                else {
                     toPayAmountTextView.setText("");
                     // toPayT.setVisibility(View.GONE);
                     showCouponLayout.setVisibility(View.GONE);
@@ -782,6 +788,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     couponAppliedBlock.setVisibility(View.GONE);
                     toolbar.setVisibility(View.GONE);
 
+                    viewCartAdapter.notifyDataSetChanged();
                     //Removes the couponID
 
                     //Remove Current User COUPON ID From Shared Preferences
@@ -799,6 +806,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
                 }
+
+                viewCartAdapter.notifyDataSetChanged();
 
             }
 
@@ -825,6 +834,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         String delete = "delete from add_cart where product_code=? and device_id=? ";
 
         mSqLiteDatabaseInViewCart.execSQL(delete, new String[]{viewCartDecProductCode, delete_device_id});
+        viewCartAdapter.notifyDataSetChanged();
         Toast.makeText(ViewCartActivity.this, "Deleted", Toast.LENGTH_LONG).show();
 
 
