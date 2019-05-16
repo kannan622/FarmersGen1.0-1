@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class JSONOTPResponseFromOTPActivity {
 
-    @SerializedName("Status")
+    @SerializedName("responsecode")
     int status;
     @SerializedName("message")
     String message;

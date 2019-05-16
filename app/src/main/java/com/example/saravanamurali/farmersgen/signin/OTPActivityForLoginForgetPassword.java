@@ -221,16 +221,13 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
         ApiInterface api = APIClientToSendMobileNoAndOTPForLoginForgetPassword.getApiInterfaceToSendMobileNoAndOTPForLoginForgetPassword();
 
         Log.d("my otp", entered_OTP_AtLoginForgetPassword);
-        OTPandMobileNoDTO otpAndMobileNoDTO = new OTPandMobileNoDTO(mobileNumberForLoginForgetPassword, entered_OTP_AtLoginForgetPassword);
+        OTPandMobileNoDTO otpAndMobileNoDTO = new OTPandMobileNoDTO(entered_OTP_AtLoginForgetPassword,mobileNumberForLoginForgetPassword);
 
         Call<JSONOTPResponseFromOTPActivity> call = api.sendMobileNoandOTPFromLoginForgetPasswordActivity(otpAndMobileNoDTO);
 
         call.enqueue(new Callback<JSONOTPResponseFromOTPActivity>() {
             @Override
             public void onResponse(Call<JSONOTPResponseFromOTPActivity> call, Response<JSONOTPResponseFromOTPActivity> response) {
-
-
-                if (response.isSuccessful()) {
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
@@ -253,7 +250,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
 
                     }
 
-                }
+
 
             }
 

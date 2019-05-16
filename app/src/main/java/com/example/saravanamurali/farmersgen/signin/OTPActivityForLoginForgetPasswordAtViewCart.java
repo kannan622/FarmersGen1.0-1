@@ -124,7 +124,7 @@ public class OTPActivityForLoginForgetPasswordAtViewCart extends AppCompatActivi
         csprogress.setCanceledOnTouchOutside(false);
 
         ApiInterface api=APIClientToSendMobileNoAndOTPForLoginForgetPassword.getApiInterfaceToSendMobileNoAndOTPForLoginForgetPassword();
-        OTPandMobileNoDTO otpAndMobileNoDTO_AtViewCart = new OTPandMobileNoDTO(mobileNumberForLoginForgetPassword_AtViewCart, entered_OTP_AtLoginForgetPassword_AtViewCart);
+        OTPandMobileNoDTO otpAndMobileNoDTO_AtViewCart = new OTPandMobileNoDTO( entered_OTP_AtLoginForgetPassword_AtViewCart,mobileNumberForLoginForgetPassword_AtViewCart);
         Call<JSONOTPResponseFromOTPActivity> call=api.sendMobileNoandOTPFromLoginForgetPasswordActivity(otpAndMobileNoDTO_AtViewCart);
 
         call.enqueue(new Callback<JSONOTPResponseFromOTPActivity>() {

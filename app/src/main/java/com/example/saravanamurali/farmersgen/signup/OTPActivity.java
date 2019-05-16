@@ -231,7 +231,7 @@ public class OTPActivity extends AppCompatActivity {
         ApiInterface api = APIClientToSendMobileNoAndOTP.getApiInterfaceToSendMobileNoAndOTP();
 
 
-        OTPandMobileNoDTO otPandMobileNoDTO = new OTPandMobileNoDTO(mobileNumberToSendOTP, entered_OTP);
+        OTPandMobileNoDTO otPandMobileNoDTO = new OTPandMobileNoDTO( entered_OTP,mobileNumberToSendOTP);
 
 
         Call<JSONOTPResponseFromOTPActivity> call = api.sendMobileNoandOTPFromOTPActivity(otPandMobileNoDTO);

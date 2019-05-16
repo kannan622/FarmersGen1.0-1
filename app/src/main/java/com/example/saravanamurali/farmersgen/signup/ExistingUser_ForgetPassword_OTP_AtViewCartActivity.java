@@ -233,7 +233,7 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
         ApiInterface api = APIClientToSendMobileNoAndOTP.getApiInterfaceToSendMobileNoAndOTP();
 
 
-        OTPandMobileNoDTO otPandMobileNoDTO = new OTPandMobileNoDTO(MobileNumberFrom_Existing_User_Forget_Password, entered_OTP_AtViewCart);
+        OTPandMobileNoDTO otPandMobileNoDTO = new OTPandMobileNoDTO( entered_OTP_AtViewCart,MobileNumberFrom_Existing_User_Forget_Password);
 
         Call<JSONOTPResponseFromOTPActivity> call = api.sendMobileNoandOTPFromOTPActivity(otPandMobileNoDTO);
 

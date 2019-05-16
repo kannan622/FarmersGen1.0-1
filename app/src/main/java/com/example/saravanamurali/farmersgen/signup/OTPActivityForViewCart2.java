@@ -219,7 +219,7 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
         ApiInterface api=APIClientToSendMobileNoAndOTP.getApiInterfaceToSendMobileNoAndOTP();
 
 
-        OTPandMobileNoDTO otPandMobileNoDTO=new OTPandMobileNoDTO(mobileNumberToSendOTP_AtViewCart,entered_OTP_AtViewCart);
+        OTPandMobileNoDTO otPandMobileNoDTO=new OTPandMobileNoDTO(entered_OTP_AtViewCart,mobileNumberToSendOTP_AtViewCart);
 
 
         Call<JSONOTPResponseFromOTPActivity> call=api.sendMobileNoandOTPFromOTPActivity(otPandMobileNoDTO);
