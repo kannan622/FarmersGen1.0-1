@@ -46,15 +46,15 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
 
 
     private TextView errorText_AtLoginForgetPassword;
-    String entered_OTP_AtLoginForgetPassword;
+    private String entered_OTP_AtLoginForgetPassword;
 
-    long ms;
+    private long ms;
 
 
-    long mTimeLeftInMillies;
+    private long mTimeLeftInMillies;
 
-    int minutes;
-    int seconds;
+    private int minutes;
+    private int seconds;
 
     private String code;
     private SmsVerifyCatcher smsVerifyCatcher;
@@ -221,7 +221,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
         ApiInterface api = APIClientToSendMobileNoAndOTPForLoginForgetPassword.getApiInterfaceToSendMobileNoAndOTPForLoginForgetPassword();
 
         Log.d("my otp", entered_OTP_AtLoginForgetPassword);
-        OTPandMobileNoDTO otpAndMobileNoDTO = new OTPandMobileNoDTO(entered_OTP_AtLoginForgetPassword,mobileNumberForLoginForgetPassword);
+        OTPandMobileNoDTO otpAndMobileNoDTO = new OTPandMobileNoDTO(entered_OTP_AtLoginForgetPassword, mobileNumberForLoginForgetPassword);
 
         Call<JSONOTPResponseFromOTPActivity> call = api.sendMobileNoandOTPFromLoginForgetPasswordActivity(otpAndMobileNoDTO);
 
@@ -229,27 +229,26 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONOTPResponseFromOTPActivity> call, Response<JSONOTPResponseFromOTPActivity> response) {
 
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
-                    JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
-                    Log.d("res", response.toString());
+                JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
+                Log.d("res", response.toString());
 
-                    if (jsonotpResponseFromOTPActivity.getStatus() == 200) {
+                if (jsonotpResponseFromOTPActivity.getStatus() == 200) {
 
-                        Intent newPassintent = new Intent(OTPActivityForLoginForgetPassword.this, NewPassAndConfirmPassForLoginForgetPassword.class);
-                        newPassintent.putExtra("MOBILENO_FOR_NEW_PASS_AND_CONFIRM_PASSWORD", mobileNumberForLoginForgetPassword);
-                        startActivity(newPassintent);
-                        finish();
+                    Intent newPassintent = new Intent(OTPActivityForLoginForgetPassword.this, NewPassAndConfirmPassForLoginForgetPassword.class);
+                    newPassintent.putExtra("MOBILENO_FOR_NEW_PASS_AND_CONFIRM_PASSWORD", mobileNumberForLoginForgetPassword);
+                    startActivity(newPassintent);
+                    finish();
 
-                        //When user enters wrong otp
-                    } else if (jsonotpResponseFromOTPActivity.getStatus() == 500) {
+                    //When user enters wrong otp
+                } else if (jsonotpResponseFromOTPActivity.getStatus() == 500) {
 
-                        Toast.makeText(OTPActivityForLoginForgetPassword.this, "You have entered wrong OTP", Toast.LENGTH_LONG).show();
+                    Toast.makeText(OTPActivityForLoginForgetPassword.this, "You have entered wrong OTP", Toast.LENGTH_LONG).show();
 
-                    }
-
+                }
 
 
             }
@@ -280,7 +279,6 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
         super.onStop();
         smsVerifyCatcher.onStop();
     }
-
 
 
     @Override

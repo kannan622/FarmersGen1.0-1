@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExisti
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToOrder;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendOrderConfirmationSMS;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientForPaymentGateway;
+import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,10 +77,16 @@ public class PaymentGatewayActivity extends AppCompatActivity {
     String userMobileNo;
     String userEmail;
 
+    //SQLLite
+    SQLiteDatabase mSqLiteDatabaseInPaymentGateway;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_gateway);
+
+        mSqLiteDatabaseInPaymentGateway = openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
 
         payButton = (Button) findViewById(R.id.payButton);
 
@@ -390,6 +398,8 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
                         orderConfirmaationSMSToCustomer(orderIDToSendSMS);
 
+                        clearAllItemsFromSQLDataBase();
+
                         Intent thanksActivity = new Intent(PaymentGatewayActivity.this, ThanksActivity.class);
                         startActivity(thanksActivity);
                         finish();
@@ -417,7 +427,15 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         });
     }
 
+    private void clearAllItemsFromSQLDataBase() {
 
+        String delete_device_id = Settings.Secure.getString(this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        String delete = "delete from add_cart where device_id=? ";
+
+        mSqLiteDatabaseInPaymentGateway.execSQL(delete, new String[]{delete_device_id});
+    }
 
 
     public void checkRadioButtonForCashOnDelivery(View view) {

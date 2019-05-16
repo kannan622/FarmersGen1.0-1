@@ -39,6 +39,7 @@
             android:text="Use My Location"
             android:textColor="@color/FragmentGreen" />
         <TextView
+            android:id="@+id/tabToMap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/myLocationButtonInMenu"
@@ -48,6 +49,19 @@
             android:gravity="center"
             android:textSize="@dimen/fifteen_dp"
             />
+        <TextView
+            android:id="@+id/showAddressMenu"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@id/tabToMap"
+            android:layout_marginTop="@dimen/five_dp"
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:layout_marginRight="@dimen/ten_dp"
+            android:text="Here Goes Fetching Map Address"
+            android:layout_marginBottom="@dimen/five_dp"
+
+            />
+
 
     </RelativeLayout>
 

@@ -603,7 +603,7 @@ public class MenuAccountFragment extends Fragment {
         String delete = "delete from add_cart where device_id=? ";
 
         mSqLiteDatabaseInLogout.execSQL(delete, new String[]{delete_device_id});
-        Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), "Deleted", Toast.LENGTH_LONG).show();
 
     }
 

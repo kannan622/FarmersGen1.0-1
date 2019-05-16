@@ -26,9 +26,9 @@
         <ImageView
             android:id="@+id/locationIcon"
             android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginLeft="@dimen/five_dp"
             android:layout_marginTop="@dimen/three_dp"
-            android:layout_height="30dp"
             android:layout_toRightOf="@id/updateDeliveryDeliveryAddress"
             android:src="@drawable/location" />
 
@@ -47,18 +47,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/ten_dp"
-            android:layout_alignParentEnd="true"
             android:text="Use My Location"
             android:textColor="@color/FragmentGreen" />
+
         <TextView
+            android:id="@+id/tapToFill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/myLocationButton"
-            android:text="Tab to auto fill the address fields"
             android:layout_marginLeft="@dimen/ten_dp"
             android:layout_marginRight="@dimen/ten_dp"
             android:gravity="center"
-            android:textSize="@dimen/fifteen_dp"
+            android:text="Tab to auto fill the address fields"
+            android:textSize="@dimen/fifteen_dp" />
+
+        <TextView
+            android:id="@+id/showAddress"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_below="@id/tapToFill"
+            android:layout_marginTop="@dimen/five_dp"
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:layout_marginRight="@dimen/ten_dp"
+            android:text="Here Goes Fetching Map Address"
+            android:layout_marginBottom="@dimen/five_dp"
+            android:visibility="gone"
             />
 
     </RelativeLayout>

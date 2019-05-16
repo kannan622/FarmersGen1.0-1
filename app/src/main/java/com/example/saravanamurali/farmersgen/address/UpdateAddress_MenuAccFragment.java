@@ -20,6 +20,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
@@ -73,6 +74,8 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
     private TextInputEditText geoSetCity;
     private TextInputEditText geoSetPincode;
 
+    private TextView showAddresMenu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +100,8 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
         geoSetArea = (TextInputEditText) findViewById(R.id.areaMenu);
         geoSetStreetName = (TextInputEditText) findViewById(R.id.streetNameMenu);
         geoSetFlatNo = (TextInputEditText) findViewById(R.id.flatNoMenu);
+
+        showAddresMenu=(TextView)findViewById(R.id.showAddressMenu);
 
         myLocation_Button_Menu = (Button) findViewById(R.id.myLocationButtonInMenu);
 
@@ -378,9 +383,14 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
                 System.out.println(premises);
                 System.out.println(addressLine);
 */
-                String doorNo = address;
+
+                showAddresMenu.setVisibility(View.VISIBLE);
+                showAddresMenu.setText(address +" "+area+" "+city+" "+postalCode);
+
+                /*String doorNo = address;
                 String[] d_No = doorNo.split(",", 2);
-                geoSetFlatNo.setText(d_No[0]);
+                geoSetFlatNo.setText(d_No[0]);*/
+
                 geoSetArea.setText(subLocality);
                 geoSetCity.setText(area);
                 geoSetPincode.setText(postalCode);

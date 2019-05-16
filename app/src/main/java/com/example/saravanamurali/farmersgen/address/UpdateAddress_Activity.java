@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
@@ -79,6 +80,8 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
     private TextInputEditText geoSetCity;
     private  TextInputEditText geoSetPincode;
 
+    private TextView showAddress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +103,8 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
         geoSetArea=(TextInputEditText)findViewById(R.id.getSetArea);
         geoSetStreetName=(TextInputEditText)findViewById(R.id.getSetStreetName);
         geoSetFlatNo=(TextInputEditText)findViewById(R.id.getSetFlat);
+
+        showAddress=(TextView)findViewById(R.id.showAddress);
 
 
 
@@ -390,6 +395,9 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
                String premises=geoAddresses.get(0).getPremises();
                String addressLine=geoAddresses.get(0).getAddressLine(0);
 
+               showAddress.setVisibility(View.VISIBLE);
+               showAddress.setText(address +" "+area+" "+city+" "+postalCode);
+
                // System.out.println("Address"+address+"  "+"area"+area+"  "+"city"+city+"  "+"country"+country+"  "+"postalCode"+postalCode);
                 /*System.out.println(address);
                 System.out.println(area);
@@ -401,13 +409,14 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
                 System.out.println(premises);
                 System.out.println(addressLine);
 */
-                String doorNo=address;
+               /* String doorNo=address;
                 String[] d_No=doorNo.split(",",2);
                 if(d_No.length>=7){
                     geoSetFlatNo.setText("");
                 }else {
                     geoSetFlatNo.setText(d_No[0]);
-                }
+                }*/
+
                 geoSetArea.setText(subLocality);
                 geoSetCity.setText(area);
                 geoSetPincode.setText(postalCode);

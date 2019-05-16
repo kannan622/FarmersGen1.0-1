@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
@@ -87,6 +88,8 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
     private TextInputEditText geoSetCity;
     private TextInputEditText geoSetPincode;
 
+    TextView showAddress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +114,8 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
         mPinCode = findViewById(R.id.pinCode);
         mLandMark = findViewById(R.id.landMark);
         mAlternateMobile = findViewById(R.id.alternateMobile);
+
+        showAddress=(TextView)findViewById(R.id.showAddressAdd);
 
         geoSetPincode = (TextInputEditText) findViewById(R.id.addPincode);
         geoSetCity = (TextInputEditText) findViewById(R.id.addCity);
@@ -412,10 +417,15 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
                 System.out.println(subLocality);
                 System.out.println(premises);
                 System.out.println(addressLine);
-*/
-                String doorNo = address;
+                */
+
+                showAddress.setVisibility(View.VISIBLE);
+                showAddress.setText(address +" "+area+" "+city+" "+postalCode);
+
+               /* String doorNo = address;
                 String[] d_No = doorNo.split(",", 2);
-                geoSetFlatNo.setText(d_No[0]);
+                geoSetFlatNo.setText(d_No[0]);*/
+
                 geoSetArea.setText(subLocality);
                 geoSetCity.setText(area);
                 geoSetPincode.setText(postalCode);
