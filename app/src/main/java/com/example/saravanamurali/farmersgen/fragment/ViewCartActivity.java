@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.address.Add_Address_Activity;
 import com.example.saravanamurali.farmersgen.address.ExistingAddressActivity;
@@ -55,6 +56,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.fabric.sdk.android.Fabric;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -134,6 +136,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_cart);
+
+        Fabric.with(ViewCartActivity.this, new Crashlytics());
 
         mSqLiteDatabaseInViewCart = openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
 
@@ -568,7 +572,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 toPayAmountTextView.setText(GrandTotal);
 
 
-
             }
 
             @Override
@@ -587,45 +590,43 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     }
 
 
-
-
-/*    @Override
-    public void viewCartUpdateInterface_test(int updateCount, String updateProductCode,  String prouctPrice) {
+  /*  @Override
+    public void viewCartUpdateInterface(int updateCount, String updateProductCode, String prouctPrice) {
         String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
-        *//*new AsyncTask<Void,Void,String>(){
+        new AsyncTask<Void, Void, String>() {
 
             @Override
             protected String doInBackground(Void... voids) {
                 return null;
             }
         }.execute();
-*//*
 
-        OkHttpClient client=new OkHttpClient();
 
-        String url="http://farmersgen.com/service/cart/update_cart.php";
+        OkHttpClient client = new OkHttpClient();
 
-        MediaType json=MediaType.parse("application/json;charset=utf-8");
-        JSONObject actualData=new JSONObject();
-        String s=String.valueOf(updateCount);
+        String url = "http://farmersgen.com/service/cart/update_cart.php";
+
+        MediaType json = MediaType.parse("application/json;charset=utf-8");
+        JSONObject actualData = new JSONObject();
+        String s = String.valueOf(updateCount);
         try {
-            actualData.put("product_code",updateProductCode);
-            actualData.put("count",s);
-            actualData.put("product_price",prouctPrice);
-            actualData.put("device_id",ANDROID_MOBILE_ID);
+            actualData.put("product_code", updateProductCode);
+            actualData.put("count", s);
+            actualData.put("product_price", prouctPrice);
+            actualData.put("device_id", ANDROID_MOBILE_ID);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
 
-        RequestBody requestBody=RequestBody.create(json,actualData.toString());
+        RequestBody requestBody = RequestBody.create(json, actualData.toString());
 
-        final Request request=new Request.Builder()
+        final Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)
-                .header("Connection","close")
+                .header("Connection", "close")
                 .build();
 
         client.newCall(request).enqueue(new okhttp3.Callback() {
@@ -637,16 +638,27 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             @Override
             public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
 
-                String jsonResponseUpdateCartDTO= response.body().toString();
-                System.out.println(jsonResponseUpdateCartDTO);
+                String jsonResponseUpdateCartDTO = response.body().toString();
+                try {
+                    JSONObject json = new JSONObject(jsonResponseUpdateCartDTO);
+                    String producode = json.getString("product_code");
+                    String count = json.getString("count");
+                    String totalPRice = json.getString("total_price");
+                    String grandTotal = json.getString("grand_total");
+
+                    System.out.println("Ok HTTP3" + producode + " " + count + " " + totalPRice + " " + grandTotal);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 //jsonResponseUpdateCartDTO.
 
             }
         });
 
-    }*/
-
+    }
+*/
     //Update Count in ViewCart
     @Override
     public void viewCartUpdateInterface(int viewCartCount, String viewCartProductCode, String
@@ -708,6 +720,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
     }//// End of Update Count in ViewCart
+
 
     @Override
     public void viewCartUpdateInterfaceSqlLite(int viewCartCount, String viewCartProductCode, String viewCart_Price) {
@@ -775,10 +788,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                     toPayAmountTextView.setText(GrandTotal);
                     bottomView.setVisibility(View.VISIBLE);
-                }
-
-
-                else {
+                } else {
                     toPayAmountTextView.setText("");
                     // toPayT.setVisibility(View.GONE);
                     showCouponLayout.setVisibility(View.GONE);

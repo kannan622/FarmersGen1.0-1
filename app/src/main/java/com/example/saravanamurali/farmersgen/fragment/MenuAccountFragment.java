@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.address.ExistingAddressActivity_AtMenuAccFragment;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
@@ -50,6 +51,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.fabric.sdk.android.Fabric;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -125,6 +127,9 @@ public class MenuAccountFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_menu_account, container, false);
+
+        //Fabric
+        Fabric.with(getActivity(), new Crashlytics());
 
         mSqLiteDatabaseInLogout = getActivity().openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
 

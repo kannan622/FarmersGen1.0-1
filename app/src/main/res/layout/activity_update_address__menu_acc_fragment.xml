@@ -57,9 +57,10 @@
             android:layout_marginTop="@dimen/five_dp"
             android:layout_marginLeft="@dimen/ten_dp"
             android:layout_marginRight="@dimen/ten_dp"
+            android:textStyle="bold"
             android:text="Here Goes Fetching Map Address"
             android:layout_marginBottom="@dimen/five_dp"
-
+            android:visibility="gone"
             />
 
 

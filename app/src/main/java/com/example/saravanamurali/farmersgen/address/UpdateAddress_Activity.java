@@ -106,8 +106,6 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
 
         showAddress=(TextView)findViewById(R.id.showAddress);
 
-
-
         uLandMark = findViewById(R.id.updateLandMark);
         uAlternateMobile = findViewById(R.id.updateAlternateMobile);
 
@@ -117,6 +115,216 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
 
         myLocation_Button.setOnClickListener(this);
 
+    }
+
+
+
+    public void onClickUpdateAddress(View view) {
+
+
+        if (!validateFlatNo() | !validatStreetName() | !validateArea() | !validateCity() | !validatePinCode() | !validateLandMark() | !validateAlterMobileNumber()) {
+
+            return;
+        } else {
+
+            updateAddressFromChangeAddressClick();
+        }
+
+
+    }
+
+
+    private void updateAddressFromChangeAddressClick() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(UpdateAddress_Activity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+        ApiInterface api = APIClientToUpdateAddress.getApiIterfaceToUpdateAddress();
+
+        SharedPreferences getcurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+
+        String currentUser = getcurrentUser.getString("CURRENTUSER", NO_CURRENT_USER);
+
+        UpdateAddressDTO updateAddressDTO = new UpdateAddressDTO(proceed_FlatNo, proceed_StreetName, proceed_Area, proceed_City, proceed_PinCode, addressID, proceed_LandMark, proceed_Alternate_Mobile_Number, currentUser);
+        Call<ResponseBody> call = api.updateAddress(updateAddressDTO);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (response.isSuccessful()) {
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+                    Intent paymentGateActivity = new Intent(UpdateAddress_Activity.this, PaymentGatewayActivity.class);
+                    startActivity(paymentGateActivity);
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
+            }
+        });
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+
+        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            getLocation();
+        }
+    }
+
+    private void getLocation() {
+        geocoder = new Geocoder(this, Locale.getDefault());
+
+        if (ActivityCompat.checkSelfPermission(UpdateAddress_Activity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (UpdateAddress_Activity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(UpdateAddress_Activity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
+
+        } else {
+
+            final ProgressDialog csprogress;
+            csprogress = new ProgressDialog(UpdateAddress_Activity.this);
+            csprogress.setMessage("Loading...");
+            csprogress.show();
+            csprogress.setCanceledOnTouchOutside(false);
+
+
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+            Location location1 = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            Location location2 = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+            if (location != null) {
+                lattitude = location.getLatitude();
+                longitude = location.getLongitude();
+                /*lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);
+*/
+
+            } else if (location1 != null) {
+                lattitude = location1.getLatitude();
+                longitude = location1.getLongitude();
+                /*lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);
+*/
+
+
+            } else if (location2 != null) {
+                lattitude = location2.getLatitude();
+                longitude = location2.getLongitude();
+                /*lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);
+*/
+
+            } else {
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
+                Toast.makeText(this, "Unble to Trace your location", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+            try {
+                geoAddresses = geocoder.getFromLocation(lattitude, longitude, FavStatus.REQUEST_LOCATION);
+
+                if(geoAddresses==null){
+                    getLocation();
+                }
+                else {
+
+                    String address = geoAddresses.get(0).getAddressLine(0);
+                    String area = geoAddresses.get(0).getLocality();
+                    String city = geoAddresses.get(0).getAdminArea();
+                    String country = geoAddresses.get(0).getCountryName();
+                    String postalCode = geoAddresses.get(0).getPostalCode();
+                    String subAdminArea = geoAddresses.get(0).getSubAdminArea();
+                    String subLocality = geoAddresses.get(0).getSubLocality();
+                    String premises = geoAddresses.get(0).getPremises();
+                    String addressLine = geoAddresses.get(0).getAddressLine(0);
+
+                    showAddress.setVisibility(View.VISIBLE);
+                    showAddress.setText(address + " " + area + " " + city + " " + postalCode);
+
+                    // System.out.println("Address"+address+"  "+"area"+area+"  "+"city"+city+"  "+"country"+country+"  "+"postalCode"+postalCode);
+                /*System.out.println(address);
+                System.out.println(area);
+                System.out.println(city);
+                System.out.println(country);
+                System.out.println(postalCode);
+                System.out.println(subAdminArea);
+                System.out.println(subLocality);
+                System.out.println(premises);
+                System.out.println(addressLine);
+*/
+               /* String doorNo=address;
+                String[] d_No=doorNo.split(",",2);
+                if(d_No.length>=7){
+                    geoSetFlatNo.setText("");
+                }else {
+                    geoSetFlatNo.setText(d_No[0]);
+                }*/
+
+                    geoSetArea.setText(subLocality);
+                    geoSetCity.setText(area);
+                    geoSetPincode.setText(postalCode);
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    private void buildAlertMessageNoGps() {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please Turn ON your GPS Connection")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private boolean validateLandMark() {
@@ -250,209 +458,5 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
 
     }
 
-
-    public void onClickUpdateAddress(View view) {
-
-
-        if (!validateFlatNo() | !validatStreetName() | !validateArea() | !validateCity() | !validatePinCode() | !validateLandMark() | !validateAlterMobileNumber()) {
-
-            return;
-        } else {
-
-            updateAddressFromChangeAddressClick();
-        }
-
-
-    }
-
-
-    private void updateAddressFromChangeAddressClick() {
-
-        final ProgressDialog csprogress;
-        csprogress = new ProgressDialog(UpdateAddress_Activity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
-        csprogress.setCanceledOnTouchOutside(false);
-
-
-        ApiInterface api = APIClientToUpdateAddress.getApiIterfaceToUpdateAddress();
-
-        SharedPreferences getcurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
-
-        String currentUser = getcurrentUser.getString("CURRENTUSER", NO_CURRENT_USER);
-
-        UpdateAddressDTO updateAddressDTO = new UpdateAddressDTO(proceed_FlatNo, proceed_StreetName, proceed_Area, proceed_City, proceed_PinCode, addressID, proceed_LandMark, proceed_Alternate_Mobile_Number, currentUser);
-        Call<ResponseBody> call = api.updateAddress(updateAddressDTO);
-
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                if (response.isSuccessful()) {
-
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-
-                    Intent paymentGateActivity = new Intent(UpdateAddress_Activity.this, PaymentGatewayActivity.class);
-                    startActivity(paymentGateActivity);
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
-
-            }
-        });
-
-    }
-
-
-    @Override
-    public void onClick(View v) {
-
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
-
-        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            getLocation();
-        }
-    }
-
-    private void getLocation() {
-        geocoder = new Geocoder(this, Locale.getDefault());
-
-        if (ActivityCompat.checkSelfPermission(UpdateAddress_Activity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (UpdateAddress_Activity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(UpdateAddress_Activity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
-
-        } else {
-
-            final ProgressDialog csprogress;
-            csprogress = new ProgressDialog(UpdateAddress_Activity.this);
-            csprogress.setMessage("Loading...");
-            csprogress.show();
-            csprogress.setCanceledOnTouchOutside(false);
-
-
-            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-            Location location1 = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-            Location location2 = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-
-            if (location != null) {
-                lattitude = location.getLatitude();
-                longitude = location.getLongitude();
-                /*lattitude = String.valueOf(latti);
-                longitude = String.valueOf(longi);
-*/
-
-            } else if (location1 != null) {
-                lattitude = location1.getLatitude();
-                longitude = location1.getLongitude();
-                /*lattitude = String.valueOf(latti);
-                longitude = String.valueOf(longi);
-*/
-
-
-            } else if (location2 != null) {
-                lattitude = location2.getLatitude();
-                longitude = location2.getLongitude();
-                /*lattitude = String.valueOf(latti);
-                longitude = String.valueOf(longi);
-*/
-
-            } else {
-                if(csprogress.isShowing()){
-                    csprogress.dismiss();
-                }
-
-                Toast.makeText(this, "Unble to Trace your location", Toast.LENGTH_SHORT).show();
-
-            }
-
-
-            try {
-                geoAddresses = geocoder.getFromLocation(lattitude, longitude, FavStatus.REQUEST_LOCATION);
-
-                String address = geoAddresses.get(0).getAddressLine(0);
-                String area = geoAddresses.get(0).getLocality();
-                String city = geoAddresses.get(0).getAdminArea();
-                String country = geoAddresses.get(0).getCountryName();
-                String postalCode = geoAddresses.get(0).getPostalCode();
-                String subAdminArea=geoAddresses.get(0).getSubAdminArea();
-               String subLocality= geoAddresses.get(0).getSubLocality();
-               String premises=geoAddresses.get(0).getPremises();
-               String addressLine=geoAddresses.get(0).getAddressLine(0);
-
-               showAddress.setVisibility(View.VISIBLE);
-               showAddress.setText(address +" "+area+" "+city+" "+postalCode);
-
-               // System.out.println("Address"+address+"  "+"area"+area+"  "+"city"+city+"  "+"country"+country+"  "+"postalCode"+postalCode);
-                /*System.out.println(address);
-                System.out.println(area);
-                System.out.println(city);
-                System.out.println(country);
-                System.out.println(postalCode);
-                System.out.println(subAdminArea);
-                System.out.println(subLocality);
-                System.out.println(premises);
-                System.out.println(addressLine);
-*/
-               /* String doorNo=address;
-                String[] d_No=doorNo.split(",",2);
-                if(d_No.length>=7){
-                    geoSetFlatNo.setText("");
-                }else {
-                    geoSetFlatNo.setText(d_No[0]);
-                }*/
-
-                geoSetArea.setText(subLocality);
-                geoSetCity.setText(area);
-                geoSetPincode.setText(postalCode);
-
-                if(csprogress.isShowing()){
-                    csprogress.dismiss();
-                }
-
-
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-    }
-
-    private void buildAlertMessageNoGps() {
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Please Turn ON your GPS Connection")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        dialog.cancel();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
-    }
 
 }

@@ -362,17 +362,23 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
             try {
                 geoAddresses = geocoder.getFromLocation(lattitude, longitude, FavStatus.REQUEST_LOCATION);
 
-                String address = geoAddresses.get(0).getAddressLine(0);
-                String area = geoAddresses.get(0).getLocality();
-                String city = geoAddresses.get(0).getAdminArea();
-                String country = geoAddresses.get(0).getCountryName();
-                String postalCode = geoAddresses.get(0).getPostalCode();
-                String subAdminArea = geoAddresses.get(0).getSubAdminArea();
-                String subLocality = geoAddresses.get(0).getSubLocality();
-                String premises = geoAddresses.get(0).getPremises();
-                String addressLine = geoAddresses.get(0).getAddressLine(0);
+                if(geoAddresses==null){
+                    getLocation();
+                }
 
-                // System.out.println("Address"+address+"  "+"area"+area+"  "+"city"+city+"  "+"country"+country+"  "+"postalCode"+postalCode);
+                else {
+
+                    String address = geoAddresses.get(0).getAddressLine(0);
+                    String area = geoAddresses.get(0).getLocality();
+                    String city = geoAddresses.get(0).getAdminArea();
+                    String country = geoAddresses.get(0).getCountryName();
+                    String postalCode = geoAddresses.get(0).getPostalCode();
+                    String subAdminArea = geoAddresses.get(0).getSubAdminArea();
+                    String subLocality = geoAddresses.get(0).getSubLocality();
+                    String premises = geoAddresses.get(0).getPremises();
+                    String addressLine = geoAddresses.get(0).getAddressLine(0);
+
+                    // System.out.println("Address"+address+"  "+"area"+area+"  "+"city"+city+"  "+"country"+country+"  "+"postalCode"+postalCode);
                 /*System.out.println(address);
                 System.out.println(area);
                 System.out.println(city);
@@ -384,19 +390,21 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
                 System.out.println(addressLine);
 */
 
-                showAddresMenu.setVisibility(View.VISIBLE);
-                showAddresMenu.setText(address +" "+area+" "+city+" "+postalCode);
+                    showAddresMenu.setVisibility(View.VISIBLE);
+                    showAddresMenu.setText(address + " " + area + " " + city + " " + postalCode);
 
                 /*String doorNo = address;
                 String[] d_No = doorNo.split(",", 2);
                 geoSetFlatNo.setText(d_No[0]);*/
 
-                geoSetArea.setText(subLocality);
-                geoSetCity.setText(area);
-                geoSetPincode.setText(postalCode);
+                    geoSetArea.setText(subLocality);
+                    geoSetCity.setText(area);
+                    geoSetPincode.setText(postalCode);
 
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
                 }
 
 

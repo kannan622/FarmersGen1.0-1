@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.BannerDTO;
@@ -38,6 +39,7 @@ import com.example.saravanamurali.farmersgen.util.Network_config;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -91,6 +93,8 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_menu_home, container, false);
+
+        Fabric.with(getActivity(), new Crashlytics());
 
         dialog = new Dialog(getActivity());
 

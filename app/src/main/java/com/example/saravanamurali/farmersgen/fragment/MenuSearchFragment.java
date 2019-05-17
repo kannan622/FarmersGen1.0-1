@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseHomeBrandDTO;
@@ -29,6 +30,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForBrand;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,6 +55,10 @@ public class MenuSearchFragment extends Fragment implements MenuSearchAdapter.Co
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_menu_search, container, false);
+
+        //Fabric
+        Fabric.with(getActivity(), new Crashlytics());
+
         toolbarSearch = (Toolbar) view.findViewById(R.id.toolBarForSearch);
 
         AppCompatActivity activitySearch = (AppCompatActivity) getActivity();
