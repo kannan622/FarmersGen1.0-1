@@ -59,7 +59,16 @@ public class ProfileUpdateActivity extends AppCompatActivity {
         updateProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateNameandMail();
+
+                String name = u_Name.getText().toString();
+                String mail = u_Email.getText().toString();
+
+                if (name.isEmpty() && mail.isEmpty()) {
+                    Toast.makeText(ProfileUpdateActivity.this, "Name or Email Field Should not be Empty", Toast.LENGTH_LONG).show();
+                } else {
+
+                    updateNameandMail();
+                }
             }
         });
 
@@ -91,7 +100,7 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
 
-                    if(csprogress.isShowing()){
+                    if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
@@ -108,7 +117,7 @@ public class ProfileUpdateActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<JSONResponseProfileEdit> call, Throwable t) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -140,30 +149,30 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
         UpdateNameEmailDTO updateN = new UpdateNameEmailDTO(updateNameEmailDTO.getU_name(), updateNameEmailDTO.getU_email(), updateUserID);
 
-        ApiInterface api=APIClientToUpdateNameAndEmail.getApiIterfaceToUpdateNameAndMail();
+        ApiInterface api = APIClientToUpdateNameAndEmail.getApiIterfaceToUpdateNameAndMail();
 
-        Call<ResponseBody> call=api.getUpdateNameAndMail(updateN);
+        Call<ResponseBody> call = api.getUpdateNameAndMail(updateN);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
 
-                    if(csprogress.isShowing()){
+                    if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
                     Toast.makeText(ProfileUpdateActivity.this, "Profile Updated Successfully", Toast.LENGTH_LONG).show();
-                    Intent redirectToHomeActivity=new Intent(ProfileUpdateActivity.this,HomeActivity.class);
+                    Intent redirectToHomeActivity = new Intent(ProfileUpdateActivity.this, HomeActivity.class);
                     startActivity(redirectToHomeActivity);
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
-                Toast.makeText(ProfileUpdateActivity.this,"Check Internet Connection",Toast.LENGTH_LONG).show();
+                Toast.makeText(ProfileUpdateActivity.this, "Check Internet Connection", Toast.LENGTH_LONG).show();
 
             }
         });
