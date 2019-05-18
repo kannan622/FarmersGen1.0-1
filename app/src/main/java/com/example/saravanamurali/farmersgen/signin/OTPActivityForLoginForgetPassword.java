@@ -234,7 +234,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
                 }
 
                 JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
-                Log.d("res", response.toString());
+
 
                 if (jsonotpResponseFromOTPActivity.getStatus() == 200) {
 

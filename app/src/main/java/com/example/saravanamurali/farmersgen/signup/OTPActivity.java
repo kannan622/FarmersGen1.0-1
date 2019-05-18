@@ -72,12 +72,12 @@ public class OTPActivity extends AppCompatActivity {
         otpButton = (Button) findViewById(R.id.otpSubmit);
         errorText = (TextView) findViewById(R.id.otpError);
 
-        mobileShow_LoginActivity=(TextView)findViewById(R.id.otp_MobileNumber_LoginActivity);
+        mobileShow_LoginActivity = (TextView) findViewById(R.id.otp_MobileNumber_LoginActivity);
 
         mobileShow_LoginActivity.setText(mobileNumberToSendOTP);
 
-        timeShow_LoginActivity=(TextView)findViewById(R.id.timeShower_LoginActivity);
-        resendClick_LoginActivity=(TextView)findViewById(R.id.reSend_LoginActivity);
+        timeShow_LoginActivity = (TextView) findViewById(R.id.timeShower_LoginActivity);
+        resendClick_LoginActivity = (TextView) findViewById(R.id.reSend_LoginActivity);
 
 
         getOTPAtLoginActivity();
@@ -89,23 +89,21 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(!TextUtils.isEmpty(entered_OTP)) {
+                if (!TextUtils.isEmpty(entered_OTP)) {
                     sendMobileNoandOTP();
                 } else {
-                    Toast.makeText(OTPActivity.this,"Please enter OTP",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OTPActivity.this, "Please enter OTP", Toast.LENGTH_SHORT).show();
                 }
-
-
 
 
             }
         });
 
-        smsVerifyCatcher=new SmsVerifyCatcher(this, new OnSmsCatchListener<String>() {
+        smsVerifyCatcher = new SmsVerifyCatcher(this, new OnSmsCatchListener<String>() {
             @Override
             public void onSmsCatch(String message) {
 
-                code=parseCode(message);
+                code = parseCode(message);
                 pinview.setValue(code);
                 getOTPAtLoginActivity();
 
@@ -118,11 +116,11 @@ public class OTPActivity extends AppCompatActivity {
 
     private void callCountDownTimerAtLoginActivity() {
 
-        CountDownTimer countDownTimer=new CountDownTimer(120*1000,1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(120 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
-                ms=millisUntilFinished;
+                ms = millisUntilFinished;
 
                 int seconds = (int) (millisUntilFinished / 1000);
                 int minutes = seconds / 60;
@@ -151,7 +149,7 @@ public class OTPActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 //csprogress.dismiss();
- //whatever you want just you have to launch overhere.
+                                //whatever you want just you have to launch overhere.
 
 
                             }
@@ -174,17 +172,17 @@ public class OTPActivity extends AppCompatActivity {
         csprogress.show();
         csprogress.setCanceledOnTouchOutside(false);
 
-        ApiInterface api=APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
+        ApiInterface api = APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
 
-        OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_fp_Login=new OTPSendToMobileDTOFrom_FP(mobileNumberToSendOTP);
+        OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_fp_Login = new OTPSendToMobileDTOFrom_FP(mobileNumberToSendOTP);
 
-        Call<JSONResponseToSendOTPFromForgetPasswordDTO> call= api.getOTPTOForgetPassword(otpSendToMobileDTOFrom_fp_Login);
+        Call<JSONResponseToSendOTPFromForgetPasswordDTO> call = api.getOTPTOForgetPassword(otpSendToMobileDTOFrom_fp_Login);
 
         call.enqueue(new Callback<JSONResponseToSendOTPFromForgetPasswordDTO>() {
             @Override
             public void onResponse(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Response<JSONResponseToSendOTPFromForgetPasswordDTO> response) {
-                if(response.isSuccessful()){
-                    if(csprogress.isShowing()){
+                if (response.isSuccessful()) {
+                    if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
                 }
@@ -193,7 +191,7 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Throwable t) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -231,7 +229,7 @@ public class OTPActivity extends AppCompatActivity {
         ApiInterface api = APIClientToSendMobileNoAndOTP.getApiInterfaceToSendMobileNoAndOTP();
 
 
-        OTPandMobileNoDTO otPandMobileNoDTO = new OTPandMobileNoDTO( entered_OTP,mobileNumberToSendOTP);
+        OTPandMobileNoDTO otPandMobileNoDTO = new OTPandMobileNoDTO(entered_OTP, mobileNumberToSendOTP);
 
 
         Call<JSONOTPResponseFromOTPActivity> call = api.sendMobileNoandOTPFromOTPActivity(otPandMobileNoDTO);
@@ -240,34 +238,33 @@ public class OTPActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONOTPResponseFromOTPActivity> call, Response<JSONOTPResponseFromOTPActivity> response) {
 
-                /*if (response.isSuccessful()) {
 
-                    JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
-*/
-                    if (response.isSuccessful()) {
-
-                        if(csprogress.isShowing()){
-                            csprogress.dismiss();
-                        }
-
-                        Intent intent = new Intent(OTPActivity.this, NewPassAndConfirmPass.class);
-                        intent.putExtra("MOBILENO_FROM_OTP", mobileNumberToSendOTP);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                       // if (jsonotpResponseFromOTPActivity.getStatus() == 500) {
-
-                        //Resend OTP
-
-                    }
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
                 }
 
+                JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
+
+                if (jsonotpResponseFromOTPActivity.getStatus() == 200) {
+
+                    Intent intent = new Intent(OTPActivity.this, NewPassAndConfirmPass.class);
+                    intent.putExtra("MOBILENO_FROM_OTP", mobileNumberToSendOTP);
+                    startActivity(intent);
+                    finish();
+                } else if (jsonotpResponseFromOTPActivity.getStatus() == 500) {
+
+                    Toast.makeText(OTPActivity.this, "You have entered wrong OTP", Toast.LENGTH_LONG).show();
+
+                }
+
+
+            }
 
 
             @Override
             public void onFailure(Call<JSONOTPResponseFromOTPActivity> call, Throwable t) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -288,7 +285,6 @@ public class OTPActivity extends AppCompatActivity {
         super.onStop();
         smsVerifyCatcher.onStop();
     }
-
 
 
     @Override

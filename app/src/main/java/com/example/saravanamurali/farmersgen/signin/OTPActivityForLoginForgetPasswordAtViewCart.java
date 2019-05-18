@@ -130,19 +130,30 @@ public class OTPActivityForLoginForgetPasswordAtViewCart extends AppCompatActivi
         call.enqueue(new Callback<JSONOTPResponseFromOTPActivity>() {
             @Override
             public void onResponse(Call<JSONOTPResponseFromOTPActivity> call, Response<JSONOTPResponseFromOTPActivity> response) {
-                if(response.isSuccessful()) {
+
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
-                    Intent newPassintentAtViewCart = new Intent(OTPActivityForLoginForgetPasswordAtViewCart.this, NewPassAndConfirmPassForLoginForgetPassword_At_ViewCart.class);
-                    newPassintentAtViewCart.putExtra("MOBILENO_FOR_NEW_PASS_AND_CONFIRM_PASSWORD_ATVIEWCART", mobileNumberForLoginForgetPassword_AtViewCart);
-                    startActivity(newPassintentAtViewCart);
-                    finish();
+                JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
+
+                    if(jsonotpResponseFromOTPActivity.getStatus()==200) {
+
+                        Intent newPassintentAtViewCart = new Intent(OTPActivityForLoginForgetPasswordAtViewCart.this, NewPassAndConfirmPassForLoginForgetPassword_At_ViewCart.class);
+                        newPassintentAtViewCart.putExtra("MOBILENO_FOR_NEW_PASS_AND_CONFIRM_PASSWORD_ATVIEWCART", mobileNumberForLoginForgetPassword_AtViewCart);
+                        startActivity(newPassintentAtViewCart);
+                        finish();
+                    }
+
+                    else if (jsonotpResponseFromOTPActivity.getStatus() == 500) {
+
+                        Toast.makeText(OTPActivityForLoginForgetPasswordAtViewCart.this, "You have entered wrong OTP", Toast.LENGTH_LONG).show();
+
+                    }
 
 
-                }
+
                 }
 
             @Override

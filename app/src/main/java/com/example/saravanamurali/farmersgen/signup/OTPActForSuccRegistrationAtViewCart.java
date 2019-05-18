@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
@@ -21,6 +22,7 @@ import com.example.saravanamurali.farmersgen.models.OTPandMobileNoDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendMobileNoAndOTP;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendOTPToMFrom_FP;
 import com.example.saravanamurali.farmersgen.signin.LoginActivity;
+import com.example.saravanamurali.farmersgen.signin.OTPActivityForLoginForgetPassword;
 import com.example.saravanamurali.farmersgen.util.Network_config;
 import com.goodiebag.pinview.Pinview;
 import com.stfalcon.smsverifycatcher.OnSmsCatchListener;
@@ -49,7 +51,7 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
 
     private TextView mobileShow_ForgetPassword_Signup;
 
-   private String code;
+    private String code;
     private SmsVerifyCatcher smsVerifyCatcher;
 
     @Override
@@ -96,11 +98,11 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
             }
         });
 
-        smsVerifyCatcher=new SmsVerifyCatcher(this, new OnSmsCatchListener<String>() {
+        smsVerifyCatcher = new SmsVerifyCatcher(this, new OnSmsCatchListener<String>() {
             @Override
             public void onSmsCatch(String message) {
 
-                code=parseCode(message);
+                code = parseCode(message);
                 pinviewRegistration.setValue(code);
                 getOTPAtSignup();
 
@@ -110,7 +112,7 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
 
     }
 
-       private void countDownTimerAtForgetPasswordAtSignUp() {
+    private void countDownTimerAtForgetPasswordAtSignUp() {
 
         CountDownTimer countDownTimer = new CountDownTimer(120 * 1000, 1000) {
             @Override
@@ -148,7 +150,7 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
                             @Override
                             public void run() {
                                 //csprogress.dismiss();
- //whatever you want just you have to launch overhere.
+                                //whatever you want just you have to launch overhere.
 
 
                             }
@@ -230,7 +232,7 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
         ApiInterface api = APIClientToSendMobileNoAndOTP.getApiInterfaceToSendMobileNoAndOTP();
 
 
-        OTPandMobileNoDTO otPandMobileNoDTO = new OTPandMobileNoDTO( entered_OTP,mobileNumberToSendOTP);
+        OTPandMobileNoDTO otPandMobileNoDTO = new OTPandMobileNoDTO(entered_OTP, mobileNumberToSendOTP);
 
 
         Call<JSONOTPResponseFromOTPActivity> call = api.sendMobileNoandOTPFromOTPActivity(otPandMobileNoDTO);
@@ -239,22 +241,22 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONOTPResponseFromOTPActivity> call, Response<JSONOTPResponseFromOTPActivity> response) {
 
-                // if(response.isSuccessful()){
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
-                // JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity=response.body();
 
-                if (response.isSuccessful()) {
+                JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
 
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
+                if (jsonotpResponseFromOTPActivity.getStatus() == 200) {
+
 
                     Intent intent = new Intent(OTPActForSuccRegistrationAtViewCart.this, LoginActivity.class);
                     startActivity(intent);
-                } else {
-                    //if(jsonotpResponseFromOTPActivity.getStatus()==500)
 
-                    //Resend OTP
+                } else if (jsonotpResponseFromOTPActivity.getStatus() == 500) {
+
+                    Toast.makeText(OTPActForSuccRegistrationAtViewCart.this, "You have entered wrong OTP", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -284,7 +286,6 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
         super.onStop();
         smsVerifyCatcher.onStop();
     }
-
 
 
     @Override

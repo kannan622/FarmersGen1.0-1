@@ -21,6 +21,7 @@ import com.example.saravanamurali.farmersgen.models.OTPandMobileNoDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendMobileNoAndOTP;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendOTPToMFrom_FP;
 import com.example.saravanamurali.farmersgen.signin.LoginActivityForViewCart;
+import com.example.saravanamurali.farmersgen.signin.OTPActivityForLoginForgetPassword;
 import com.goodiebag.pinview.Pinview;
 import com.stfalcon.smsverifycatcher.OnSmsCatchListener;
 import com.stfalcon.smsverifycatcher.SmsVerifyCatcher;
@@ -55,18 +56,18 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otpfor_view_cart2);
 
-        Intent getMobileNumber=getIntent();
-        mobileNumberToSendOTP_AtViewCart =getMobileNumber.getStringExtra("MOBILENOTOSEND_OTPATVIEWCART2");
+        Intent getMobileNumber = getIntent();
+        mobileNumberToSendOTP_AtViewCart = getMobileNumber.getStringExtra("MOBILENOTOSEND_OTPATVIEWCART2");
 
         pinviewRegistration_AtViewCart = (Pinview) findViewById(R.id.otpForRegistrationAtViewCart2);
         otpButtonRegistration_AtViewCart = (Button) findViewById(R.id.otpRegistrationSubmitAtViewCart2);
 
-        mobileShow=(TextView)findViewById(R.id.otp_MobileNumber);
+        mobileShow = (TextView) findViewById(R.id.otp_MobileNumber);
 
         mobileShow.setText(mobileNumberToSendOTP_AtViewCart);
 
-        timeShow=(TextView)findViewById(R.id.timeShower);
-        resendClick=(TextView)findViewById(R.id.reSend);
+        timeShow = (TextView) findViewById(R.id.timeShower);
+        resendClick = (TextView) findViewById(R.id.reSend);
 
         //Getting OTP
         gettingOTP();
@@ -79,22 +80,21 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                if(!TextUtils.isEmpty(entered_OTP_AtViewCart)) {
+                if (!TextUtils.isEmpty(entered_OTP_AtViewCart)) {
                     sendMobileNoandOTPForViewCart();
-                }
-                else{
+                } else {
 
-                    Toast.makeText(OTPActivityForViewCart2.this,"Please enter valid OTP",Toast.LENGTH_LONG).show();
+                    Toast.makeText(OTPActivityForViewCart2.this, "Please enter valid OTP", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
 
-        smsVerifyCatcher=new SmsVerifyCatcher(this, new OnSmsCatchListener<String>() {
+        smsVerifyCatcher = new SmsVerifyCatcher(this, new OnSmsCatchListener<String>() {
             @Override
             public void onSmsCatch(String message) {
 
-                code=parseCode(message);
+                code = parseCode(message);
                 pinviewRegistration_AtViewCart.setValue(code);
                 gettingOTP();
 
@@ -116,11 +116,11 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
     }
 
     private void callCountDownTimer() {
-        CountDownTimer countDownTimer=new CountDownTimer(120*1000,1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(120 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
-                ms=millisUntilFinished;
+                ms = millisUntilFinished;
 
                 int seconds = (int) (millisUntilFinished / 1000);
                 int minutes = seconds / 60;
@@ -176,18 +176,18 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
         csprogress.setCanceledOnTouchOutside(false);
 
 
-        ApiInterface api=APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
+        ApiInterface api = APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
 
-        OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_fp=new OTPSendToMobileDTOFrom_FP(mobileNumberToSendOTP_AtViewCart);
+        OTPSendToMobileDTOFrom_FP otpSendToMobileDTOFrom_fp = new OTPSendToMobileDTOFrom_FP(mobileNumberToSendOTP_AtViewCart);
 
-        Call<JSONResponseToSendOTPFromForgetPasswordDTO> call= api.getOTPTOForgetPassword(otpSendToMobileDTOFrom_fp);
+        Call<JSONResponseToSendOTPFromForgetPasswordDTO> call = api.getOTPTOForgetPassword(otpSendToMobileDTOFrom_fp);
 
         call.enqueue(new Callback<JSONResponseToSendOTPFromForgetPasswordDTO>() {
             @Override
             public void onResponse(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Response<JSONResponseToSendOTPFromForgetPasswordDTO> response) {
 
-                if(response.isSuccessful()){
-                    if(csprogress.isShowing()){
+                if (response.isSuccessful()) {
+                    if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
                 }
@@ -197,7 +197,7 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
             @Override
             public void onFailure(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Throwable t) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -216,32 +216,43 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
         csprogress.setCanceledOnTouchOutside(false);
 
 
-        ApiInterface api=APIClientToSendMobileNoAndOTP.getApiInterfaceToSendMobileNoAndOTP();
+        ApiInterface api = APIClientToSendMobileNoAndOTP.getApiInterfaceToSendMobileNoAndOTP();
 
 
-        OTPandMobileNoDTO otPandMobileNoDTO=new OTPandMobileNoDTO(entered_OTP_AtViewCart,mobileNumberToSendOTP_AtViewCart);
+        OTPandMobileNoDTO otPandMobileNoDTO = new OTPandMobileNoDTO(entered_OTP_AtViewCart, mobileNumberToSendOTP_AtViewCart);
 
 
-        Call<JSONOTPResponseFromOTPActivity> call=api.sendMobileNoandOTPFromOTPActivity(otPandMobileNoDTO);
+        Call<JSONOTPResponseFromOTPActivity> call = api.sendMobileNoandOTPFromOTPActivity(otPandMobileNoDTO);
 
         call.enqueue(new Callback<JSONOTPResponseFromOTPActivity>() {
             @Override
             public void onResponse(Call<JSONOTPResponseFromOTPActivity> call, Response<JSONOTPResponseFromOTPActivity> response) {
-                if(response.isSuccessful()){
-                    if(csprogress.isShowing()){
-                        csprogress.dismiss();
-                    }
 
-                    Intent intent=new Intent(OTPActivityForViewCart2.this,LoginActivityForViewCart.class);
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
+                JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
+
+
+                if (jsonotpResponseFromOTPActivity.getStatus() == 200) {
+
+                    Intent intent = new Intent(OTPActivityForViewCart2.this, LoginActivityForViewCart.class);
                     startActivity(intent);
                     finish();
+                } else if (jsonotpResponseFromOTPActivity.getStatus() == 500) {
+
+                    Toast.makeText(OTPActivityForViewCart2.this, "You have entered wrong OTP", Toast.LENGTH_LONG).show();
+
                 }
+
             }
+
 
             @Override
             public void onFailure(Call<JSONOTPResponseFromOTPActivity> call, Throwable t) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -261,7 +272,6 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
         super.onStop();
         smsVerifyCatcher.onStop();
     }
-
 
 
     @Override

@@ -21,6 +21,7 @@ import com.example.saravanamurali.farmersgen.models.OTPSendToMobileDTOFrom_FP;
 import com.example.saravanamurali.farmersgen.models.OTPandMobileNoDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendMobileNoAndOTP;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendOTPToMFrom_FP;
+import com.example.saravanamurali.farmersgen.signin.OTPActivityForLoginForgetPassword;
 import com.goodiebag.pinview.Pinview;
 import com.stfalcon.smsverifycatcher.OnSmsCatchListener;
 import com.stfalcon.smsverifycatcher.SmsVerifyCatcher;
@@ -241,22 +242,31 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
             @Override
             public void onResponse(Call<JSONOTPResponseFromOTPActivity> call, Response<JSONOTPResponseFromOTPActivity> response) {
 
-                if (response.isSuccessful()) {
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
+                JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
+
+
+                if (jsonotpResponseFromOTPActivity.getStatus() == 200) {
+
+
                     Toast.makeText(ExistingUser_ForgetPassword_OTP_AtViewCartActivity.this, "Here", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(ExistingUser_ForgetPassword_OTP_AtViewCartActivity.this, Existing_User_NewPassAndConfirmPass_AtViewCartActivity.class);
                     intent.putExtra("MOBILENO_FOR_NEW_AND_CONFIRM_PASSWORD", MobileNumberFrom_Existing_User_Forget_Password);
                     startActivity(intent);
-                } else {
-                    // if (jsonotpResponseFromOTPActivity.getStatus() == 500) {
-
-                    //Resend OTP
 
                 }
+
+                else if (jsonotpResponseFromOTPActivity.getStatus() == 500) {
+
+                    Toast.makeText(ExistingUser_ForgetPassword_OTP_AtViewCartActivity.this, "You have entered wrong OTP", Toast.LENGTH_LONG).show();
+
+                }
+
+
             }
 
 
