@@ -51,6 +51,7 @@ public class Count_Price_Show_Fragment extends Fragment {
     }
 
 
+
     public void getCountPrice() {
 
 

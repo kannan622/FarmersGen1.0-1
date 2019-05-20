@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
@@ -38,6 +40,8 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
 
     CouponAdapter couponAdapter;
 
+    ImageView leftArrow;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +53,25 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
         couponRecylerView.setLayoutManager(new LinearLayoutManager(CouponActivity.this));
         couponRecylerView.setHasFixedSize(true);
 
+        leftArrow=(ImageView)findViewById(R.id.leftCoupon);
+
         jsonResponseCouponDTO=new ArrayList<CouponDTO>();
 
         couponAdapter=new CouponAdapter(jsonResponseCouponDTO,CouponActivity.this);
 
         couponRecylerView.setAdapter(couponAdapter);
 
+
+
         couponAdapter.setShareCouponCode(CouponActivity.this);
+
+        leftArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent viewCartActivity=new Intent(CouponActivity.this,ViewCartActivity.class);
+                startActivity(viewCartActivity);
+            }
+        });
 
         //Disply all coupon from DB
         loadCouponCode();
