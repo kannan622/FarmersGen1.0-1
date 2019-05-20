@@ -35,11 +35,13 @@ import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToFet
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToGetPastOrderDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToGetPastOrderDetails;
 import com.example.saravanamurali.farmersgen.models.FavBrandDTO;
+import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
 import com.example.saravanamurali.farmersgen.models.LogOutDeviceIDDTO;
 import com.example.saravanamurali.farmersgen.pastorder.PastOrderListActivity;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForProfileEdit;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientLogOutUsingDeviceID;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetCancelOrderList;
+import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetPastOrderDetails;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToGetFavBrands;
 import com.example.saravanamurali.farmersgen.signin.LoginActivity;
@@ -356,9 +358,63 @@ public class MenuAccountFragment extends Fragment {
     //Manage Address show,add,edit adress
     private void manageAddressInMenuAccountFragment() {
 
-        Intent getExistingAddress = new Intent(this.getActivity(), ExistingAddressActivity_AtMenuAccFragment.class);
-        startActivity(getExistingAddress);
+        checkAddressIsThereOrNot();
 
+    }
+
+    private void checkAddressIsThereOrNot() {
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+        ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
+
+        SharedPreferences getCurrentUser = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+        String curUser = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
+
+        CurrentUserDTO currentUSR = new CurrentUserDTO(curUser);
+
+        Call<GetDeliveryAddressDTO> call = api.getExistingAddress(currentUSR);
+
+        call.enqueue(new Callback<GetDeliveryAddressDTO>() {
+            @Override
+            public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
+                GetDeliveryAddressDTO getDeliveryAddressDTO=response.body();
+
+                if(getDeliveryAddressDTO.getAddressID()!=null){
+
+                    Intent getExistingAddress = new Intent(getActivity(), ExistingAddressActivity_AtMenuAccFragment.class);
+                    startActivity(getExistingAddress);
+                }
+
+                else{
+                    callSnackBarForAddress();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
+            }
+        });
+
+
+    }
+
+    private void callSnackBarForAddress() {
+
+        Snackbar snackbar = Snackbar.make(coordinatorLayout, "We dont have your address yet", Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     //To get Past Order List

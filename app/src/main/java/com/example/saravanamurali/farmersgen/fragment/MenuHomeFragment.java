@@ -204,9 +204,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
             public void onResponse(Call<JSONResponseHomeBrandDTO> call, Response<JSONResponseHomeBrandDTO> response) {
 
                 if (response.isSuccessful()) {
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
+
                     JSONResponseHomeBrandDTO jsonResponse = response.body();
 
                     List<HomeProductDTO> homeProductDTOList = jsonResponse.getRecords();
@@ -227,6 +225,11 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
 
                     menuHomeFragmentAdapter.setData(homeProductDTOList);
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
                     //  Toast.makeText(getActivity(), "Sucesss Running", Toast.LENGTH_LONG).show();
                 }
             }

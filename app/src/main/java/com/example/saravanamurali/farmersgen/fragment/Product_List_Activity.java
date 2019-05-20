@@ -480,11 +480,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
             @Override
             public void onResponse(Call<JSONResponseProductListDTO> call, Response<JSONResponseProductListDTO> response) {
 
-                if (response.isSuccessful()) {
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-                }
 
                 JSONResponseProductListDTO jsonResponseProductListDTO = response.body();
 
@@ -512,6 +507,10 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                 }
                 productListAdapter.notifyDataSetChanged();
                 productListAdapter.setDataSetChanged(productListDTO);
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
 
                 if (totalCount > 0) {
