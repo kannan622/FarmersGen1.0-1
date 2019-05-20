@@ -4,10 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
@@ -26,31 +30,66 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FavouriteListActivity extends AppCompatActivity implements FavouriteListAdapter.OnFavClickListener{
-    
+public class FavouriteListActivity extends AppCompatActivity implements FavouriteListAdapter.OnFavClickListener {
+
     RecyclerView favrecyclerView;
     FavouriteListAdapter favouriteListAdapter;
     List<FavBrandDTO> favBrandDTOS;
 
     String curUserForFav;
 
+    Toolbar toolbarFav;
+
+    CollapsingToolbarLayout collapsingToolbarLayout = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_list);
-        
-        favrecyclerView=(RecyclerView)findViewById(R.id.recyclerViewFavourite);
+
+        favrecyclerView = (RecyclerView) findViewById(R.id.recyclerViewFavourite);
         favrecyclerView.setHasFixedSize(true);
         favrecyclerView.setLayoutManager(new LinearLayoutManager(FavouriteListActivity.this));
-        
-        favBrandDTOS=new ArrayList<FavBrandDTO>();
-        
+
+        toolbarFav = (Toolbar) findViewById(R.id.toolbarFavourite);
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_favourite);
+
+        /*setSupportActionBar(toolbarFav);
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }*/
+
+
+        favBrandDTOS = new ArrayList<FavBrandDTO>();
+
         loadFavouriteBrands();
-        
-        favouriteListAdapter=new FavouriteListAdapter(FavouriteListActivity.this,favBrandDTOS);
+
+        favouriteListAdapter = new FavouriteListAdapter(FavouriteListActivity.this, favBrandDTOS);
         favrecyclerView.setAdapter(favouriteListAdapter);
         favouriteListAdapter.setOnFavClickListener(FavouriteListActivity.this);
+
+        ToolbarCollapsingAppearanceWhenCollapsed();
+        ToolbarCollapsingAppearanceWhenExpanded();
     }
+
+    private void ToolbarCollapsingAppearanceWhenExpanded() {
+
+
+        collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedtoolbar);
+
+    }
+
+    private void ToolbarCollapsingAppearanceWhenCollapsed() {
+
+        collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedtoolbar);
+        
+    }
+
+    /*private void ToolbarCollapsingAppearance() {
+        collapsingToolbarLayout.setStatusBarScrimColor(Color.parseColor("#FFFFFF"));
+    }*/
+
 
     private void loadFavouriteBrands() {
 
@@ -65,22 +104,22 @@ public class FavouriteListActivity extends AppCompatActivity implements Favourit
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
         curUserForFav = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
 
-        ApiInterface api =ApiClientToGetFavBrands.getApiInterfaceToGetFavBrands();
+        ApiInterface api = ApiClientToGetFavBrands.getApiInterfaceToGetFavBrands();
 
-        CurrentUserDTO currentUserDTO=new CurrentUserDTO(curUserForFav);
+        CurrentUserDTO currentUserDTO = new CurrentUserDTO(curUserForFav);
 
-        Call<JsonResponseForFavBrandsDTO> call=api.getFavouriteBrands(currentUserDTO);
+        Call<JsonResponseForFavBrandsDTO> call = api.getFavouriteBrands(currentUserDTO);
 
         call.enqueue(new Callback<JsonResponseForFavBrandsDTO>() {
             @Override
             public void onResponse(Call<JsonResponseForFavBrandsDTO> call, Response<JsonResponseForFavBrandsDTO> response) {
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
-                JsonResponseForFavBrandsDTO jsonResponseForFavBrandsDTO=response.body();
-                favBrandDTOS =jsonResponseForFavBrandsDTO.getFavRecords();
+                JsonResponseForFavBrandsDTO jsonResponseForFavBrandsDTO = response.body();
+                favBrandDTOS = jsonResponseForFavBrandsDTO.getFavRecords();
 
                 favouriteListAdapter.setFavData(favBrandDTOS);
 
@@ -89,14 +128,12 @@ public class FavouriteListActivity extends AppCompatActivity implements Favourit
 
             @Override
             public void onFailure(Call<JsonResponseForFavBrandsDTO> call, Throwable t) {
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
             }
         });
-
-
 
 
     }

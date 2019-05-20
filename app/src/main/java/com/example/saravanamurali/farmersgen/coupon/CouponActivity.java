@@ -53,7 +53,7 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
         couponRecylerView.setLayoutManager(new LinearLayoutManager(CouponActivity.this));
         couponRecylerView.setHasFixedSize(true);
 
-        leftArrow=(ImageView)findViewById(R.id.leftCoupon);
+        //leftArrow=(ImageView)findViewById(R.id.leftCoupon);
 
         jsonResponseCouponDTO=new ArrayList<CouponDTO>();
 
@@ -65,13 +65,14 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
 
         couponAdapter.setShareCouponCode(CouponActivity.this);
 
-        leftArrow.setOnClickListener(new View.OnClickListener() {
+        /*leftArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent viewCartActivity=new Intent(CouponActivity.this,ViewCartActivity.class);
                 startActivity(viewCartActivity);
+                finish();
             }
-        });
+        });*/
 
         //Disply all coupon from DB
         loadCouponCode();

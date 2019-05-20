@@ -590,7 +590,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     }
 
 
-  /*  @Override
+ /* *//*  @Override
     public void viewCartUpdateInterface(int updateCount, String updateProductCode, String prouctPrice) {
         String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
