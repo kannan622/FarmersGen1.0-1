@@ -13,6 +13,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -589,22 +590,26 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     }
 
-
- /* *//*  @Override
+/*
+//Okhttp3
+    @Override
     public void viewCartUpdateInterface(int updateCount, String updateProductCode, String prouctPrice) {
         String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
-        new AsyncTask<Void, Void, String>() {
+        */
+/*new AsyncTask<Void, Void, String>() {
 
             @Override
             protected String doInBackground(Void... voids) {
                 return null;
             }
-        }.execute();
+        }.execute();*//*
+
 
 
         OkHttpClient client = new OkHttpClient();
+        OkHttpClient httpClient = new OkHttpClient();
 
         String url = "http://farmersgen.com/service/cart/update_cart.php";
 
@@ -623,42 +628,62 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         RequestBody requestBody = RequestBody.create(json, actualData.toString());
 
-        final Request request = new Request.Builder()
+         Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)
+                .header("Content-Type", "application/json")
                 .header("Connection", "close")
                 .build();
 
-        client.newCall(request).enqueue(new okhttp3.Callback() {
-            @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
+        okhttp3.Response response = null;
 
-            }
+        try {
+            response = httpClient.newCall(request).execute();
+            if (response.isSuccessful()) {
+                Log.e("", "Got response from server for JSON post using OkHttp ");
 
-            @Override
-            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
+                //Log.d("res", response.body().string().toString());
 
-                String jsonResponseUpdateCartDTO = response.body().toString();
+                String result_response = response.body().string().toString();
                 try {
-                    JSONObject json = new JSONObject(jsonResponseUpdateCartDTO);
-                    String producode = json.getString("product_code");
-                    String count = json.getString("count");
-                    String totalPRice = json.getString("total_price");
-                    String grandTotal = json.getString("grand_total");
 
-                    System.out.println("Ok HTTP3" + producode + " " + count + " " + totalPRice + " " + grandTotal);
+
+                    JSONObject myjson = new JSONObject(result_response);
+
+                    int status = myjson.getInt("responsecode");
+                    String msg = myjson.getString("message");
+                    if (status==200) {
+
+                        String producode = myjson.getString("product_code");
+                        String count = myjson.getString("count");
+                        String totalPRice = myjson.getString("total_price");
+                        String grandTotal = myjson.getString("grand_total");
+
+                        System.out.println("UpdateOKHTTP"+producode+" "+count+" "+totalPRice+" "+grandTotal);
+
+                        Log.d("okk", "" + producode + " " + count + " " + totalPRice + " " + grandTotal);
+
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                    }
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                //jsonResponseUpdateCartDTO.
-
+            } else {
+                Toast.makeText(getApplicationContext(), "failed to get response", Toast.LENGTH_SHORT).show();
             }
-        });
 
-    }
-*/
+        } catch (IOException e) {
+            Log.e("", "error in getting response for json post request okhttp");
+        }
+
+
+    } */
+
     //Update Count in ViewCart
     @Override
     public void viewCartUpdateInterface(int viewCartCount, String viewCartProductCode, String
@@ -720,7 +745,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
     }//// End of Update Count in ViewCart
-
 
     @Override
     public void viewCartUpdateInterfaceSqlLite(int viewCartCount, String viewCartProductCode, String viewCart_Price) {
