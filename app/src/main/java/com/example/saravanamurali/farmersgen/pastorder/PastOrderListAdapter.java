@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.pastorder;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -10,14 +11,16 @@ import android.widget.TextView;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToGetPastOrderDTO;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import java.util.List;
 
-public class PastOrderListAdapter extends RecyclerView.Adapter<PastOrderListAdapter.PastOrderListAdapterViewHolder>  {
+public class PastOrderListAdapter extends RecyclerView.Adapter<PastOrderListAdapter.PastOrderListAdapterViewHolder> {
 
     PastOrderIdInterface pastOrderIdInterface;
 
     Context mPastOrderContext;
+    Dialog dialog;
     List<JSONResponseToGetPastOrderDTO> jsonResponseToGetPastOrderDTOList;
 
     public PastOrderListAdapter(Context mPastOrderContext, List<JSONResponseToGetPastOrderDTO> jsonResponseToGetPastOrderDTOList) {
@@ -25,18 +28,18 @@ public class PastOrderListAdapter extends RecyclerView.Adapter<PastOrderListAdap
         this.jsonResponseToGetPastOrderDTOList = jsonResponseToGetPastOrderDTOList;
     }
 
-    public void setPastOrderList(List<JSONResponseToGetPastOrderDTO> jsonResponseToGetPastOrderDTOList){
-        this.jsonResponseToGetPastOrderDTOList=jsonResponseToGetPastOrderDTOList;
+    public void setPastOrderList(List<JSONResponseToGetPastOrderDTO> jsonResponseToGetPastOrderDTOList) {
+        this.jsonResponseToGetPastOrderDTOList = jsonResponseToGetPastOrderDTOList;
         notifyDataSetChanged();
 
     }
 
-    public interface PastOrderIdInterface{
+    public interface PastOrderIdInterface {
         void pastOrderID(String pastOrderID);
     }
 
-    public void setPastOrderIdInterface(PastOrderIdInterface pastOrderIdInterface){
-        this.pastOrderIdInterface=pastOrderIdInterface;
+    public void setPastOrderIdInterface(PastOrderIdInterface pastOrderIdInterface) {
+        this.pastOrderIdInterface = pastOrderIdInterface;
         notifyDataSetChanged();
     }
 
@@ -50,9 +53,12 @@ public class PastOrderListAdapter extends RecyclerView.Adapter<PastOrderListAdap
     @Override
     public PastOrderListAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        LayoutInflater inflater=LayoutInflater.from(mPastOrderContext);
-        View view=inflater.inflate(R.layout.pastorderlist_adapterview,viewGroup,false);
-        PastOrderListAdapterViewHolder pastOrderListAdapterViewHolder=new PastOrderListAdapterViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(mPastOrderContext);
+        View view = inflater.inflate(R.layout.pastorderlist_adapterview, viewGroup, false);
+
+        dialog = new Dialog(mPastOrderContext);
+
+        PastOrderListAdapterViewHolder pastOrderListAdapterViewHolder = new PastOrderListAdapterViewHolder(view);
 
         return pastOrderListAdapterViewHolder;
     }
@@ -77,23 +83,28 @@ public class PastOrderListAdapter extends RecyclerView.Adapter<PastOrderListAdap
         TextView pastOrderDate;
         TextView pastOrderGrandTotal;
 
-        public PastOrderListAdapterViewHolder(@NonNull View itemView)
-        {
+        public PastOrderListAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            pastOrderNumber=itemView.findViewById(R.id.pastOrderNoAdapterView);
-            pastOrderDate=itemView.findViewById(R.id.pastOrderDateAdapterView);
-            pastOrderGrandTotal=itemView.findViewById(R.id.pastOrderGrandTotalAdapterView);
+            pastOrderNumber = itemView.findViewById(R.id.pastOrderNoAdapterView);
+            pastOrderDate = itemView.findViewById(R.id.pastOrderDateAdapterView);
+            pastOrderGrandTotal = itemView.findViewById(R.id.pastOrderGrandTotalAdapterView);
 
 
             pastOrderNumber.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int getAdapterPastOrderNumber=getAdapterPosition();
-                    JSONResponseToGetPastOrderDTO jsonResponseToGetPastOrderDTO=jsonResponseToGetPastOrderDTOList.get(getAdapterPastOrderNumber);
+                    if (Network_config.is_Network_Connected_flag(mPastOrderContext)) {
+                        int getAdapterPastOrderNumber = getAdapterPosition();
+                        JSONResponseToGetPastOrderDTO jsonResponseToGetPastOrderDTO = jsonResponseToGetPastOrderDTOList.get(getAdapterPastOrderNumber);
 
-                    String pastOrderId=jsonResponseToGetPastOrderDTO.getPastOrderID();
-                    pastOrderIdInterface.pastOrderID(pastOrderId);
+                        String pastOrderId = jsonResponseToGetPastOrderDTO.getPastOrderID();
+                        pastOrderIdInterface.pastOrderID(pastOrderId);
+
+                    } else {
+                        Network_config.customAlert(dialog, mPastOrderContext, mPastOrderContext.getResources().getString(R.string.app_name),
+                                mPastOrderContext.getResources().getString(R.string.connection_message));
+                    }
 
 
                 }

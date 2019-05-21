@@ -1,6 +1,8 @@
 package com.example.saravanamurali.farmersgen.pastorder;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseToVie
 import com.example.saravanamurali.farmersgen.models.OrderID_DTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientPastOrderedProductListView;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetPastOrderDetails;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 
 
 import java.io.Serializable;
@@ -35,10 +38,18 @@ public class PastOrderListActivity extends AppCompatActivity implements PastOrde
 
     PastOrderListAdapter pastOrderListAdapter;
 
+    Dialog dialog;
+    Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_order_list);
+
+        mContext=PastOrderListActivity.this;
+
+        dialog=new Dialog(mContext);
+
 
         pastOrderRecyclerView=(RecyclerView)findViewById(R.id.pastOrderRecyclerView);
         pastOrderRecyclerView.setLayoutManager(new LinearLayoutManager(PastOrderListActivity.this));
@@ -53,7 +64,14 @@ public class PastOrderListActivity extends AppCompatActivity implements PastOrde
         pastOrderRecyclerView.setAdapter(pastOrderListAdapter);
 
 
-        loastPastOrderList();
+        if (Network_config.is_Network_Connected_flag(mContext)) {
+            loastPastOrderList();
+        }
+
+        else {
+            Network_config.customAlert(dialog, mContext, getResources().getString(R.string.app_name),
+                    getResources().getString(R.string.connection_message));
+        }
 
 
     }

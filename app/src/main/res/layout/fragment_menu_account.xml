@@ -44,7 +44,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:text="Murali"
+                        android:text=""
 
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/black"
@@ -59,7 +59,7 @@
                         android:layout_below="@id/profileUserName"
                         android:layout_alignParentLeft="true"
                         android:layout_marginTop="8dp"
-                        android:text="8015386062" />
+                        android:text="" />
 
                     <TextView
                         android:id="@+id/dot"
@@ -80,7 +80,7 @@
                         android:layout_alignBaseline="@id/profileMobileNumber"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@id/dot"
-                        android:text="saravanamurali18@gmail.com" />
+                        android:text="" />
 
                     <!--<TextView
                         android:id="@+id/editProfile"

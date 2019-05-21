@@ -1,6 +1,7 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,6 +23,7 @@ import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseFromS
 import com.example.saravanamurali.farmersgen.models.GetDataFromSqlLiteDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToMoveDataFromSqlLiteToServerDB;
 import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,8 @@ public class Count_Price_Show_Fragment extends Fragment {
 
     FrameLayout frameLayout;
 
+    private Dialog dialog;
+
     public Count_Price_Show_Fragment() {
 
     }
@@ -68,6 +72,8 @@ public class Count_Price_Show_Fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_count__price__show, container, false);
+
+        dialog = new Dialog(getActivity());
 
 
         mSqLiteDatabase = getActivity().openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
@@ -146,7 +152,16 @@ public class Count_Price_Show_Fragment extends Fragment {
             csprogress.dismiss();
         }
 
-        moveDataFromSqlLiteToServerDB();
+        if (Network_config.is_Network_Connected_flag(getActivity())) {
+
+            moveDataFromSqlLiteToServerDB();
+
+        }
+
+        else {
+            Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
+                    getResources().getString(R.string.connection_message));
+        }
     }
 
     private void moveDataFromSqlLiteToServerDB() {

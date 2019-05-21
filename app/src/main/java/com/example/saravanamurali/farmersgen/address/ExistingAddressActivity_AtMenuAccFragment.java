@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.address;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +17,7 @@ import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +37,8 @@ public class ExistingAddressActivity_AtMenuAccFragment extends AppCompatActivity
 
     String addressIDAtMenuCart;
 
+    private Dialog dialog;
+
     Button changeAddressAtMenuCart;
 
     @Override
@@ -48,6 +52,7 @@ public class ExistingAddressActivity_AtMenuAccFragment extends AppCompatActivity
         getSupportActionBar().hide();
 */
 
+        dialog=new Dialog(ExistingAddressActivity_AtMenuAccFragment.this);
 
         flatNo = (TextView) findViewById(R.id.flatNoRightMenuAcc);
         streetName = (TextView) findViewById(R.id.streetNameMenuAcc);
@@ -61,13 +66,26 @@ public class ExistingAddressActivity_AtMenuAccFragment extends AppCompatActivity
 
         changeAddressAtMenuCart = (Button) findViewById(R.id.changeAddressMenuAcc);
 
-        //Get Delivery Address
-        loadDeliverAddressAtMenuAccFragment();
+        if (Network_config.is_Network_Connected_flag(ExistingAddressActivity_AtMenuAccFragment.this)) {
+
+            //Get Delivery Address
+            loadDeliverAddressAtMenuAccFragment();
+        }
+        else {
+            Network_config.customAlert(dialog, ExistingAddressActivity_AtMenuAccFragment.this, getResources().getString(R.string.app_name),
+                    getResources().getString(R.string.connection_message));
+        }
 
         changeAddressAtMenuCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeAddress_AtMenuCartActivity();
+                if (Network_config.is_Network_Connected_flag(ExistingAddressActivity_AtMenuAccFragment.this)) {
+                    changeAddress_AtMenuCartActivity();
+                }
+                else {
+                    Network_config.customAlert(dialog, ExistingAddressActivity_AtMenuAccFragment.this, getResources().getString(R.string.app_name),
+                            getResources().getString(R.string.connection_message));
+                }
             }
         });
 

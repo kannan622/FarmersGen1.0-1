@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +21,7 @@ import com.example.saravanamurali.farmersgen.models.UpdateNameEmailDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForProfileEdit;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToUpdateNameAndEmail;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -39,11 +41,15 @@ public class ProfileUpdateActivity extends AppCompatActivity {
 
     Button updateProfileButton;
 
+    private Dialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_update);
+
+        dialog=new Dialog(ProfileUpdateActivity.this);
 
         t_MobileNo = (TextView) findViewById(R.id.fragment_update_profile_mobile_edt_input);
         t_Name = (TextInputLayout) findViewById(R.id.fragment_update_profile_name_edt_input);
@@ -63,11 +69,19 @@ public class ProfileUpdateActivity extends AppCompatActivity {
                 String name = u_Name.getText().toString();
                 String mail = u_Email.getText().toString();
 
-                if (name.isEmpty() && mail.isEmpty()) {
-                    Toast.makeText(ProfileUpdateActivity.this, "Name or Email Field Should not be Empty", Toast.LENGTH_LONG).show();
-                } else {
+                if (Network_config.is_Network_Connected_flag(ProfileUpdateActivity.this)) {
 
-                    updateNameandMail();
+                    if (name.isEmpty() && mail.isEmpty()) {
+                        Toast.makeText(ProfileUpdateActivity.this, "Name or Email Field Should not be Empty", Toast.LENGTH_LONG).show();
+                    } else {
+
+                        updateNameandMail();
+                    }
+                }
+
+                else {
+                    Network_config.customAlert(dialog,ProfileUpdateActivity.this , getResources().getString(R.string.app_name),
+                            getResources().getString(R.string.connection_message));
                 }
             }
         });

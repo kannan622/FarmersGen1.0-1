@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.favourite;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import com.example.saravanamurali.farmersgen.models.FavBrandDTO;
 import com.example.saravanamurali.farmersgen.models.HomeProductDTO;
 import com.example.saravanamurali.farmersgen.recyclerviewadapter.FavouriteListAdapter;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToGetFavBrands;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +42,18 @@ public class FavouriteListActivity extends AppCompatActivity implements Favourit
 
     Toolbar toolbarFav;
 
+    Context mContext;
+    Dialog dialog;
+
     CollapsingToolbarLayout collapsingToolbarLayout = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_list);
+
+        mContext=FavouriteListActivity.this;
+        dialog=new Dialog(mContext);
 
         favrecyclerView = (RecyclerView) findViewById(R.id.recyclerViewFavourite);
         favrecyclerView.setHasFixedSize(true);
@@ -61,9 +69,19 @@ public class FavouriteListActivity extends AppCompatActivity implements Favourit
         }*/
 
 
+
         favBrandDTOS = new ArrayList<FavBrandDTO>();
 
-        loadFavouriteBrands();
+        if (Network_config.is_Network_Connected_flag(mContext)) {
+
+            loadFavouriteBrands();
+
+        }
+
+        else {
+            Network_config.customAlert(dialog, mContext, getResources().getString(R.string.app_name),
+                    getResources().getString(R.string.connection_message));
+        }
 
         favouriteListAdapter = new FavouriteListAdapter(FavouriteListActivity.this, favBrandDTOS);
         favrecyclerView.setAdapter(favouriteListAdapter);

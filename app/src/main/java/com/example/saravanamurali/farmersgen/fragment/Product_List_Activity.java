@@ -1,6 +1,8 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -54,6 +56,7 @@ import com.example.saravanamurali.farmersgen.review.BrandReviewActivity;
 import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 import com.example.saravanamurali.farmersgen.util.FavStatus;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 import com.google.gson.JsonObject;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
@@ -112,6 +115,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     SQLiteDatabase mSqLiteDatabase;
     List<GetDataFromSqlLiteDTO> getDataFromSqlLiteDTOS;
 
+    private Dialog dialog;
+    private Context m_Context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +124,9 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         setContentView(R.layout.activity_product__list_);
 
         getDataFromSqlLiteDTOS = new ArrayList<GetDataFromSqlLiteDTO>();
+
+        m_Context=Product_List_Activity.this;
+        dialog=new Dialog(m_Context);
 
         //SQLLITE DATABASE
         mSqLiteDatabase = openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
@@ -169,7 +177,15 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
             return;
         } else if (!curUser_Favourite_check.equals(NO_CURRENT_USER_FOR_FAV_LIST)) {
 
-            checkFavouriteForThisBrand();
+            if (Network_config.is_Network_Connected_flag(m_Context)) {
+
+                checkFavouriteForThisBrand();
+
+            }
+            else {
+                Network_config.customAlert(dialog, m_Context, getResources().getString(R.string.app_name),
+                        getResources().getString(R.string.connection_message));
+            }
         }
         //End of Favourite Check Block
 
@@ -196,7 +212,13 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                         }
                     }, 1000);
 
-                    addFavouriteItems(curUser_Favourite);
+                    if (Network_config.is_Network_Connected_flag(m_Context)) {
+                        addFavouriteItems(curUser_Favourite);
+                    }
+                    else {
+                        Network_config.customAlert(dialog, m_Context, getResources().getString(R.string.app_name),
+                                getResources().getString(R.string.connection_message));
+                    }
 
                 }
             }
@@ -215,7 +237,14 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                     }
                 }, 1000);
 
-                removeFavouriteItems(curUser_Favourite);
+                if (Network_config.is_Network_Connected_flag(m_Context)) {
+                    removeFavouriteItems(curUser_Favourite);
+                }
+
+                else {
+                    Network_config.customAlert(dialog, m_Context, getResources().getString(R.string.app_name),
+                            getResources().getString(R.string.connection_message));
+                }
 
 
             }
@@ -357,7 +386,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     }
 
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -367,9 +395,15 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
         loadProductListDataFromSqlLite();
 
-        //Guest User
-        //Display all products list from Brand
-        loadRetrofitProductList();
+        if (Network_config.is_Network_Connected_flag(m_Context)) {
+            //Guest User
+            //Display all products list from Brand
+            loadRetrofitProductList();
+        }
+        else {
+            Network_config.customAlert(dialog, m_Context, getResources().getString(R.string.app_name),
+                    getResources().getString(R.string.connection_message));
+        }
 
         productListDTOList = new ArrayList<ProductListDTO>();
 
@@ -501,8 +535,9 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
 
                 }
-                productListAdapter.notifyDataSetChanged();
+
                 productListAdapter.setDataSetChanged(productListDTO);
+                productListAdapter.notifyDataSetChanged();
 
                 if (csprogress.isShowing()) {
                     csprogress.dismiss();

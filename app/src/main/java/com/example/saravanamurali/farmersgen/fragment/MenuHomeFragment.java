@@ -100,8 +100,6 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
         //toolbar = (Toolbar) view.findViewById(R.id.toolBar);
 
-        System.out.println("Current User" + currentUserId);
-
 
        /* AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
@@ -123,32 +121,30 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
         if (Network_config.is_Network_Connected_flag(getActivity())) {
 
-
             loadRetrofitforProductDisplay();
 
 
-            homeProductDTOSList = new ArrayList<HomeProductDTO>();
 
-            menuHomeFragmentAdapter = new Menuhome_Adapter(getActivity(), homeProductDTOSList, this);
-            recyclerView.setAdapter(menuHomeFragmentAdapter);
-            menuHomeFragmentAdapter.setOnItemClickListener(MenuHomeFragment.this);
+        homeProductDTOSList = new ArrayList<HomeProductDTO>();
 
-            //Banner Images
+        menuHomeFragmentAdapter = new Menuhome_Adapter(getActivity(), homeProductDTOSList, this);
+        recyclerView.setAdapter(menuHomeFragmentAdapter);
+        menuHomeFragmentAdapter.setOnItemClickListener(MenuHomeFragment.this);
 
-            loadBannerImages();
+        //Banner Images
 
-            menuBannerDTOList = new ArrayList<BannerDTO>();
-            menuBannerAdapter = new MenuBannerAdapter(this.getActivity(), menuBannerDTOList);
-            recyclerViewHorizontal.setAdapter(menuBannerAdapter);
+        //loadBannerImages();
 
-            // menuBannerAdapter.setOnBannerImageClick(MenuHomeFragment.this);
+        menuBannerDTOList = new ArrayList<BannerDTO>();
+        menuBannerAdapter = new MenuBannerAdapter(this.getActivity(), menuBannerDTOList);
+        recyclerViewHorizontal.setAdapter(menuBannerAdapter);
 
-
-        } else {
+        // menuBannerAdapter.setOnBannerImageClick(MenuHomeFragment.this);
+    }
+        else {
             Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                     getResources().getString(R.string.connection_message));
         }
-
 
         return view;
     }

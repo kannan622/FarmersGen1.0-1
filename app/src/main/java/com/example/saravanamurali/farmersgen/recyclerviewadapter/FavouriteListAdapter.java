@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.recyclerviewadapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.models.FavBrandDTO;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -21,6 +23,8 @@ public class FavouriteListAdapter extends RecyclerView.Adapter<FavouriteListAdap
     List<FavBrandDTO> favBrandDTOList;
 
     OnFavClickListener onFavClickListener;
+
+    Dialog dialog;
 
     public interface OnFavClickListener {
         void onFavItemClick(int position);
@@ -46,6 +50,8 @@ public class FavouriteListAdapter extends RecyclerView.Adapter<FavouriteListAdap
 
         LayoutInflater layoutInflater = LayoutInflater.from(favContext);
         View view = layoutInflater.inflate(R.layout.favourite_list_adapter_view, viewGroup, false);
+
+        dialog=new Dialog(favContext);
 
         FavouriteListViewHolder favouriteListViewHolder = new FavouriteListViewHolder(view);
 
@@ -88,12 +94,19 @@ public class FavouriteListAdapter extends RecyclerView.Adapter<FavouriteListAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int favAdapterPosition=getAdapterPosition();
-                    //FavBrandDTO favBrandDTO =favBrandDTOList.get(favAdapterPosition);
+                    if (Network_config.is_Network_Connected_flag(favContext)) {
 
-                    //String getFavBrandId=favBrandDTO.getFav_brandId();
+                        int favAdapterPosition = getAdapterPosition();
+                        //FavBrandDTO favBrandDTO =favBrandDTOList.get(favAdapterPosition);
 
-                    onFavClickListener.onFavItemClick(favAdapterPosition);
+                        //String getFavBrandId=favBrandDTO.getFav_brandId();
+
+                        onFavClickListener.onFavItemClick(favAdapterPosition);
+                    }
+                    else {
+                        Network_config.customAlert(dialog, favContext, favContext.getResources().getString(R.string.app_name),
+                                favContext.getResources().getString(R.string.connection_message));
+                    }
 
                 }
             });

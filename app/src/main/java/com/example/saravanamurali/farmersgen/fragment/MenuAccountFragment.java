@@ -1,6 +1,7 @@
 package com.example.saravanamurali.farmersgen.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -47,6 +48,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToGetFavBra
 import com.example.saravanamurali.farmersgen.signin.LoginActivity;
 import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import org.w3c.dom.Text;
 
@@ -65,6 +67,8 @@ import static android.content.Context.MODE_PRIVATE;
 public class MenuAccountFragment extends Fragment {
 
     private final String NO_CURRENT_USER = "null";
+
+    Dialog dialog;
 
 
     //For Past Order Snack Bar
@@ -112,7 +116,6 @@ public class MenuAccountFragment extends Fragment {
     SQLiteDatabase mSqLiteDatabaseInLogout;
 
 
-
     public MenuAccountFragment() {
         // Required empty public constructor
     }
@@ -129,6 +132,8 @@ public class MenuAccountFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.fragment_menu_account, container, false);
+
+        dialog = new Dialog(getActivity());
 
         //Fabric
         Fabric.with(getActivity(), new Crashlytics());
@@ -173,7 +178,7 @@ public class MenuAccountFragment extends Fragment {
         //Share App
         share_App = (TextView) view.findViewById(R.id.shareApp);
 
-        relativeLayoutShareAppBlock=(RelativeLayout)view.findViewById(R.id.shareAppBlock);
+        relativeLayoutShareAppBlock = (RelativeLayout) view.findViewById(R.id.shareAppBlock);
         relativeLayoutShareAppBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,7 +191,7 @@ public class MenuAccountFragment extends Fragment {
 
         currentUserId = getCurrentUser.getString("CURRENTUSER", NO_CURRENT_USER);
 
-        System.out.println("Curent User in Menu Acount Fragment" + currentUserId);
+        //System.out.println("Curent User in Menu Acount Fragment" + currentUserId);
 
         if (currentUserId != NO_CURRENT_USER) {
             //System.out.println("User is there");
@@ -199,21 +204,42 @@ public class MenuAccountFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 
-                    logout();
+                    if (Network_config.is_Network_Connected_flag(getActivity())) {
+
+                        logout();
+                    }
+
+                    else {
+                        Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
+                                getResources().getString(R.string.connection_message));
+                    }
 
                 }
             });
 
             //Get Name,mobile number and email
-            getNameMobileMail();
+
+            if (Network_config.is_Network_Connected_flag(getActivity())) {
+
+                getNameMobileMail();
+
+            } else {
+                Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
+                        getResources().getString(R.string.connection_message));
+            }
 
 
             //Edit Name and Email
             profileLoggedInEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (Network_config.is_Network_Connected_flag(getActivity())) {
 
-                    callProfileEditFragment();
+                        callProfileEditFragment();
+                    } else {
+                        Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
+                                getResources().getString(R.string.connection_message));
+                    }
 
                 }
             });
@@ -223,8 +249,15 @@ public class MenuAccountFragment extends Fragment {
             relativeLayoutFavouriteBlock.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (Network_config.is_Network_Connected_flag(getActivity())) {
 
-                    showFavouriteList();
+                        showFavouriteList();
+                    }
+
+                    else {
+                        Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
+                                getResources().getString(R.string.connection_message));
+                    }
                 }
             });
 
@@ -232,8 +265,14 @@ public class MenuAccountFragment extends Fragment {
             relativeLayoutCancelOrderBlock.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    jsonResponseForCancelOrderDTOSForSnakcerBar = new ArrayList<JSONResponseForCancelOrderDTO>();
-                    cancelOrder();
+                    if (Network_config.is_Network_Connected_flag(getActivity())) {
+                        jsonResponseForCancelOrderDTOSForSnakcerBar = new ArrayList<JSONResponseForCancelOrderDTO>();
+                        cancelOrder();
+                    }
+                    else {
+                        Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
+                                getResources().getString(R.string.connection_message));
+                    }
                 }
             });
 
@@ -242,8 +281,14 @@ public class MenuAccountFragment extends Fragment {
             relativeLayoutPastOrderBlock.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    jsonResponseToGetPastOrderDTOListSnackBar = new ArrayList<JSONResponseToGetPastOrderDTO>();
-                    pastOrderAndOrderHistory();
+                    if (Network_config.is_Network_Connected_flag(getActivity())) {
+                        jsonResponseToGetPastOrderDTOListSnackBar = new ArrayList<JSONResponseToGetPastOrderDTO>();
+                        pastOrderAndOrderHistory();
+                    }
+                    else {
+                        Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
+                                getResources().getString(R.string.connection_message));
+                    }
                 }
             });
 
@@ -251,15 +296,20 @@ public class MenuAccountFragment extends Fragment {
             relativeLayoutManageAddressBlock.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    manageAddressInMenuAccountFragment();
+                    if (Network_config.is_Network_Connected_flag(getActivity())) {
+                        manageAddressInMenuAccountFragment();
+                    } else {
+                        Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
+                                getResources().getString(R.string.connection_message));
+                    }
                 }
             });
 
 
-          //  Toast.makeText(getActivity(), "User is there", Toast.LENGTH_LONG).show();
+            //  Toast.makeText(getActivity(), "User is there", Toast.LENGTH_LONG).show();
 
         } else {
-            System.out.println("User is not there");
+            //System.out.println("User is not there");
 
             relativeLayoutMenuAccountProfile.setVisibility(View.INVISIBLE);
 
@@ -284,7 +334,7 @@ public class MenuAccountFragment extends Fragment {
             });
 
 
-            Toast.makeText(getActivity(), "User is not there", Toast.LENGTH_LONG).show();
+            // Toast.makeText(getActivity(), "User is not there", Toast.LENGTH_LONG).show();
 
 
             relativeLayoutMenuAccountProfile.setVisibility(View.GONE);
@@ -332,8 +382,7 @@ public class MenuAccountFragment extends Fragment {
                 if (getCheck_FavList != null) {
                     Intent getFavouriteList = new Intent(getActivity(), FavouriteListActivity.class);
                     startActivity(getFavouriteList);
-                }
-                else {
+                } else {
                     callFavouriteListSnackBar();
                 }
 
@@ -385,15 +434,13 @@ public class MenuAccountFragment extends Fragment {
                     csprogress.dismiss();
                 }
 
-                GetDeliveryAddressDTO getDeliveryAddressDTO=response.body();
+                GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
 
-                if(getDeliveryAddressDTO.getAddressID()!=null){
+                if (getDeliveryAddressDTO.getAddressID() != null) {
 
                     Intent getExistingAddress = new Intent(getActivity(), ExistingAddressActivity_AtMenuAccFragment.class);
                     startActivity(getExistingAddress);
-                }
-
-                else{
+                } else {
                     callSnackBarForAddress();
                 }
 

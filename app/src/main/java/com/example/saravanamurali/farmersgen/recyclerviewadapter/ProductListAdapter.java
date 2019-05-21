@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.recyclerviewadapter;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.provider.Settings;
@@ -22,6 +23,7 @@ import com.example.saravanamurali.farmersgen.models.ProductListDTO;
 import com.example.saravanamurali.farmersgen.models.ViewCartDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForViewCart;
 import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -36,6 +38,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     List<ProductListDTO> productListDTOList;
 
     AddCart addCartInDb;
+
+    private Dialog dialog;
+
 
     public interface AddCart {
 
@@ -88,6 +93,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public ProductListAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mListContext);
         View view = inflater.inflate(R.layout.productlist_adapterview, parent, false);
+
+        dialog=new Dialog(mListContext);
+
         ProductListAdapterViewHolder productListAdapterViewHolder = new ProductListAdapterViewHolder(view);
 
         return productListAdapterViewHolder;
@@ -251,7 +259,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
                         addCartInDb.deleteItemWhenCountBecomesZero(product_Code);
 
-                        addCartInDb.deleteItemWhenCountZeroInServer(product_Code);
+                        if (Network_config.is_Network_Connected_flag(mListContext)) {
+
+                            addCartInDb.deleteItemWhenCountZeroInServer(product_Code);
+
+                        }
+
+                        else {
+                            Network_config.customAlert(dialog, mListContext, mListContext.getResources().getString(R.string.app_name),
+                                    mListContext.getResources().getString(R.string.connection_message));
+                        }
 
                     } else if (countDecDec < 0) {
                         return;
@@ -268,12 +285,22 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             productListImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int imageAdapterPosition = getAdapterPosition();
-                    ProductListDTO productListDTO = productListDTOList.get(imageAdapterPosition);
 
-                    String imageProductCode = productListDTO.getProductCode();
+                    if (Network_config.is_Network_Connected_flag(mListContext)) {
 
-                    addCartInDb.onImageClick(imageProductCode);
+                        int imageAdapterPosition = getAdapterPosition();
+                        ProductListDTO productListDTO = productListDTOList.get(imageAdapterPosition);
+
+                        String imageProductCode = productListDTO.getProductCode();
+
+                        addCartInDb.onImageClick(imageProductCode);
+
+                    }
+
+                    else {
+                        Network_config.customAlert(dialog, mListContext, mListContext.getResources().getString(R.string.app_name),
+                                mListContext.getResources().getString(R.string.connection_message));
+                    }
                 }
             });
 

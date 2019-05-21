@@ -1,6 +1,7 @@
 package com.example.saravanamurali.farmersgen.cancelorder;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseForCancelOrderDTO;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class CancelOrderAdapter extends RecyclerView.Adapter<CancelOrderAdapter.
     CancelOrderUsingOrderIDInterace cancelOrderUsingOrderID_Interface;
 
     ViewProductDetailUsingOrderIDInterface viewProductDetailUsingOrderIDInterface;
+    Dialog dialog;
 
     public CancelOrderAdapter(Context cancelOrderActivity, List<JSONResponseForCancelOrderDTO> jsonResponseForCancelOrderDTOS) {
         this.cancelOrderContext = cancelOrderActivity;
@@ -51,6 +54,8 @@ public class CancelOrderAdapter extends RecyclerView.Adapter<CancelOrderAdapter.
 
         LayoutInflater layoutInflater = LayoutInflater.from(cancelOrderContext);
         View view = layoutInflater.inflate(R.layout.cancel_order_adapterview, viewGroup, false);
+
+        dialog=new Dialog(cancelOrderContext);
         CancelOrderViewHolder cancelOrderViewHolder = new CancelOrderViewHolder(view);
         return cancelOrderViewHolder;
     }
@@ -101,31 +106,39 @@ public class CancelOrderAdapter extends RecyclerView.Adapter<CancelOrderAdapter.
                 @Override
                 public void onClick(View v) {
 
-                    AlertDialog.Builder a_Builder = new AlertDialog.Builder(cancelOrderContext);
-                    a_Builder.setMessage("Do you want to Cancel this order")
-                            .setCancelable(false)
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
+                    if (Network_config.is_Network_Connected_flag(cancelOrderContext)) {
 
-                                    int getCancelOrderAdapterPosition = getAdapterPosition();
-                                    JSONResponseForCancelOrderDTO getJsonResponseForCancelOrderDTO = cancelOrderDTO.get(getCancelOrderAdapterPosition);
-                                    String get_OrderID = getJsonResponseForCancelOrderDTO.getOrderId();
+                        AlertDialog.Builder a_Builder = new AlertDialog.Builder(cancelOrderContext);
+                        a_Builder.setMessage("Do you want to Cancel this order")
+                                .setCancelable(false)
+                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
 
-                                    cancelOrderUsingOrderID_Interface.getCancelOrderUsingOrderID(get_OrderID);
-                                    System.out.println(get_OrderID);
-                                }
-                            })
-                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
+                                        int getCancelOrderAdapterPosition = getAdapterPosition();
+                                        JSONResponseForCancelOrderDTO getJsonResponseForCancelOrderDTO = cancelOrderDTO.get(getCancelOrderAdapterPosition);
+                                        String get_OrderID = getJsonResponseForCancelOrderDTO.getOrderId();
 
-                    AlertDialog alertDialog = a_Builder.create();
-                    alertDialog.setTitle("Cancel Order");
-                    alertDialog.show();
+                                        cancelOrderUsingOrderID_Interface.getCancelOrderUsingOrderID(get_OrderID);
+                                        System.out.println(get_OrderID);
+                                    }
+                                })
+                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+
+                        AlertDialog alertDialog = a_Builder.create();
+                        alertDialog.setTitle("Cancel Order");
+                        alertDialog.show();
+                    }
+
+                    else {
+                        Network_config.customAlert(dialog, cancelOrderContext, cancelOrderContext.getResources().getString(R.string.app_name),
+                                cancelOrderContext.getResources().getString(R.string.connection_message));
+                    }
 
 
                 }
@@ -134,11 +147,21 @@ public class CancelOrderAdapter extends RecyclerView.Adapter<CancelOrderAdapter.
             orderCancelNo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int getOrderNumberAdapterPosition = getAdapterPosition();
-                    JSONResponseForCancelOrderDTO getOrderedProductDetail = cancelOrderDTO.get(getOrderNumberAdapterPosition);
-                    String getProductDetail = getOrderedProductDetail.getOrderId();
+                    if (Network_config.is_Network_Connected_flag(cancelOrderContext)) {
+                        int getOrderNumberAdapterPosition = getAdapterPosition();
+                        JSONResponseForCancelOrderDTO getOrderedProductDetail = cancelOrderDTO.get(getOrderNumberAdapterPosition);
+                        String getProductDetail = getOrderedProductDetail.getOrderId();
 
-                    viewProductDetailUsingOrderIDInterface.getViewProductDetailUsingOrderID(getProductDetail);
+                        viewProductDetailUsingOrderIDInterface.getViewProductDetailUsingOrderID(getProductDetail);
+
+                    }
+
+                    else {
+                        Network_config.customAlert(dialog, cancelOrderContext, cancelOrderContext.getResources().getString(R.string.app_name),
+                                cancelOrderContext.getResources().getString(R.string.connection_message));
+                    }
+
+
 
 
                 }

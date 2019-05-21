@@ -2,6 +2,7 @@ package com.example.saravanamurali.farmersgen.address;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,6 +30,7 @@ import com.example.saravanamurali.farmersgen.models.UpdateAddressDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToUpdateAddress;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 import com.example.saravanamurali.farmersgen.util.FavStatus;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import java.io.IOException;
 import java.util.List;
@@ -76,6 +78,8 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
 
     private TextView showAddresMenu;
 
+    private Dialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,8 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
 
         Intent addressID = getIntent();
         addressID_Menu = addressID.getStringExtra("ADDRESSID_AT_MENUCART");
+
+        dialog=new Dialog(UpdateAddress_MenuAccFragment.this);
 
 
         update_mFlatNo = findViewById(R.id.updateFlatNoMenuCart);
@@ -254,7 +260,16 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
             return;
         } else {
 
-            updateAddressAtManageAddress();
+            if (Network_config.is_Network_Connected_flag(UpdateAddress_MenuAccFragment.this)) {
+
+                updateAddressAtManageAddress();
+
+            }
+
+            else {
+                Network_config.customAlert(dialog, UpdateAddress_MenuAccFragment.this, getResources().getString(R.string.app_name),
+                        getResources().getString(R.string.connection_message));
+            }
         }
 
 
@@ -298,7 +313,13 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
             buildAlertMessageNoGps();
 
         } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            getLocation();
+            if (Network_config.is_Network_Connected_flag(UpdateAddress_MenuAccFragment.this)) {
+                getLocation();
+            }
+            else {
+                Network_config.customAlert(dialog, UpdateAddress_MenuAccFragment.this, getResources().getString(R.string.app_name),
+                        getResources().getString(R.string.connection_message));
+            }
         }
 
     }
