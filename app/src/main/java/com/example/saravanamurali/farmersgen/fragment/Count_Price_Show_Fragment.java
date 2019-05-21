@@ -51,7 +51,6 @@ public class Count_Price_Show_Fragment extends Fragment {
     }
 
 
-
     public void getCountPrice() {
 
 
@@ -168,32 +167,33 @@ public class Count_Price_Show_Fragment extends Fragment {
 
                 JsonResponseFromServerDBDTO jsonResponseFromServerDBDTO = response.body();
 
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
 
-                Log.d("respo", response.toString());
+                //Log.d("respo", response.toString());
 
-                Log.d("status", "" + jsonResponseFromServerDBDTO.getStatus());
+                //Log.d("status", "" + jsonResponseFromServerDBDTO.getStatus());
 
 
                 if (jsonResponseFromServerDBDTO.getStatus() == 200) {
 
-                    Log.d("respo1111", "11");
+//                    Log.d("respo1111", "11");
 
-                    Toast.makeText(getActivity(), jsonResponseFromServerDBDTO.getStatus() + ":" + jsonResponseFromServerDBDTO.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), jsonResponseFromServerDBDTO.getStatus() + ":" + jsonResponseFromServerDBDTO.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
 
                     startActivity(new Intent(getActivity(), ViewCartActivity.class));
                 } else if (jsonResponseFromServerDBDTO.getStatus() == 500) {
-                    Log.d("respo2222", "22");
+                    //Log.d("respo2222", "22");
                 } else {
-                    Log.d("end", "end");
+                    //Log.d("end", "end");
                 }
             }
 
             @Override
             public void onFailure(Call<JsonResponseFromServerDBDTO> call, Throwable t) {
-                Log.d("lass", "last");
+                //Log.d("lass", "last");
             }
         });
 

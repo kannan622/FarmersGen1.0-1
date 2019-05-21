@@ -771,7 +771,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         mSqLiteDatabaseInViewCart.execSQL(u_query, new String[]{u_View_Count, u_ViewCart_totalPrice, viewCartProductCode, device_id});
 
         //Toast.makeText(ViewCartActivity.this, " ViewCart Updated", Toast.LENGTH_LONG).show();
-        viewCartAdapter.notifyDataSetChanged();
+        //viewCartAdapter.notifyDataSetChanged();
 
 
     }
@@ -877,8 +877,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         String delete = "delete from add_cart where product_code=? and device_id=? ";
 
         mSqLiteDatabaseInViewCart.execSQL(delete, new String[]{viewCartDecProductCode, delete_device_id});
-        viewCartAdapter.notifyDataSetChanged();
-        Toast.makeText(ViewCartActivity.this, "Deleted", Toast.LENGTH_LONG).show();
+        //viewCartAdapter.notifyDataSetChanged();
+        //Toast.makeText(ViewCartActivity.this, "Deleted", Toast.LENGTH_LONG).show();
 
 
     }

@@ -118,10 +118,11 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product__list_);
 
+        getDataFromSqlLiteDTOS = new ArrayList<GetDataFromSqlLiteDTO>();
+
         //SQLLITE DATABASE
         mSqLiteDatabase = openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
         createTable();
-        getDataFromSqlLiteDTOS = new ArrayList<GetDataFromSqlLiteDTO>();
 
 
         imageView = (ImageView) findViewById(R.id.leftArrow);
@@ -356,12 +357,12 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     }
 
 
+
     @Override
     protected void onResume() {
         super.onResume();
 
-       // refreshSqlliteDatabase();
-
+        // refreshSqlliteDatabase();
 
 
         loadProductListDataFromSqlLite();
@@ -411,7 +412,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         }
 
 
-
     }
 
     public void loadProductListDataFromSqlLite() {
@@ -433,13 +433,11 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
                 GetDataFromSqlLiteDTO getDataFromSqlLiteDTO = new GetDataFromSqlLiteDTO(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
 
-                System.out.println("SQL LISTE SELECT");
 
-
-                System.out.println(getDataFromSqlLiteDTO.getCount());
+                /*System.out.println(getDataFromSqlLiteDTO.getCount());
                 System.out.println(getDataFromSqlLiteDTO.getProduct_code());
                 System.out.println(getDataFromSqlLiteDTO.getTotal_price());
-                System.out.println(getDataFromSqlLiteDTO.getDevice_ID());
+                System.out.println(getDataFromSqlLiteDTO.getDevice_ID());*/
                 getDataFromSqlLiteDTOS.add(getDataFromSqlLiteDTO);
 
             }
@@ -451,8 +449,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         if (csprogress.isShowing()) {
             csprogress.dismiss();
         }
-
-
 
 
     }
@@ -558,7 +554,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                 "(?,?,?,?);";
 
         mSqLiteDatabase.execSQL(insertVal, new String[]{product_Code, countVal, productPrice, ANDROID_MOBILE_ID});
-        productListAdapter.notifyDataSetChanged();
+
 
         //System.out.println("SQL LITE" + product_Code + " " + countVal + " " + productPrice);
 
@@ -665,9 +661,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         });
 
     } //End of Delete Count
-
-
-
 
 
     //Show Fragment when customer adds item

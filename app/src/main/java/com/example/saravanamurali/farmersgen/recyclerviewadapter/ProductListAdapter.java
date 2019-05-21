@@ -136,6 +136,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         return productListDTOList.size();
     }
 
+    private void removeItem(int adapterPosition) {
+
+        productListDTOList.remove(adapterPosition);
+        notifyItemRemoved(adapterPosition);
+    }
+
+
 
     class ProductListAdapterViewHolder extends RecyclerView.ViewHolder {
 
@@ -189,9 +196,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
                     // addCartInDb.addCart(countAddInc, product_Code, prouctPrice);
 
-
                     productListDTO.setCount(String.valueOf(countAddInc));
-                    notifyDataSetChanged();
                     addCartInDb.showInFragment();
 
 
@@ -217,7 +222,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
                     productListDTO.setCount(String.valueOf(countIncInc));
 
-                    notifyDataSetChanged();
+                    //notifyDataSetChanged();
                     addCartInDb.showInFragment();
                 }
             });
@@ -242,9 +247,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
                     } else if (countDecDec == 0) {
 
+                        removeItem(adapterPosition);
+
                         addCartInDb.deleteItemWhenCountBecomesZero(product_Code);
 
-                        //addCartInDb.deleteItemWhenCountZeroInServer(product_Code);
+                        addCartInDb.deleteItemWhenCountZeroInServer(product_Code);
 
                     } else if (countDecDec < 0) {
                         return;
@@ -275,6 +282,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
 
     }
+
 
 
 }
