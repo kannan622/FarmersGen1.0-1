@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.recyclerviewadapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseUpdateCartDTO;
 import com.example.saravanamurali.farmersgen.models.ViewCartDTO;
+import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import java.util.List;
 
@@ -30,6 +32,8 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
     ViewCartDeleteInterface viewCartDeleteInterface;
 
     int totalAmount;
+
+    Dialog dialog;
 
 
     public ViewCartAdapter(Context viewCartContext, List<ViewCartDTO> viewCartProductListDTO) {
@@ -94,6 +98,9 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
         LayoutInflater layoutInflater = LayoutInflater.from(viewCartContext);
         View view = layoutInflater.inflate(R.layout.viewcart_adapterview, viewGroup, false);
+
+        dialog=new Dialog(viewCartContext);
+
         ViewCartHolder viewCartHolder = new ViewCartHolder(view);
 
         return viewCartHolder;
@@ -218,8 +225,17 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
                     notifyDataSetChanged();
 
-                    viewCartUpdateInterface.viewCartUpdateInterface(viewCartCount, viewCart_productCode, viewCart_Price);
-                    notifyDataSetChanged();
+                    if (Network_config.is_Network_Connected_flag(viewCartContext)) {
+
+                        viewCartUpdateInterface.viewCartUpdateInterface(viewCartCount, viewCart_productCode, viewCart_Price);
+                        notifyDataSetChanged();
+                    }
+
+                    else {
+                        Network_config.customAlert(dialog, viewCartContext, viewCartContext.getResources().getString(R.string.app_name),
+                                viewCartContext.getResources().getString(R.string.connection_message));
+                    }
+
 
 
 
@@ -231,49 +247,56 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
                 @Override
                 public void onClick(View v) {
 
-                    int decrementAdapterPosition = getAdapterPosition();
-                    ViewCartDTO viewCartDTODec = viewCartProductListDTO.get(getAdapterPosition());
+                    if (Network_config.is_Network_Connected_flag(viewCartContext)) {
+                        int decrementAdapterPosition = getAdapterPosition();
+                        ViewCartDTO viewCartDTODec = viewCartProductListDTO.get(getAdapterPosition());
 
-                    int viewCartDecCount = Integer.parseInt(viewCartDTODec.getCount());
+                        int viewCartDecCount = Integer.parseInt(viewCartDTODec.getCount());
 
-                    viewCartDecCount = viewCartDecCount - 1;
-
-
-                    Log.d("countt", "" + viewCartDecCount);
+                        viewCartDecCount = viewCartDecCount - 1;
 
 
-                    String viewCartDecProductCode = viewCartDTODec.getProduct_Code();
-                    String viewCartDecPrice = viewCartDTODec.getPrice();
+                        Log.d("countt", "" + viewCartDecCount);
 
 
-                    if (viewCartDecCount > 0) {
+                        String viewCartDecProductCode = viewCartDTODec.getProduct_Code();
+                        String viewCartDecPrice = viewCartDTODec.getPrice();
+
+
+                        if (viewCartDecCount > 0) {
+
+                            notifyDataSetChanged();
+                            viewCartUpdateInterface.viewCartUpdateInterfaceSqlLite(viewCartDecCount, viewCartDecProductCode, viewCartDecPrice);
+                            notifyDataSetChanged();
+                            viewCartUpdateInterface.viewCartUpdateInterface(viewCartDecCount, viewCartDecProductCode, viewCartDecPrice);
+
+                        } else if (viewCartDecCount == 0) {
+
+                            removeItem(decrementAdapterPosition);
+
+                            notifyDataSetChanged();
+                            viewCartDeleteInterface.viewCartDeleteInterfaceSqlLite(viewCartDecProductCode);
+                            notifyDataSetChanged();
+                            viewCartDeleteInterface.viewCartDeleteInterface(viewCartDecProductCode);
+
+
+                        } else if (viewCartDecCount < 0) {
+
+                            notifyItemRemoved(decrementAdapterPosition);
+                            notifyDataSetChanged();
+                        }
+
+                        viewCartDTODec.setCount(String.valueOf(viewCartDecCount));
+
 
                         notifyDataSetChanged();
-                        viewCartUpdateInterface.viewCartUpdateInterfaceSqlLite(viewCartDecCount, viewCartDecProductCode, viewCartDecPrice);
-                        notifyDataSetChanged();
-                        viewCartUpdateInterface.viewCartUpdateInterface(viewCartDecCount, viewCartDecProductCode, viewCartDecPrice);
 
-                    } else if (viewCartDecCount == 0) {
-
-                        removeItem(decrementAdapterPosition);
-
-                        notifyDataSetChanged();
-                      viewCartDeleteInterface.viewCartDeleteInterfaceSqlLite(viewCartDecProductCode);
-                        notifyDataSetChanged();
-                        viewCartDeleteInterface.viewCartDeleteInterface(viewCartDecProductCode);
-
-
-
-                    } else if (viewCartDecCount < 0) {
-
-                        notifyItemRemoved(decrementAdapterPosition);
-                        notifyDataSetChanged();
                     }
 
-                    viewCartDTODec.setCount(String.valueOf(viewCartDecCount));
-
-
-                    notifyDataSetChanged();
+                    else {
+                        Network_config.customAlert(dialog, viewCartContext, viewCartContext.getResources().getString(R.string.app_name),
+                                viewCartContext.getResources().getString(R.string.connection_message));
+                    }
                 }
             });
 

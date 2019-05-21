@@ -142,6 +142,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+
         Fabric.with(ViewCartActivity.this, new Crashlytics());
 
         mSqLiteDatabaseInViewCart = openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
@@ -165,6 +166,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         //viewcart_adapterview.xml
         context = getApplicationContext();
+        dialog = new Dialog(context);
 
         //System.out.println("Current User at ViewCart Acitivy" + currentUser);
         Intent intent = getIntent();
@@ -198,7 +200,13 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         cancelCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteCouponCode();
+
+                if (Network_config.is_Network_Connected_flag(context)) {
+                    deleteCouponCode();
+                } else {
+                    Network_config.customAlert(dialog, context, getResources().getString(R.string.app_name),
+                            getResources().getString(R.string.connection_message));
+                }
             }
         });
 
@@ -234,32 +242,57 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         if (curUser_CouponID.equals(NO_CURRENT_COUPON_ID)) {
 
+            if (Network_config.is_Network_Connected_flag(context)) {
 
-            loadViewCartProductList();
+                loadViewCartProductList();
+                showCouponLayout.setVisibility(View.VISIBLE);
+                couponAppliedBlock.setVisibility(View.GONE);
 
-            showCouponLayout.setVisibility(View.VISIBLE);
-            couponAppliedBlock.setVisibility(View.GONE);
+
+            } else {
+                Network_config.customAlert(dialog, context, getResources().getString(R.string.app_name),
+                        getResources().getString(R.string.connection_message));
+            }
+
 
         } else if (!curUser_CouponID.equals(NO_CURRENT_COUPON_ID)) {
 
-            loadViewCartProductListWithCouponID();
+            if (Network_config.is_Network_Connected_flag(context)) {
 
-            showCouponLayout.setVisibility(View.GONE);
-            couponAppliedBlock.setVisibility(View.VISIBLE);
-            couponCodeApplied.setText(curUser_Coupon_CODE);
+                loadViewCartProductListWithCouponID();
+
+
+                showCouponLayout.setVisibility(View.GONE);
+                couponAppliedBlock.setVisibility(View.VISIBLE);
+                couponCodeApplied.setText(curUser_Coupon_CODE);
+            } else {
+                Network_config.customAlert(dialog, context, getResources().getString(R.string.app_name),
+                        getResources().getString(R.string.connection_message));
+            }
 
         }
 
+        if (Network_config.is_Network_Connected_flag(context)) {
 
-        //Get addressID for Existing User
-        getAddressID();
+            //Get addressID for Existing User
+            getAddressID();
+
+        } else {
+            Network_config.customAlert(dialog, context, getResources().getString(R.string.app_name),
+                    getResources().getString(R.string.connection_message));
+        }
 
         //offer block cliked
         showCouponLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                proceedOffers();
+                if (Network_config.is_Network_Connected_flag(context)) {
+                    proceedOffers();
+                } else {
+                    Network_config.customAlert(dialog, context, getResources().getString(R.string.app_name),
+                            getResources().getString(R.string.connection_message));
+                }
             }
         });
 
@@ -463,7 +496,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     //To Display list of ordered items in ViewCart Avtivity From ProductList Activity without COUPONID
     public void loadViewCartProductList() {
 
-        if (Network_config.is_Network_Connected_flag(getApplicationContext())) {
+
 
             final ProgressDialog csprogress;
             csprogress = new ProgressDialog(ViewCartActivity.this);
@@ -520,10 +553,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 }
             });
 
-        } else {
-            Network_config.customAlert(dialog, getApplicationContext(), getResources().getString(R.string.app_name),
-                    getResources().getString(R.string.connection_message));
-        }
+
 
     }
 
@@ -622,7 +652,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         RequestBody requestBody = RequestBody.create(json, actualData.toString());
 
-         Request request = new Request.Builder()
+        Request request = new Request.Builder()
                 .url(url)
                 .post(requestBody)
                 .header("Content-Type", "application/json")
@@ -646,14 +676,14 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                     int status = myjson.getInt("responsecode");
                     String msg = myjson.getString("message");
-                    if (status==200) {
+                    if (status == 200) {
 
                         String producode = myjson.getString("product_code");
                         String count = myjson.getString("count");
                         String totalPRice = myjson.getString("total_price");
                         String grandTotal = myjson.getString("grand_total");
 
-                        for (int i=0;i<1;i++) {
+                        for (int i = 0; i < 1; i++) {
 
                             JSONResponseUpdateCartDTO jsonResponseUpdateCartDTO = new JSONResponseUpdateCartDTO(producode, count, totalPRice, ANDROID_MOBILE_ID, grandTotal);
                             viewCartAdapter.setUpdateTotalPrice(jsonResponseUpdateCartDTO);
@@ -667,7 +697,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                         viewCartAdapter.notifyDataSetChanged();
 
 
-                        System.out.println("UpdateOKHTTP"+producode+" "+count+" "+totalPRice+" "+grandTotal);
+                        System.out.println("UpdateOKHTTP" + producode + " " + count + " " + totalPRice + " " + grandTotal);
 
                         Log.d("okk", "" + producode + " " + count + " " + totalPRice + " " + grandTotal);
 
@@ -688,7 +718,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         } catch (IOException e) {
             Log.e("", "error in getting response for json post request okhttp");
         }
-
 
 
     }
@@ -771,7 +800,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         mSqLiteDatabaseInViewCart.execSQL(u_query, new String[]{u_View_Count, u_ViewCart_totalPrice, viewCartProductCode, device_id});
 
         //Toast.makeText(ViewCartActivity.this, " ViewCart Updated", Toast.LENGTH_LONG).show();
-
 
 
     }
