@@ -244,7 +244,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
                         addCartInDb.deleteItemWhenCountBecomesZero(product_Code);
 
-                        addCartInDb.deleteItemWhenCountZeroInServer(product_Code);
+                        //addCartInDb.deleteItemWhenCountZeroInServer(product_Code);
 
                     } else if (countDecDec < 0) {
                         return;

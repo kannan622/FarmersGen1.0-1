@@ -55,8 +55,8 @@ public class FavouriteListActivity extends AppCompatActivity implements Favourit
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_favourite);
 
-        /*setSupportActionBar(toolbarFav);
-        if(getSupportActionBar()!=null){
+        setSupportActionBar(toolbarFav);
+        /*if(getSupportActionBar()!=null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }*/
 
@@ -77,13 +77,17 @@ public class FavouriteListActivity extends AppCompatActivity implements Favourit
 
 
         collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.expandedtoolbar);
-
+       /* toolbarFav.setTitle(" ");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+*/
     }
 
     private void ToolbarCollapsingAppearanceWhenCollapsed() {
 
         collapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.collapsedtoolbar);
-        
+        /*getSupportActionBar().setTitle("Favouritee");
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        */
     }
 
     /*private void ToolbarCollapsingAppearance() {

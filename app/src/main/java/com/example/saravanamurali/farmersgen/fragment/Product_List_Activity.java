@@ -560,9 +560,9 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         mSqLiteDatabase.execSQL(insertVal, new String[]{product_Code, countVal, productPrice, ANDROID_MOBILE_ID});
         productListAdapter.notifyDataSetChanged();
 
-        System.out.println("SQL LITE" + product_Code + " " + countVal + " " + productPrice);
+        //System.out.println("SQL LITE" + product_Code + " " + countVal + " " + productPrice);
 
-        Toast.makeText(Product_List_Activity.this, " Added", Toast.LENGTH_LONG).show();
+        //Toast.makeText(Product_List_Activity.this, " Added", Toast.LENGTH_LONG).show();
 
 
     }
@@ -582,11 +582,10 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         String u_query = "UPDATE add_cart SET count=?, total_price=? where product_code=? and device_id =? ";
 
         mSqLiteDatabase.execSQL(u_query, new String[]{u_Count, u_totalPrice, updateProductCode, device_id});
-        productListAdapter.notifyDataSetChanged();
 
-        System.out.println("Update" + u_Count + u_totalPrice + updateProductCode);
+        //System.out.println("Update" + u_Count + u_totalPrice + updateProductCode);
 
-        Toast.makeText(Product_List_Activity.this, "Updated", Toast.LENGTH_LONG).show();
+        //Toast.makeText(Product_List_Activity.this, "Updated", Toast.LENGTH_LONG).show();
 
     }
 
@@ -600,9 +599,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         String delete = "delete from add_cart where product_code=? and device_id=? ";
 
         mSqLiteDatabase.execSQL(delete, new String[]{product_Code, delete_device_id});
-        productListAdapter.notifyDataSetChanged();
 
-        Toast.makeText(Product_List_Activity.this, "Deleted", Toast.LENGTH_LONG).show();
+        //Toast.makeText(Product_List_Activity.this, "Deleted", Toast.LENGTH_LONG).show();
 
 
     }

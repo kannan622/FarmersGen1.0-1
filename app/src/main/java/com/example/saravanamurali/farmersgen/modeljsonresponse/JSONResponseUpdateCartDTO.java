@@ -23,6 +23,13 @@ public class JSONResponseUpdateCartDTO {
     @SerializedName("grand_total")
     String grandTotal;
 
+    public JSONResponseUpdateCartDTO(String updateProductCode, String updateCount, String updateTotalPrice, String updateDevice_ID, String grandTotal) {
+        this.updateProductCode = updateProductCode;
+        this.updateCount = updateCount;
+        this.updateTotalPrice = updateTotalPrice;
+        this.updateDevice_ID = updateDevice_ID;
+        this.grandTotal = grandTotal;
+    }
 
     public int getStatus() {
         return status;

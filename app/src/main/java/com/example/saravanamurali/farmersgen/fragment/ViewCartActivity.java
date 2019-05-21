@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -137,6 +138,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_cart);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         Fabric.with(ViewCartActivity.this, new Crashlytics());
 
@@ -590,22 +594,12 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     }
 
-/*
+    //Method 1
 //Okhttp3
     @Override
     public void viewCartUpdateInterface(int updateCount, String updateProductCode, String prouctPrice) {
         String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-
-        */
-/*new AsyncTask<Void, Void, String>() {
-
-            @Override
-            protected String doInBackground(Void... voids) {
-                return null;
-            }
-        }.execute();*//*
-
 
 
         OkHttpClient client = new OkHttpClient();
@@ -659,6 +653,20 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                         String totalPRice = myjson.getString("total_price");
                         String grandTotal = myjson.getString("grand_total");
 
+                        for (int i=0;i<1;i++) {
+
+                            JSONResponseUpdateCartDTO jsonResponseUpdateCartDTO = new JSONResponseUpdateCartDTO(producode, count, totalPRice, ANDROID_MOBILE_ID, grandTotal);
+                            viewCartAdapter.setUpdateTotalPrice(jsonResponseUpdateCartDTO);
+
+                        }
+
+
+                        GrandTotal = grandTotal;
+
+                        toPayAmountTextView.setText(GrandTotal);
+                        viewCartAdapter.notifyDataSetChanged();
+
+
                         System.out.println("UpdateOKHTTP"+producode+" "+count+" "+totalPRice+" "+grandTotal);
 
                         Log.d("okk", "" + producode + " " + count + " " + totalPRice + " " + grandTotal);
@@ -682,10 +690,11 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         }
 
 
-    } */
+
+    }
 
     //Update Count in ViewCart
-    @Override
+    /*@Override
     public void viewCartUpdateInterface(int viewCartCount, String viewCartProductCode, String
             viewCartProductPrice) {
 
@@ -745,7 +754,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
     }//// End of Update Count in ViewCart
-
+*/
     @Override
     public void viewCartUpdateInterfaceSqlLite(int viewCartCount, String viewCartProductCode, String viewCart_Price) {
         String device_id = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
@@ -761,7 +770,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         mSqLiteDatabaseInViewCart.execSQL(u_query, new String[]{u_View_Count, u_ViewCart_totalPrice, viewCartProductCode, device_id});
 
-        Toast.makeText(ViewCartActivity.this, " ViewCart Updated", Toast.LENGTH_LONG).show();
+        //Toast.makeText(ViewCartActivity.this, " ViewCart Updated", Toast.LENGTH_LONG).show();
         viewCartAdapter.notifyDataSetChanged();
 
 

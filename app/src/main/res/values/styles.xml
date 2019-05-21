@@ -35,6 +35,7 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:background">#60b246</item>
+
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
