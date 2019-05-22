@@ -2,6 +2,7 @@ package com.example.saravanamurali.farmersgen.recyclerviewadapter;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -199,6 +200,10 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
             cartCount = itemView.findViewById(R.id.cartCount);
             totalPrice = itemView.findViewById(R.id.cartPrice);
             rel = itemView.findViewById(R.id.rell);
+
+
+            Typeface roboto=Typeface.createFromAsset(viewCartContext.getAssets(),"fonts/Roboto-Medium.ttf");
+            cartProductName.setTypeface(roboto);
 
             viewBackground = itemView.findViewById(R.id.view_background);
             viewForeground = itemView.findViewById(R.id.view_foreground);

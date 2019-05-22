@@ -11,7 +11,7 @@
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="70dp"
         android:layout_margin="1dp"
         android:background="#FFFFFF"
         android:orientation="horizontal"
@@ -50,68 +50,71 @@
             android:id="@+id/view_foreground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-           >
+            android:background="@android:color/white">
 
-        <RelativeLayout
-            android:id="@+id/viewCartProdcutListBlock"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp">
-
-            <TextView
-                android:id="@+id/cartProductName"
-                android:layout_width="180dp"
-                android:layout_height="70dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="25dp"
-                android:text="Proudct Name"
-                android:textColor="#595959"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:id="@+id/decCart"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/viewCartProdcutListBlock"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="25dp"
-                android:layout_toRightOf="@id/cartProductName"
-                android:src="@drawable/sub" />
+                android:layout_marginLeft="5dp">
 
-            <TextView
-                android:id="@+id/cartCount"
-                android:layout_width="30dp"
-                android:layout_height="40dp"
-                android:layout_alignBaseline="@id/incCart"
-                android:layout_marginTop="15dp"
-                android:layout_toRightOf="@id/decCart"
-                android:gravity="center"
-                android:text="10" />
+                <TextView
+                    android:id="@+id/cartProductName"
+                    android:layout_width="180dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="25dp"
+                    android:text="Proudct Name"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/incCart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="25dp"
-                android:layout_toRightOf="@+id/cartCount"
-                android:src="@drawable/add" />
+                <ImageView
+                    android:id="@+id/decCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_toRightOf="@id/cartProductName"
+                    android:src="@drawable/sub" />
+
+                <TextView
+                    android:id="@+id/cartCount"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:layout_alignBaseline="@id/incCart"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@id/decCart"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="@color/FragmentGreen"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/incCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_toRightOf="@+id/cartCount"
+                    android:src="@drawable/add" />
 
 
-            <TextView
-                android:id="@+id/cartPrice"
-                android:layout_width="56dp"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="15dp"
-                android:layout_toRightOf="@id/incCart"
-                android:gravity="center"
-                android:text="200"
-                android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/cartPrice"
+                    android:layout_width="56dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_toRightOf="@id/incCart"
+                    android:gravity="center"
+                    android:text="200"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
 
-        </RelativeLayout>
+            </RelativeLayout>
         </RelativeLayout>
 
 

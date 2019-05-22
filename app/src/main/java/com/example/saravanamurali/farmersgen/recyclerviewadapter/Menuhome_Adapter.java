@@ -1,6 +1,7 @@
 package com.example.saravanamurali.farmersgen.recyclerviewadapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -139,6 +140,11 @@ public class Menuhome_Adapter extends RecyclerView.Adapter<Menuhome_Adapter.MyVi
             mDescription = view.findViewById(R.id.productDescription);
             mMinOrder = view.findViewById(R.id.minOrderProduct);
             mRating = view.findViewById(R.id.ratingProduct);
+
+            Typeface roboto=Typeface.createFromAsset(context.getAssets(),"fonts/Roboto-Medium.ttf");
+            mtName.setTypeface(roboto);
+
+
 
             container = view.findViewById(R.id.animationContainer);
 

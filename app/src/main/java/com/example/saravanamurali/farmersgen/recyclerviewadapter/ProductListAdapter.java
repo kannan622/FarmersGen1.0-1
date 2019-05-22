@@ -3,6 +3,7 @@ package com.example.saravanamurali.farmersgen.recyclerviewadapter;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -177,6 +178,10 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             productListPrice = itemView.findViewById(R.id.listProductprice);
             list_actualprice = itemView.findViewById(R.id.actualprice);
 
+            Typeface roboto=Typeface.createFromAsset(mListContext.getAssets(),"fonts/Roboto-Medium.ttf");
+            productListName.setTypeface(roboto);
+            productListPrice.setTypeface(roboto);
+
 
             addButton = itemView.findViewById(R.id.addButton);
             incButton = itemView.findViewById(R.id.incButton);
@@ -255,7 +260,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
                     } else if (countDecDec == 0) {
 
-                        removeItem(adapterPosition);
+                        //removeItem(adapterPosition);
 
                         addCartInDb.deleteItemWhenCountBecomesZero(product_Code);
 

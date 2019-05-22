@@ -39,7 +39,7 @@
     <dimen name="minus_five_dp">-2dp</dimen>
 
     <dimen name="smallest_font">9sp</dimen>
-    <dimen name="small_medium_font">10sp</dimen>
+    <dimen name="ten_sp">10sp</dimen>
     <dimen name="small_font">12sp</dimen>
     <dimen name="medium_font">14sp</dimen>
     <dimen name="large_font">16sp</dimen>

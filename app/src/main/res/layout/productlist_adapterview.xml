@@ -40,8 +40,8 @@
             android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:maxLines="2"
+            android:textColor="@color/black"
             android:text="Dell Inspiration"
-            android:textSize="@dimen/medium_font"
             android:textStyle="bold" />
 
         <TextView
@@ -54,13 +54,14 @@
             android:maxLines="2"
             android:text="100"
             android:textColor="@color/app_black"
-            android:textSize="@dimen/medium_font" />
+             />
 
         <View
-            android:layout_width="42dp"
+            android:layout_width="30dp"
             android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/five_dp"
             android:layout_marginTop="-10dp"
-            android:background="@color/FragmentGreen"></View>
+            android:background="@color/black"></View>
 
 
         <RelativeLayout
@@ -97,9 +98,8 @@
                     android:layout_weight="0.4"
                     android:gravity="start"
                     android:text="200"
-
                     android:textColor="@color/black"
-                    android:textSize="@dimen/large_font" />
+                     />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -129,6 +129,9 @@
                         android:layout_marginStart="@dimen/five_dp"
                         android:layout_marginEnd="@dimen/five_dp"
                         android:gravity="center"
+                        android:textSize="@dimen/medium_font"
+                        android:textStyle="bold"
+                        android:textColor="@color/FragmentGreen"
                         android:visibility="gone" />
 
                     <ImageView
