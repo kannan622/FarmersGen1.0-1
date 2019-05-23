@@ -77,6 +77,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/five_dp"
             android:text="@string/forgot_password"
+            android:fontFamily="sans-serif-condensed"
             android:onClick="onClickLoginForgetPassword"
             android:textColor="@color/app_black"
             android:textSize="@dimen/medium_font" />
@@ -88,6 +89,7 @@
             android:layout_marginTop="@dimen/twenty_dp"
             android:text="@string/login"
             android:onClick="OnlickLogin"
+            android:fontFamily="sans-serif-condensed"
             android:background="@drawable/rec_gradiant"
             android:textColor="@color/white"
             android:textSize="@dimen/large_font" />
@@ -102,6 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/havent"
+            android:fontFamily="sans-serif-condensed"
             android:textSize="16sp"
             />
             <TextView
@@ -111,6 +114,7 @@
                 android:text="@string/signup"
                 android:layout_marginLeft="@dimen/five_dp"
                 android:textStyle="bold"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="20sp"
                 android:textColor="@color/FragmentGreen"
                 android:onClick="onClickSignupInLogin"
@@ -131,9 +135,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="SKIP LOGIN"
+            android:text="@string/skip"
             android:onClick="skip"
-            android:background="@drawable/rec_white"
+            android:textStyle="bold"
+            android:padding="@dimen/five_dp"
+            android:background="@drawable/rec_gradiant"
             android:textSize="@dimen/twenty_sp"
             android:textColor="@color/red" />
 

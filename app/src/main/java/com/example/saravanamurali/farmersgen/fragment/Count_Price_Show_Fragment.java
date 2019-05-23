@@ -23,6 +23,7 @@ import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseFromS
 import com.example.saravanamurali.farmersgen.models.GetDataFromSqlLiteDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToMoveDataFromSqlLiteToServerDB;
 import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
+import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import java.util.ArrayList;
@@ -50,6 +51,10 @@ public class Count_Price_Show_Fragment extends Fragment {
 
     private Dialog dialog;
 
+    //SQLLite
+    SQLiteDatabase mSqLiteDatabaseInLogout;
+
+
     public Count_Price_Show_Fragment() {
 
     }
@@ -72,6 +77,8 @@ public class Count_Price_Show_Fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_count__price__show, container, false);
+
+        mSqLiteDatabaseInLogout = getActivity().openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
 
         dialog = new Dialog(getActivity());
 
@@ -154,14 +161,33 @@ public class Count_Price_Show_Fragment extends Fragment {
 
         if (Network_config.is_Network_Connected_flag(getActivity())) {
 
-            moveDataFromSqlLiteToServerDB();
+            if (getDataFromSqlLiteDTOS.size()==0) {
 
-        }
+                deleteAllDataFromSQLLite();
 
-        else {
+                startActivity(new Intent(this.getActivity(), HomeActivity.class));
+                Toast.makeText(this.getActivity(), "You havent ordered any item in cart", Toast.LENGTH_LONG).show();
+
+
+            } else if (getDataFromSqlLiteDTOS.size()>0) {
+                moveDataFromSqlLiteToServerDB();
+
+            }
+
+        } else {
             Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                     getResources().getString(R.string.connection_message));
         }
+    }
+
+    private void deleteAllDataFromSQLLite() {
+
+        String delete_device_id = Settings.Secure.getString(getActivity().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        String delete = "delete from add_cart where device_id=? ";
+
+        mSqLiteDatabaseInLogout.execSQL(delete, new String[]{delete_device_id});
     }
 
     private void moveDataFromSqlLiteToServerDB() {
@@ -181,11 +207,6 @@ public class Count_Price_Show_Fragment extends Fragment {
             public void onResponse(Call<JsonResponseFromServerDBDTO> call, Response<JsonResponseFromServerDBDTO> response) {
 
                 JsonResponseFromServerDBDTO jsonResponseFromServerDBDTO = response.body();
-
-
-                //Log.d("respo", response.toString());
-
-                //Log.d("status", "" + jsonResponseFromServerDBDTO.getStatus());
 
 
                 if (jsonResponseFromServerDBDTO.getStatus() == 200) {

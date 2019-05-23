@@ -497,37 +497,38 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     public void loadViewCartProductList() {
 
 
-
-            final ProgressDialog csprogress;
-            csprogress = new ProgressDialog(ViewCartActivity.this);
-            csprogress.setMessage("Loading...");
-            csprogress.show();
-            csprogress.setCanceledOnTouchOutside(false);
-
-
-            String ANDROID_MOBILE_ID = Settings.Secure.getString(context.getContentResolver(),
-                    Settings.Secure.ANDROID_ID);
-
-            // Toast.makeText(ViewCartActivity.this, "ViewCartResponseSuccessFirst", Toast.LENGTH_LONG).show();
-
-            // System.out.println("I am Here" + ANDROID_MOBILE_ID);
-
-            ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
-            AddCartDTO loadFragment = new AddCartDTO(ANDROID_MOBILE_ID);
-            Call<JSONResponseViewCartListDTO> call = api.getViewCart(loadFragment);
-
-            call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
-                @Override
-                public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
-                    // System.out.println("Null Values");
-
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ViewCartActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
 
 
-                    JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
-                    List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
+        String ANDROID_MOBILE_ID = Settings.Secure.getString(context.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        // Toast.makeText(ViewCartActivity.this, "ViewCartResponseSuccessFirst", Toast.LENGTH_LONG).show();
+
+        // System.out.println("I am Here" + ANDROID_MOBILE_ID);
+
+        ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
+        AddCartDTO loadFragment = new AddCartDTO(ANDROID_MOBILE_ID);
+        Call<JSONResponseViewCartListDTO> call = api.getViewCart(loadFragment);
+
+        call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
+            @Override
+            public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
+                // System.out.println("Null Values");
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
+
+                JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
+                List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
+
+                if (viewCartProductListDTO != null) {
 
                     GrandTotal = jsonResponseViewCartListDTO.getGrandTotal();
                     System.out.println("GRANDTOTAL" + GrandTotal);
@@ -539,20 +540,28 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
                     toPayAmountTextView.setText(GrandTotal);
+
+
+                } else if (viewCartProductListDTO == null) {
+                    MenuAccountFragment menuAccountFragment = new MenuAccountFragment();
+                    menuAccountFragment.clearAllItemFromSQLDataBase();
+                    startActivity(new Intent(ViewCartActivity.this, HomeActivity.class));
+                    Toast.makeText(ViewCartActivity.this, "You havent ordered any item in cart", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<JSONResponseViewCartListDTO> call, Throwable t) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
                 }
 
 
-                @Override
-                public void onFailure(Call<JSONResponseViewCartListDTO> call, Throwable t) {
-
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-
-
-                }
-            });
-
+            }
+        });
 
 
     }

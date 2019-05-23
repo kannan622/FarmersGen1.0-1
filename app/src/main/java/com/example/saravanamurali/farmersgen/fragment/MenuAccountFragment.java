@@ -694,9 +694,11 @@ public class MenuAccountFragment extends Fragment {
         editor.remove("CURRENTUSER");
         editor.commit();
 
+        clearAllItemFromSQLDataBase();
+
         clearAllItemsAtAddCartTableUsingDeviceID();
 
-        clearAllItemFromSQLDataBase();
+
 
         /*Intent loginIntent = new Intent(getActivity(), MenuAccountFragmentLoginActivity.class);
         startActivity(loginIntent);
@@ -704,7 +706,7 @@ public class MenuAccountFragment extends Fragment {
 
     }
 
-    private void clearAllItemFromSQLDataBase() {
+    public void clearAllItemFromSQLDataBase() {
         String delete_device_id = Settings.Secure.getString(getActivity().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 

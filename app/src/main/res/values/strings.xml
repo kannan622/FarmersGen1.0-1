@@ -33,6 +33,12 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="signupname">Name</string>
     <string name="login">Login</string>
+    <string name="skip">Skip Login</string>
+    <string name="signin">signIn</string>
+    <string name="already">Already Have an Account?</string>
+    <string name="terms">Accepting Terms and Condition</string>
+    <string name="resend">RESEND</string>
+    <string name="otpsent">OTP has been sent to </string>
 
     <string name="Rs">\u20B9</string>
 

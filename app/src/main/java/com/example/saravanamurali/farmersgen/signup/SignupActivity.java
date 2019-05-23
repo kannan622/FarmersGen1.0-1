@@ -1,6 +1,7 @@
 package com.example.saravanamurali.farmersgen.signup;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -78,14 +79,82 @@ public class SignupActivity extends AppCompatActivity {
             editTextpas.setText("");
 */
             }
-        }
-        else
-        {
+        } else {
             Network_config.customAlert(dialog, getApplicationContext(), getResources().getString(R.string.app_name),
                     getResources().getString(R.string.connection_message));
         }
 
 
+    }
+
+
+    private void signUp() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(SignupActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+
+        ApiInterface apiInterface = ApiClientToSignUp.getApiInterface();
+
+        String ANDROID_MOBILE_ID = Settings.Secure.getString(SignupActivity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        SignUpDTO signUpDTO = new SignUpDTO(signUpMobile, signUpName, signUpMail, signUpPassword, ANDROID_MOBILE_ID);
+
+        Call<SignUpJSONResponse> call = apiInterface.registerUser(signUpDTO);
+
+        call.enqueue(new Callback<SignUpJSONResponse>() {
+            @Override
+            public void onResponse(Call<SignUpJSONResponse> call, Response<SignUpJSONResponse> response) {
+
+                editTextM.setText("");
+                editTextN.setText("");
+                editTextEM.setText("");
+                editTextpas.setText("");
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
+                SignUpJSONResponse signUpJSONResponse = response.body();
+
+                if (signUpJSONResponse.getResultStatus() == 200) {
+                    //System.out.println("You are addded successfully");
+                    // Toast.makeText(SignupActivity.this, "Your are going to Add", Toast.LENGTH_LONG).show();
+
+                    Intent registerOTP = new Intent(SignupActivity.this, OTPActForSuccRegistrationAtViewCart.class);
+                    registerOTP.putExtra("MOBILENOTOLOGIN", signUpJSONResponse.getData().getMobile());
+                    startActivity(registerOTP);
+                } else if (signUpJSONResponse.getResultStatus() == 500) {
+
+                    Intent forgotPassword = new Intent(SignupActivity.this, ForgetPassword.class);
+                    forgotPassword.putExtra("MOBILENO", signUpJSONResponse.getData().getMobile());
+                    startActivity(forgotPassword);
+
+                    //System.out.println("Number already exists");
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<SignUpJSONResponse> call, Throwable t) {
+                Toast.makeText(SignupActivity.this, "Please Try Again", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+    }
+
+    public void arrowbackToLogin(View view) {
+        Intent loginIntent = new Intent(SignupActivity.this, LoginActivity.class);
+        startActivity(loginIntent);
     }
 
 
@@ -183,115 +252,6 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         return status;
-    }
-
-    private void signUp() {
-
-
-        System.out.println("I am in");
-
-        ApiInterface apiInterface = ApiClientToSignUp.getApiInterface();
-
-        String ANDROID_MOBILE_ID = Settings.Secure.getString(SignupActivity.this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-
-        SignUpDTO signUpDTO = new SignUpDTO(signUpMobile, signUpName, signUpMail, signUpPassword, ANDROID_MOBILE_ID);
-
-        Call<SignUpJSONResponse> call = apiInterface.registerUser(signUpDTO);
-
-        call.enqueue(new Callback<SignUpJSONResponse>() {
-            @Override
-            public void onResponse(Call<SignUpJSONResponse> call, Response<SignUpJSONResponse> response) {
-
-                System.out.println("I am inside Server");
-
-                if (response.isSuccessful()) {
-
-                    editTextM.setText("");
-                    editTextN.setText("");
-                    editTextEM.setText("");
-                    editTextpas.setText("");
-
-                    SignUpJSONResponse signUpJSONResponse = response.body();
-
-                    if (signUpJSONResponse.getResultStatus() == 200) {
-                        System.out.println("You are addded successfully");
-                        Toast.makeText(SignupActivity.this, "Your are going to Add", Toast.LENGTH_LONG).show();
-
-                        Intent registerOTP = new Intent(SignupActivity.this, OTPActForSuccRegistrationAtViewCart.class);
-                        registerOTP.putExtra("MOBILENOTOLOGIN", signUpJSONResponse.getData().getMobile());
-                        startActivity(registerOTP);
-                    } else if (signUpJSONResponse.getResultStatus() == 500) {
-
-                        Intent forgotPassword = new Intent(SignupActivity.this, ForgetPassword.class);
-                        forgotPassword.putExtra("MOBILENO", signUpJSONResponse.getData().getMobile());
-                        startActivity(forgotPassword);
-
-                        System.out.println("Number already exists");
-
-
-                    }
-                    /*Toast.makeText(SignupActivity.this,"Success",Toast.LENGTH_SHORT).show();
-
-                    System.out.println(signUpJSONResponse.getData().getMobile());
-                    System.out.println(signUpJSONResponse.getData().getUserID());
-*/
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SignUpJSONResponse> call, Throwable t) {
-                Toast.makeText(SignupActivity.this, "Error", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        /*Call<SignUpDTO> call = apiInterface.registerUser(signUpDTO);
-        System.out.println("MOBILE  Call NUMBER" + signUpMobile);
-        call.enqueue(new Callback<SignUpDTO>() {
-            @Override
-            //After inserting registration details,
-            //Response:  Mobile Number
-
-            public void onResponse(Call<SignUpDTO> call, Response<SignUpDTO> response) {
-                if (response.isSuccessful()) {
-                    System.out.println("I am inside");
-                    Toast.makeText(SignupActivity.this, "Success", Toast.LENGTH_LONG).show();
-
-
-
-
-
-                    *//*Intent loginActivity=new Intent(SignupActivity.this,LoginActivity.class);
-                    startActivity(loginActivity);
-
-                    Intent otpintent=new Intent(SignupActivity.this,OTPActivity.class);
-                    otpintent.putExtra("MOBILE_NUMBER",signUpMobile);
-                    startActivity(otpintent);*//*
-
-
-
-
-                } else {
-                    Toast.makeText(SignupActivity.this, "Error", Toast.LENGTH_LONG).show();
-                }
-
-                SignUpDTO respo = response.body();
-
-            }
-
-            @Override
-            public void onFailure(Call<SignUpDTO> call, Throwable t) {
-
-            }
-        });
-*/
-    }
-
-    public void arrowbackToLogin(View view) {
-        Intent loginIntent = new Intent(SignupActivity.this, LoginActivity.class);
-        startActivity(loginIntent);
     }
 
 
