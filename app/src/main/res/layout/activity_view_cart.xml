@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/grey_lighti"
-        android:minHeight="?attr/actionBarSize">
+        android:minHeight="?attr/actionBarSize"
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -115,9 +116,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/couponPercentage"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="APPLY COUPON"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
-                    android:textStyle="bold" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
 
                 <ImageView
                     android:id="@+id/offersArrow"
@@ -146,9 +147,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="ORDER50"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
-                    android:textStyle="bold" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
 
 
                 <ImageView
@@ -188,19 +189,20 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/fifteen_dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:text=""
                     android:textColor="@color/white"
-                    android:textSize="14dp"
+                    android:textSize="@dimen/sixteen_dp"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:id="@+id/rightArrow"
                     android:layout_width="15dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/right"
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
                     android:layout_marginRight="@dimen/twelve_dp"
+                    android:src="@drawable/right"
 
                     />
 
@@ -208,14 +210,15 @@
                     android:id="@+id/viewCartProceed"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:layout_toLeftOf="@+id/rightArrow"
-                    android:text="CHECKOUT"
-                    android:textSize="15dp"
-                    android:layout_marginRight="@dimen/six_dp"
                     android:layout_centerInParent="true"
+                    android:layout_marginRight="@dimen/six_dp"
+                    android:layout_toLeftOf="@+id/rightArrow"
+                    android:fontFamily="sans-serif-condensed"
                     android:gravity="center"
-                    android:textStyle="bold"
+                    android:text="CHECKOUT"
                     android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
 
                     />
 

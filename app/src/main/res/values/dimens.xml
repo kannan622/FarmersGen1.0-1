@@ -16,6 +16,7 @@
     <dimen name="seventy_dp">70dp</dimen>
     <dimen name="seventy_five_dp">75dp</dimen>
     <dimen name="ten_dp">10dp</dimen>
+    <dimen name="thirteen_dp">13dp</dimen>
     <dimen name="fifteen_dp">15dp</dimen>
     <dimen name="one_dp">1dp</dimen>
     <dimen name="half_dp">0.5dp</dimen>
@@ -72,9 +73,11 @@
     <dimen name="twenty_five">25dp</dimen>
     <dimen name="seventeen_dp">17dp</dimen>
     <dimen name="twenty_seven_dp">27dp</dimen>
+    <dimen name="twenty_nine_dp">29dp</dimen>
     <dimen name="thirty_two_dp">32dp</dimen>
     <dimen name="forty_five_dp">45dp</dimen>
     <dimen name="two_dp">2dp</dimen>
+    <dimen name="sixteen_dp">16dp</dimen>
 
     <dimen name="recycler_section_header_height">30dp</dimen>
     <dimen name="six_dp">6dp</dimen>

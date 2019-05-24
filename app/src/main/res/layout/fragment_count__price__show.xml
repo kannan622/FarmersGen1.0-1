@@ -73,6 +73,8 @@
             android:layout_toLeftOf="@id/cartImage"
             android:paddingRight="8dp"
             android:text="VIEW CART"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/White"
             android:textSize="18sp" />
 

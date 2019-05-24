@@ -204,6 +204,8 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
             Typeface roboto=Typeface.createFromAsset(viewCartContext.getAssets(),"fonts/Roboto-Medium.ttf");
             cartProductName.setTypeface(roboto);
+            totalPrice.setTypeface(roboto);
+            cartCount.setTypeface(roboto);
 
             viewBackground = itemView.findViewById(R.id.view_background);
             viewForeground = itemView.findViewById(R.id.view_foreground);

@@ -132,6 +132,7 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
         csprogress = new ProgressDialog(CouponActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
 
