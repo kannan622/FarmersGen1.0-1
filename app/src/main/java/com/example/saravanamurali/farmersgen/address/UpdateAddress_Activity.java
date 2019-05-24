@@ -18,6 +18,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,7 +44,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class UpdateAddress_Activity extends AppCompatActivity implements View.OnClickListener {
+public class UpdateAddress_Activity extends AppCompatActivity /*implements View.OnClickListener*/ {
 
     private String NO_CURRENT_USER = "NO_CURRENT_USER";
 
@@ -82,6 +83,8 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
 
     private TextView showAddress;
 
+    Toolbar updateAddressToolBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +95,7 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
 
         addressID = getAddressID.getStringExtra("ADDRESSID");
 
-        uFlatNo = findViewById(R.id.updateFlatNo);
+        /*uFlatNo = findViewById(R.id.updateFlatNo);
         uStreetName = findViewById(R.id.updateStreetName);
         uArea = findViewById(R.id.updateArea);
         uCity = findViewById(R.id.updateCity);
@@ -110,16 +113,25 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
         uAlternateMobile = findViewById(R.id.updateAlternateMobile);
 
         myLocation_Button = (Button) findViewById(R.id.myLocationButton);
+*/
+        updateAddressToolBar=(Toolbar)findViewById(R.id.updateAddressTootlBar);
+        setSupportActionBar(updateAddressToolBar);
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
-        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
+       /* ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
 
         myLocation_Button.setOnClickListener(this);
+*/
+    }
 
+    public void onClickUpdateAddress(View view) {
     }
 
 
 
-    public void onClickUpdateAddress(View view) {
+   /* public void onClickUpdateAddress(View view) {
 
 
         if (!validateFlatNo() | !validatStreetName() | !validateArea() | !validateCity() | !validatePinCode() | !validateLandMark() | !validateAlterMobileNumber()) {
@@ -131,10 +143,10 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
         }
 
 
-    }
+    }*/
 
 
-    private void updateAddressFromChangeAddressClick() {
+    /*private void updateAddressFromChangeAddressClick() {
 
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(UpdateAddress_Activity.this);
@@ -220,24 +232,24 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
             if (location != null) {
                 lattitude = location.getLatitude();
                 longitude = location.getLongitude();
-                /*lattitude = String.valueOf(latti);
+                *//*lattitude = String.valueOf(latti);
                 longitude = String.valueOf(longi);
-*/
+*//*
 
             } else if (location1 != null) {
                 lattitude = location1.getLatitude();
                 longitude = location1.getLongitude();
-                /*lattitude = String.valueOf(latti);
+                *//*lattitude = String.valueOf(latti);
                 longitude = String.valueOf(longi);
-*/
+*//*
 
 
             } else if (location2 != null) {
                 lattitude = location2.getLatitude();
                 longitude = location2.getLongitude();
-                /*lattitude = String.valueOf(latti);
+                *//*lattitude = String.valueOf(latti);
                 longitude = String.valueOf(longi);
-*/
+*//*
 
             } else {
                 if(csprogress.isShowing()){
@@ -271,7 +283,7 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
                     showAddress.setText(address + " " + area + " " + city + " " + postalCode);
 
                     // System.out.println("Address"+address+"  "+"area"+area+"  "+"city"+city+"  "+"country"+country+"  "+"postalCode"+postalCode);
-                /*System.out.println(address);
+                *//*System.out.println(address);
                 System.out.println(area);
                 System.out.println(city);
                 System.out.println(country);
@@ -280,14 +292,14 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
                 System.out.println(subLocality);
                 System.out.println(premises);
                 System.out.println(addressLine);
-*/
-               /* String doorNo=address;
+*//*
+               *//* String doorNo=address;
                 String[] d_No=doorNo.split(",",2);
                 if(d_No.length>=7){
                     geoSetFlatNo.setText("");
                 }else {
                     geoSetFlatNo.setText(d_No[0]);
-                }*/
+                }*//*
 
                     geoSetArea.setText(subLocality);
                     geoSetCity.setText(area);
@@ -457,6 +469,6 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
 
 
     }
-
+*/
 
 }

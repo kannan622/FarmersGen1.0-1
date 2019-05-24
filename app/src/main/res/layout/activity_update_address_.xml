@@ -4,215 +4,343 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".address.UpdateAddress_Activity">
 
-    <RelativeLayout
-        android:id="@+id/RLayoutDeliveryAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/updateDeliveryDeliveryAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="20dp"
-            android:paddingLeft="8dp"
-            android:text="Delivery Address"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
-            android:textColor="#4a8cf6"
-            android:textSize="25sp" />
-
-        <ImageView
-            android:id="@+id/locationIcon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="@dimen/five_dp"
-            android:layout_marginTop="@dimen/three_dp"
-            android:layout_toRightOf="@id/updateDeliveryDeliveryAddress"
-            android:src="@drawable/location" />
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/useMyLocationInUpdateAddress"
+    <LinearLayout
+        android:id="@+id/toolbarBlock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/RLayoutDeliveryAddress">
+        android:orientation="vertical">
 
-
-        <Button
-            android:id="@+id/myLocationButton"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/updateAddressTootlBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/ten_dp"
-            android:text="Use My Location"
-            android:textColor="@color/FragmentGreen" />
+            android:minHeight="?attr/actionBarSize">
 
-        <TextView
-            android:id="@+id/tapToFill"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set Delivery Location"
+                android:textStyle="bold" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:id="@+id/useMyLocationInUpdateAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/myLocationButton"
-            android:layout_marginLeft="@dimen/ten_dp"
-            android:layout_marginRight="@dimen/ten_dp"
-            android:gravity="center"
-            android:text="Tab to auto fill the address fields"
-            android:textSize="@dimen/fifteen_dp" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/showAddress"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_below="@id/tapToFill"
-            android:layout_marginTop="@dimen/five_dp"
-            android:layout_marginLeft="@dimen/ten_dp"
-            android:layout_marginRight="@dimen/ten_dp"
-            android:text=""
-            android:fontFamily="sans-serif-condensed"
-            android:textStyle="bold"
-            android:layout_marginBottom="@dimen/five_dp"
-            android:visibility="gone"
-            />
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/myLocationButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten_dp"
+                android:layout_marginTop="@dimen/ten_dp"
+                android:layout_marginRight="@dimen/ten_dp"
+                android:text="Use My Location"
+
+                android:fontFamily="sans-serif-condensed"
+                android:textColor="@color/FragmentGreen" />
+
+            <TextView
+                android:id="@+id/tapToFill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten_dp"
+                android:layout_marginRight="@dimen/ten_dp"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/one_dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Tab to auto fill the address fields" />
+
+            <TextView
+                android:id="@+id/showAddress"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_below="@id/tapToFill"
+                android:layout_marginLeft="@dimen/ten_dp"
+                android:layout_marginTop="@dimen/five_dp"
+                android:layout_marginRight="@dimen/ten_dp"
+                android:layout_marginBottom="@dimen/five_dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text=""
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_below="@id/useMyLocationInUpdateAddress"
+        android:layout_height="370dp"
+        android:layout_below="@id/toolbarBlock"
         android:divider="@android:color/transparent"
         android:dividerHeight="25px">
-
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/RLayoutDeliveryAddress"
-            android:layout_margin="8dp"
-            android:orientation="vertical"
-            android:padding="15dp">
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:layout_marginTop="@dimen/twenty_dp"
+            android:layout_marginRight="@dimen/ten_dp"
+            android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/updateFlatNo"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:errorEnabled="true">
+                android:layout_height="wrap_content">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/getSetFlat"
+                <ImageView
+                    android:id="@+id/flatIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="@dimen/twenty_dp"
+                    android:src="@drawable/maaddress" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/updateFlatNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="House /Flat No" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_marginLeft="@dimen/ten_dp"
+                    android:nextFocusDown="@id/updateStreetName"
+                    android:layout_toRightOf="@+id/flatIcon"
+                    app:errorEnabled="true"
+                    app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/getSetFlat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:hint="Building/Apartment No"
+                        android:textSize="@dimen/fifteen_dp" />
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/updateStreetName"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:errorEnabled="true">
+                android:layout_height="wrap_content">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/getSetStreetName"
+                <ImageView
+                    android:id="@+id/flatIcon2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="@dimen/twenty_dp"
+                    android:src="@drawable/maaddress" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/updateStreetName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Street Name" />
-            </android.support.design.widget.TextInputLayout>
+                    android:nextFocusDown="@id/updateArea"
+                    android:layout_marginLeft="@dimen/ten_dp"
+                    android:layout_toRightOf="@+id/flatIcon2"
+                    app:errorEnabled="true"
 
+                    app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/updateArea"
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/getSetStreetName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:hint="street name"
+                        android:textSize="@dimen/fifteen_dp" />
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:errorEnabled="true">
+                android:layout_height="wrap_content">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/getSetArea"
+                <ImageView
+                    android:id="@+id/flatIcon3"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="@dimen/twenty_dp"
+                    android:src="@drawable/maaddress" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/updateArea"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Area" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_marginLeft="@dimen/ten_dp"
+                    android:layout_toRightOf="@+id/flatIcon3"
+                    app:errorEnabled="true"
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/updateCity"
+                    app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/getSetArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:hint="area"
+                        android:textSize="@dimen/fifteen_dp" />
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:errorEnabled="true">
+                android:layout_height="wrap_content">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/getSetCity"
+                <ImageView
+                    android:id="@+id/flatIcon4"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="@dimen/twenty_dp"
+                    android:src="@drawable/maaddress" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/updateCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="City" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_marginLeft="@dimen/ten_dp"
+                    android:layout_toRightOf="@+id/flatIcon4"
+                    app:errorEnabled="true"
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/upatePinCode"
+                    app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/getSetCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:hint="city"
+                        android:textSize="@dimen/fifteen_dp" />
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:inputType="number"
-                app:errorEnabled="true">
+                android:layout_height="wrap_content">
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/getSetPinCode"
+                <ImageView
+                    android:id="@+id/flatIcon5"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="@dimen/twenty_dp"
+                    android:src="@drawable/maaddress" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/upatePinCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Pincode" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_marginLeft="@dimen/ten_dp"
+                    android:layout_toRightOf="@+id/flatIcon5"
+                    app:errorEnabled="true"
 
-            <!--Land Mark and Alternate Mobile Number-->
+                    app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/updateLandMark"
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/getSetPinCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:hint="pincode"
+                        android:textSize="@dimen/fifteen_dp" />
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:errorEnabled="true">
+                android:layout_height="wrap_content">
 
-                <android.support.design.widget.TextInputEditText
+                <ImageView
+                    android:id="@+id/flatIcon6"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="@dimen/twenty_dp"
+                    android:src="@drawable/maaddress" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/updateLandMark"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="LandMark" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_marginLeft="@dimen/ten_dp"
+                    android:layout_toRightOf="@+id/flatIcon6"
+                    app:errorEnabled="true"
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/updateAlternateMobile"
+                    app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+                    <android.support.design.widget.TextInputEditText
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:hint="land mark"
+                        android:textSize="@dimen/fifteen_dp" />
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:errorEnabled="true">
+                android:layout_height="wrap_content">
 
-                <android.support.design.widget.TextInputEditText
+                <ImageView
+                    android:id="@+id/flatIcon7"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="@dimen/twenty_dp"
+                    android:src="@drawable/maaddress" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/updateAlternateMobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Alternate Mobile" />
-            </android.support.design.widget.TextInputLayout>
+                    android:layout_marginLeft="@dimen/ten_dp"
+                    android:layout_toRightOf="@+id/flatIcon7"
+                    app:errorEnabled="true"
 
+                    app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+                    <android.support.design.widget.TextInputEditText
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:hint="contact person"
+                        android:textSize="@dimen/fifteen_dp" />
+                </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 
+
     </android.support.v4.widget.NestedScrollView>
+
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/proceedToPay"
+        android:layout_marginLeft="@dimen/ten_dp"
+        android:layout_marginRight="@dimen/ten_dp"
+        android:layout_marginBottom="@dimen/five_dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Delivery Executives are less likely to call you if they your exact address" />
 
     <Button
         android:id="@+id/proceedToPay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/FragmentGreen"
+        android:layout_marginLeft="@dimen/ten_dp"
+        android:layout_marginRight="@dimen/ten_dp"
+        android:layout_marginBottom="@dimen/five_dp"
+        android:background="@drawable/rec_gradiant"
+        android:fontFamily="sans-serif-condensed"
         android:onClick="onClickUpdateAddress"
-        android:paddingLeft="100dp"
-        android:paddingRight="100dp"
         android:text="Update Address"
-        android:textColor="@color/White"
-        android:textSize="18sp" />
+        android:textColor="@color/White" />
 
 
 </RelativeLayout>

@@ -6,6 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorControlNormal">#c1c2c4</item>
+        <item name="colorControlActivated">@color/FragmentGreen</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -38,6 +42,12 @@
 
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
+
+    <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
+    <item name="android:textColor">#c1c2c4</item>
+    </style>
+
+
 
     <style name="MyFancyTheme" parent="android:Theme.Holo">
         <item name="android:homeAsUpIndicator">@drawable/left</item>
