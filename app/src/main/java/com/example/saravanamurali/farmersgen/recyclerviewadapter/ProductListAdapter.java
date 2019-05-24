@@ -182,7 +182,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             productListName.setTypeface(roboto);
             productListPrice.setTypeface(roboto);
 
-
             addButton = itemView.findViewById(R.id.addButton);
             incButton = itemView.findViewById(R.id.incButton);
             countShow = itemView.findViewById(R.id.countTextView);

@@ -211,9 +211,6 @@ public class Count_Price_Show_Fragment extends Fragment {
 
                 if (jsonResponseFromServerDBDTO.getStatus() == 200) {
 
-//                    Log.d("respo1111", "11");
-
-                    //Toast.makeText(getActivity(), jsonResponseFromServerDBDTO.getStatus() + ":" + jsonResponseFromServerDBDTO.getMessage(), Toast.LENGTH_SHORT).show();
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();

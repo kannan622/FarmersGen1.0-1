@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
@@ -207,9 +208,7 @@ public class MenuAccountFragment extends Fragment {
                     if (Network_config.is_Network_Connected_flag(getActivity())) {
 
                         logout();
-                    }
-
-                    else {
+                    } else {
                         Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                                 getResources().getString(R.string.connection_message));
                     }
@@ -252,9 +251,7 @@ public class MenuAccountFragment extends Fragment {
                     if (Network_config.is_Network_Connected_flag(getActivity())) {
 
                         showFavouriteList();
-                    }
-
-                    else {
+                    } else {
                         Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                                 getResources().getString(R.string.connection_message));
                     }
@@ -268,8 +265,7 @@ public class MenuAccountFragment extends Fragment {
                     if (Network_config.is_Network_Connected_flag(getActivity())) {
                         jsonResponseForCancelOrderDTOSForSnakcerBar = new ArrayList<JSONResponseForCancelOrderDTO>();
                         cancelOrder();
-                    }
-                    else {
+                    } else {
                         Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                                 getResources().getString(R.string.connection_message));
                     }
@@ -284,8 +280,7 @@ public class MenuAccountFragment extends Fragment {
                     if (Network_config.is_Network_Connected_flag(getActivity())) {
                         jsonResponseToGetPastOrderDTOListSnackBar = new ArrayList<JSONResponseToGetPastOrderDTO>();
                         pastOrderAndOrderHistory();
-                    }
-                    else {
+                    } else {
                         Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                                 getResources().getString(R.string.connection_message));
                     }
@@ -638,8 +633,13 @@ public class MenuAccountFragment extends Fragment {
                     JSONResponseProfileEdit jsonResponseProfileEdit = response.body();
 
                     profileLoggedInUserName.setText(jsonResponseProfileEdit.getProfileName());
+                    //Typeface roboto=Typeface.createFromAsset(getActivity().getAssets(),"fonts/Roboto-Medium.ttf");
+                    // profileLoggedInUserName.setTypeface(roboto);
                     profileLoggedInMobile.setText(jsonResponseProfileEdit.getProfileMobileNo());
+
+                    // profileLoggedInMobile.setTypeface(roboto);
                     profileLoggedInMailTextView.setText(jsonResponseProfileEdit.getProfileEmail());
+                    //profileLoggedInMailTextView.setTypeface(roboto);
 
 
                 }

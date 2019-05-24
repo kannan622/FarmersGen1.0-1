@@ -39,6 +39,8 @@
     <string name="terms">Accepting Terms and Condition</string>
     <string name="resend">RESEND</string>
     <string name="otpsent">OTP has been sent to </string>
+    <string name="myaccount">My Account</string>
+    <string name="aclist">Address, Favourites, Offers</string>
 
     <string name="Rs">\u20B9</string>
 

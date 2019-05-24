@@ -44,8 +44,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
+                        android:fontFamily="sans-serif-condensed"
                         android:text=""
-
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/black"
                         android:textSize="16sp"
@@ -59,6 +59,7 @@
                         android:layout_below="@id/profileUserName"
                         android:layout_alignParentLeft="true"
                         android:layout_marginTop="8dp"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="" />
 
                     <TextView
@@ -80,6 +81,7 @@
                         android:layout_alignBaseline="@id/profileMobileNumber"
                         android:layout_marginLeft="8dp"
                         android:layout_toRightOf="@id/dot"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="" />
 
                     <!--<TextView
@@ -121,7 +123,8 @@
                             android:id="@+id/myAccount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="My Account"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="@string/myaccount"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/black"
                             android:textSize="16sp"
@@ -133,7 +136,8 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/myAccount"
                             android:layout_marginTop="5dp"
-                            android:text="Address, Favourites, Offers" />
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="@string/aclist" />
 
                         <RelativeLayout
                             android:id="@+id/profileMannageAddressBlock"
@@ -158,20 +162,21 @@
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginTop="15dp"
                                 android:layout_toRightOf="@id/profileHomeIcon"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="Manage Address"
                                 android:textAppearance="?android:attr/textAppearanceLarge"
                                 android:textColor="@color/color_grey"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textSize="15sp" />
 
                             <ImageView
                                 android:id="@+id/profileRightArrowAddress"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_alignParentRight="true"
-                                android:layout_marginTop="15dp"
-                                android:padding="5dp"
                                 android:layout_centerInParent="true"
+                                android:layout_marginTop="15dp"
+
+                                android:padding="5dp"
                                 android:src="@drawable/maarrow" />
                         </RelativeLayout>
 
@@ -199,20 +204,20 @@
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginTop="15dp"
                                 android:layout_toRightOf="@id/profileFavouritesIcon"
+                                android:fontFamily="sans-serif-condensed"
                                 android:text="Favourites"
                                 android:textAppearance="?android:attr/textAppearanceLarge"
                                 android:textColor="@color/color_grey"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
+                                android:textSize="15sp" />
 
                             <ImageView
                                 android:id="@+id/profileRightArrowFavourite"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
                                 android:layout_alignParentRight="true"
+                                android:layout_centerInParent="true"
                                 android:layout_marginTop="15dp"
                                 android:padding="5dp"
-                                android:layout_centerInParent="true"
                                 android:src="@drawable/maarrow" />
 
                         </RelativeLayout>
@@ -252,23 +257,23 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="15dp"
-
                             android:layout_toRightOf="@id/profilecancelIcon"
+
+                            android:fontFamily="sans-serif-condensed"
 
                             android:text="Cancel Order"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/color_grey"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                            android:textSize="15sp" />
 
                         <ImageView
                             android:id="@+id/profileRightArrowCancelOrder"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
                             android:layout_marginTop="15dp"
                             android:padding="5dp"
-                            android:layout_centerInParent="true"
                             android:src="@drawable/maarrow" />
 
                     </RelativeLayout>
@@ -298,17 +303,17 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="15dp"
-
                             android:layout_toRightOf="@id/profilepastIcon"
 
                             android:clickable="false"
+
+                            android:fontFamily="sans-serif-condensed"
 
                             android:text="Past Order"
 
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/color_grey"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
+                            android:textSize="15sp"
 
                             />
 
@@ -317,9 +322,9 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
                             android:layout_marginTop="15dp"
                             android:padding="5dp"
-                            android:layout_centerInParent="true"
                             android:src="@drawable/maarrow" />
 
                     </RelativeLayout>
@@ -348,15 +353,14 @@
 
                             android:layout_marginLeft="15dp"
                             android:layout_marginTop="15dp"
-
                             android:layout_toRightOf="@id/logoutIcon"
+                            android:fontFamily="sans-serif-condensed"
 
 
                             android:text="Logout"
                             android:textAppearance="?android:attr/textAppearanceLarge"
                             android:textColor="@color/color_grey"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
+                            android:textSize="15sp"
 
 
                             tools:ignore="OnClick" />
@@ -367,9 +371,9 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
                             android:layout_marginTop="15dp"
                             android:padding="5dp"
-                            android:layout_centerInParent="true"
                             android:src="@drawable/maarrow" />
 
 
@@ -386,20 +390,20 @@
                             android:id="@+id/shareApp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
                             android:layout_marginLeft="@dimen/ten_dp"
                             android:background="@color/FragmentGreen"
-                            android:text="Share App"
-                            android:padding="@dimen/six_dp"
+                            android:fontFamily="sans-serif-condensed"
                             android:gravity="center"
-                            android:layout_centerInParent="true"
+                            android:padding="@dimen/six_dp"
+                            android:text="Share App"
                             android:textColor="@color/white" />
 
                         <ImageView
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:layout_toRightOf="@+id/shareApp"
-                            android:src="@drawable/mashare"
-                            />
+                            android:src="@drawable/mashare" />
 
 
                     </RelativeLayout>
@@ -560,7 +564,6 @@
                     android:layout_marginRight="20dp"
                     android:text="HOME"
                     android:textColor="@color/GreenSignup" />
-
 
 
             </RelativeLayout>
