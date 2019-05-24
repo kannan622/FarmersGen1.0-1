@@ -55,7 +55,7 @@
                 android:text="Dell Inspiration"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:layout_marginLeft="@dimen/two_dp"
+                android:layout_marginLeft="@dimen/three_dp"
                 />
 
 

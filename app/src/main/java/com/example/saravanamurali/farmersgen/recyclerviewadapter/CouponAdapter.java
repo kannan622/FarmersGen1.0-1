@@ -26,6 +26,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
     public interface ShareCouponCode{
 
         public void applyCouponCode(String coupson_code, String couponID,String offer_price);
+        public void viewCouponDetails(String cou_Code,String  coupon_id);
 
     }
 
@@ -97,6 +98,19 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
 
                     shareCouponCode.applyCouponCode(couponCode,coupID,offerPrice);
 
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int getCoupon_AdapterPosition=getAdapterPosition();
+                    CouponDTO couponDTO=jsonResponseCouponDTOList.get(getCoupon_AdapterPosition);
+
+                    String coupon_Code=couponDTO.getCouponCode();
+                    String coupon_ID=couponDTO.getCouponId();
+
+                    shareCouponCode.viewCouponDetails(coupon_Code,coupon_ID);
                 }
             });
 
