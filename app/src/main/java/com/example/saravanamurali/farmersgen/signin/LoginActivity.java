@@ -159,6 +159,7 @@ public class LoginActivity extends AppCompatActivity {
         csprogress = new ProgressDialog(LoginActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
         ApiInterface api = APIClientToLogin.getApiInterfaceToLogin();
@@ -173,39 +174,34 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<SignedInJSONResponse>() {
             @Override
             public void onResponse(Call<SignedInJSONResponse> call, Response<SignedInJSONResponse> response) {
-                System.out.println("I am inside");
 
-                if (response.isSuccessful()) {
+                SignedInJSONResponse signedInJSONResponse = response.body();
+
+                if (signedInJSONResponse.getResponseCode() == 200) {
+
+                    SharedPreferences current_User = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = current_User.edit();
+                    editor.putString("CURRENTUSER", signedInJSONResponse.getUser_ID());
+                    editor.commit();
+
+
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
 
-                    SignedInJSONResponse signedInJSONResponse = response.body();
+                    Intent menuHomeActivity = new Intent(LoginActivity.this, HomeActivity.class);
 
+                    menuHomeActivity.putExtra("CUR_USER_ID", signedInJSONResponse.getUser_ID());
 
-                    if (signedInJSONResponse.getUser_ID() != null) {
+                    startActivity(menuHomeActivity);
 
-
-                        SharedPreferences current_User = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = current_User.edit();
-                        editor.putString("CURRENTUSER", signedInJSONResponse.getUser_ID());
-                        editor.commit();
-
-
-                        Intent menuHomeActivity = new Intent(LoginActivity.this, HomeActivity.class);
-
-                        menuHomeActivity.putExtra("CUR_USER_ID", signedInJSONResponse.getUser_ID());
-
-                        startActivity(menuHomeActivity);
-                    }
-
-
-                } else {
+                } else if (signedInJSONResponse.getResponseCode() == 500) {
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
                     Toast.makeText(LoginActivity.this, "You have Entered Wrong Mobile Number or Password!!!", Toast.LENGTH_LONG).show();
                 }
+
 
             }
 

@@ -21,21 +21,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OTP has been sent to "
-            android:textStyle="bold"
-            android:layout_marginLeft="@dimen/five_dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
-            android:layout_marginTop="@dimen/twenty_sp" />
+            android:textSize="@dimen/twenty_dp"
+            android:layout_marginTop="@dimen/thirty_dp"
+            android:layout_marginLeft="@dimen/twenty_dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/otp_MobileNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
-            android:textStyle="bold"
             android:layout_marginLeft="@dimen/five_dp"
             android:textColor="@color/FragmentGreen"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
-            android:layout_marginTop="@dimen/twenty_sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_marginTop="@dimen/thirty_dp"
             android:layout_toRightOf="@+id/otpText"
             />
 
@@ -64,6 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Time"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
             android:layout_marginTop="@dimen/five_dp"
             android:layout_toLeftOf="@id/reSend"
             android:padding="@dimen/five_dp"
@@ -75,6 +80,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="RESEND"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
             android:layout_marginTop="@dimen/five_dp"
             android:layout_alignParentEnd="true"
             android:padding="@dimen/five_dp"
@@ -89,10 +96,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rec_gradiant"
-        android:textColor="@color/white"
         android:layout_marginTop="@dimen/twenty_dp"
         android:layout_below="@id/otpForRegistrationAtViewCart2"
-        android:text="Submit OTP" />
+        android:text="Submit OTP"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_margin="@dimen/twenty_dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        />
 
 
 </LinearLayout>
