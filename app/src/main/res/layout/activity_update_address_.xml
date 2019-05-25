@@ -102,7 +102,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="@dimen/twenty_dp"
-                    android:src="@drawable/maaddress" />
+                    android:src="@drawable/building" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/updateFlatNo"
@@ -133,7 +133,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="@dimen/twenty_dp"
-                    android:src="@drawable/maaddress" />
+                    android:src="@drawable/streetname" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/updateStreetName"
@@ -165,7 +165,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="@dimen/twenty_dp"
-                    android:src="@drawable/maaddress" />
+                    android:src="@drawable/area" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/updateArea"
@@ -196,7 +196,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="@dimen/twenty_dp"
-                    android:src="@drawable/maaddress" />
+                    android:src="@drawable/city" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/updateCity"
@@ -227,7 +227,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="@dimen/twenty_dp"
-                    android:src="@drawable/maaddress" />
+                    android:src="@drawable/pincode" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/upatePinCode"
@@ -245,6 +245,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
                         android:hint="pincode"
+                        android:inputType="number"
                         android:textSize="@dimen/fifteen_dp" />
                 </android.support.design.widget.TextInputLayout>
             </RelativeLayout>
@@ -258,7 +259,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="@dimen/twenty_dp"
-                    android:src="@drawable/maaddress" />
+                    android:src="@drawable/landmark" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/updateLandMark"
@@ -289,7 +290,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="@dimen/twenty_dp"
-                    android:src="@drawable/maaddress" />
+                    android:src="@drawable/contact_person" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/updateAlternateMobile"

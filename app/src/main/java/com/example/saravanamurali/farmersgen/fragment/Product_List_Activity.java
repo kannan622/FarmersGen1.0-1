@@ -386,6 +386,13 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     }
 
 
+   /* @Override
+    protected void onStart() {
+        super.onStart();
+
+        loadProductListDataFromSqlLite();
+    }*/
+
     @Override
     protected void onResume() {
         super.onResume();

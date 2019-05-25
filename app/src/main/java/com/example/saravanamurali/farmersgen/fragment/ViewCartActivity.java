@@ -10,10 +10,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -362,6 +364,27 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
             }
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+                //int swipeDeleteAdapterPosition=viewHolder.getAdapterPosition();
+
+                //ViewCartDTO swipteDeleteViewCartDTO  =viewCartDTOList.get(swipeDeleteAdapterPosition);
+              // String productCode= swipteDeleteViewCartDTO.getProduct_Code();
+
+                viewCartAdapter.removeItem1(viewHolder.getAdapterPosition());
+
+
+
+            }
+        }).attachToRecyclerView(recyclerViewViewCart);
 
         /*ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerViewViewCart);
@@ -843,8 +866,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     csprogress.dismiss();
                 }
 
-              /*  recyclerViewViewCart.getRecycledViewPool().clear();
-                viewCartAdapter.notifyDataSetChanged();*/
 
                 GrandTotal = jsonResponseDeleteCartDTO.getDeleteGrandTotal();
 
@@ -976,11 +997,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     }
 
-    /*@Override
-    public void onBackPressed() {
-        Product_List_Activity product_list_activity=new Product_List_Activity();
-        product_list_activity.loadProductListDataFromSqlLite();
-    }*/
 
     /* public void offers(View view) {
         Toast.makeText(ViewCartActivity.this, "Offers Clicked", Toast.LENGTH_LONG).show();

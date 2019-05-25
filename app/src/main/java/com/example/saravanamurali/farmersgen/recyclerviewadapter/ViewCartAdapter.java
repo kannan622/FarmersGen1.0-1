@@ -100,7 +100,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
         LayoutInflater layoutInflater = LayoutInflater.from(viewCartContext);
         View view = layoutInflater.inflate(R.layout.viewcart_adapterview, viewGroup, false);
 
-        dialog=new Dialog(viewCartContext);
+        dialog = new Dialog(viewCartContext);
 
         ViewCartHolder viewCartHolder = new ViewCartHolder(view);
 
@@ -162,23 +162,20 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
             viewCartDTODec = viewCartProductListDTO.get(position);
             viewCartProductListDTO.remove(position);
 
-
         } else {
 
             viewCartDTODec = viewCartProductListDTO.get(position);
             viewCartProductListDTO.remove(position);
 
-
         }
         String viewCartDecProductCode = viewCartDTODec.getProduct_Code();
 
+        viewCartDeleteInterface.viewCartDeleteInterfaceSqlLite(viewCartDecProductCode);
         viewCartDeleteInterface.viewCartDeleteInterface(viewCartDecProductCode);
-
         notifyItemRemoved(position);
 
 
     }
-
 
 
     public class ViewCartHolder extends RecyclerView.ViewHolder {
@@ -202,7 +199,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
             rel = itemView.findViewById(R.id.rell);
 
 
-            Typeface roboto=Typeface.createFromAsset(viewCartContext.getAssets(),"fonts/Roboto-Medium.ttf");
+            Typeface roboto = Typeface.createFromAsset(viewCartContext.getAssets(), "fonts/Roboto-Medium.ttf");
             cartProductName.setTypeface(roboto);
             totalPrice.setTypeface(roboto);
             cartCount.setTypeface(roboto);
@@ -228,7 +225,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
                     viewCartDTO.setCount(String.valueOf(viewCartCount));
                     notifyDataSetChanged();
 
-                   viewCartUpdateInterface.viewCartUpdateInterfaceSqlLite(viewCartCount, viewCart_productCode, viewCart_Price);
+                    viewCartUpdateInterface.viewCartUpdateInterfaceSqlLite(viewCartCount, viewCart_productCode, viewCart_Price);
 
                     notifyDataSetChanged();
 
@@ -236,14 +233,10 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
                         viewCartUpdateInterface.viewCartUpdateInterface(viewCartCount, viewCart_productCode, viewCart_Price);
                         notifyDataSetChanged();
-                    }
-
-                    else {
+                    } else {
                         Network_config.customAlert(dialog, viewCartContext, viewCartContext.getResources().getString(R.string.app_name),
                                 viewCartContext.getResources().getString(R.string.connection_message));
                     }
-
-
 
 
                 }
@@ -298,9 +291,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
                         notifyDataSetChanged();
 
-                    }
-
-                    else {
+                    } else {
                         Network_config.customAlert(dialog, viewCartContext, viewCartContext.getResources().getString(R.string.app_name),
                                 viewCartContext.getResources().getString(R.string.connection_message));
                     }
