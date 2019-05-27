@@ -60,7 +60,7 @@
             <TextView
                 android:id="@+id/showAddress"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="60dp"
                 android:layout_below="@id/tapToFill"
                 android:layout_marginLeft="@dimen/ten_dp"
                 android:layout_marginTop="@dimen/five_dp"
@@ -78,7 +78,7 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="370dp"
+        android:layout_height="300dp"
         android:layout_below="@id/toolbarBlock"
         android:divider="@android:color/transparent"
         android:dividerHeight="25px">

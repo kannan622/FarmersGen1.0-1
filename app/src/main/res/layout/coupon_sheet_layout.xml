@@ -2,68 +2,152 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/fifteen_dp">
 
     <ImageView
         android:id="@+id/sheetImage"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:src="@drawable/banner" />
+
     <TextView
         android:id="@+id/sheetBold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Get 50% OFF on your first Farmers Gen order"
-        android:textStyle="bold"
         android:layout_marginTop="@dimen/five_dp"
         android:fontFamily="sans-serif-condensed"
-        />
+        android:text="Get 50% OFF on your first Farmers Gen order"
+        android:textSize="@dimen/fifteen_dp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/sheetNormal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="use code FarmersGen50 and get 50% off on your first farmersgne order. Maximum discount Rs.100"
         android:fontFamily="sans-serif-condensed"
-        />
-    <TextView
-        android:id="@+id/sheetMiniumOrder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/twenty_five"
-        android:text="No minimum order value."
-        />
+        android:text="use code FarmersGen50 and get 50% off on your first farmersgne order. Maximum discount Rs.100" />
 
-    <TextView
-        android:id="@+id/t2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/five_dp"
-        android:text="Valid on all paymnts methods."
-        />
 
-    <TextView
-        android:id="@+id/t3"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/five_dp"
-        android:text="Valid on all paymnts methods."
-        />
-    <TextView
-        android:id="@+id/sheetDiscountAmount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/five_dp"
-        android:text="Maximum discount amount."
-        />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/sheetValid"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/five_dp"
-        android:text="Offer valid till May 31,2019 23:59PM."
-        />
 
+        <ImageView
+            android:id="@+id/point"
+            android:layout_width="@dimen/five_dp"
+            android:layout_height="@dimen/five_dp"
+            android:layout_marginTop="@dimen/twenty_seven_dp"
+            android:layout_alignBaseline="@id/point"
+            android:src="@drawable/dot" />
+
+        <TextView
+            android:id="@+id/sheetMiniumOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_marginTop="@dimen/twenty_dp"
+            android:layout_toRightOf="@+id/point"
+            android:text="No minimum order value." />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/point1"
+            android:layout_width="@dimen/five_dp"
+            android:layout_height="@dimen/five_dp"
+            android:layout_marginTop="@dimen/twelve_dp"
+            android:src="@drawable/dot" />
+
+        <TextView
+            android:id="@+id/t2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_marginTop="@dimen/five_dp"
+            android:layout_toRightOf="@+id/point1"
+            android:text="Valid on all paymnts methods." />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/point2"
+            android:layout_width="@dimen/five_dp"
+            android:layout_height="@dimen/five_dp"
+            android:layout_marginTop="@dimen/twelve_dp"
+            android:src="@drawable/dot" />
+
+
+        <TextView
+            android:id="@+id/t3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/five_dp"
+            android:layout_toRightOf="@id/point2"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:text="Valid on all paymnts methods." />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/point3"
+            android:layout_width="@dimen/five_dp"
+            android:layout_height="@dimen/five_dp"
+            android:layout_marginTop="@dimen/twelve_dp"
+            android:src="@drawable/dot" />
+
+
+
+        <TextView
+            android:id="@+id/sheetDiscountAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/point3"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_marginTop="@dimen/five_dp"
+            android:text="Maximum discount amount."
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/point4"
+            android:layout_width="@dimen/five_dp"
+            android:layout_height="@dimen/five_dp"
+            android:layout_marginTop="@dimen/twelve_dp"
+            android:src="@drawable/dot" />
+
+        <TextView
+            android:id="@+id/sheetValid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/five_dp"
+            android:layout_toRightOf="@id/point4"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:text="Offer valid till May 31,2019 23:59PM."
+            />
+
+
+
+    </RelativeLayout>
 
 
 </LinearLayout>

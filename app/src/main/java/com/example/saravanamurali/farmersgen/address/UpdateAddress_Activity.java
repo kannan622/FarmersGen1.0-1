@@ -44,7 +44,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class UpdateAddress_Activity extends AppCompatActivity /*implements View.OnClickListener*/ {
+public class UpdateAddress_Activity extends AppCompatActivity implements View.OnClickListener {
 
     private String NO_CURRENT_USER = "NO_CURRENT_USER";
 
@@ -79,7 +79,7 @@ public class UpdateAddress_Activity extends AppCompatActivity /*implements View.
     private TextInputEditText geoSetStreetName;
     private TextInputEditText geoSetArea;
     private TextInputEditText geoSetCity;
-    private  TextInputEditText geoSetPincode;
+    private TextInputEditText geoSetPincode;
 
     private TextView showAddress;
 
@@ -95,43 +95,37 @@ public class UpdateAddress_Activity extends AppCompatActivity /*implements View.
 
         addressID = getAddressID.getStringExtra("ADDRESSID");
 
-        /*uFlatNo = findViewById(R.id.updateFlatNo);
+        uFlatNo = findViewById(R.id.updateFlatNo);
         uStreetName = findViewById(R.id.updateStreetName);
         uArea = findViewById(R.id.updateArea);
         uCity = findViewById(R.id.updateCity);
         uPinCode = findViewById(R.id.upatePinCode);
 
-        geoSetPincode=(TextInputEditText)findViewById(R.id.getSetPinCode);
-        geoSetCity=(TextInputEditText)findViewById(R.id.getSetCity);
-        geoSetArea=(TextInputEditText)findViewById(R.id.getSetArea);
-        geoSetStreetName=(TextInputEditText)findViewById(R.id.getSetStreetName);
-        geoSetFlatNo=(TextInputEditText)findViewById(R.id.getSetFlat);
+        geoSetPincode = (TextInputEditText) findViewById(R.id.getSetPinCode);
+        geoSetCity = (TextInputEditText) findViewById(R.id.getSetCity);
+        geoSetArea = (TextInputEditText) findViewById(R.id.getSetArea);
+        geoSetStreetName = (TextInputEditText) findViewById(R.id.getSetStreetName);
+        geoSetFlatNo = (TextInputEditText) findViewById(R.id.getSetFlat);
 
-        showAddress=(TextView)findViewById(R.id.showAddress);
+        showAddress = (TextView) findViewById(R.id.showAddress);
 
         uLandMark = findViewById(R.id.updateLandMark);
         uAlternateMobile = findViewById(R.id.updateAlternateMobile);
 
         myLocation_Button = (Button) findViewById(R.id.myLocationButton);
-*/
-        updateAddressToolBar=(Toolbar)findViewById(R.id.updateAddressTootlBar);
+        updateAddressToolBar = (Toolbar) findViewById(R.id.updateAddressTootlBar);
         setSupportActionBar(updateAddressToolBar);
-        if(getSupportActionBar()!=null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-       /* ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
 
         myLocation_Button.setOnClickListener(this);
-*/
     }
+
 
     public void onClickUpdateAddress(View view) {
-    }
-
-
-
-   /* public void onClickUpdateAddress(View view) {
 
 
         if (!validateFlatNo() | !validatStreetName() | !validateArea() | !validateCity() | !validatePinCode() | !validateLandMark() | !validateAlterMobileNumber()) {
@@ -143,10 +137,10 @@ public class UpdateAddress_Activity extends AppCompatActivity /*implements View.
         }
 
 
-    }*/
+    }
 
 
-    /*private void updateAddressFromChangeAddressClick() {
+    private void updateAddressFromChangeAddressClick() {
 
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(UpdateAddress_Activity.this);
@@ -232,27 +226,26 @@ public class UpdateAddress_Activity extends AppCompatActivity /*implements View.
             if (location != null) {
                 lattitude = location.getLatitude();
                 longitude = location.getLongitude();
-                *//*lattitude = String.valueOf(latti);
-                longitude = String.valueOf(longi);
-*//*
+                /*lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);*/
+
 
             } else if (location1 != null) {
                 lattitude = location1.getLatitude();
                 longitude = location1.getLongitude();
-                *//*lattitude = String.valueOf(latti);
-                longitude = String.valueOf(longi);
-*//*
+                /*lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);*/
 
 
             } else if (location2 != null) {
                 lattitude = location2.getLatitude();
                 longitude = location2.getLongitude();
-                *//*lattitude = String.valueOf(latti);
+                /*lattitude = String.valueOf(latti);
                 longitude = String.valueOf(longi);
-*//*
+*/
 
             } else {
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -262,12 +255,10 @@ public class UpdateAddress_Activity extends AppCompatActivity /*implements View.
 
 
             try {
-                geoAddresses = geocoder.getFromLocation(lattitude, longitude, FavStatus.REQUEST_LOCATION);
 
-                if(geoAddresses==null){
-                    getLocation();
-                }
-                else {
+                if (lattitude != null && longitude != null) {
+                    geoAddresses = geocoder.getFromLocation(lattitude, longitude, FavStatus.REQUEST_LOCATION);
+
 
                     String address = geoAddresses.get(0).getAddressLine(0);
                     String area = geoAddresses.get(0).getLocality();
@@ -283,7 +274,7 @@ public class UpdateAddress_Activity extends AppCompatActivity /*implements View.
                     showAddress.setText(address + " " + area + " " + city + " " + postalCode);
 
                     // System.out.println("Address"+address+"  "+"area"+area+"  "+"city"+city+"  "+"country"+country+"  "+"postalCode"+postalCode);
-                *//*System.out.println(address);
+                /*System.out.println(address);
                 System.out.println(area);
                 System.out.println(city);
                 System.out.println(country);
@@ -292,14 +283,14 @@ public class UpdateAddress_Activity extends AppCompatActivity /*implements View.
                 System.out.println(subLocality);
                 System.out.println(premises);
                 System.out.println(addressLine);
-*//*
-               *//* String doorNo=address;
-                String[] d_No=doorNo.split(",",2);
-                if(d_No.length>=7){
-                    geoSetFlatNo.setText("");
-                }else {
-                    geoSetFlatNo.setText(d_No[0]);
-                }*//*
+*/
+                    String doorNo = address;
+                    String[] d_No = doorNo.split(",", 2);
+                    if (d_No.length >= 7) {
+                        geoSetFlatNo.setText("");
+                    } else {
+                        geoSetFlatNo.setText(d_No[0]);
+                    }
 
                     geoSetArea.setText(subLocality);
                     geoSetCity.setText(area);
@@ -309,6 +300,9 @@ public class UpdateAddress_Activity extends AppCompatActivity /*implements View.
                         csprogress.dismiss();
                     }
 
+
+                } else {
+                    Toast.makeText(UpdateAddress_Activity.this, "Unble to Fetch your location", Toast.LENGTH_LONG).show();
                 }
 
 
@@ -325,12 +319,12 @@ public class UpdateAddress_Activity extends AppCompatActivity /*implements View.
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Please Turn ON your GPS Connection")
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
                         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, final int id) {
                         dialog.cancel();
                     }
@@ -469,6 +463,5 @@ public class UpdateAddress_Activity extends AppCompatActivity /*implements View.
 
 
     }
-*/
 
 }

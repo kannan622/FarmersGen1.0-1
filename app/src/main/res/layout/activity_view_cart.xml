@@ -107,8 +107,9 @@
                     android:id="@+id/couponPercentage"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_marginLeft="@dimen/five_dp"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/coupon" />
+                    android:src="@drawable/discount" />
 
                 <TextView
                     android:id="@+id/applyCouponText"
@@ -148,7 +149,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="ORDER50"
+                    android:text=""
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
 
 

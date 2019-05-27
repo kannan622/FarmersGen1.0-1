@@ -365,7 +365,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             }
         });
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
                 return false;
@@ -377,10 +377,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 //int swipeDeleteAdapterPosition=viewHolder.getAdapterPosition();
 
                 //ViewCartDTO swipteDeleteViewCartDTO  =viewCartDTOList.get(swipeDeleteAdapterPosition);
-              // String productCode= swipteDeleteViewCartDTO.getProduct_Code();
+                // String productCode= swipteDeleteViewCartDTO.getProduct_Code();
 
                 viewCartAdapter.removeItem1(viewHolder.getAdapterPosition());
-
 
 
             }
@@ -424,6 +423,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
 
@@ -620,10 +620,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
 
 
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
-
                 JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
                 List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
 
@@ -660,6 +656,14 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 //Okhttp3
     @Override
     public void viewCartUpdateInterface(int updateCount, String updateProductCode, String prouctPrice) {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(ViewCartActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCancelable(false);
+        csprogress.setCanceledOnTouchOutside(false);
+
         String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
@@ -728,14 +732,18 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                         toPayAmountTextView.setText(GrandTotal);
                         viewCartAdapter.notifyDataSetChanged();
 
+                        if (csprogress.isShowing()) {
+                            csprogress.dismiss();
+                        }
 
-                        System.out.println("UpdateOKHTTP" + producode + " " + count + " " + totalPRice + " " + grandTotal);
+
+                        /*System.out.println("UpdateOKHTTP" + producode + " " + count + " " + totalPRice + " " + grandTotal);
 
                         Log.d("okk", "" + producode + " " + count + " " + totalPRice + " " + grandTotal);
 
-                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();*/
                     } else {
-                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
                     }
 
 
@@ -844,6 +852,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
         String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -860,11 +869,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
                 JSONResponseDeleteCartDTO jsonResponseDeleteCartDTO = response.body();
-
-
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
 
 
                 GrandTotal = jsonResponseDeleteCartDTO.getDeleteGrandTotal();
@@ -910,6 +914,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                 viewCartAdapter.notifyDataSetChanged();
 
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
             }
 
             @Override
@@ -948,6 +956,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
 
@@ -966,10 +975,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
 
 
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
-
                 GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
 
                 addressID = getDeliveryAddressDTO.getAddressID();
@@ -979,6 +984,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 editor.putString("ADDRESSID", addressID);
                 editor.commit();
 
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
                 //System.out.println("CUreent user Address ID" + addressID);
 

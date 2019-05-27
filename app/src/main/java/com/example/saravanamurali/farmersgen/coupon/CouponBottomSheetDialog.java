@@ -2,6 +2,7 @@ package com.example.saravanamurali.farmersgen.coupon;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -54,8 +55,14 @@ public class CouponBottomSheetDialog extends BottomSheetDialogFragment {
         t4=(TextView)view.findViewById(R.id.sheetDiscountAmount);
         t5=(TextView)view.findViewById(R.id.sheetValid);
 
+        Typeface roboto=Typeface.createFromAsset(context.getAssets(),"fonts/Roboto-Regular.ttf");
 
-        System.out.println("Coupon Bottom Sheet" + coupon_id + " " + coupon_id);
+        t1.setTypeface(roboto);
+        t2.setTypeface(roboto);
+        t3.setTypeface(roboto);
+        t4.setTypeface(roboto);
+        t5.setTypeface(roboto);
+
         return view;
     }
 }

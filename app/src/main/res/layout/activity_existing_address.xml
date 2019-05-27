@@ -4,6 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/deliverAddressToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delivery to"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
     <ImageView
         android:id="@+id/mapImage"
         android:layout_width="54dp"
@@ -11,7 +26,9 @@
         android:layout_marginLeft="@dimen/eight_dp"
         android:layout_marginTop="@dimen/twenty_dp"
         android:layout_marginRight="@dimen/eight_dp"
-        android:src="@drawable/add_address_logo" />
+        android:src="@drawable/add_address_logo"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/deliveryAddress"
@@ -22,8 +39,9 @@
         android:layout_toRightOf="@id/mapImage"
         android:text="Delivery Address"
         android:textSize="@dimen/twenty_five"
-        android:textStyle="bold" />
-
+        android:textStyle="bold"
+        android:visibility="gone"
+        />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -269,6 +287,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
             android:background="@color/White"
             android:text="Change Address"
             android:textColor="@color/FragmentGreen" />
@@ -277,6 +296,7 @@
             android:id="@+id/proceedToPayFromViewCart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
             android:layout_weight="1"
             android:background="@color/FragmentGreen"
             android:paddingLeft="2dp"
