@@ -270,6 +270,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
                             notifyDataSetChanged();
                             viewCartUpdateInterface.viewCartUpdateInterface(viewCartDecCount, viewCartDecProductCode, viewCartDecPrice);
 
+
                         } else if (viewCartDecCount == 0) {
 
                             removeItem(decrementAdapterPosition);
@@ -278,7 +279,6 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
                             viewCartDeleteInterface.viewCartDeleteInterfaceSqlLite(viewCartDecProductCode);
                             notifyDataSetChanged();
                             viewCartDeleteInterface.viewCartDeleteInterface(viewCartDecProductCode);
-
 
                         } else if (viewCartDecCount < 0) {
 

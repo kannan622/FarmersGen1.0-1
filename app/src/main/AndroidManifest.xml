@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
 
     <application
@@ -50,7 +51,7 @@
         <activity android:name=".signup.OTPActivity" />
         <activity android:name=".paymentgateway.PaymentGatewayActivity" />
         <activity android:name=".address.Add_Address_Activity" />
-        <activity android:name=".address.ExistingAddressActivity" />
+        <activity android:name=".address.ExistingAddressActivity" android:parentActivityName=".fragment.ViewCartActivity" />
         <activity android:name=".signin.ForgetPassword" />
         <activity android:name=".signin.MenuAccountFragmentLoginActivity" />
         <activity android:name=".paymentgateway.COD_Details_Activity" />
@@ -73,7 +74,7 @@
         <activity android:name=".signup.ExistingUser_ForgetPassword_AtViewCartActivity" />
         <activity android:name=".signup.ExistingUser_ForgetPassword_OTP_AtViewCartActivity" />
         <activity android:name=".signup.Existing_User_NewPassAndConfirmPass_AtViewCartActivity" />
-        <activity android:name=".address.ExistingAddressActivity_AtMenuAccFragment" android:parentActivityName=".fragment.ViewCartActivity" />
+        <activity android:name=".address.ExistingAddressActivity_AtMenuAccFragment"  />
         <activity android:name=".address.UpdateAddress_MenuAccFragment" />
         <activity android:name=".coupon.CouponActivity" />
         <activity android:name=".review.BrandReviewActivity" />

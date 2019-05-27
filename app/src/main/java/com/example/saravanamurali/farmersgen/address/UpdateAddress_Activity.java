@@ -1,18 +1,24 @@
 package com.example.saravanamurali.farmersgen.address;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
@@ -22,6 +28,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +65,8 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
     private TextInputLayout uLandMark;
     private TextInputLayout uAlternateMobile;
 
+    TextInputEditText updateMobile;
+
 
     private String proceed_FlatNo = "";
     private String proceed_StreetName = "";
@@ -85,11 +94,15 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
 
     Toolbar updateAddressToolBar;
 
+    private RelativeLayout relativeLayoutToLoadContact;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_address_);
+
+        ContentResolver contentResolver = getContentResolver();
 
         Intent getAddressID = getIntent();
 
@@ -100,6 +113,8 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
         uArea = findViewById(R.id.updateArea);
         uCity = findViewById(R.id.updateCity);
         uPinCode = findViewById(R.id.upatePinCode);
+
+        updateMobile = findViewById(R.id.updateMobile);
 
         geoSetPincode = (TextInputEditText) findViewById(R.id.getSetPinCode);
         geoSetCity = (TextInputEditText) findViewById(R.id.getSetCity);
@@ -113,6 +128,7 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
         uAlternateMobile = findViewById(R.id.updateAlternateMobile);
 
         myLocation_Button = (Button) findViewById(R.id.myLocationButton);
+
         updateAddressToolBar = (Toolbar) findViewById(R.id.updateAddressTootlBar);
         setSupportActionBar(updateAddressToolBar);
         if (getSupportActionBar() != null) {
@@ -122,8 +138,59 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
 
         myLocation_Button.setOnClickListener(this);
+
+        relativeLayoutToLoadContact = (RelativeLayout) findViewById(R.id.contactLoadBlock);
+
+        relativeLayoutToLoadContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadContact();
+            }
+        });
     }
 
+    private void loadContact() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED) {
+
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            startActivityForResult(intent, FavStatus.PICK_CONTACT);
+
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
+                    FavStatus.MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        String phoneNumber = "";
+        String name = "";
+
+        if (resultCode == Activity.RESULT_OK) {
+            Uri contactData = data.getData();
+            Cursor c = managedQuery(contactData, null, null, null, null);
+            if (c.moveToFirst()) {
+                name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                String id = c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
+
+                Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
+                while (phones.moveToNext()) {
+
+                    phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+                }
+
+                updateMobile.setText(name + " " + phoneNumber);
+                phones.close();
+                /*System.out.println("mobile number"+phoneNumber);
+                System.out.println("Name"+name);*/
+            }
+
+
+        }
+    }
 
     public void onClickUpdateAddress(View view) {
 

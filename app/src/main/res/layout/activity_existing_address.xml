@@ -7,14 +7,15 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/deliverAddressToolBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        >
+        android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Delivery to"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:textSize="@dimen/twenty_sp"
             />
 
     </android.support.v7.widget.Toolbar>
@@ -27,8 +28,7 @@
         android:layout_marginTop="@dimen/twenty_dp"
         android:layout_marginRight="@dimen/eight_dp"
         android:src="@drawable/add_address_logo"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/deliveryAddress"
@@ -40,17 +40,16 @@
         android:text="Delivery Address"
         android:textSize="@dimen/twenty_five"
         android:textStyle="bold"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/mapImage"
         android:layout_marginLeft="@dimen/eight_dp"
-        android:layout_marginTop="@dimen/eighty_dp"
+        android:layout_centerInParent="true"
         android:layout_marginRight="@dimen/eight_dp"
-        android:background="#FFFFFF"
+        android:background="@drawable/rect"
         android:orientation="horizontal"
         card_view:cardCornerRadius="5dp"
         card_view:cardElevation="1dp">
@@ -108,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/status"
                 android:layout_marginLeft="5dp"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_marginTop="15dp"
                 android:layout_toRightOf="@+id/spacecraftImg"
                 android:lines="1"
@@ -120,6 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/flatNoRight"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/spacecraftImg"
@@ -139,6 +140,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/spacecraftImg"
                 android:lines="1"
+                android:fontFamily="sans-serif-condensed"
                 android:text="Ambattur"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textSize="15sp" />
@@ -147,6 +149,7 @@
                 android:id="@+id/cityRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_below="@id/streetNameRight"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="5dp"
@@ -160,6 +163,7 @@
             <TextView
                 android:id="@+id/landmarkView"
                 android:layout_width="wrap_content"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cityRight"
                 android:layout_marginLeft="@dimen/five_dp"
@@ -176,6 +180,7 @@
                 android:layout_below="@id/cityRight"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-condensed"
                 android:layout_toEndOf="@id/landmarkView"
                 android:lines="1"
                 android:text="8015386062"
@@ -192,6 +197,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/spacecraftImg"
                 android:lines="1"
+                android:fontFamily="sans-serif-condensed"
                 android:text="600055"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textSize="15sp" />
@@ -205,6 +211,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/spacecraftImg"
                 android:lines="1"
+                android:fontFamily="sans-serif-condensed"
                 android:text="Tamilnadu, India"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textSize="15sp"
@@ -218,8 +225,7 @@
                 android:layout_below="@+id/state"
                 android:layout_marginTop="5dp"
                 android:background="@color/gray"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
 
             <Button
 
@@ -287,8 +293,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="sans-serif-condensed"
             android:background="@color/White"
+            android:fontFamily="sans-serif-condensed"
             android:text="Change Address"
             android:textColor="@color/FragmentGreen" />
 
@@ -296,9 +302,9 @@
             android:id="@+id/proceedToPayFromViewCart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
             android:layout_weight="1"
             android:background="@color/FragmentGreen"
+            android:fontFamily="sans-serif-condensed"
             android:paddingLeft="2dp"
             android:text="Proceed To Pay"
             android:textColor="@color/White" />

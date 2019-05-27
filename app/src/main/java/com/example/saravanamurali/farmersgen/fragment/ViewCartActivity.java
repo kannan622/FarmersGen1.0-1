@@ -308,7 +308,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 csprogress = new ProgressDialog(ViewCartActivity.this);
                 csprogress.setMessage("Loading...");
                 csprogress.show();
-                csprogress.setCancelable(false);
                 csprogress.setCanceledOnTouchOutside(false);
 
 
@@ -423,7 +422,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
-        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
 
@@ -661,7 +659,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
-        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
@@ -714,6 +711,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     String msg = myjson.getString("message");
                     if (status == 200) {
 
+                        if (csprogress.isShowing()) {
+                            csprogress.dismiss();
+                        }
+
                         String producode = myjson.getString("product_code");
                         String count = myjson.getString("count");
                         String totalPRice = myjson.getString("total_price");
@@ -732,9 +733,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                         toPayAmountTextView.setText(GrandTotal);
                         viewCartAdapter.notifyDataSetChanged();
 
-                        if (csprogress.isShowing()) {
-                            csprogress.dismiss();
-                        }
+
 
 
                         /*System.out.println("UpdateOKHTTP" + producode + " " + count + " " + totalPRice + " " + grandTotal);
@@ -852,7 +851,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
-        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
         String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -870,6 +868,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                 JSONResponseDeleteCartDTO jsonResponseDeleteCartDTO = response.body();
 
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
                 GrandTotal = jsonResponseDeleteCartDTO.getDeleteGrandTotal();
 
@@ -914,9 +916,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                 viewCartAdapter.notifyDataSetChanged();
 
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
 
             }
 
@@ -956,7 +955,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
-        csprogress.setCancelable(false);
+
+
         csprogress.setCanceledOnTouchOutside(false);
 
 

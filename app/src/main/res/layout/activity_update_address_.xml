@@ -78,10 +78,10 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
         android:layout_below="@id/toolbarBlock"
         android:divider="@android:color/transparent"
-        android:dividerHeight="25px">
+        android:dividerHeight="5px">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/RLayoutDeliveryAddress"
             android:layout_marginLeft="@dimen/ten_dp"
-            android:layout_marginTop="@dimen/twenty_dp"
+
             android:layout_marginRight="@dimen/ten_dp"
             android:orientation="vertical">
 
@@ -303,13 +303,38 @@
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
                     <android.support.design.widget.TextInputEditText
-
+                        android:id="@+id/updateMobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
                         android:hint="contact person"
                         android:textSize="@dimen/fifteen_dp" />
                 </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/contactLoadBlock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/forty_dp"
+                >
+
+                <ImageView
+                    android:id="@+id/flatIcon8"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/contact" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/thirty_dp"
+                    android:text="Add Contact"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="@color/colorPrimaryDark"
+                    />
+
             </RelativeLayout>
 
         </LinearLayout>
@@ -327,7 +352,9 @@
         android:layout_marginRight="@dimen/ten_dp"
         android:layout_marginBottom="@dimen/five_dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="Delivery Executives are less likely to call you if they your exact address" />
+        android:text="Delivery Executives are less likely to call you if they your exact address"
+        android:visibility="gone"
+        />
 
     <Button
         android:id="@+id/proceedToPay"

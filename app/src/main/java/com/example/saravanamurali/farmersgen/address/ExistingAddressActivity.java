@@ -42,7 +42,7 @@ public class ExistingAddressActivity extends AppCompatActivity {
     Button changeAddress;
     Button proceedtoPay;
 
-    private Toolbar toolbar;
+    private Toolbar existingAddressToolBar;
 
     String currentUserToGetExistingAddress;
 
@@ -50,6 +50,13 @@ public class ExistingAddressActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_existing_address);
+
+        existingAddressToolBar=(Toolbar)findViewById(R.id.deliverAddressToolBar);
+        setSupportActionBar(existingAddressToolBar);
+
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
 
         /*requestWindowFeature(Window.FEATURE_NO_TITLE);
