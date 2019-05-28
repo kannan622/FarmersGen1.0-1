@@ -632,6 +632,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                 toPayAmountTextView.setText(GrandTotal);
 
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
 
             }
 
