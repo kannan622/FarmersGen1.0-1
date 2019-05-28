@@ -11,21 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/grey_lighti"
-        android:minHeight="?attr/actionBarSize"
-        android:visibility="gone">
+        android:minHeight="?attr/actionBarSize">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/twelve_dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/viewBasket"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="Your Basket"
-                android:textColor="@color/FragmentGreen"
+                android:text="Cart"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="@dimen/twenty_sp" />
 
             <ImageView
@@ -33,7 +30,9 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="@dimen/four_dp"
                 android:layout_toRightOf="@+id/viewBasket"
-                android:src="@drawable/cartgreen" />
+                android:src="@drawable/cartgreen"
+                android:visibility="gone"
+                />
 
         </RelativeLayout>
 
@@ -105,8 +104,8 @@
 
                 <ImageView
                     android:id="@+id/couponPercentage"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginLeft="@dimen/five_dp"
                     android:layout_centerVertical="true"
                     android:src="@drawable/discount" />
@@ -119,12 +118,13 @@
                     android:layout_toRightOf="@+id/couponPercentage"
                     android:fontFamily="sans-serif-condensed"
                     android:text="APPLY COUPON"
+                    android:textSize="@dimen/twelve_dp"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
 
                 <ImageView
                     android:id="@+id/offersArrow"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/maarrow" />
 

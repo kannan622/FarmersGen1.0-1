@@ -40,6 +40,7 @@ import com.example.saravanamurali.farmersgen.models.DeleteCountInCartDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseProductListDTO;
 import com.example.saravanamurali.farmersgen.models.GetDataFromSqlLiteDTO;
 import com.example.saravanamurali.farmersgen.models.GetOrdersUsingDeviceID_DTO;
+import com.example.saravanamurali.farmersgen.models.LogOutDeviceIDDTO;
 import com.example.saravanamurali.farmersgen.models.ProductListDTO;
 import com.example.saravanamurali.farmersgen.models.UpdateCountInCartDTO;
 import com.example.saravanamurali.farmersgen.models.ViewProductListDTO;
@@ -49,6 +50,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForBrand;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForDeleteItemInCart;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForUpdateCountInCart;
+import com.example.saravanamurali.farmersgen.retrofitclient.APIClientLogOutUsingDeviceID;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToAddFavouriteItems;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToCheckFavourite;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToRemoveFav;
@@ -118,15 +120,19 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     private Dialog dialog;
     private Context m_Context;
 
+    List<ProductListDTO> productListDTO;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product__list_);
 
         getDataFromSqlLiteDTOS = new ArrayList<GetDataFromSqlLiteDTO>();
+        productListDTO = new ArrayList<ProductListDTO>();
 
-        m_Context=Product_List_Activity.this;
-        dialog=new Dialog(m_Context);
+        m_Context = Product_List_Activity.this;
+        dialog = new Dialog(m_Context);
 
         //SQLLITE DATABASE
         mSqLiteDatabase = openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
@@ -181,8 +187,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
                 checkFavouriteForThisBrand();
 
-            }
-            else {
+            } else {
                 Network_config.customAlert(dialog, m_Context, getResources().getString(R.string.app_name),
                         getResources().getString(R.string.connection_message));
             }
@@ -214,8 +219,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
                     if (Network_config.is_Network_Connected_flag(m_Context)) {
                         addFavouriteItems(curUser_Favourite);
-                    }
-                    else {
+                    } else {
                         Network_config.customAlert(dialog, m_Context, getResources().getString(R.string.app_name),
                                 getResources().getString(R.string.connection_message));
                     }
@@ -239,9 +243,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
                 if (Network_config.is_Network_Connected_flag(m_Context)) {
                     removeFavouriteItems(curUser_Favourite);
-                }
-
-                else {
+                } else {
                     Network_config.customAlert(dialog, m_Context, getResources().getString(R.string.app_name),
                             getResources().getString(R.string.connection_message));
                 }
@@ -400,14 +402,18 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         // refreshSqlliteDatabase();
 
 
-        loadProductListDataFromSqlLite();
+        if (Network_config.is_Network_Connected_flag(m_Context)) {
+            loadProductListDataFromSqlLite();
+        } else {
+            Network_config.customAlert(dialog, m_Context, getResources().getString(R.string.app_name),
+                    getResources().getString(R.string.connection_message));
+        }
 
         if (Network_config.is_Network_Connected_flag(m_Context)) {
             //Guest User
             //Display all products list from Brand
             loadRetrofitProductList();
-        }
-        else {
+        } else {
             Network_config.customAlert(dialog, m_Context, getResources().getString(R.string.app_name),
                     getResources().getString(R.string.connection_message));
         }
@@ -424,7 +430,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
     }
 
-    private void refreshSqlliteDatabase() {
+   /* private void refreshSqlliteDatabase() {
 
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(Product_List_Activity.this);
@@ -453,7 +459,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         }
 
 
-    }
+    }*/
 
     public void loadProductListDataFromSqlLite() {
 
@@ -523,6 +529,21 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                 List<ProductListDTO> productListDTO = jsonResponseProductListDTO.getProductListRecord();
 
 
+                for (int i = 0; i < productListDTO.size(); i++) {
+
+                    if (getDataFromSqlLiteDTOS.size() == 0 && productListDTO.get(i).getCount() != null) {
+
+
+                        productListAdapter.addCount(productListDTO.get(i).getCount(), productListDTO.get(i).getProductCode(), productListDTO.get(i).getProductPrice());
+
+                    }
+                }
+
+                loadProductListDataFromSqlLite();
+
+
+                //productListAdapter.notifyDataSetChanged();
+
                 int totalCount = 0;
 
                 for (int i = 0; i < productListDTO.size(); i++) {
@@ -579,6 +600,62 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
             }
         });
 
+
+    }
+
+
+    private void clearAllItemsAtAddCartTableUsingDeviceID() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(Product_List_Activity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+        ApiInterface api = APIClientLogOutUsingDeviceID.getApiInterfaceToLogOutUsingDeviceID();
+
+        String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+
+        LogOutDeviceIDDTO logOutDeviceIDDTO = new LogOutDeviceIDDTO(ANDROID_MOBILE_ID);
+
+        Call<ResponseBody> call = api.getLogOutUsingDeviceID(logOutDeviceIDDTO);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+
+                    productListAdapter.notifyDataSetChanged();
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
+            }
+        });
+
+
+    }
+
+    private void deleteAllDataInSqlLite() {
+
+        String delete_device_id = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        String delete = "delete from add_cart where device_id=?";
+
+        mSqLiteDatabase.execSQL(delete, new String[]{delete_device_id});
 
     }
 

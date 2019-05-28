@@ -136,8 +136,7 @@
                             android:layout_marginTop="5dp"
                             android:fontFamily="sans-serif-condensed"
                             android:text="@string/aclist"
-                            android:visibility="gone"
-                            />
+                            android:visibility="gone" />
 
                         <RelativeLayout
                             android:id="@+id/profileMannageAddressBlock"
@@ -407,6 +406,29 @@
 
 
                     </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true">
+
+                        <TextView
+                            android:id="@+id/poweredByText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Powered by " />
+                        <TextView
+                            android:id="@+id/preethySoftwareSolutions"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/poweredByText"
+                            android:layout_marginLeft="@dimen/two_dp"
+                            android:text="Preethy Software Solutions"
+                            android:textColor="@color/FragmentGreen"
+                            />
+
+                    </RelativeLayout>
+
 
                     <!--<FrameLayout
                         android:id="@+id/updateFragment"

@@ -76,6 +76,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         notifyDataSetChanged();
 
     }
+    {
+
+    }
+   public void addCount(String count,String productCode,String Price){
+
+        int p_count=Integer.parseInt(count);
+
+       addCartInDb.addCartInSqlLite(p_count, productCode, Price);
+
+    }
 
 
 

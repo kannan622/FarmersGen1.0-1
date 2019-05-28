@@ -11,4 +11,16 @@
         android:contentDescription="@null"
         android:src="@drawable/splashscreenlogo" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Copyright@2019, Preethy Software Solutions"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/five_dp"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/fifteen_dp"
+        android:layout_alignParentBottom="true"
+        />
+
 </RelativeLayout>

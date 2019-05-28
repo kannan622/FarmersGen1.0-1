@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
@@ -116,6 +117,8 @@ public class MenuAccountFragment extends Fragment {
     //SQLLite
     SQLiteDatabase mSqLiteDatabaseInLogout;
 
+    TextView preethySoftwareSolutions;
+
 
     public MenuAccountFragment() {
         // Required empty public constructor
@@ -179,7 +182,18 @@ public class MenuAccountFragment extends Fragment {
         //Share App
         share_App = (TextView) view.findViewById(R.id.shareApp);
 
+        preethySoftwareSolutions=(TextView)view.findViewById(R.id.preethySoftwareSolutions);
+
         relativeLayoutShareAppBlock = (RelativeLayout) view.findViewById(R.id.shareAppBlock);
+
+        preethySoftwareSolutions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.preethysoftwaresolutions.com"));
+                startActivity(browserIntent);
+            }
+        });
+
         relativeLayoutShareAppBlock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -686,7 +700,7 @@ public class MenuAccountFragment extends Fragment {
         SharedPreferences deleteCartUsingCurrentUSer = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
         String deletecart = deleteCartUsingCurrentUSer.getString("CURRENTUSER", NO_CURRENT_USER);
 
-        System.out.println(deletecart);
+        //System.out.println(deletecart);
 
         //Remove Current User From Shared Preferences
         SharedPreferences getCurrentUser = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
