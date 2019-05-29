@@ -13,17 +13,21 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/three_dp"
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:layout_marginTop="@dimen/ten_dp"
+            android:fontFamily="sans-serif-condensed"
             android:text="Cash On Delivery"
+            android:layout_marginBottom="@dimen/three_dp"
             android:textColor="@color/FragmentGreen"
-            android:textSize="@dimen/twenty_sp" />
+            android:textSize="@dimen/fifteen_dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/ten_dp"
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:layout_marginRight="@dimen/ten_dp"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -35,13 +39,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pay"
+                    android:gravity="center_vertical"
+                    android:fontFamily="sans-serif-condensed"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
-                    android:textSize="@dimen/twenty_four_sp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/fifteen_sp" />
 
                 <ImageView
                     android:id="@+id/indianRupee"
-                    android:layout_width="@dimen/twenty_five"
+                    android:layout_width="@dimen/twenty_dp"
                     android:layout_height="@dimen/thirty_five_dp"
                     android:layout_marginLeft="@dimen/ten_dp"
                     android:layout_toRightOf="@id/paytext"
@@ -51,10 +56,10 @@
                     android:id="@+id/grandTotalAtPaymentGateway"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/ten_dp"
                     android:layout_toRightOf="@id/indianRupee"
                     android:text="3000"
-                    android:textSize="30sp" />
+                    android:fontFamily="sans-serif-condensed"
+                    android:textSize="@dimen/twenty_sp" />
 
 
             </RelativeLayout>
@@ -86,9 +91,11 @@
             android:id="@+id/codText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Please keep exact change handy to help us server you better"
-            android:textSize="@dimen/twenty_sp"
-            />
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:layout_marginRight="@dimen/ten_dp"
+            android:layout_marginTop="@dimen/three_dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Please keep exact change handy to help us serve you better" />
 
 
         <LinearLayout
@@ -97,8 +104,7 @@
             android:layout_margin="@dimen/ten_dp"
             android:layout_marginTop="@dimen/twenty_dp"
             android:orientation="horizontal"
-            android:visibility="gone"
-            >
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="250dp"
@@ -141,8 +147,7 @@
             android:layout_margin="@dimen/ten_dp"
             android:text="You can made your payment using Credit Card,
             Debit Card and Net Banking"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/netBankingProceedButton"
@@ -152,8 +157,7 @@
             android:background="@color/FragmentGreen"
             android:text="Proceed Online Payment"
             android:textColor="@color/white"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
 
     </LinearLayout>
@@ -233,8 +237,7 @@
         android:layout_marginLeft="@dimen/ten_dp"
         android:layout_marginTop="@dimen/thirty_dp"
         android:layout_marginRight="@dimen/ten_dp"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/cash"
@@ -266,6 +269,7 @@
     <RelativeLayout
         android:id="@+id/payButtonBlock"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content">
 
         <Button
@@ -275,9 +279,9 @@
             android:layout_alignParentBottom="true"
             android:background="@color/FragmentGreen"
             android:onClick="payOnclick"
+            android:fontFamily="sans-serif-condensed"
             android:text="Proceed Cash On Delivery"
-            android:textColor="@color/White"
-            />
+            android:textColor="@color/White" />
 
 
     </RelativeLayout>

@@ -35,10 +35,11 @@ public class HomeActivity extends AppCompatActivity {
     private Toast backToast;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private String[] pageTitle = {"Home", "Cart", "Account"};
+    private String[] pageTitle = {"Home", "Search", "Account"};
     private int[] tabIcons = {
             R.drawable.home,
-            R.drawable.cart,
+            //R.drawable.cart,
+            R.drawable.search,
             R.drawable.gear,
 
     };
