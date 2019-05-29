@@ -4,8 +4,7 @@
     android:layout_width="170dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/three_dp"
-    android:padding="@dimen/one_dp"
-    >
+    android:padding="@dimen/one_dp">
 
     <LinearLayout
         android:layout_width="match_parent"

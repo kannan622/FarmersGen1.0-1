@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Canvas;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -51,7 +53,9 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExisti
 import com.example.saravanamurali.farmersgen.signin.LoginActivityForViewCart;
 import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
+import com.example.saravanamurali.farmersgen.util.FavStatus;
 import com.example.saravanamurali.farmersgen.util.Network_config;
+import com.example.saravanamurali.farmersgen.util.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -84,6 +88,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
     RelativeLayout bottomView;
+
 
     // JSONResponseUpdateCartDTO jsonResponseUpdateCartDTO;
     //Coupon
@@ -364,6 +369,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             }
         });
 
+
+
+
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
@@ -374,11 +382,27 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
                 //int swipeDeleteAdapterPosition=viewHolder.getAdapterPosition();
-
                 //ViewCartDTO swipteDeleteViewCartDTO  =viewCartDTOList.get(swipeDeleteAdapterPosition);
                 // String productCode= swipteDeleteViewCartDTO.getProduct_Code();
 
                 viewCartAdapter.removeItem1(viewHolder.getAdapterPosition());
+
+
+            }
+
+
+            @Override
+            public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
+                View itemView= viewHolder.itemView;
+
+                if(dX>0){
+
+                    FavStatus.background.setBounds(itemView.getLeft(),itemView.getTop(),itemView.getRight(),itemView.getBottom());
+                }
+
 
 
             }
@@ -701,6 +725,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         try {
             response = httpClient.newCall(request).execute();
             if (response.isSuccessful()) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
                 Log.e("", "Got response from server for JSON post using OkHttp ");
 
                 //Log.d("res", response.body().string().toString());
@@ -715,9 +743,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     String msg = myjson.getString("message");
                     if (status == 200) {
 
-                        if (csprogress.isShowing()) {
-                            csprogress.dismiss();
-                        }
+
 
                         String producode = myjson.getString("product_code");
                         String count = myjson.getString("count");

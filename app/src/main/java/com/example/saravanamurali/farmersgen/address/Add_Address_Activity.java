@@ -118,7 +118,6 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
 */
 
 
-
         //tvDeliverAddress=(TextView)findViewById(R.id.tVDeliveryAddress);
 
         mFlatNo = findViewById(R.id.flatNo);
@@ -128,9 +127,9 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
         mPinCode = findViewById(R.id.pinCode_addAddress);
         mLandMark = findViewById(R.id.landMark);
         mAlternateMobile = findViewById(R.id.alternateMobile);
-        add_Mobile=findViewById(R.id.add_Mobile);
+        add_Mobile = findViewById(R.id.add_Mobile);
 
-        showAddress=(TextView)findViewById(R.id.showAddressAdd);
+        showAddress = (TextView) findViewById(R.id.showAddressAdd);
 
         geoSetPincode = (TextInputEditText) findViewById(R.id.addPincode);
         geoSetCity = (TextInputEditText) findViewById(R.id.addCity);
@@ -139,7 +138,6 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
         geoSetFlatNo = (TextInputEditText) findViewById(R.id.addFlatNo);
 
         myLocation_Button_In_Add_Address = (Button) findViewById(R.id.myLocationButtonInaddAddress);
-
 
 
         addAddressToolBar = (Toolbar) findViewById(R.id.addAddressTootlBar);
@@ -152,7 +150,7 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
 
         myLocation_Button_In_Add_Address.setOnClickListener(this);
 
-        contactLoadBlock_AddAddress=(RelativeLayout)findViewById(R.id.contactLoadBlock_AddAddress);
+        contactLoadBlock_AddAddress = (RelativeLayout) findViewById(R.id.contactLoadBlock_AddAddress);
 
         contactLoadBlock_AddAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -478,17 +476,17 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
                     geoAddresses = geocoder.getFromLocation(lattitude, longitude, FavStatus.REQUEST_LOCATION);
 
 
-                        String address = geoAddresses.get(0).getAddressLine(0);
-                        String area = geoAddresses.get(0).getLocality();
-                        String city = geoAddresses.get(0).getAdminArea();
-                        String country = geoAddresses.get(0).getCountryName();
-                        String postalCode = geoAddresses.get(0).getPostalCode();
-                        String subAdminArea = geoAddresses.get(0).getSubAdminArea();
-                        String subLocality = geoAddresses.get(0).getSubLocality();
-                        String premises = geoAddresses.get(0).getPremises();
-                        String addressLine = geoAddresses.get(0).getAddressLine(0);
+                    String address = geoAddresses.get(0).getAddressLine(0);
+                    String area = geoAddresses.get(0).getLocality();
+                    String city = geoAddresses.get(0).getAdminArea();
+                    String country = geoAddresses.get(0).getCountryName();
+                    String postalCode = geoAddresses.get(0).getPostalCode();
+                    String subAdminArea = geoAddresses.get(0).getSubAdminArea();
+                    String subLocality = geoAddresses.get(0).getSubLocality();
+                    String premises = geoAddresses.get(0).getPremises();
+                    String addressLine = geoAddresses.get(0).getAddressLine(0);
 
-                        // System.out.println("Address"+address+"  "+"area"+area+"  "+"city"+city+"  "+"country"+country+"  "+"postalCode"+postalCode);
+                    // System.out.println("Address"+address+"  "+"area"+area+"  "+"city"+city+"  "+"country"+country+"  "+"postalCode"+postalCode);
                 /*System.out.println(address);
                 System.out.println(area);
                 System.out.println(city);
@@ -500,31 +498,30 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
                 System.out.println(addressLine);
                 */
 
-                        showAddress.setVisibility(View.VISIBLE);
-                        showAddress.setText(address + " " + area + " " + city + " " + postalCode);
+                    showAddress.setVisibility(View.VISIBLE);
+                    showAddress.setText(address + " " + area + " " + city + " " + postalCode);
 
                /* String doorNo = address;
                 String[] d_No = doorNo.split(",", 2);
                 geoSetFlatNo.setText(d_No[0]);*/
 
-                        geoSetArea.setText(subLocality);
-                        geoSetCity.setText(area);
-                        geoSetPincode.setText(postalCode);
+                    geoSetArea.setText(subLocality);
+                    geoSetCity.setText(area);
+                    geoSetPincode.setText(postalCode);
 
-                        if (csprogress.isShowing()) {
-                            csprogress.dismiss();
-                        }
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
 
-                }
-                else {
+                } else {
                     Toast.makeText(Add_Address_Activity.this, "Unble to Fetch your location", Toast.LENGTH_LONG).show();
                 }
 
-                } catch(IOException e){
-                    e.printStackTrace();
-                }
-
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+
+        }
 
 
     }
