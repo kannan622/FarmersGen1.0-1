@@ -32,8 +32,8 @@
                 android:id="@+id/otp_MobileNumber_AtForgetPasswordAtSignUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/otpTextForForgetPasswordAtSignUp"
                 android:layout_marginLeft="@dimen/five_dp"
-
                 android:layout_marginTop="@dimen/thirty_dp"
                 android:layout_toRightOf="@+id/otpTextForForgetPasswordAtSignUp"
                 android:fontFamily="sans-serif-condensed"

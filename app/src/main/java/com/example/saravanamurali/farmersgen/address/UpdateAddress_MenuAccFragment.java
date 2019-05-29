@@ -1,6 +1,7 @@
 package com.example.saravanamurali.farmersgen.address;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -9,18 +10,24 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +61,8 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
     private TextInputLayout update_mLandmark;
     private TextInputLayout update_mAlternateMobileNumber;
 
+    TextInputEditText updateMobileMenu;
+
     private String update_proceed_FlatNo = "";
     private String update_proceed_StreetName = "";
     private String update_proceed_Area = "";
@@ -78,6 +87,10 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
 
     private TextView showAddresMenu;
 
+    Toolbar menuAddressToolBar;
+
+    private RelativeLayout relativeLayoutToLoadContactAtMenu;
+
     private Dialog dialog;
 
 
@@ -101,6 +114,8 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
         update_mLandmark = findViewById(R.id.landMarkMenuCart);
         update_mAlternateMobileNumber = findViewById(R.id.alternateMobileMenuCart);
 
+        updateMobileMenu = findViewById(R.id.updateMobileMenu);
+
         geoSetPincode = (TextInputEditText) findViewById(R.id.pinCodeMenu);
         geoSetCity = (TextInputEditText) findViewById(R.id.cityMenu);
         geoSetArea = (TextInputEditText) findViewById(R.id.areaMenu);
@@ -111,10 +126,73 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
 
         myLocation_Button_Menu = (Button) findViewById(R.id.myLocationButtonInMenu);
 
+        menuAddressToolBar = (Toolbar) findViewById(R.id.MenuAddressTootlBar);
+        setSupportActionBar(menuAddressToolBar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
 
         myLocation_Button_Menu.setOnClickListener(this);
 
+        relativeLayoutToLoadContactAtMenu=(RelativeLayout)findViewById(R.id.contactLoadBlockMenu);
+
+        relativeLayoutToLoadContactAtMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                loadContactInMenu();
+            }
+        });
+
+
+    }
+
+    private void loadContactInMenu() {
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED) {
+
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            startActivityForResult(intent, FavStatus.PICK_CONTACT);
+
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
+                    FavStatus.MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        String phoneNumber = "";
+        String name = "";
+
+        if (resultCode == Activity.RESULT_OK) {
+            Uri contactData = data.getData();
+            Cursor c = managedQuery(contactData, null, null, null, null);
+            if (c.moveToFirst()) {
+                name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                String id = c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
+
+                Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
+                while (phones.moveToNext()) {
+
+                    phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+                }
+
+                // updateMobile.setText(name + " " + phoneNumber);
+
+                updateMobileMenu.setText(phoneNumber);
+                phones.close();
+                /*System.out.println("mobile number"+phoneNumber);
+                System.out.println("Name"+name);*/
+            }
+
+
+        }
 
     }
 

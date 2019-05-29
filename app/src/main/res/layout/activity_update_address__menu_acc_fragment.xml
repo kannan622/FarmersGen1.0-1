@@ -9,7 +9,9 @@
     <RelativeLayout
         android:id="@+id/RLayoutDeliveryAddressAtMenu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        >
 
         <TextView
             android:id="@+id/updateDeliveryDeliveryAddressAtMenu"
@@ -25,11 +27,80 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/toolbarBlock_MenuAcc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/MenuAddressTootlBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="?attr/actionBarSize">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set Delivery Location"
+                android:textStyle="bold" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:id="@+id/useMyLocationInMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/myLocationButtonInMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten_dp"
+                android:layout_marginTop="@dimen/ten_dp"
+                android:layout_marginRight="@dimen/ten_dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Use My Location"
+                android:textColor="@color/FragmentGreen" />
+
+            <TextView
+                android:id="@+id/tabToMap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten_dp"
+                android:layout_marginTop="@dimen/one_dp"
+                android:layout_marginRight="@dimen/ten_dp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:text="Tab to auto fill the address fields" />
+
+            <TextView
+                android:id="@+id/showAddressMenu"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@id/tapToFill"
+                android:layout_marginLeft="@dimen/ten_dp"
+                android:layout_marginTop="@dimen/five_dp"
+                android:layout_marginRight="@dimen/ten_dp"
+                android:layout_marginBottom="@dimen/five_dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text=""
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--<RelativeLayout
         android:id="@+id/useMyLocationInMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/RLayoutDeliveryAddressAtMenu">
+        android:layout_below="@+id/toolbarBlock_MenuAcc"
+        android:visibility="gone"
+        >
 
         <Button
             android:id="@+id/myLocationButtonInMenu"
@@ -64,14 +135,14 @@
             />
 
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
 
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_below="@id/useMyLocationInMenu"
+        android:layout_below="@id/toolbarBlock_MenuAcc"
         android:divider="@android:color/transparent"
         android:dividerHeight="25px">
 
@@ -80,126 +151,253 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/RLayoutDeliveryAddressAtMenu"
-        android:layout_margin="8dp"
+        android:layout_marginLeft="@dimen/ten_dp"
+        android:layout_marginRight="@dimen/ten_dp"
         android:orientation="vertical"
         android:padding="15dp">
 
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/updateFlatNoMenuCart"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:errorEnabled="true">
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/flatNoMenu"
+            <ImageView
+                android:id="@+id/flatIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="@dimen/twenty_dp"
+                android:src="@drawable/building" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/updateFlatNoMenuCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="House /Flat No" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginLeft="@dimen/ten_dp"
+                android:layout_toRightOf="@+id/flatIcon"
+                android:nextFocusDown="@id/updateStreetName"
+                app:errorEnabled="true"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/updateStreetNameMenuCart"
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/flatNoMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:hint="Building/Apartment No"
+                    android:textSize="@dimen/fifteen_dp" />
+            </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:errorEnabled="true">
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/streetNameMenu"
+            <ImageView
+                android:id="@+id/flatIcon2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="@dimen/twenty_dp"
+                android:src="@drawable/streetname" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/updateStreetNameMenuCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Street Name" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginLeft="@dimen/ten_dp"
+                android:layout_toRightOf="@+id/flatIcon2"
+                android:nextFocusDown="@id/updateArea"
+                app:errorEnabled="true"
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/updateAreaMenuCart"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/streetNameMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:hint="street name"
+                    android:textSize="@dimen/fifteen_dp" />
+            </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:errorEnabled="true">
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/areaMenu"
+            <ImageView
+                android:id="@+id/flatIcon3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="@dimen/twenty_dp"
+                android:src="@drawable/area" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/updateAreaMenuCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Area" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginLeft="@dimen/ten_dp"
+                android:layout_toRightOf="@+id/flatIcon3"
+                app:errorEnabled="true"
 
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/areaMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:hint="area"
+                    android:textSize="@dimen/fifteen_dp" />
+            </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
 
-
-        <!--<android.support.design.widget.TextInputLayout
-            android:id="@+id/landMarkMenuCart"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:errorEnabled="true">
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
+            <ImageView
+                android:id="@+id/flatIcon4"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="@dimen/twenty_dp"
+                android:src="@drawable/city" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/updateCityMenuCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="LandMark" />
-        </android.support.design.widget.TextInputLayout>
--->
+                android:layout_marginLeft="@dimen/ten_dp"
+                android:layout_toRightOf="@+id/flatIcon4"
+                app:errorEnabled="true"
 
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/updateCityMenuCart"
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/cityMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:hint="city"
+                    android:textSize="@dimen/fifteen_dp" />
+            </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:errorEnabled="true">
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/cityMenu"
+            <ImageView
+                android:id="@+id/flatIcon5"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="@dimen/twenty_dp"
+                android:src="@drawable/pincode" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/upatePinCodeMenuCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="City" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginLeft="@dimen/ten_dp"
+                android:layout_toRightOf="@+id/flatIcon5"
+                app:errorEnabled="true"
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/upatePinCodeMenuCart"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/pinCodeMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:hint="pincode"
+                    android:inputType="number"
+                    android:textSize="@dimen/fifteen_dp" />
+            </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:inputType="number"
-            app:errorEnabled="true">
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/pinCodeMenu"
+            <ImageView
+                android:id="@+id/flatIcon6"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="@dimen/twenty_dp"
+                android:src="@drawable/landmark" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/landMarkMenuCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Pincode" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginLeft="@dimen/ten_dp"
+                android:layout_toRightOf="@+id/flatIcon6"
+                app:errorEnabled="true"
+
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+                <android.support.design.widget.TextInputEditText
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:hint="land mark"
+                    android:textSize="@dimen/fifteen_dp" />
+            </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
 
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/landMarkMenuCart"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:errorEnabled="true">
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
+            <ImageView
+                android:id="@+id/flatIcon7"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="@dimen/twenty_dp"
+                android:src="@drawable/contact_person" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/alternateMobileMenuCart"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="LandMark" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginLeft="@dimen/ten_dp"
+                android:layout_toRightOf="@+id/flatIcon7"
+                app:errorEnabled="true"
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/alternateMobileMenuCart"
-            android:layout_width="match_parent"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/updateMobileMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed"
+                    android:hint="contact person"
+                    android:textSize="@dimen/fifteen_dp" />
+            </android.support.design.widget.TextInputLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/contactLoadBlockMenu"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:errorEnabled="true">
+            android:layout_marginLeft="@dimen/forty_dp">
 
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/flatIcon8"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/contact" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Alternate Mobile Number" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginLeft="@dimen/thirty_dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Add Contact"
+                android:textColor="@color/colorPrimaryDark" />
 
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -211,7 +409,7 @@
         android:layout_width="match_parent"
         android:background="@color/FragmentGreen"
         android:textColor="@color/White"
-        android:textSize="25sp"
+        android:fontFamily="sans-serif-condensed"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"
         android:onClick="onClickUpdateAddressAtMenuCart"
