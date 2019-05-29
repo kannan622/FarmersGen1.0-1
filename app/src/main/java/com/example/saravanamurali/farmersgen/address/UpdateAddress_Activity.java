@@ -353,13 +353,13 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
                 System.out.println(premises);
                 System.out.println(addressLine);
 */
-                    String doorNo = address;
+                   /* String doorNo = address;
                     String[] d_No = doorNo.split(",", 2);
                     if (d_No.length >= 7) {
                         geoSetFlatNo.setText("");
                     } else {
                         geoSetFlatNo.setText(d_No[0]);
-                    }
+                    }*/
 
                     geoSetArea.setText(subLocality);
                     geoSetCity.setText(area);

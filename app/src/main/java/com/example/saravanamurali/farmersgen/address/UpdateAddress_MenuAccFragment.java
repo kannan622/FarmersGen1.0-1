@@ -102,7 +102,7 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
         Intent addressID = getIntent();
         addressID_Menu = addressID.getStringExtra("ADDRESSID_AT_MENUCART");
 
-        dialog=new Dialog(UpdateAddress_MenuAccFragment.this);
+        dialog = new Dialog(UpdateAddress_MenuAccFragment.this);
 
 
         update_mFlatNo = findViewById(R.id.updateFlatNoMenuCart);
@@ -122,7 +122,7 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
         geoSetStreetName = (TextInputEditText) findViewById(R.id.streetNameMenu);
         geoSetFlatNo = (TextInputEditText) findViewById(R.id.flatNoMenu);
 
-        showAddresMenu=(TextView)findViewById(R.id.showAddressMenu);
+        showAddresMenu = (TextView) findViewById(R.id.showAddressMenu);
 
         myLocation_Button_Menu = (Button) findViewById(R.id.myLocationButtonInMenu);
 
@@ -136,7 +136,7 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
 
         myLocation_Button_Menu.setOnClickListener(this);
 
-        relativeLayoutToLoadContactAtMenu=(RelativeLayout)findViewById(R.id.contactLoadBlockMenu);
+        relativeLayoutToLoadContactAtMenu = (RelativeLayout) findViewById(R.id.contactLoadBlockMenu);
 
         relativeLayoutToLoadContactAtMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -342,9 +342,7 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
 
                 updateAddressAtManageAddress();
 
-            }
-
-            else {
+            } else {
                 Network_config.customAlert(dialog, UpdateAddress_MenuAccFragment.this, getResources().getString(R.string.app_name),
                         getResources().getString(R.string.connection_message));
             }
@@ -393,8 +391,7 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
         } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             if (Network_config.is_Network_Connected_flag(UpdateAddress_MenuAccFragment.this)) {
                 getLocation();
-            }
-            else {
+            } else {
                 Network_config.customAlert(dialog, UpdateAddress_MenuAccFragment.this, getResources().getString(R.string.app_name),
                         getResources().getString(R.string.connection_message));
             }
@@ -459,13 +456,9 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
             }
 
             try {
-                geoAddresses = geocoder.getFromLocation(lattitude, longitude, FavStatus.REQUEST_LOCATION);
 
-                if(geoAddresses==null){
-                    getLocation();
-                }
-
-                else {
+                if (lattitude != null && longitude != null) {
+                    geoAddresses = geocoder.getFromLocation(lattitude, longitude, FavStatus.REQUEST_LOCATION);
 
                     String address = geoAddresses.get(0).getAddressLine(0);
                     String area = geoAddresses.get(0).getLocality();
