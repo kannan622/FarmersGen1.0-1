@@ -41,9 +41,9 @@
                 android:layout_marginLeft="@dimen/ten_dp"
                 android:layout_marginTop="@dimen/ten_dp"
                 android:layout_marginRight="@dimen/ten_dp"
-                android:text="Use My Location"
-
                 android:fontFamily="sans-serif-condensed"
+
+                android:text="Use My Location"
                 android:textColor="@color/FragmentGreen" />
 
             <TextView
@@ -51,10 +51,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/ten_dp"
-                android:layout_marginRight="@dimen/ten_dp"
-                android:gravity="center"
                 android:layout_marginTop="@dimen/one_dp"
+                android:layout_marginRight="@dimen/ten_dp"
                 android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
                 android:text="Tab to auto fill the address fields" />
 
             <TextView
@@ -109,8 +109,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/ten_dp"
-                    android:nextFocusDown="@id/updateStreetName"
                     android:layout_toRightOf="@+id/flatIcon"
+                    android:nextFocusDown="@id/updateStreetName"
                     app:errorEnabled="true"
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
@@ -139,9 +139,9 @@
                     android:id="@+id/updateStreetName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:nextFocusDown="@id/updateArea"
                     android:layout_marginLeft="@dimen/ten_dp"
                     android:layout_toRightOf="@+id/flatIcon2"
+                    android:nextFocusDown="@id/updateArea"
                     app:errorEnabled="true"
 
                     app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
@@ -316,8 +316,7 @@
                 android:id="@+id/contactLoadBlock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/forty_dp"
-                >
+                android:layout_marginLeft="@dimen/forty_dp">
 
                 <ImageView
                     android:id="@+id/flatIcon8"
@@ -330,10 +329,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/thirty_dp"
-                    android:text="Add Contact"
                     android:fontFamily="sans-serif-condensed"
-                    android:textColor="@color/colorPrimaryDark"
-                    />
+                    android:text="Add Contact"
+                    android:textColor="@color/colorPrimaryDark" />
 
             </RelativeLayout>
 
@@ -353,8 +351,7 @@
         android:layout_marginBottom="@dimen/five_dp"
         android:fontFamily="sans-serif-condensed"
         android:text="Delivery Executives are less likely to call you if they your exact address"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/proceedToPay"

@@ -1,6 +1,8 @@
 package com.example.saravanamurali.farmersgen.address;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,20 +10,26 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,10 +95,16 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
     private TextInputEditText geoSetArea;
     private TextInputEditText geoSetCity;
     private TextInputEditText geoSetPincode;
+    private TextInputEditText add_Mobile;
+
+    RelativeLayout contactLoadBlock_AddAddress;
 
     TextView showAddress;
 
+    Toolbar addAddressToolBar;
 
+
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,9 +125,10 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
         mStreetName = findViewById(R.id.streetName);
         mArea = findViewById(R.id.area);
         mCity = findViewById(R.id.city);
-        mPinCode = findViewById(R.id.pinCode);
+        mPinCode = findViewById(R.id.pinCode_addAddress);
         mLandMark = findViewById(R.id.landMark);
         mAlternateMobile = findViewById(R.id.alternateMobile);
+        add_Mobile=findViewById(R.id.add_Mobile);
 
         showAddress=(TextView)findViewById(R.id.showAddressAdd);
 
@@ -125,13 +140,76 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
 
         myLocation_Button_In_Add_Address = (Button) findViewById(R.id.myLocationButtonInaddAddress);
 
+
+
+        addAddressToolBar = (Toolbar) findViewById(R.id.addAddressTootlBar);
+        setSupportActionBar(addAddressToolBar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
 
         myLocation_Button_In_Add_Address.setOnClickListener(this);
 
+        contactLoadBlock_AddAddress=(RelativeLayout)findViewById(R.id.contactLoadBlock_AddAddress);
+
+        contactLoadBlock_AddAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadContactForAddAddress();
+            }
+        });
+
 
     }
 
+    private void loadContactForAddAddress() {
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED) {
+
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            startActivityForResult(intent, FavStatus.PICK_CONTACT);
+
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
+                    FavStatus.MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        String phoneNumber = "";
+        String name = "";
+
+        if (resultCode == Activity.RESULT_OK) {
+            Uri contactData = data.getData();
+            Cursor c = managedQuery(contactData, null, null, null, null);
+            if (c.moveToFirst()) {
+                name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                String id = c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
+
+                Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
+                while (phones.moveToNext()) {
+
+                    phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+                }
+
+                // updateMobile.setText(name + " " + phoneNumber);
+
+                add_Mobile.setText(phoneNumber);
+                phones.close();
+                /*System.out.println("mobile number"+phoneNumber);
+                System.out.println("Name"+name);*/
+            }
+
+
+        }
+    }
 
     public void onClickProceed(View view) {
 
@@ -154,7 +232,7 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
         csprogress.setCanceledOnTouchOutside(false);
 
 
-        Toast.makeText(Add_Address_Activity.this, "Proceed To Pay,", Toast.LENGTH_LONG).show();
+        //Toast.makeText(Add_Address_Activity.this, "Proceed To Pay,", Toast.LENGTH_LONG).show();
 
         ApiInterface api = APIClientToADDAddress.getAPIInterfaceForADDAddress();
 

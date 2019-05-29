@@ -182,7 +182,9 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
 
                 }
 
-                updateMobile.setText(name + " " + phoneNumber);
+               // updateMobile.setText(name + " " + phoneNumber);
+
+                updateMobile.setText(phoneNumber);
                 phones.close();
                 /*System.out.println("mobile number"+phoneNumber);
                 System.out.println("Name"+name);*/
