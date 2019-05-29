@@ -140,8 +140,9 @@
             android:textStyle="bold"
             android:padding="@dimen/five_dp"
             android:background="@drawable/rec_gradiant"
-            android:textSize="@dimen/twenty_sp"
-            android:textColor="@color/red" />
+            android:textSize="@dimen/fifteen_dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 

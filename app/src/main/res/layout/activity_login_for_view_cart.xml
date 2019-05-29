@@ -17,7 +17,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/fifty_dp"
         android:layout_marginBottom="@dimen/ten_dp"
-        android:src="@drawable/organic"/>
+        android:src="@drawable/icon_logo"/>
 
     <LinearLayout
         android:layout_width="match_parent"
