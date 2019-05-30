@@ -43,6 +43,7 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
     }
 
+
     //Update ViewCart Count
     public interface ViewCartUpdateInterface {
         public void viewCartUpdateInterface(int viewCartCount, String viewCartProductCode, String viewCart_Price);
@@ -151,7 +152,10 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
         viewCartProductListDTO.remove(position);
         notifyItemRemoved(position);
     }
+/*
+    Swipte to Delete Remove Item
 
+    */
     public void removeItem1(int position) {
 
         Log.d("POS", "" + position);
@@ -176,6 +180,26 @@ public class ViewCartAdapter extends RecyclerView.Adapter<ViewCartAdapter.ViewCa
 
 
     }
+
+    /*
+
+    Undo to restore Item
+
+    */
+    public void restoreItem(ViewCartDTO deletedItem, int deletedIndex) {
+
+        if(deletedIndex==0){
+            viewCartProductListDTO.add(deletedIndex,deletedItem);
+            notifyItemInserted(deletedIndex);
+        }
+        else {
+            viewCartProductListDTO.add(deletedIndex,deletedItem);
+            notifyItemInserted(deletedIndex);
+        }
+
+
+    }
+
 
 
     public class ViewCartHolder extends RecyclerView.ViewHolder {

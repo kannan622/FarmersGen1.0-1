@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -187,7 +189,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         proceedButton = (TextView) findViewById(R.id.viewCartProceed);
         toPayAmountTextView = (TextView) findViewById(R.id.toPayAmount);
-        //coordinatorLayout = findViewById(R.id.coordinator_layout);
+        coordinatorLayout = findViewById(R.id.snackBar);
 
         bottomView = (RelativeLayout) findViewById(R.id.bottom);
 
@@ -370,8 +372,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         });
 
 
-
-
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
@@ -381,29 +381,52 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-                //int swipeDeleteAdapterPosition=viewHolder.getAdapterPosition();
-                //ViewCartDTO swipteDeleteViewCartDTO  =viewCartDTOList.get(swipeDeleteAdapterPosition);
-                // String productCode= swipteDeleteViewCartDTO.getProduct_Code();
-
                 viewCartAdapter.removeItem1(viewHolder.getAdapterPosition());
 
+                // backup of removed item for undo purpose
+                /*final ViewCartDTO deletedItemDTO = viewCartDTOList.get(viewHolder.getAdapterPosition());
+                final int deletedIndex = viewHolder.getAdapterPosition();
 
+
+                int swipeDeleteAdapterPosition = viewHolder.getAdapterPosition();
+                ViewCartDTO swipteDeleteViewCartDTO = viewCartDTOList.get(swipeDeleteAdapterPosition);
+                String name = swipteDeleteViewCartDTO.getProduct_Name();
+                // String productCode= swipteDeleteViewCartDTO.getProduct_Code();
+
+
+                Snackbar snackbar = Snackbar.make(coordinatorLayout, name + " removed from cart!", Snackbar.LENGTH_LONG);
+
+                snackbar.setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        // undo is selected, restore the deleted item
+                        viewCartAdapter.restoreItem(deletedItemDTO, deletedIndex);
+                    }
+                });
+                snackbar.setActionTextColor(Color.YELLOW);
+                snackbar.show();*/
             }
 
-
-            /*@Override
+            @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
 
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
 
-                View itemView= viewHolder.itemView;
+                View itemView = viewHolder.itemView;
 
-                if(dX>0){
+                if (dX > 0) {
 
-                    FavStatus.background.setBounds(itemView.getLeft(),itemView.getTop(),itemView.getRight(),itemView.getBottom());
+                    FavStatus.background.setBounds(itemView.getLeft(), itemView.getTop(), itemView.getRight(), itemView.getBottom());
+                } else {
+                    FavStatus.background.setBounds(itemView.getLeft(), itemView.getLeft(), itemView.getLeft(), itemView.getLeft());
                 }
 
-            }*/
+
+                FavStatus.background.draw(c);
+
+                c.restore();
+            }
 
         }).attachToRecyclerView(recyclerViewViewCart);
 
@@ -655,7 +678,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                 toPayAmountTextView.setText(GrandTotal);
 
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -741,7 +764,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     int status = myjson.getInt("responsecode");
                     String msg = myjson.getString("message");
                     if (status == 200) {
-
 
 
                         String producode = myjson.getString("product_code");

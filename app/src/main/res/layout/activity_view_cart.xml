@@ -21,18 +21,17 @@
                 android:id="@+id/viewBasket"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cart"
                 android:fontFamily="sans-serif-condensed"
+                android:text="Cart"
                 android:textSize="@dimen/twenty_sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Swipe Right or Left to remove item"
                 android:layout_below="@id/viewBasket"
-                android:textSize="@dimen/ten_sp"
                 android:fontFamily="sans-serif-condensed"
-                />
+                android:text="Swipe Right or Left to remove item"
+                android:textSize="@dimen/ten_sp" />
 
             <ImageView
                 android:layout_width="30dp"
@@ -40,8 +39,7 @@
                 android:layout_marginLeft="@dimen/four_dp"
                 android:layout_toRightOf="@+id/viewBasket"
                 android:src="@drawable/cartgreen"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -115,8 +113,8 @@
                     android:id="@+id/couponPercentage"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginLeft="@dimen/five_dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/five_dp"
                     android:src="@drawable/discount" />
 
                 <TextView
@@ -127,8 +125,8 @@
                     android:layout_toRightOf="@+id/couponPercentage"
                     android:fontFamily="sans-serif-condensed"
                     android:text="APPLY COUPON"
-                    android:textSize="@dimen/twelve_dp"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+                    android:textSize="@dimen/twelve_dp" />
 
                 <ImageView
                     android:id="@+id/offersArrow"
@@ -266,5 +264,13 @@
 
 
     </RelativeLayout>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/snackBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+    </android.support.design.widget.CoordinatorLayout>
 
 </RelativeLayout>
