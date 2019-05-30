@@ -59,6 +59,7 @@ import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 import com.example.saravanamurali.farmersgen.util.FavStatus;
 import com.example.saravanamurali.farmersgen.util.Network_config;
+import com.example.saravanamurali.farmersgen.util.SessionManager;
 import com.google.gson.JsonObject;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
@@ -96,6 +97,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     //Current User From Shared Preferences
     String currentUserIdFromSharedPreferences;
 
+    SessionManager session;
+
     RecyclerView recyclerView;
     List<ProductListDTO> productListDTOList;
     ProductListAdapter productListAdapter;
@@ -128,6 +131,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product__list_);
 
+        session = new SessionManager(getApplicationContext());
+
         getDataFromSqlLiteDTOS = new ArrayList<GetDataFromSqlLiteDTO>();
         productListDTO = new ArrayList<ProductListDTO>();
 
@@ -150,15 +155,18 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
         productRating = (TextView) findViewById(R.id.proListRating);
 
+        curentUser = session.getUserDetails().get(SessionManager.KEY_current_user_id);
 
-        Intent intent = getIntent();
-        curentUser = intent.getStringExtra("CURRENTUSER");
+        brand_ID_For_ProductList = session.getUserDetails().get(SessionManager.KEY_brand_id);
+        brand_Name_For_ProductList = session.getUserDetails().get(SessionManager.KEY_product_name);
+        brand_Name_For_ProductRating = session.getUserDetails().get(SessionManager.KEY_product_rating);
 
 
         //Brand Details
-        brand_ID_For_ProductList = intent.getStringExtra("BRAND_ID");
+        /*brand_ID_For_ProductList = intent.getStringExtra("BRAND_ID");
         brand_Name_For_ProductList = intent.getStringExtra("BRAND_NAME");
-        brand_Name_For_ProductRating = intent.getStringExtra("BRAND_RATING");
+        brand_Name_For_ProductRating = intent.getStringExtra("BRAND_RATING");*/
+
         textViewProductName = (TextView) findViewById(R.id.proListBrandName);
         // textViewShortDesc = (TextView) findViewById(R.id.proListShortDesc);
         textViewProductName.setText(brand_Name_For_ProductList);
@@ -817,6 +825,25 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     @Override
     public void OnProductItemClick(int position) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+
+
+        // loadProductListDataFromSqlLite();
+
+        //When BACK BUTTON is pressed, the activity on the stack is restarted
+        //Do what you want on the refresh procedure here
     }
 
 }

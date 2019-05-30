@@ -391,7 +391,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             }
 
 
-            @Override
+            /*@Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
 
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
@@ -403,9 +403,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     FavStatus.background.setBounds(itemView.getLeft(),itemView.getTop(),itemView.getRight(),itemView.getBottom());
                 }
 
+            }*/
 
-
-            }
         }).attachToRecyclerView(recyclerViewViewCart);
 
         /*ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
@@ -1035,6 +1034,13 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), Product_List_Activity.class);
+
+        startActivity(intent);
+        finish();
+    }
 
     /* public void offers(View view) {
         Toast.makeText(ViewCartActivity.this, "Offers Clicked", Toast.LENGTH_LONG).show();

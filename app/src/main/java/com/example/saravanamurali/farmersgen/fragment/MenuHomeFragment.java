@@ -35,6 +35,7 @@ import com.example.saravanamurali.farmersgen.recyclerviewadapter.Menuhome_Adapte
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForBannerImages;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForBrand;
 import com.example.saravanamurali.farmersgen.util.Network_config;
+import com.example.saravanamurali.farmersgen.util.SessionManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +55,8 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     String brandId;
 
     ProgressBar progressBar;
+
+    SessionManager session;
 
     Toolbar toolbar;
 
@@ -97,6 +100,8 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         Fabric.with(getActivity(), new Crashlytics());
 
         dialog = new Dialog(getActivity());
+
+        session = new SessionManager(getActivity());
 
         //toolbar = (Toolbar) view.findViewById(R.id.toolBar);
 
@@ -277,17 +282,19 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     public void onItemClick(int position) {
 
         if (Network_config.is_Network_Connected_flag(getActivity())) {
-            Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
+
             HomeProductDTO clickedBrand = homeProductDTOSList.get(position);
+            session.create_products(currentUserId, clickedBrand.getBrandId(), clickedBrand.getProductName(), clickedBrand.getProductRating());
 
+            Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
+            startActivity(productListIntent);
 
-            productListIntent.putExtra("CURRENTUSER", currentUserId);
-
+            /*productListIntent.putExtra("CURRENTUSER", currentUserId);
             productListIntent.putExtra("BRAND_ID", clickedBrand.getBrandId());
             productListIntent.putExtra("BRAND_NAME", clickedBrand.getProductName());
             productListIntent.putExtra("BRAND_RATING", clickedBrand.getProductRating());
-            productListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(productListIntent);
+            productListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);*/
+
         } else {
             Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                     getResources().getString(R.string.connection_message));
@@ -351,15 +358,19 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
     @Override
     public void onContactSelected(HomeProductDTO contact) {
-        Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
 
-        productListIntent.putExtra("CURRENTUSER", currentUserId);
+        session.create_products(currentUserId,contact.getBrandId(),contact.getProductName(),contact.getProductRating());
+
+        Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
+        startActivity(productListIntent);
+
+       /* productListIntent.putExtra("CURRENTUSER", currentUserId);
 
         productListIntent.putExtra("BRAND_ID", contact.getBrandId());
         productListIntent.putExtra("BRAND_NAME", contact.getProductName());
         productListIntent.putExtra("BRAND_RATING", contact.getProductRating());
         productListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(productListIntent);
+       */
 
 
         //  Toast.makeText(getActivity(), "Selected: " + contact.getProductName() + ", " + contact.getProductDesc(), Toast.LENGTH_LONG).show();

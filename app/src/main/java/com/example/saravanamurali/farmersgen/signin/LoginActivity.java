@@ -46,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
     private String logMMobile = "";
     private String logMPassword = "";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
