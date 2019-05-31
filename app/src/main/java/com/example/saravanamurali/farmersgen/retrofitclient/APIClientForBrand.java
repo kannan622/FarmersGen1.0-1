@@ -2,6 +2,8 @@ package com.example.saravanamurali.farmersgen.retrofitclient;
 
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.baseurl.BaseUrl;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,6 +14,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class APIClientForBrand implements BaseUrl {
 
     public static Retrofit retrofit=null;
+
+    private static Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
 
     public static Retrofit getRetrofitClientForBrand(){
 
@@ -25,7 +31,7 @@ public class APIClientForBrand implements BaseUrl {
 
 
             retrofit = new Retrofit.Builder().baseUrl(ROOT_URL_BRAND_PRODUCTS)
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .client(okHttpClient)
                     .build();
 
