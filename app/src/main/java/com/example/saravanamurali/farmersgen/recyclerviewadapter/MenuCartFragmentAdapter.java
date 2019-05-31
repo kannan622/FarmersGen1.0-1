@@ -33,6 +33,20 @@ public class MenuCartFragmentAdapter extends RecyclerView.Adapter<MenuCartFragme
 
     }
 
+
+
+    public void setMenuCartFragmentDeleteInterface(MenuCartFragmentDeleteInterface menuCartFragmentDeleteInterface) {
+        this.menuCartFragmentDeleteInterface = menuCartFragmentDeleteInterface;
+        notifyDataSetChanged();
+
+    }
+
+    public void setMenuCartFragmentUpdateInterface(MenuCartFragmentUpdateInterface menuCartFragmentUpdateInterface) {
+
+        this.menuCartFragmentUpdateInterface = menuCartFragmentUpdateInterface;
+        notifyDataSetChanged();
+    }
+
     public void setTotalPriceToUpdateCart(JSONResponseMenuCartFragUpdateDTO jsonResponseMenuCartFragUpdateDTO) {
         this.jsonResponseMenuCartFragUpdateDTO = jsonResponseMenuCartFragUpdateDTO;
 
@@ -47,18 +61,6 @@ public class MenuCartFragmentAdapter extends RecyclerView.Adapter<MenuCartFragme
 
         notifyDataSetChanged();
 
-    }
-
-    public void setMenuCartFragmentDeleteInterface(MenuCartFragmentDeleteInterface menuCartFragmentDeleteInterface) {
-        this.menuCartFragmentDeleteInterface = menuCartFragmentDeleteInterface;
-        notifyDataSetChanged();
-
-    }
-
-    public void setMenuCartFragmentUpdateInterface(MenuCartFragmentUpdateInterface menuCartFragmentUpdateInterface) {
-
-        this.menuCartFragmentUpdateInterface = menuCartFragmentUpdateInterface;
-        notifyDataSetChanged();
     }
 
     public void setData(List<MenuCartFragmentViewCartDTO> menuCartFragmentViewCartDTO) {
@@ -86,7 +88,7 @@ public class MenuCartFragmentAdapter extends RecyclerView.Adapter<MenuCartFragme
 
         menuCartFragmentViewHolder.homeCartCount.setText(menuCartFragmentViewCartDTO.get(i).getmCart_Count());
 
-        menuCartFragmentViewHolder.homeCartPrice.setText("₹ " + menuCartFragmentViewCartDTO.get(i).getmCart_Price());
+        menuCartFragmentViewHolder.homeCartPrice.setText("₹ " + menuCartFragmentViewCartDTO.get(i).getmCart_Total_price());
 
         int menuCartCount = 0;
 
