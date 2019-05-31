@@ -1,6 +1,7 @@
 package com.example.saravanamurali.farmersgen.recyclerviewadapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -155,6 +156,11 @@ public class MenuCartFragmentAdapter extends RecyclerView.Adapter<MenuCartFragme
             homeCartCount = itemView.findViewById(R.id.menuCartFragCount);
             homeCartPlus = itemView.findViewById(R.id.menuCartFragIncCart);
             homeCartPrice = itemView.findViewById(R.id.menuCartFragCartPrice);
+
+            Typeface roboto = Typeface.createFromAsset(mCtx.getAssets(), "fonts/Roboto-Medium.ttf");
+            homeCartProductName.setTypeface(roboto);
+            homeCartCount.setTypeface(roboto);
+            homeCartPrice.setTypeface(roboto);
 
             homeCartPlus.setOnClickListener(new View.OnClickListener() {
                 @Override

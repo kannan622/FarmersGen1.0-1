@@ -31,6 +31,7 @@
                 android:layout_below="@id/viewBasket"
                 android:fontFamily="sans-serif-condensed"
                 android:text="Swipe Right or Left to remove item"
+                android:textColor="@color/FragmentGreen"
                 android:textSize="@dimen/ten_sp" />
 
             <ImageView

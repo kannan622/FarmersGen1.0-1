@@ -111,12 +111,41 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/fifteen_dp"
             android:text=""
+            android:fontFamily="sans-serif-condensed"
             android:textColor="@color/white"
             android:textSize="14dp"
             android:textStyle="bold" />
 
+        <ImageView
+            android:id="@+id/rightArrowMenu"
+            android:layout_width="15dp"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/twelve_dp"
+            android:src="@drawable/right"
+
+            />
 
         <TextView
+            android:id="@+id/CheckOut_MenuCart"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_marginRight="@dimen/six_dp"
+            android:layout_toLeftOf="@+id/rightArrowMenu"
+            android:fontFamily="sans-serif-condensed"
+            android:gravity="center"
+            android:text="CHECKOUT"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:textStyle="bold"
+
+            />
+
+
+
+
+        <!--<TextView
             android:id="@+id/CheckOut_MenuCart"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -133,7 +162,7 @@
             android:textColor="@color/FragmentGreen"
             android:textSize="14dp"
             android:textStyle="bold" />
-
+-->
     </RelativeLayout>
 
 
