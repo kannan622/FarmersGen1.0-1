@@ -103,14 +103,14 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
         session = new SessionManager(getActivity());
 
-        //toolbar = (Toolbar) view.findViewById(R.id.toolBar);
+        toolbar = (Toolbar) view.findViewById(R.id.toolBar);
 
 
-       /* AppCompatActivity activity = (AppCompatActivity) getActivity();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
 
         activity.getSupportActionBar().setHomeButtonEnabled(true);
-        setHasOptionsMenu(true);  */
+        setHasOptionsMenu(true);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -245,7 +245,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
             }
         });
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      /*  recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -274,7 +274,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
             }
         });
-
+*/
     }
 
 

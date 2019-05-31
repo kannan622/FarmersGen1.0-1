@@ -35,11 +35,11 @@ public class HomeActivity extends AppCompatActivity {
     private Toast backToast;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private String[] pageTitle = {"Home", "Search", "Account"};
+    private String[] pageTitle = {"Home", "Cart", "Account"};
     private int[] tabIcons = {
             R.drawable.home,
-            //R.drawable.cart,
-            R.drawable.search,
+            R.drawable.cart,
+            //R.drawable.search,
             R.drawable.gear,
 
     };
@@ -227,7 +227,7 @@ public class HomeActivity extends AppCompatActivity {
             if (position == 0) {
                 return new MenuHomeFragment();
             } else if (position == 1) {
-                return new MenuSearchFragment();
+                return new MenuCartFragment();
             } else if (position == 2) {
                 return new MenuAccountFragment(currentUserId);
             } else

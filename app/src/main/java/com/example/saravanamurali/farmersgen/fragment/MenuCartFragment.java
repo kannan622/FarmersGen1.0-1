@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
@@ -23,7 +25,9 @@ import com.example.saravanamurali.farmersgen.address.Add_Address_Activity;
 import com.example.saravanamurali.farmersgen.address.ExistingAddressActivity;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.coupon.CouponActivity;
+import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseFromServerDBDTO;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
+import com.example.saravanamurali.farmersgen.models.GetDataFromSqlLiteDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseMenuCartFragDeleteDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseMenuCartFragUpdateDTO;
@@ -36,7 +40,9 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForDeleteIt
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForUpdateCountInMenuCartFragment;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToViewCartFromMenuCartFragment;
+import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToMoveDataFromSqlLiteToServerDB;
 import com.example.saravanamurali.farmersgen.signin.LoginActivityForViewCart;
+import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
 import com.example.saravanamurali.farmersgen.util.Network_config;
 
 import java.util.ArrayList;
@@ -79,6 +85,10 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
     private String NO_CURRENT_COUPON_CODE = "NO_CURRENT_COUPON_CODE";
 
+    private SQLiteDatabase mSqLiteDatabase;
+    GetDataFromSqlLiteDTO getDataFromSqlLiteMenuCartDTO;
+    List<GetDataFromSqlLiteDTO> getDataFromSqlLiteDTOInMenuCart;
+
 
     /* @SuppressLint("ValidFragment")
      public MenuCartFragment(String currentUserId) {
@@ -96,6 +106,9 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
         View view = inflater.inflate(R.layout.fragment_menu_cart, container, false);
 
 
+        mSqLiteDatabase = getActivity().openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
+        getDataFromSqlLiteDTOInMenuCart = new ArrayList<GetDataFromSqlLiteDTO>();
+
         dialog = new Dialog(getActivity());
 
         //Checkout Button
@@ -108,7 +121,7 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
         imageView = (ImageView) view.findViewById(R.id.emptyMenuCartImage);
 
-        bottomMenuCart=(RelativeLayout)view.findViewById(R.id.bottom_menuCart);
+        bottomMenuCart = (RelativeLayout) view.findViewById(R.id.bottom_menuCart);
 
        /* showCoupon_MenuCart=(RelativeLayout)view.findViewById(R.id.coupon_MenuCart);
 
@@ -146,9 +159,7 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 */
 
 
-       // menuCart_ToPayAmountTextView = (TextView) view.findViewById(R.id.m_CartToPayAmount);
-
-
+        // menuCart_ToPayAmountTextView = (TextView) view.findViewById(R.id.m_CartToPayAmount);
 
 
         //loadViewCartProductList();
@@ -198,22 +209,20 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
         }
 
 
-
     }
-
 
 
     private void removeCouponCodeAndCouponID() {
 
         //Remove Current User COUPON ID From Shared Preferences
-        SharedPreferences getCurrentUser_CouponID =this.getActivity().getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+        SharedPreferences getCurrentUser_CouponID = this.getActivity().getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
         SharedPreferences.Editor editor = getCurrentUser_CouponID.edit();
         editor.remove("COUPONID");
         editor.commit();
 
 
         //Remove Current User COUPON CODE From Shared Preferences
-        SharedPreferences getCurrentUser_CouponCODE =this.getActivity().getSharedPreferences("CURRENT_COUPON_CODE", MODE_PRIVATE);
+        SharedPreferences getCurrentUser_CouponCODE = this.getActivity().getSharedPreferences("CURRENT_COUPON_CODE", MODE_PRIVATE);
         SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
         editorCode.remove("COUPON_CODE");
         editorCode.commit();
@@ -225,6 +234,10 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
         super.onResume();
 
         if (Network_config.is_Network_Connected_flag(getActivity())) {
+
+            getAllDataFromSqlLiteDataBaseInMenuCart();
+
+            //moveAllSqlLiteDataToServerInMenuCart();
 
             //Display all ordered products from product list activity
             loadViewCartProductList();
@@ -241,6 +254,92 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
             Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                     getResources().getString(R.string.connection_message));
         }
+
+
+    }
+
+    private void getAllDataFromSqlLiteDataBaseInMenuCart() {
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+        String ANDROID_MOBILE_ID = Settings.Secure.getString(getActivity().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        Cursor cursor = mSqLiteDatabase.rawQuery("select product_code,count,total_price,device_id from add_cart where device_id=?", new String[]{ANDROID_MOBILE_ID});
+
+        if (cursor.moveToFirst()) {
+
+            do {
+
+                getDataFromSqlLiteMenuCartDTO = new GetDataFromSqlLiteDTO(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+
+                getDataFromSqlLiteDTOInMenuCart.add(getDataFromSqlLiteMenuCartDTO);
+            }
+            while (cursor.moveToNext());
+        }
+
+
+        if (csprogress.isShowing()) {
+            csprogress.dismiss();
+        }
+
+        if (getDataFromSqlLiteDTOInMenuCart.size() == 0) {
+
+            menuCartRecyclerView.setVisibility(View.GONE);
+            mauCart_Topay.setVisibility(View.GONE);
+            imageView.setVisibility(View.VISIBLE);
+            menuCartCheckout.setVisibility(View.GONE);
+            bottomMenuCart.setVisibility(View.GONE);
+            bottomMenuCart.setVisibility(View.GONE);
+
+        } else if (getDataFromSqlLiteDTOInMenuCart.size() > 0) {
+
+            if (Network_config.is_Network_Connected_flag(getActivity())) {
+                moveAllSqlLiteDataToServerInMenuCart();
+            } else {
+                Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
+                        getResources().getString(R.string.connection_message));
+            }
+        }
+
+    }
+
+    private void moveAllSqlLiteDataToServerInMenuCart() {
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+        ApiInterface api = ApiClientToMoveDataFromSqlLiteToServerDB.getAPIInterfaceToMoveDataFromSqlLiteToServerDB();
+
+        Call<JsonResponseFromServerDBDTO> call = api.moveSqlLiteDataToSever(getDataFromSqlLiteDTOInMenuCart);
+
+        call.enqueue(new Callback<JsonResponseFromServerDBDTO>() {
+            @Override
+            public void onResponse(Call<JsonResponseFromServerDBDTO> call, Response<JsonResponseFromServerDBDTO> response) {
+
+                JsonResponseFromServerDBDTO jsonResponseFromServerDBDTO = response.body();
+
+                if (jsonResponseFromServerDBDTO.getStatus() == 200) {
+
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonResponseFromServerDBDTO> call, Throwable t) {
+
+            }
+        });
 
 
     }
@@ -352,7 +451,6 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
                 mauCart_Topay.setText(menuCartGrandTotal);
 
 
-
             }
 
             @Override
@@ -416,6 +514,27 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
     }
 
     @Override
+    public void viewCartUpdateInterfaceSqlLiteInMenuCart(int menuCartCount, String menuCartProductCode, String menuCartPrice) {
+        String device_id = Settings.Secure.getString(getActivity().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        String u_menu_Count = String.valueOf(menuCartCount);
+
+        int menu_Price = Integer.parseInt(menuCartPrice);
+        int menuProductPrice = menuCartCount * menu_Price;
+
+        String u_menu_price = String.valueOf(menuProductPrice);
+
+        String u_query = "UPDATE add_cart SET count=?, total_price=? where product_code=? and device_id =? ";
+
+        mSqLiteDatabase.execSQL(u_query, new String[]{u_menu_Count, u_menu_price, menuCartProductCode, device_id});
+
+        Toast.makeText(getActivity(), "Updated In Menu", Toast.LENGTH_LONG).show();
+
+    }
+
+
+    @Override
     public void menuCartFragmentDelete(String productCode) {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(getActivity());
@@ -473,6 +592,21 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
             }
         });
 
+
+    }
+
+    @Override
+    public void viewCartDeleteInterfaceSqlLiteInMenuCart(String menuCartDecProductCode) {
+
+        String delete_device_id = Settings.Secure.getString(getActivity().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+
+        String delete = "delete from add_cart where product_code=? and device_id=? ";
+
+        mSqLiteDatabase.execSQL(delete, new String[]{menuCartDecProductCode, delete_device_id});
+
+        Toast.makeText(getActivity(),"Item Deleted",Toast.LENGTH_LONG).show();
 
     }
 

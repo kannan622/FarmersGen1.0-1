@@ -372,6 +372,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         });
 
 
+
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
@@ -425,7 +426,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                 FavStatus.background.draw(c);
 
-                c.restore();
+
             }
 
         }).attachToRecyclerView(recyclerViewViewCart);

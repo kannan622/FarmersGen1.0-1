@@ -126,11 +126,14 @@ public class MenuCartFragmentAdapter extends RecyclerView.Adapter<MenuCartFragme
     public interface MenuCartFragmentDeleteInterface {
 
         void menuCartFragmentDelete(String productCode);
+        public void viewCartDeleteInterfaceSqlLiteInMenuCart(String viewCartDecProductCode);
 
     }
 
     public interface MenuCartFragmentUpdateInterface {
         void menuCartFragementUpdate(int menuCartCount, String menuCartProductCode, String menuCartPrice);
+
+        public void viewCartUpdateInterfaceSqlLiteInMenuCart(int menuCartCount, String menuCartProductCode, String menuCartPrice);
     }
 
     class MenuCartFragmentViewHolder extends RecyclerView.ViewHolder {
@@ -165,7 +168,10 @@ public class MenuCartFragmentAdapter extends RecyclerView.Adapter<MenuCartFragme
                     menuCartFragmentDTO.setmCart_Count(String.valueOf(menuCartCount));
                     notifyDataSetChanged();
 
+                    menuCartFragmentUpdateInterface.viewCartUpdateInterfaceSqlLiteInMenuCart(menuCartCount, menuCartProdductCode, menuCartPrice);
                     menuCartFragmentUpdateInterface.menuCartFragementUpdate(menuCartCount, menuCartProdductCode, menuCartPrice);
+
+                    notifyDataSetChanged();
 
 
                 }
@@ -203,12 +209,16 @@ public class MenuCartFragmentAdapter extends RecyclerView.Adapter<MenuCartFragme
                     notifyDataSetChanged();
 
                     if (menuCartDecCount > 0) {
+
+                        menuCartFragmentUpdateInterface.viewCartUpdateInterfaceSqlLiteInMenuCart(menuCartDecCount, menuCartProdductCode, menuCartPrice);
                         menuCartFragmentUpdateInterface.menuCartFragementUpdate(menuCartDecCount, menuCartProdductCode, menuCartPrice);
-                        //notifyDataSetChanged();
+                        notifyDataSetChanged();
 
                     } else if (menuCartDecCount == 0) {
                         removeItemAtMenuCart(menuCartAdapterPosition);
+                        menuCartFragmentDeleteInterface.viewCartDeleteInterfaceSqlLiteInMenuCart(menuCartProdductCode);
                         menuCartFragmentDeleteInterface.menuCartFragmentDelete(menuCartProdductCode);
+                        notifyDataSetChanged();
 
                     } else if (menuCartDecCount < 0) {
                         notifyItemRemoved(menuCartAdapterPosition);
