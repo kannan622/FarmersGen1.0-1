@@ -166,15 +166,7 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }*/
 
-    @Override
-    public void onBackPressed() {
 
-
-        Intent a = new Intent(Intent.ACTION_MAIN);
-        a.addCategory(Intent.CATEGORY_HOME);
-        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(a);
-    }
 
     /**
      * A placeholder fragment containing a simple view.
@@ -238,17 +230,12 @@ public class HomeActivity extends AppCompatActivity {
                 case 0:
                     fragment = new MenuHomeFragment();
                     break;
-
                 case 1:
                     fragment = new MenuCartFragment();
                     break;
-
                 case 2:
-
                     fragment = new MenuAccountFragment(currentUserId);
-
                     break;
-
                 *//*case 3:
                     fragment=new MenuHomeFragment();
                     break;
@@ -264,5 +251,20 @@ public class HomeActivity extends AppCompatActivity {
             // Show 3 total pages.
             return 3;
         }
+
     }
+
+    @Override
+    public void onBackPressed() {
+
+
+
+
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+    }
+
+
 }

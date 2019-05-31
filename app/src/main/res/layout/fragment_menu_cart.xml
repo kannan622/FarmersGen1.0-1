@@ -111,9 +111,10 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/fifteen_dp"
             android:text=""
+
             android:fontFamily="sans-serif-condensed"
             android:textColor="@color/white"
-            android:textSize="14dp"
+            android:textSize="@dimen/sixteen_dp"
             android:textStyle="bold" />
 
         <ImageView
@@ -135,6 +136,7 @@
             android:layout_toLeftOf="@+id/rightArrowMenu"
             android:fontFamily="sans-serif-condensed"
             android:gravity="center"
+            android:layout_centerInParent="true"
             android:text="CHECKOUT"
             android:textColor="@color/white"
             android:textSize="15dp"
