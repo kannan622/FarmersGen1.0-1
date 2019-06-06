@@ -161,6 +161,7 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
                     FavStatus.MY_PERMISSIONS_REQUEST_READ_CONTACTS);
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -182,12 +183,9 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
 
                 }
 
-               // updateMobile.setText(name + " " + phoneNumber);
-
                 updateMobile.setText(phoneNumber);
                 phones.close();
-                /*System.out.println("mobile number"+phoneNumber);
-                System.out.println("Name"+name);*/
+
             }
 
 

@@ -22,6 +22,7 @@ import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.SignInDTO;
 import com.example.saravanamurali.farmersgen.models.SignedInJSONResponse;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToLogin;
+import com.example.saravanamurali.farmersgen.signup.OTPActForSuccRegistrationAtViewCart;
 import com.example.saravanamurali.farmersgen.signup.SignupActivity;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 import com.example.saravanamurali.farmersgen.util.Network_config;
@@ -178,6 +179,22 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<SignedInJSONResponse> call, Response<SignedInJSONResponse> response) {
 
                 SignedInJSONResponse signedInJSONResponse = response.body();
+
+               /* if(signedInJSONResponse.getResponseCode() == 400){
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+                    Intent intent =new Intent(LoginActivity.this,OTPActForSuccRegistrationAtViewCart.class);
+                    intent.putExtra("MOBILENOTOLOGIN",signedInJSONResponse.getMobile());
+                    intent.putExtra("OTP_VERIFY_CODE",1);
+                    intent.putExtra("USERID",signedInJSONResponse.getUser_ID());
+                    startActivity(intent);
+
+
+                }*/
+
 
                 if (signedInJSONResponse.getResponseCode() == 200) {
 

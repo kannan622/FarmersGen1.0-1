@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
+import com.example.saravanamurali.farmersgen.fragment.Product_List_Activity;
 import com.example.saravanamurali.farmersgen.models.AddCartDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseViewCartListDTO;
 import com.example.saravanamurali.farmersgen.models.ProductListDTO;
@@ -120,7 +121,20 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.productListPrice.setText("₹ " + productListDTOList.get(position).getProductPrice());
         holder.productQuantity.setText("" + productListDTOList.get(position).getProductQuantity());
         holder.list_actualprice.setText("₹" + productListDTOList.get(position).getAcutalPrice());
+
+       /* final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(mListContext);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCancelable(false);
+        csprogress.setCanceledOnTouchOutside(false);
+
+*/
         Picasso.with(mListContext).load(productListDTOList.get(position).getProductImage()).into(holder.productListImage);
+
+        /*if (csprogress.isShowing()){
+            csprogress.dismiss();
+        }*/
 
         int finalCount = 0;
 

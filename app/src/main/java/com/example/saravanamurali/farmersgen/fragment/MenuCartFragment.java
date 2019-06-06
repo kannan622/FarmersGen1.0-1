@@ -107,6 +107,7 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
 
         mSqLiteDatabase = getActivity().openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
+        createTable();
         getDataFromSqlLiteDTOInMenuCart = new ArrayList<GetDataFromSqlLiteDTO>();
 
         dialog = new Dialog(getActivity());
@@ -187,6 +188,18 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
 
         return view;
+    }
+
+    private void createTable() {
+        String sql = "CREATE TABLE IF NOT EXISTS add_cart (\n" +
+                "    id INTEGER NOT NULL CONSTRAINT add_cart_pk PRIMARY KEY AUTOINCREMENT,\n" +
+                "    product_code varchar(200) NOT NULL,\n" +
+                "    count tinyint(4) NOT NULL,\n" +
+                "    total_price varchar(2000) NOT NULL,\n" +
+                "    device_id varchar(200) NOT NULL\n" +
+                ");";
+
+        mSqLiteDatabase.execSQL(sql);
     }
 
     //Check whether user is logged in or not

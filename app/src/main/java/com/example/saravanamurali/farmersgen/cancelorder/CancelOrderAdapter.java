@@ -120,7 +120,7 @@ public class CancelOrderAdapter extends RecyclerView.Adapter<CancelOrderAdapter.
                                         String get_OrderID = getJsonResponseForCancelOrderDTO.getOrderId();
 
                                         cancelOrderUsingOrderID_Interface.getCancelOrderUsingOrderID(get_OrderID);
-                                        System.out.println(get_OrderID);
+                                        //System.out.println(get_OrderID);
                                     }
                                 })
                                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

@@ -515,6 +515,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         csprogress = new ProgressDialog(Product_List_Activity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
 

@@ -2,7 +2,9 @@ package com.example.saravanamurali.farmersgen.signup;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
@@ -23,6 +25,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendMobil
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendOTPToMFrom_FP;
 import com.example.saravanamurali.farmersgen.signin.LoginActivity;
 import com.example.saravanamurali.farmersgen.signin.OTPActivityForLoginForgetPassword;
+import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 import com.example.saravanamurali.farmersgen.util.Network_config;
 import com.goodiebag.pinview.Pinview;
 import com.stfalcon.smsverifycatcher.OnSmsCatchListener;
@@ -45,6 +48,9 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
 
     long ms;
 
+    int otpVerifiyStatus=0;
+    String userID;
+
 
     private Button otpButtonRegistration;
     Dialog dialog;
@@ -62,6 +68,8 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
         dialog = new Dialog(getApplicationContext());
         Intent getMobileNumber = getIntent();
         mobileNumberToSendOTP = getMobileNumber.getStringExtra("MOBILENOTOLOGIN");
+        otpVerifiyStatus=getMobileNumber.getIntExtra("OTP_VERIFY_CODE",0);
+        userID=getMobileNumber.getStringExtra("USERID");
 
         mobileShow_ForgetPassword_Signup = (TextView) findViewById(R.id.otp_MobileNumber_AtForgetPasswordAtSignUp);
 
@@ -248,7 +256,19 @@ public class OTPActForSuccRegistrationAtViewCart extends AppCompatActivity {
 
                 JSONOTPResponseFromOTPActivity jsonotpResponseFromOTPActivity = response.body();
 
-                if (jsonotpResponseFromOTPActivity.getStatus() == 200) {
+                if(jsonotpResponseFromOTPActivity.getStatus() == 200 && otpVerifiyStatus==1 && userID!=null){
+
+                    SharedPreferences current_User = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = current_User.edit();
+                    editor.putString("CURRENTUSER", userID);
+                    editor.commit();
+
+                    Intent intent = new Intent(OTPActForSuccRegistrationAtViewCart.this, HomeActivity.class);
+                    startActivity(intent);
+
+                }
+
+                else if (jsonotpResponseFromOTPActivity.getStatus() == 200) {
 
 
                     Intent intent = new Intent(OTPActForSuccRegistrationAtViewCart.this, LoginActivity.class);
