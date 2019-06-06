@@ -141,7 +141,10 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/five_dp"
+        android:layout_above="@id/proceedToPay"
+        android:layout_marginBottom="@dimen/five_dp"
         android:layout_below="@id/toolbarBlock_MenuAcc"
         android:divider="@android:color/transparent"
         android:dividerHeight="25px">
