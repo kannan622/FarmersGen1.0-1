@@ -49,14 +49,31 @@
             android:name="io.fabric.ApiKey"
             android:value="4454fe85492ece55bb64d212ce9f0a682326f914" />
 
+        <service android:name=".firebasepushnotification.FirebaseInstanceService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+            </intent-filter>
+        </service>
+
+        <activity android:name=".coupon.CouponActivity">
+            <intent-filter>
+                <action android:name="com.example.saravanamurali.farmersgen_TARGET_NOTIFICATION"></action>
+                <category android:name="android.intent.category.DEFAULT"></category>
+            </intent-filter>
+        </activity>
+
         <activity android:name=".signup.OTPActivity" />
         <activity android:name=".paymentgateway.PaymentGatewayActivity" />
         <activity android:name=".address.Add_Address_Activity" />
-        <activity android:name=".address.ExistingAddressActivity" android:parentActivityName=".fragment.ViewCartActivity" />
+        <activity
+            android:name=".address.ExistingAddressActivity"
+            android:parentActivityName=".fragment.ViewCartActivity" />
         <activity android:name=".signin.ForgetPassword" />
         <activity android:name=".signin.MenuAccountFragmentLoginActivity" />
         <activity android:name=".paymentgateway.COD_Details_Activity" />
-        <activity android:name=".address.UpdateAddress_Activity" android:parentActivityName=".address.ExistingAddressActivity" />
+        <activity
+            android:name=".address.UpdateAddress_Activity"
+            android:parentActivityName=".address.ExistingAddressActivity" />
         <activity android:name=".signin.NewPassAndConfirmPass" />
         <activity android:name=".signup.OTPActForSuccRegistrationAtViewCart" />
         <activity android:name=".signin.LoginActivityForViewCart" />
@@ -75,9 +92,8 @@
         <activity android:name=".signup.ExistingUser_ForgetPassword_AtViewCartActivity" />
         <activity android:name=".signup.ExistingUser_ForgetPassword_OTP_AtViewCartActivity" />
         <activity android:name=".signup.Existing_User_NewPassAndConfirmPass_AtViewCartActivity" />
-        <activity android:name=".address.ExistingAddressActivity_AtMenuAccFragment"  />
+        <activity android:name=".address.ExistingAddressActivity_AtMenuAccFragment" />
         <activity android:name=".address.UpdateAddress_MenuAccFragment" />
-        <activity android:name=".coupon.CouponActivity" />
         <activity android:name=".review.BrandReviewActivity" />
         <activity android:name=".review.ReviewPostActivity" />
         <activity android:name=".signin.LoginForgetPasswordActivityAtViewCart" />

@@ -11,7 +11,7 @@ public class SessionManager {
 
     public static final String KEY_SERVICE_FIREBASE_UPDATE = "firebase_update_service";
     public static final String KEY_SERVICE_LOCATION = "location_update_service";
-    public static final String KEY_firebase_token = "firebase_token";
+    //public static final String KEY_firebase_token = "firebase_token";
 
 
     public static final String KEY_brand_id = "brand_id";
@@ -20,16 +20,15 @@ public class SessionManager {
     public static final String KEY_product_rating = "product_rating";
     public static final String KEY_current_user_id = "current_user_id";
 
-
-
-
-
+    public static final String KEY_FCM_TOKEN="firebase_token";
 
 
 
     private static final String IS_LOGIN = "IsLoggedIn";
     private static final String PREF_NAME = "Android";
     private static final String FIREBASE_PREF_NAME = "Android_Firebase";
+
+
     private static final String SERVICE_PREF_NAME = "Android_Service";
     // public static final String KEY_mail_copy_county_id = "transl_mail_copy_country_id";
     static Context _context;
@@ -58,6 +57,14 @@ public class SessionManager {
         this.service_pref = _context.getSharedPreferences(SERVICE_PREF_NAME,
                 this.PRIVATE_MODE);
         service_editor = this.service_pref.edit();
+
+    }
+
+    public void storeFCMToken(String token){
+
+        firebase_editor.putString(KEY_FCM_TOKEN,token);
+
+        firebase_editor.commit();
 
     }
 
@@ -102,6 +109,16 @@ public class SessionManager {
 
         // commit changes
         editor.commit();
+    }
+
+    public HashMap<String,String> getFcmToken(){
+        HashMap<String, String> fcmToken = new HashMap<String, String>();
+
+        fcmToken.put(KEY_FCM_TOKEN,firebase_pref.getString(KEY_FCM_TOKEN,null));
+
+        return fcmToken;
+
+
     }
 
 

@@ -17,6 +17,7 @@ import com.example.saravanamurali.farmersgen.models.CardPaymentDTO;
 import com.example.saravanamurali.farmersgen.models.CheckFavDTO;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.models.DeleteCountInCartDTO;
+import com.example.saravanamurali.farmersgen.models.FcmTokenDTO;
 import com.example.saravanamurali.farmersgen.models.GetDataFromSqlLiteDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
 import com.example.saravanamurali.farmersgen.models.GetOrdersUsingDeviceID_DTO;
@@ -264,6 +265,9 @@ public interface ApiInterface {
     //Get Coupon Code
     @GET("fetch_offer.php")
     Call<JSONResponseCouponDTO> getCouponCode();
+
+    @POST("notification.php")
+    Call<ResponseBody> sendFcmTokenToServer(@Body FcmTokenDTO fcmTokenDTO);
 
     //Apply Code
     @POST("fetch_single_offer.php")

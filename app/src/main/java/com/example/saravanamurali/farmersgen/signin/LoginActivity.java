@@ -19,17 +19,21 @@ import android.widget.Toast;
 import com.example.saravanamurali.farmersgen.DummyActivity;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
+import com.example.saravanamurali.farmersgen.models.FcmTokenDTO;
 import com.example.saravanamurali.farmersgen.models.SignInDTO;
 import com.example.saravanamurali.farmersgen.models.SignedInJSONResponse;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToLogin;
+import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToSendFcmTokenToServer;
 import com.example.saravanamurali.farmersgen.signup.OTPActForSuccRegistrationAtViewCart;
 import com.example.saravanamurali.farmersgen.signup.SignupActivity;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 import com.example.saravanamurali.farmersgen.util.Network_config;
+import com.example.saravanamurali.farmersgen.util.SessionManager;
 import com.example.saravanamurali.farmersgen.util.Utils;
 
 import java.util.regex.Pattern;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
     private String logMMobile = "";
     private String logMPassword = "";
 
+    SessionManager sessionForPushNotification;
+
 
 
     @Override
@@ -62,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 */
 
+        sessionForPushNotification=new SessionManager(LoginActivity.this);
 
         dialog = new Dialog(getApplicationContext());
         mobileNumber = (TextInputLayout) findViewById(R.id.loginMobileNo);
@@ -73,53 +80,6 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private boolean validateMobileNumber() {
-
-        boolean status = false;
-        String m_No = mobileNumber.getEditText().getText().toString().trim();
-        if (m_No.isEmpty()) {
-            mobileNumber.setError("Mobile Field Can't be Empty");
-            status = false;
-        } else if (m_No.length() != 10) {
-            mobileNumber.setError("Pls Enter 10 digit Mobile Number");
-            status = false;
-        } else if (Pattern.matches("[a-zA-Z]+", m_No)) {
-
-            mobileNumber.setError("Please Enter Valid Mobile Number");
-            status = false;
-
-        } else if (!Pattern.matches("[a-zA-Z]+", m_No)) {
-            if (m_No.length() == 10) {
-                mobileNumber.setError("");
-                logMMobile = m_No;
-                status = true;
-
-            }
-        }
-
-        return status;
-    }
-
-    private boolean validatePassword() {
-        boolean status = false;
-
-        String m_Password = editTextP.getText().toString().trim();
-
-        if (m_Password.isEmpty()) {
-            password.setError("Password Field Cant be Empty");
-            status = false;
-        } else if (m_Password.length() <= 4) {
-            password.setError("Please Enter More than 4 character");
-            status = false;
-        } else if (!m_Password.isEmpty() && m_Password.length() >= 5) {
-            password.setError("");
-            logMPassword = m_Password;
-            status = true;
-
-        }
-
-        return status;
-    }
 
     public void OnlickLogin(View view) {
 
@@ -203,6 +163,17 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("CURRENTUSER", signedInJSONResponse.getUser_ID());
                     editor.commit();
 
+                    String fcm_Token=sessionForPushNotification.getFcmToken().get(SessionManager.KEY_FCM_TOKEN);
+
+                    if(fcm_Token!=null){
+
+                        sendFCMTokenToServer(signedInJSONResponse.getUser_ID(),fcm_Token);
+
+                    }
+                    else if(fcm_Token==null){
+                        return;
+                    }
+
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
@@ -235,6 +206,28 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private void sendFCMTokenToServer(String userID,String fcm_token) {
+
+        ApiInterface apiInterface=ApiClientToSendFcmTokenToServer.getApiInterfaceToSendFcmTokenToServer();
+
+        FcmTokenDTO fcmTokenDTO=new FcmTokenDTO(userID,fcm_token);
+
+        Call<ResponseBody> call=apiInterface.sendFcmTokenToServer(fcmTokenDTO);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+    }
+
     public void signupLink(View view) {
         Intent signupIntent = new Intent(LoginActivity.this, DummyActivity.class);
         startActivity(signupIntent);
@@ -250,6 +243,55 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(a);
 
     }
+
+    private boolean validateMobileNumber() {
+
+        boolean status = false;
+        String m_No = mobileNumber.getEditText().getText().toString().trim();
+        if (m_No.isEmpty()) {
+            mobileNumber.setError("Mobile Field Can't be Empty");
+            status = false;
+        } else if (m_No.length() != 10) {
+            mobileNumber.setError("Pls Enter 10 digit Mobile Number");
+            status = false;
+        } else if (Pattern.matches("[a-zA-Z]+", m_No)) {
+
+            mobileNumber.setError("Please Enter Valid Mobile Number");
+            status = false;
+
+        } else if (!Pattern.matches("[a-zA-Z]+", m_No)) {
+            if (m_No.length() == 10) {
+                mobileNumber.setError("");
+                logMMobile = m_No;
+                status = true;
+
+            }
+        }
+
+        return status;
+    }
+
+    private boolean validatePassword() {
+        boolean status = false;
+
+        String m_Password = editTextP.getText().toString().trim();
+
+        if (m_Password.isEmpty()) {
+            password.setError("Password Field Cant be Empty");
+            status = false;
+        } else if (m_Password.length() <= 4) {
+            password.setError("Please Enter More than 4 character");
+            status = false;
+        } else if (!m_Password.isEmpty() && m_Password.length() >= 5) {
+            password.setError("");
+            logMPassword = m_Password;
+            status = true;
+
+        }
+
+        return status;
+    }
+
 
     public void onClickLoginForgetPassword(View view) {
         Intent loginForgetPasswordActivity = new Intent(LoginActivity.this, LoginForgetPasswordActivity.class);

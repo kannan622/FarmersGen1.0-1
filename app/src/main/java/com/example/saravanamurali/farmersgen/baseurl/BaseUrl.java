@@ -2,9 +2,9 @@ package com.example.saravanamurali.farmersgen.baseurl;
 
 public interface BaseUrl {
 
-    public static final String BASE_URL="http://farmersgen.com/service/";
+     static final String BASE_URL="http://farmersgen.com/service/";
 
-    public static final String ROOT_URL_FOR_SIGNUP="http://farmersgen.com/service/web_apis/";
+     static final String ROOT_URL_FOR_SIGNUP="http://farmersgen.com/service/web_apis/";
 
     public static final String ROOT_URL_FOR_LOGIN ="http://farmersgen.com/service/auth/";
 
@@ -108,6 +108,10 @@ public interface BaseUrl {
 
     //To Get Coupon
     public  static final String ROOT_URL_TO_GET_COUPON="http://farmersgen.com/service/offers/";
+
+    //Send FCM Token to Server
+    public  static final String ROOT_URL_TO_SEND_FCM_TOKEN_TO_SERVER="http://farmersgen.com/service/notification/";
+
 
     //Apply Copuon
     public  static final String ROOT_URL_TO_APPLY_COUPON="http://farmersgen.com/service/offers/";
