@@ -218,6 +218,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                System.out.println("Token Inserted Successfully");
+
             }
 
             @Override

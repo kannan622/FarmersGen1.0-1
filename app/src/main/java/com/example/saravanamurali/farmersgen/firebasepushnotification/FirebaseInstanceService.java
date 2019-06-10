@@ -17,7 +17,11 @@ import java.util.Random;
 public class FirebaseInstanceService extends FirebaseMessagingService {
 
 
-    SessionManager sessionManager = new SessionManager(getApplicationContext());
+    public FirebaseInstanceService() {
+    }
+
+
+    SessionManager sessionManager;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -32,9 +36,18 @@ public class FirebaseInstanceService extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
 
-        System.out.println("FCM Token" + s);
 
-        sessionManager.storeFCMToken(s);
+        System.out.println("FCMToken" + s);
+
+        if (s != null) {
+
+            sessionManager = new SessionManager(FirebaseInstanceService.this);
+            sessionManager.storeFCMToken(s);
+
+        }
+        if (s == null) {
+            return;
+        }
 
     }
 

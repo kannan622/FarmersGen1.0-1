@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "389106438557",
+    "firebase_url": "https://farmersgen-42bac.firebaseio.com",
+    "project_id": "farmersgen-42bac",
+    "storage_bucket": "farmersgen-42bac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389106438557:android:da07796a0b27828b",
+        "android_client_info": {
+          "package_name": "com.example.saravanamurali.farmersgen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389106438557-d25a5lsfslr73ml3i467rkr8qi1omlsr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD548RIOSctvzYtTaUKoExHH_wzYg8gGfg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389106438557-d25a5lsfslr73ml3i467rkr8qi1omlsr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
