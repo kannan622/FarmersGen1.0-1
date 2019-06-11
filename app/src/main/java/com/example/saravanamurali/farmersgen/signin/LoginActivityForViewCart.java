@@ -17,14 +17,18 @@ import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.fragment.ViewCartActivity;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
+import com.example.saravanamurali.farmersgen.models.FcmTokenDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
 import com.example.saravanamurali.farmersgen.models.SignInDTO;
 import com.example.saravanamurali.farmersgen.models.SignedInJSONResponse;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToLogin;
+import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToSendFcmTokenToServer;
 import com.example.saravanamurali.farmersgen.signup.RegisterUserAtCartActivity;
+import com.example.saravanamurali.farmersgen.util.SessionManager;
 import com.example.saravanamurali.farmersgen.util.Utils;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,11 +50,15 @@ public class LoginActivityForViewCart extends AppCompatActivity {
 
     String addressIDForViewCartLogin;
 
+    private SessionManager sessionForPushNotification;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_for_view_cart);
+
+        sessionForPushNotification = new SessionManager(LoginActivityForViewCart.this);
 
 
         mobileNumberAtViewCart = (TextInputLayout) findViewById(R.id.loginMobileNoAtViewCart);
@@ -161,30 +169,40 @@ public class LoginActivityForViewCart extends AppCompatActivity {
             @Override
             public void onResponse(Call<SignedInJSONResponse> call, Response<SignedInJSONResponse> response) {
 
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
 
                 SignedInJSONResponse signedInJSONResponse = response.body();
 
-                if(signedInJSONResponse.getResponseCode()==200)
+                if (signedInJSONResponse.getResponseCode() == 200)
 
                 {
 
 
-                        SharedPreferences current_User = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = current_User.edit();
-                        editor.putString("CURRENTUSER", signedInJSONResponse.getUser_ID());
-                        editor.commit();
+                    SharedPreferences current_User = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = current_User.edit();
+                    editor.putString("CURRENTUSER", signedInJSONResponse.getUser_ID());
+                    editor.commit();
 
-                        Intent openViewCartActivity = new Intent(LoginActivityForViewCart.this, ViewCartActivity.class);
-                        openViewCartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(openViewCartActivity);
-                        finish();
+                    String fcm_Token = sessionForPushNotification.getFcmToken().get(SessionManager.KEY_FCM_TOKEN);
 
+                    if (fcm_Token != null) {
+
+                        sendFCMTokenToServerAtViewCart(signedInJSONResponse.getUser_ID(), fcm_Token);
+
+                    } else if (fcm_Token == null) {
+                        return;
                     }
 
-                 else if(signedInJSONResponse.getResponseCode()==500)
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+
+                    Intent openViewCartActivity = new Intent(LoginActivityForViewCart.this, ViewCartActivity.class);
+                    openViewCartActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(openViewCartActivity);
+                    finish();
+
+                } else if (signedInJSONResponse.getResponseCode() == 500)
 
                 {
                     if (csprogress.isShowing()) {
@@ -208,6 +226,28 @@ public class LoginActivityForViewCart extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void sendFCMTokenToServerAtViewCart(String user_id, String fcm_token) {
+
+        ApiInterface apiInterface=ApiClientToSendFcmTokenToServer.getApiInterfaceToSendFcmTokenToServer();
+
+        FcmTokenDTO fcmTokenDTO=new FcmTokenDTO(user_id,fcm_token);
+
+        Call<ResponseBody> call=apiInterface.sendFcmTokenToServer(fcmTokenDTO);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
 
     }
 
