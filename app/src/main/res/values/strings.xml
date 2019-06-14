@@ -52,5 +52,6 @@
     <string name="saveDetails">After your first payment, we will save your details like Name,Address for future use</string>
 
     <string name="codScript">   Currently We are serving Cash On Delivery only,Order and Relax we collect our money once goods delivered at your doot step</string>
+    <string name="title_activity_update_map_address">UpdateMapAddressActivity</string>
 
 </resources>

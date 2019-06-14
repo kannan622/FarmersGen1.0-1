@@ -90,7 +90,7 @@ public class ExistingAddressActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent updateAddress = new Intent(ExistingAddressActivity.this, UpdateAddress_Activity.class);
+                Intent updateAddress = new Intent(ExistingAddressActivity.this, UpdateMapAddressActivity.class);
                 updateAddress.putExtra("ADDRESSID",addressID);
                 startActivity(updateAddress);
             }

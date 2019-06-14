@@ -224,6 +224,7 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
         CouponBottomSheetDialog couponBottomSheetDialog=new CouponBottomSheetDialog(CouponActivity.this,cou_Code,coupon_id);
 
         couponBottomSheetDialog.show(getSupportFragmentManager(),"couponBottomSheet");
+
     }
 
 

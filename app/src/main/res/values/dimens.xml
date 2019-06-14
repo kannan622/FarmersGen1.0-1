@@ -55,9 +55,6 @@
     <dimen name="thirty_five_sp">35sp</dimen>
 
 
-
-
-
     <dimen name="tab_min_height">56dp</dimen>
     <dimen name="cardview_height">190dp</dimen>
     <dimen name="project_image_height">180dp</dimen>

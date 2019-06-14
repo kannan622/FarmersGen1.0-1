@@ -22,11 +22,15 @@ public class SessionManager {
 
     public static final String KEY_FCM_TOKEN="firebase_token";
 
+    public static final String KEY_GPS_LAT="gps_lat";
+    public static final String KEY_GPS_LNG="gps_lan";
+
 
 
     private static final String IS_LOGIN = "IsLoggedIn";
     private static final String PREF_NAME = "Android";
     private static final String FIREBASE_PREF_NAME = "Android_Firebase";
+    private static final String LATLNG_PREF_NAME = "GPS_Location";
 
 
     private static final String SERVICE_PREF_NAME = "Android_Service";
@@ -34,31 +38,62 @@ public class SessionManager {
     static Context _context;
     static SharedPreferences.Editor editor;
     static SharedPreferences.Editor firebase_editor;
+    static SharedPreferences.Editor latlng_editor;
     static SharedPreferences.Editor service_editor;
     int PRIVATE_MODE = 0;
     int flag = 0;
     SharedPreferences pref;
     SharedPreferences firebase_pref;
+    SharedPreferences latlng_pref;
     SharedPreferences service_pref;
 
 
     public SessionManager(Context paramContext){
 
         _context = paramContext;
+
         this.pref = _context.getSharedPreferences(PREF_NAME,
                 this.PRIVATE_MODE);
         editor = this.pref.edit();
 
         this.firebase_pref = _context.getSharedPreferences(FIREBASE_PREF_NAME,
                 this.PRIVATE_MODE);
-
         firebase_editor = this.firebase_pref.edit();
+
+        this.latlng_pref=_context.getSharedPreferences(LATLNG_PREF_NAME,this.PRIVATE_MODE);
+        latlng_editor=this.latlng_pref.edit();
+
 
         this.service_pref = _context.getSharedPreferences(SERVICE_PREF_NAME,
                 this.PRIVATE_MODE);
         service_editor = this.service_pref.edit();
 
     }
+
+    public void createLatLngSession(Double latitude,Double longitute){
+
+        String lat=String.valueOf(latitude);
+        String lng=String.valueOf(longitute);
+
+        latlng_editor.putString(KEY_GPS_LAT,lat);
+        latlng_editor.putString(KEY_GPS_LNG,lng);
+
+        latlng_editor.commit();
+
+
+    }
+
+    public HashMap<String,String> getGpsLatlng(){
+        HashMap<String, String> latlng = new HashMap<String, String>();
+
+        latlng.put(KEY_GPS_LAT,latlng_pref.getString(KEY_GPS_LAT,"1"));
+        latlng.put(KEY_GPS_LNG,latlng_pref.getString(KEY_GPS_LNG,"1"));
+
+        return latlng;
+
+
+    }
+
 
     public void storeFCMToken(String token){
 
