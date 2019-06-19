@@ -21,11 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD57uVtpaX6fa7PYBuCXEjlsAdIYIdvDyA" />
-
 
         <activity
             android:name=".SplashActivity"
@@ -190,10 +188,11 @@
             android:name=".address.UpdateMapAddressActivity"
             android:label="@string/title_activity_update_map_address"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme">
-
-
-        </activity>
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".address.Add_Map_Address_Activity"
+            android:label="@string/title_activity_add__map__address_"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

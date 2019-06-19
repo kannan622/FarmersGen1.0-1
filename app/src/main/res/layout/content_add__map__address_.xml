@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".address.Add_Map_Address_Activity"
+    tools:showIn="@layout/activity_add__map__address_">
+
+    <RelativeLayout
+        android:id="@+id/addMapBlock"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+        <fragment
+            android:id="@+id/addMap"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/placeholder"
+            android:translationY="-30dp" />
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

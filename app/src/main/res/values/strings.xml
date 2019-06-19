@@ -53,5 +53,6 @@
 
     <string name="codScript">   Currently We are serving Cash On Delivery only,Order and Relax we collect our money once goods delivered at your doot step</string>
     <string name="title_activity_update_map_address">UpdateMapAddressActivity</string>
+    <string name="title_activity_add__map__address_">Add_Map_Address_Activity</string>
 
 </resources>
