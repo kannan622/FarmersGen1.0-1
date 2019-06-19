@@ -89,44 +89,111 @@
             android:name=".address.ExistingAddressActivity"
             android:parentActivityName=".fragment.ViewCartActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".signin.ForgetPassword" />
-        <activity android:name=".signin.MenuAccountFragmentLoginActivity" />
-        <activity android:name=".paymentgateway.COD_Details_Activity" />
+        <activity
+            android:name=".signin.ForgetPassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signin.MenuAccountFragmentLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".paymentgateway.COD_Details_Activity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".address.UpdateAddress_Activity"
-            android:parentActivityName=".address.ExistingAddressActivity" />
-        <activity android:name=".signin.NewPassAndConfirmPass" />
-        <activity android:name=".signup.OTPActForSuccRegistrationAtViewCart" />
-        <activity android:name=".signin.LoginActivityForViewCart" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".fragment.ProfileUpdateActivity" />
-        <activity android:name=".signin.LoginForgetPasswordActivity" />
-        <activity android:name=".signin.OTPActivityForLoginForgetPassword" />
-        <activity android:name=".signin.NewPassAndConfirmPassForLoginForgetPassword" />
-        <activity android:name=".paymentgateway.ThanksActivity" />
-        <activity android:name=".cancelorder.CancelOrderActivity" />
-        <activity android:name=".cancelorder.OrderedProductListView" />
-        <activity android:name=".pastorder.PastOrderListActivity" />
-        <activity android:name=".pastorder.PastOrderedProductListView" />
-        <activity android:name=".signup.RegisterUserAtCartActivity" />
-        <activity android:name=".signup.OTPActivityForViewCart2" />
-        <activity android:name=".signup.ExistingUser_ForgetPassword_AtViewCartActivity" />
-        <activity android:name=".signup.ExistingUser_ForgetPassword_OTP_AtViewCartActivity" />
-        <activity android:name=".signup.Existing_User_NewPassAndConfirmPass_AtViewCartActivity" />
-        <activity android:name=".address.ExistingAddressActivity_AtMenuAccFragment" />
-        <activity android:name=".address.UpdateAddress_MenuAccFragment" />
-        <activity android:name=".review.BrandReviewActivity" />
-        <activity android:name=".review.ReviewPostActivity" />
-        <activity android:name=".signin.LoginForgetPasswordActivityAtViewCart" />
-        <activity android:name=".signin.OTPActivityForLoginForgetPasswordAtViewCart" />
-        <activity android:name=".signin.NewPassAndConfirmPassForLoginForgetPassword_At_ViewCart" />
-        <activity android:name=".productdescription.ProductDescriptionActivity" />
-        <activity android:name=".review.ProductReviewActivity" />
-        <activity android:name=".favourite.FavouriteListActivity" />
+            android:parentActivityName=".address.ExistingAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signin.NewPassAndConfirmPass"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signup.OTPActForSuccRegistrationAtViewCart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signin.LoginActivityForViewCart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".fragment.ProfileUpdateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signin.LoginForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signin.OTPActivityForLoginForgetPassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signin.NewPassAndConfirmPassForLoginForgetPassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".paymentgateway.ThanksActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".cancelorder.CancelOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".cancelorder.OrderedProductListView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pastorder.PastOrderListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pastorder.PastOrderedProductListView"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signup.RegisterUserAtCartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signup.OTPActivityForViewCart2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signup.ExistingUser_ForgetPassword_AtViewCartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signup.ExistingUser_ForgetPassword_OTP_AtViewCartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signup.Existing_User_NewPassAndConfirmPass_AtViewCartActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".address.ExistingAddressActivity_AtMenuAccFragment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".address.UpdateAddress_MenuAccFragment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".review.BrandReviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".review.ReviewPostActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signin.LoginForgetPasswordActivityAtViewCart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signin.OTPActivityForLoginForgetPasswordAtViewCart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".signin.NewPassAndConfirmPassForLoginForgetPassword_At_ViewCart"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".productdescription.ProductDescriptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".review.ProductReviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".favourite.FavouriteListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".address.UpdateMapAddressActivity"
             android:label="@string/title_activity_update_map_address"
-            android:theme="@style/AppTheme"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+
+        </activity>
     </application>
 
 </manifest>

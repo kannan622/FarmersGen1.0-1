@@ -1,3 +1,5 @@
+apply plugin: 'com.android.application'
+
 buildscript {
     repositories {
         maven { url 'https://maven.fabric.io/public' }
@@ -9,6 +11,7 @@ buildscript {
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+
 
 
 
@@ -57,11 +60,13 @@ dependencies {
     implementation 'com.github.GoodieBag:Pinview:v1.3'
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
     implementation 'com.github.stfalcon:smsverifycatcher:0.3.2'
-    implementation 'com.google.firebase:firebase-messaging:17.3.0'
+    implementation 'com.google.firebase:firebase-messaging:18.0.0'
     implementation 'com.google.firebase:firebase-core:16.0.3'
     implementation 'com.google.android.libraries.places:places:1.1.0'
 
-    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation 'com.google.android.gms:play-services-maps:16.0.3'
 
 
 }
+
+apply plugin: "com.google.gms.google-services"

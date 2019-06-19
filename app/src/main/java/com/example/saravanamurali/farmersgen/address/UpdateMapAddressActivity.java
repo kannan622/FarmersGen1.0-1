@@ -1,12 +1,15 @@
 package com.example.saravanamurali.farmersgen.address;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -25,6 +28,7 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -34,6 +38,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.saravanamurali.farmersgen.R;
+import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
+import com.example.saravanamurali.farmersgen.models.UpdateAddressDTO;
+import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToUpdateAddress;
 import com.example.saravanamurali.farmersgen.util.FavStatus;
 import com.example.saravanamurali.farmersgen.util.SessionManager;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -78,18 +85,31 @@ public class UpdateMapAddressActivity extends AppCompatActivity implements OnMap
     String pref_lat;
     String pref_lng;
 
+    String address;
+    String postalCode;
+    Double server_Lat;
+    Double server_Lan;
+    private String NO_CURRENT_USER = "NO_CURRENT_USER";
+    private String addressID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_map_address);
 
+        Intent getAddressID = getIntent();
+
+        addressID = getAddressID.getStringExtra("ADDRESSID");
+
+
         addressArea = (TextView) findViewById(R.id.addressArea);
         uFlatNoo = findViewById(R.id.updateMapFlat);
         geoSetFlatNoo = (TextInputEditText) findViewById(R.id.SetMapUpdateFlat);
         contactImage = (ImageView) findViewById(R.id.contactImage);
         updateMobilee = findViewById(R.id.setMapUpdateMobile);
-        uAlternateMobilee=findViewById(R.id.updateMapAlterMobile);
+        uAlternateMobilee = findViewById(R.id.updateMapAlterMobile);
+
 
         session = new SessionManager(UpdateMapAddressActivity.this);
 
@@ -97,11 +117,25 @@ public class UpdateMapAddressActivity extends AppCompatActivity implements OnMap
         pref_lng = session.getGpsLatlng().get(SessionManager.KEY_GPS_LNG);
 
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        mapView = mapFragment.getView();
+        if (ActivityCompat.checkSelfPermission(UpdateMapAddressActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (UpdateMapAddressActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(UpdateMapAddressActivity.this);
+
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+            mapView = mapFragment.getView();
+
+            mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(UpdateMapAddressActivity.this);
+
+        } else if (ActivityCompat.checkSelfPermission(UpdateMapAddressActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (UpdateMapAddressActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(UpdateMapAddressActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
+
+        }
+
 
         contactImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,51 +146,6 @@ public class UpdateMapAddressActivity extends AppCompatActivity implements OnMap
             }
         });
 
-
-    }
-
-    private void loadContact() {
-
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
-                == PackageManager.PERMISSION_GRANTED) {
-
-            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-            startActivityForResult(intent, FavStatus.PICK_CONTACT);
-
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
-                    FavStatus.MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        String phoneNumber = "";
-        String name = "";
-
-        if (resultCode == Activity.RESULT_OK) {
-            Uri contactData = data.getData();
-            Cursor c = managedQuery(contactData, null, null, null, null);
-            if (c.moveToFirst()) {
-                name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                String id = c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
-
-                Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
-                while (phones.moveToNext()) {
-
-                    phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-
-                }
-
-                updateMobilee.setText(phoneNumber);
-                phones.close();
-
-            }
-
-
-        }
     }
 
 
@@ -301,24 +290,30 @@ public class UpdateMapAddressActivity extends AppCompatActivity implements OnMap
 
 
     private void getAddressFromLatiandLongi(Double lat, Double lon) {
-        session.createLatLngSession(lat,lon);
+        session.createLatLngSession(lat, lon);
 
         Geocoder geocoder = new Geocoder(UpdateMapAddressActivity.this, Locale.getDefault());
         try {
             List<Address> geoAddresses = geocoder.getFromLocation(lat, lon, 1);
 
-            String address = geoAddresses.get(0).getAddressLine(0);
+            server_Lat=lat;
+            server_Lan=lon;
+
+            address = geoAddresses.get(0).getAddressLine(0);
+            postalCode = geoAddresses.get(0).getPostalCode();
             String area = geoAddresses.get(0).getLocality();
             String city = geoAddresses.get(0).getAdminArea();
             String country = geoAddresses.get(0).getCountryName();
-            String postalCode = geoAddresses.get(0).getPostalCode();
+
             String subAdminArea = geoAddresses.get(0).getSubAdminArea();
             String subLocality = geoAddresses.get(0).getSubLocality();
             String premises = geoAddresses.get(0).getPremises();
             String addressLine = geoAddresses.get(0).getAddressLine(0);
 
             // showAddress.setVisibility(View.VISIBLE);
-            addressArea.setText(address + " " + area + " " + city + " " + postalCode);
+            addressArea.setText(address + " " + postalCode);
+
+            System.out.println("address"+address + " " + "area"+area + " " + "city"+city + " " + "postalCode"+postalCode+" "+"subAdminArea"+subAdminArea+" "+"subLocality"+subLocality+" "+"premises"+premises+" "+"addressLine"+addressLine);
 
 
         } catch (IOException e) {
@@ -364,7 +359,68 @@ public class UpdateMapAddressActivity extends AppCompatActivity implements OnMap
 
     private void updateAddressFromChangeAddressClick() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(UpdateMapAddressActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.show();
+        csprogress.setCanceledOnTouchOutside(false);
+
+        ApiInterface api = APIClientToUpdateAddress.getApiIterfaceToUpdateAddress();
+
+        SharedPreferences getcurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
+
+        String currentUser = getcurrentUser.getString("CURRENTUSER", NO_CURRENT_USER);
+
+        UpdateAddressDTO updateAddressDTO=new UpdateAddressDTO(address, proceed_FlatNoo, postalCode, proceed_Alternate_Mobile_Numberr, currentUser, addressID, server_Lat, server_Lan);
+
+
+
         Toast.makeText(UpdateMapAddressActivity.this, "Clicked", Toast.LENGTH_LONG).show();
+    }
+
+
+    private void loadContact() {
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED) {
+
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            startActivityForResult(intent, FavStatus.PICK_CONTACT);
+
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
+                    FavStatus.MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        String phoneNumber = "";
+        String name = "";
+
+        if (resultCode == Activity.RESULT_OK) {
+            Uri contactData = data.getData();
+            Cursor c = managedQuery(contactData, null, null, null, null);
+            if (c.moveToFirst()) {
+                name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                String id = c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
+
+                Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
+                while (phones.moveToNext()) {
+
+                    phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+                }
+
+                updateMobilee.setText(phoneNumber);
+                phones.close();
+
+            }
+
+
+        }
     }
 
     private boolean validateAlterMobileNumber() {
@@ -402,5 +458,7 @@ public class UpdateMapAddressActivity extends AppCompatActivity implements OnMap
         return status;
 
     }
+
+
 }
 

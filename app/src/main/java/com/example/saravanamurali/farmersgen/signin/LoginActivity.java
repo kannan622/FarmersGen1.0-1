@@ -140,23 +140,9 @@ public class LoginActivity extends AppCompatActivity {
 
                 SignedInJSONResponse signedInJSONResponse = response.body();
 
-               /* if(signedInJSONResponse.getResponseCode() == 400){
-
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-
-                    Intent intent =new Intent(LoginActivity.this,OTPActForSuccRegistrationAtViewCart.class);
-                    intent.putExtra("MOBILENOTOLOGIN",signedInJSONResponse.getMobile());
-                    intent.putExtra("OTP_VERIFY_CODE",1);
-                    intent.putExtra("USERID",signedInJSONResponse.getUser_ID());
-                    startActivity(intent);
-
-
-                }*/
-
 
                 if (signedInJSONResponse.getResponseCode() == 200) {
+
 
                     SharedPreferences current_User = getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = current_User.edit();
@@ -167,17 +153,18 @@ public class LoginActivity extends AppCompatActivity {
 
                     if(fcm_Token!=null){
 
+                        System.out.println("TokenNew"+fcm_Token);
                         sendFCMTokenToServer(signedInJSONResponse.getUser_ID(),fcm_Token);
 
                     }
                     else if(fcm_Token==null){
-                        return;
+                        System.out.println();
                     }
-
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
+
 
                     Intent menuHomeActivity = new Intent(LoginActivity.this, HomeActivity.class);
 

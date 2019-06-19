@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "389106438557-ec51hhk4fs6392eh9j0ah8h3sdmdjlmo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.saravanamurali.farmersgen",
+            "certificate_hash": "403ee85e0c1a8a581cf6bce7b70c59ecbd655f36"
+          }
+        },
+        {
           "client_id": "389106438557-d25a5lsfslr73ml3i467rkr8qi1omlsr.apps.googleusercontent.com",
           "client_type": 3
         }

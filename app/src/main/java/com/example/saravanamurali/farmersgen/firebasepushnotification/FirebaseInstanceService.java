@@ -27,7 +27,29 @@ public class FirebaseInstanceService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        pushNotificationBuilder(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getClickAction());
+        System.out.println(remoteMessage.getNotification().getTitle());
+        System.out.println(remoteMessage.getNotification().getBody().toString());
+        System.out.println(remoteMessage.getNotification().getClickAction().toString());
+
+        sendNotitfication(remoteMessage);
+
+
+       /* sendMessage(remoteMessage);*/
+
+       /* if(remoteMessage.getNotification().getTitle()!=null && remoteMessage.getNotification().getBody()!=null && remoteMessage.getNotification().getClickAction()!=null) {
+
+            pushNotificationBuilder(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getClickAction());
+        }
+        else if(remoteMessage.getNotification().getTitle()==null || remoteMessage.getNotification().getBody()==null || remoteMessage.getNotification().getClickAction()==null) {
+
+            System.out.println("Null Values");
+        }*/
+
+    }
+
+    private void sendNotitfication(RemoteMessage remoteMessage) {
+
+
 
     }
 
