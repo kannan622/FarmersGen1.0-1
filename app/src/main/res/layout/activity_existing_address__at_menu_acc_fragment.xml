@@ -13,6 +13,7 @@
         android:layout_marginLeft="@dimen/eight_dp"
         android:layout_marginRight="@dimen/eight_dp"
         android:layout_marginTop="@dimen/twenty_dp"
+        android:visibility="gone"
         android:src="@drawable/add_address_logo" />
     <TextView
         android:id="@+id/deliveryAddress"
@@ -20,11 +21,29 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/mapImageAtMenuAcc"
         android:text="Delivery Address"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/twenty_five"
         android:layout_alignBaseline="@id/mapImage"
         android:textSize="@dimen/twenty_five"
         android:textStyle="bold"
         />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/deliverAddressToolBare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Delivery to"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
+            android:textSize="@dimen/twenty_sp"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"

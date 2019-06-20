@@ -226,8 +226,9 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(Add_Address_Activity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         //Toast.makeText(Add_Address_Activity.this, "Proceed To Pay,", Toast.LENGTH_LONG).show();

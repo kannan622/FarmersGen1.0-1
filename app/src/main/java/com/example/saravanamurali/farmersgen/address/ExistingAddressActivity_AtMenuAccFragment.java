@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -51,6 +52,9 @@ public class ExistingAddressActivity_AtMenuAccFragment extends AppCompatActivity
 
         getSupportActionBar().hide();
 */
+
+        Toolbar toolbar=(Toolbar)findViewById(R.id.deliverAddressToolBare);
+        setSupportActionBar(toolbar);
 
         dialog=new Dialog(ExistingAddressActivity_AtMenuAccFragment.this);
 
@@ -106,9 +110,10 @@ public class ExistingAddressActivity_AtMenuAccFragment extends AppCompatActivity
 
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ExistingAddressActivity_AtMenuAccFragment.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setMessage("Changing Address...");
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();

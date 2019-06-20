@@ -212,8 +212,8 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(UpdateAddress_Activity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         ApiInterface api = APIClientToUpdateAddress.getApiIterfaceToUpdateAddress();
 

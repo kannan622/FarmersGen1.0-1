@@ -310,7 +310,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed"
-                        android:hint="contact person"
+                        android:hint="person to contact"
                         android:textSize="@dimen/fifteen_dp" />
                 </android.support.design.widget.TextInputLayout>
             </RelativeLayout>

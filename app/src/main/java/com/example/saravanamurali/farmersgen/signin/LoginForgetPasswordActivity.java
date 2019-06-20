@@ -101,6 +101,7 @@ public class LoginForgetPasswordActivity extends AppCompatActivity {
         csprogress = new ProgressDialog(LoginForgetPasswordActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
 

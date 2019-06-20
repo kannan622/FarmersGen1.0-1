@@ -95,7 +95,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 mViewPager.setCurrentItem(tab.getPosition());
                 // tab.setIcon(R.drawable.fav);
-                tab.getIcon().setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
+                tab.getIcon().setColorFilter(Color.parseColor("#60b246"), PorterDuff.Mode.SRC_IN);
 
 
             }

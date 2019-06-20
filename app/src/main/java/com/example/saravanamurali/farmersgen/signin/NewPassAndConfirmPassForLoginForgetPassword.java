@@ -84,8 +84,9 @@ public class NewPassAndConfirmPassForLoginForgetPassword extends AppCompatActivi
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(NewPassAndConfirmPassForLoginForgetPassword.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api =APIClientForNewPassAndConfirmPassFromLoginPassword.getApiInterfaceForNewPassAndConfirmPassFromLoginPassword();

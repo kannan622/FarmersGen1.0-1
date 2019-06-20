@@ -166,6 +166,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
         csprogress = new ProgressDialog(OTPActivityForLoginForgetPassword.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
         ApiInterface api = APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
@@ -215,6 +216,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
         csprogress = new ProgressDialog(OTPActivityForLoginForgetPassword.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
 

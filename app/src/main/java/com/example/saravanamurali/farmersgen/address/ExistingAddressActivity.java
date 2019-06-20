@@ -58,7 +58,6 @@ public class ExistingAddressActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-
         /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
@@ -90,7 +89,7 @@ public class ExistingAddressActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent updateAddress = new Intent(ExistingAddressActivity.this, UpdateMapAddressActivity.class);
+                Intent updateAddress = new Intent(ExistingAddressActivity.this, UpdateAddress_Activity.class);
                 updateAddress.putExtra("ADDRESSID",addressID);
                 startActivity(updateAddress);
             }
@@ -113,8 +112,8 @@ public class ExistingAddressActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ExistingAddressActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();

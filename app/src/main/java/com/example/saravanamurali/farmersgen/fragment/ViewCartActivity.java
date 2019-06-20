@@ -315,6 +315,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 csprogress = new ProgressDialog(ViewCartActivity.this);
                 csprogress.setMessage("Loading...");
                 csprogress.show();
+                csprogress.setCancelable(false);
                 csprogress.setCanceledOnTouchOutside(false);
 
 
@@ -469,6 +470,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
 
@@ -552,7 +554,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             startActivity(coupon);
         } else {
 
-            Toast toast = Toast.makeText(ViewCartActivity.this, "Please login to get offer. To login Click on  CheckOut Button", Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(ViewCartActivity.this, "Please login to apply coupon, To login click on CHECKOUT", Toast.LENGTH_LONG);
             toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER, 0, 0);
             toast.show();
 
@@ -569,6 +571,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
 
@@ -642,6 +645,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
         SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
@@ -708,9 +712,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ViewCartActivity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setMessage("Adding...");
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -733,6 +738,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             e.printStackTrace();
         }
 
+        if (csprogress.isShowing()) {
+            csprogress.dismiss();
+        }
 
         RequestBody requestBody = RequestBody.create(json, actualData.toString());
 
@@ -743,15 +751,17 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 .header("Connection", "close")
                 .build();
 
+
+
         okhttp3.Response response = null;
+
+
 
         try {
             response = httpClient.newCall(request).execute();
             if (response.isSuccessful()) {
 
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
+
                 Log.e("", "Got response from server for JSON post using OkHttp ");
 
                 //Log.d("res", response.body().string().toString());
@@ -901,9 +911,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ViewCartActivity.this);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setMessage("Deleting...");
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
         String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
@@ -928,7 +939,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 GrandTotal = jsonResponseDeleteCartDTO.getDeleteGrandTotal();
 
                 int toPayCheck = 0;
-                if (GrandTotal == null) {
+                if (GrandTotal == "0") {
                     toPayCheck = 0;
                 } else {
                     toPayCheck = Integer.parseInt(GrandTotal);
@@ -1006,6 +1017,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
+        csprogress.setCancelable(false);
+        csprogress.setCanceledOnTouchOutside(false);
         csprogress.show();
 
 
