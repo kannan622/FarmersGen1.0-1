@@ -30,8 +30,6 @@ public class PastOrderedProductListViewAdapter extends RecyclerView.Adapter<Past
     }
 
 
-
-
     @NonNull
     @Override
     public PastOrderedProductListView_ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
