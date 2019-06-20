@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/ten_dp"
-    android:layout_marginRight="@dimen/ten_dp"
-    android:layout_marginTop="1dp"
+    android:layout_marginLeft="@dimen/five_dp"
+    android:layout_marginRight="@dimen/five_dp"
+    android:layout_margin="1dp"
     >
 
     <RelativeLayout
@@ -14,27 +14,48 @@
 
         <TextView
             android:id="@+id/o_ProductName"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="40dp"
             android:text="ProductName"
+            android:fontFamily="sans-serif-condensed"
             android:gravity="center|left"
             android:layout_alignParentLeft="true"
             />
         <TextView
             android:id="@+id/o_Count"
-            android:layout_width="70dp"
+            android:layout_width="40dp"
             android:layout_height="40dp"
-            android:text="3"
+            android:text="10"
+            android:fontFamily="sans-serif-condensed"
             android:gravity="center"
             android:layout_toRightOf="@id/o_ProductName"
+            />
+        <TextView
+            android:id="@+id/o_productPrice"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@id/o_Count"
+            android:text="800"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/o_quantity"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@id/o_productPrice"
+            android:text="500gm"
+            android:gravity="center"
             />
         <TextView
             android:id="@+id/o_totalPrice"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:text="1500"
-            android:gravity="center"
-            android:layout_toRightOf="@id/o_Count"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/five_dp"
+            android:gravity="end|center_vertical"
+            android:layout_toRightOf="@id/o_productPrice"
             />
 
 

@@ -710,12 +710,13 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     @Override
     public void viewCartUpdateInterface(int updateCount, String updateProductCode, String prouctPrice) {
 
-        final ProgressDialog csprogress;
+        ProgressDialog csprogress;
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Adding...");
         csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
         csprogress.show();
+
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -724,11 +725,18 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         OkHttpClient client = new OkHttpClient();
         OkHttpClient httpClient = new OkHttpClient();
 
+
+
         String url = "http://farmersgen.com/service/cart/update_cart.php";
+
+
 
         MediaType json = MediaType.parse("application/json;charset=utf-8");
         JSONObject actualData = new JSONObject();
         String s = String.valueOf(updateCount);
+
+
+
         try {
             actualData.put("product_code", updateProductCode);
             actualData.put("count", s);
@@ -738,9 +746,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             e.printStackTrace();
         }
 
-        if (csprogress.isShowing()) {
-            csprogress.dismiss();
-        }
+
 
         RequestBody requestBody = RequestBody.create(json, actualData.toString());
 
@@ -760,6 +766,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         try {
             response = httpClient.newCall(request).execute();
             if (response.isSuccessful()) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
 
                 Log.e("", "Got response from server for JSON post using OkHttp ");
@@ -804,6 +814,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                         Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();*/
                     } else {
+                        if (csprogress.isShowing()){
+                            csprogress.dismiss();
+                        }
                         //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
                     }
 
@@ -813,6 +826,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 }
 
             } else {
+                if (csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
                 Toast.makeText(getApplicationContext(), "failed to get response", Toast.LENGTH_SHORT).show();
             }
 

@@ -28,6 +28,7 @@
                 android:padding="@dimen/ten_dp"
                 android:layout_alignParentLeft="true"
                 android:gravity="center"
+                android:fontFamily="sans-serif-condensed"
                 android:textColor="@color/FragmentGreen"
                 android:text="Order" />
 
@@ -37,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/orderNoAdapterView"
                 android:gravity="center"
+                android:fontFamily="sans-serif-condensed"
                 android:padding="@dimen/ten_dp"
                 android:text="Date" />
 
@@ -46,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/orderDateAdapterView"
                 android:gravity="center"
+                android:fontFamily="sans-serif-condensed"
                 android:padding="@dimen/ten_dp"
                 android:text="Total" />
 
@@ -53,7 +56,9 @@
                 android:id="@+id/ordercancelAdapterView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
+                android:layout_marginEnd="14dp"
                 android:padding="@dimen/ten_dp"
                 android:src="@drawable/delete" />
 

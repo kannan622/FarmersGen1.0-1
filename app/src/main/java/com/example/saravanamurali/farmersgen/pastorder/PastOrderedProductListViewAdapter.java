@@ -47,6 +47,7 @@ public class PastOrderedProductListViewAdapter extends RecyclerView.Adapter<Past
         pastOrderedProductListView_viewHolder.pastOrderedProrudctName.setText(getPastOrderedProductListDTO.get(i).getPastOrderedProducName());
         pastOrderedProductListView_viewHolder.pastOrderedProrudcCount.setText(getPastOrderedProductListDTO.get(i).getPastOrderedCount());
         pastOrderedProductListView_viewHolder.pastOrderedProrudcTotalPrice.setText(getPastOrderedProductListDTO.get(i).getPastOrderedTotalPrice());
+        pastOrderedProductListView_viewHolder.pastOrderedProductPrice.setText(getPastOrderedProductListDTO.get(i).getPastOrderedProductPrice());
 
     }
 
@@ -60,12 +61,14 @@ public class PastOrderedProductListViewAdapter extends RecyclerView.Adapter<Past
         TextView pastOrderedProrudctName;
         TextView pastOrderedProrudcCount;
         TextView pastOrderedProrudcTotalPrice;
+        TextView pastOrderedProductPrice;
 
         public PastOrderedProductListView_ViewHolder(@NonNull View itemView) {
             super(itemView);
             pastOrderedProrudctName=itemView.findViewById(R.id.p_ProductName);
             pastOrderedProrudcCount=itemView.findViewById(R.id.p_Count);
             pastOrderedProrudcTotalPrice=itemView.findViewById(R.id.p_totalPrice);
+            pastOrderedProductPrice=itemView.findViewById(R.id.p_productPrice);
 
         }
     }

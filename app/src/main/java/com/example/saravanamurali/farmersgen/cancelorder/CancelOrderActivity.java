@@ -91,6 +91,7 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
         csprogress = new ProgressDialog(CancelOrderActivity.this);
         csprogress.setMessage("Loading...");
         csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
 
 
@@ -140,8 +141,9 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(CancelOrderActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
         String curUserToCancelOrder = getCurrentUser.getString("CURRENTUSER", "NO_CURRENT_USER");
@@ -191,8 +193,9 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(CancelOrderActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         ApiInterface api = APIClientToGetCancelOrderList.getApiInterfaceToGetCancelOrderList();
 
@@ -246,8 +249,9 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(CancelOrderActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientOrderedProductListView.getgetApiInterfaceOrderedProductListView();
@@ -266,7 +270,7 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
                     }
 
 
-                    Toast.makeText(CancelOrderActivity.this, "OrderedProductListView", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(CancelOrderActivity.this, "OrderedProductListView", Toast.LENGTH_LONG).show();
                     Intent orderedProductListView = new Intent(CancelOrderActivity.this, OrderedProductListView.class);
 
 

@@ -77,6 +77,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface ApiInterface {
@@ -112,36 +113,44 @@ public interface ApiInterface {
 
 
     //Add Review
+    @Headers({"Content-Type:application/json"})
     @POST("add_review.php")
     Call<JsonResponseForProductPostReviewDTO> postBrandReview(@Body PostReviewDTO reviewDTO);
 
 
+    @Headers({"Content-Type:application/json"})
     @POST("add-cart.php")
     Call<JsonResponseForAddCartDTO> addCart(@Body AddCartDTO addCartDTO);
 
 
     //Update Count At ADD Cart Screen
+    @Headers({"Content-Type:application/json"})
     @POST("update_cart.php")
     Call<JsonResponseForUpdateCartDTO> updateCountatAddCart(@Body UpdateCountInCartDTO updateCountInAddCart);
 
     //Delete items from Cart Activity
+    @Headers({"Content-Type:application/json"})
     @POST("delete-cart.php")
     Call<JsonResponseForDeleteCartDTO> deleteItemFromCart(@Body DeleteCountInCartDTO deleteItemFromCart);
 
 
     //Delete items from View Cart Activity
+    @Headers({"Content-Type:application/json"})
     @POST("delete-cart.php")
     Call<JSONResponseDeleteCartDTO> deleteItemFromViewCart(@Body ViewCartUpdateDTO deleteItemFromViewCart);
 
    //Update Count at View Cart Screen
+   @Headers({"Content-Type:application/json"})
    @POST("update_cart.php")
    Call<JSONResponseUpdateCartDTO> updateCountatAtViewCart(@Body ViewCartUpdateDTO updateCountInAddCart);
 
     //Update Count in Menu Cart Fragment
+    @Headers({"Content-Type:application/json"})
     @POST("update_cart.php")
     Call<JSONResponseMenuCartFragUpdateDTO> updateCountatInMenuCartFragment(@Body MenuCartUpdateDTO menuCartUpdateDTO);
 
     //Delete Count in Menu Cart Fragment
+    @Headers({"Content-Type:application/json"})
     @POST("delete-cart.php")
     Call<JSONResponseMenuCartFragDeleteDTO> deleteCountInMenuCartFragment(@Body MenuCartUpdateDTO deleteCartDTO);
 
@@ -246,6 +255,7 @@ public interface ApiInterface {
 
 
     //Cancel Order using OrderID
+
     @POST("clear.php")
     Call<ResponseBody> getCancelOrder(@Body OrderID_DTO orderDTO);
 
