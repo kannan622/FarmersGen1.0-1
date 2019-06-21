@@ -12,6 +12,8 @@ public class JsonResponseToViewPastOrderedProductListDTO implements Serializable
     String pastOrderedBrandName;
     @SerializedName("count")
     String pastOrderedCount;
+    @SerializedName("product_quantity")
+    String pastOrderedQuantity;
     @SerializedName("product_price")
     String pastOrderedProductPrice;
     @SerializedName("total_price")
@@ -23,6 +25,10 @@ public class JsonResponseToViewPastOrderedProductListDTO implements Serializable
         this.pastOrderedCount = pastOrderedCount;
         this.pastOrderedProductPrice = pastOrderedProductPrice;
         this.pastOrderedTotalPrice = pastOrderedTotalPrice;
+    }
+
+    public String getPastOrderedQuantity() {
+        return pastOrderedQuantity;
     }
 
     public String getPastOrderedProducName() {

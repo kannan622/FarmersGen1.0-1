@@ -45,6 +45,7 @@ public class OrderedProductListViewAdapter extends RecyclerView.Adapter<OrderedP
         orderedProductListViewAdapterViewHolder.orderedProductList_Count.setText(getOrderedProductDetails.get(i).getOrderedCount());
         orderedProductListViewAdapterViewHolder.orderedProductList_TotalPrice.setText(getOrderedProductDetails.get(i).getOrderedTotalPrice());
         orderedProductListViewAdapterViewHolder.getOrderedProductList_ProductPrice.setText(getOrderedProductDetails.get(i).getOrderedProductPrice());
+        orderedProductListViewAdapterViewHolder.orderedProductList_productQuantity.setText(getOrderedProductDetails.get(i).getOrderedProductQuantity());
 
     }
 
@@ -59,6 +60,7 @@ public class OrderedProductListViewAdapter extends RecyclerView.Adapter<OrderedP
         TextView orderedProductList_Count;
         TextView orderedProductList_TotalPrice;
         TextView getOrderedProductList_ProductPrice;
+        TextView orderedProductList_productQuantity;
 
         public OrderedProductListViewAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +68,7 @@ public class OrderedProductListViewAdapter extends RecyclerView.Adapter<OrderedP
             orderedProductList_Count=(TextView)itemView.findViewById(R.id.o_Count);
             getOrderedProductList_ProductPrice=(TextView)itemView.findViewById(R.id.o_productPrice);
             orderedProductList_TotalPrice=(TextView)itemView.findViewById(R.id.o_totalPrice);
+            orderedProductList_productQuantity=(TextView)itemView.findViewById(R.id.o_quantity);
         }
     }
     }

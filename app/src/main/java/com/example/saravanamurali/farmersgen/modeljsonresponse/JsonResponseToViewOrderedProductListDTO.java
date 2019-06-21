@@ -11,6 +11,8 @@ public class JsonResponseToViewOrderedProductListDTO implements Serializable {
     String OrderedBrandName;
     @SerializedName("count")
     String OrderedCount;
+    @SerializedName("product_quantity")
+    String OrderedProductQuantity;
     @SerializedName("product_price")
     String OrderedProductPrice;
     @SerializedName("total_price")
@@ -26,6 +28,9 @@ public class JsonResponseToViewOrderedProductListDTO implements Serializable {
 
     }
 
+    public String getOrderedProductQuantity() {
+        return OrderedProductQuantity;
+    }
 
     public String getOrderedProducName() {
         return OrderedProducName;

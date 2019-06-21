@@ -120,10 +120,10 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         //Banner Horizontal
-        recyclerViewHorizontal = (RecyclerView) view.findViewById(R.id.recyclerViewHorizonal);
+       /* recyclerViewHorizontal = (RecyclerView) view.findViewById(R.id.recyclerViewHorizonal);
         recyclerViewHorizontal.setHasFixedSize(true);
         recyclerViewHorizontal.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL, true));
-
+*/
         if (Network_config.is_Network_Connected_flag(getActivity())) {
 
             loadRetrofitforProductDisplay();
@@ -140,10 +140,10 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
         //loadBannerImages();
 
-        menuBannerDTOList = new ArrayList<BannerDTO>();
+        /*menuBannerDTOList = new ArrayList<BannerDTO>();
         menuBannerAdapter = new MenuBannerAdapter(this.getActivity(), menuBannerDTOList);
         recyclerViewHorizontal.setAdapter(menuBannerAdapter);
-
+*/
         // menuBannerAdapter.setOnBannerImageClick(MenuHomeFragment.this);
     }
         else {
