@@ -58,10 +58,12 @@ public class SplashActivity extends AppCompatActivity {
             if (deviceID != null && currentUserAtSplashScreen != NO_CURRENT_USER) {
                 final Intent intentHome = new Intent(SplashActivity.this, HomeActivity.class);
                 startActivity(intentHome);
+                finish();
                 //Logged Out and First Time user
-            } else if (deviceID != null && currentUserAtSplashScreen == NO_CURRENT_USER) {
+            } else if (currentUserAtSplashScreen == NO_CURRENT_USER) {
                 final Intent loginIntent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(loginIntent);
+                finish();
             }
 
             /*if(deviceID!=null){

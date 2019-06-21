@@ -84,30 +84,37 @@ public interface ApiInterface {
 
 
     //Register User
+    @Headers({"Content-Type:application/json"})
     @POST("register.php")
     Call<SignUpJSONResponse> registerUser(@Body SignUpDTO signUpDTO);
 
 
     //Login
+    @Headers({"Content-Type:application/json"})
     @POST("get_single_user.php")
     Call<SignedInJSONResponse> getLoginUser(@Body SignInDTO signInDTO);
 
 
+    @Headers({"Content-Type:application/json"})
     @GET("view-brand.php")
     Call<JSONResponseHomeBrandDTO> getAllBrands();
 
     //Get Banner Images
+    @Headers({"Content-Type:application/json"})
     @GET("fetch_banner.php")
     Call<JsonResponseForBannerDTO> getAllBannerImages();
 
 
+    @Headers({"Content-Type:application/json"})
     @POST("view-product.php")
     Call<JSONResponseProductListDTO> getSingleBrandProductList(@Body ViewProductListDTO viewProductListDTO);
 
+    @Headers({"Content-Type:application/json"})
     @POST("insert_view_cart.php")
     Call<JsonResponseFromServerDBDTO>moveSqlLiteDataToSever(@Body List<GetDataFromSqlLiteDTO> getDataFromSqlLiteDTO);
 
     //Get Reviews
+    @Headers({"Content-Type:application/json"})
     @POST("fetch_review.php")
     Call<JsonResponseForBrandReview> getBrandReviews(@Body ReviewDTO reviewDTO);
 
@@ -157,97 +164,120 @@ public interface ApiInterface {
 
 
     //View Cart To Show in Fragment
+    @Headers({"Content-Type:application/json"})
     @POST("view-cart.php")
     Call<JSONResponseViewCartListDTO> getViewCart(@Body AddCartDTO addCartDTO);
 
 
     //View Cart with deviceID and couponID
     //View Cart To Show in Fragment
+    @Headers({"Content-Type:application/json"})
     @POST("view_cart_with_offer.php")
     Call<JSONResponseViewCartListDTO> getViewCartWithCouponID(@Body AddCartDTO addCartDTO);
 
 
-
+    @Headers({"Content-Type:application/json"})
     @POST("view-cart.php")
     Call<JSONResponseViewCartOrdersatPaymentGateway> getViewCartOrdersatPaymentGateway(@Body GetOrdersUsingDeviceID_DTO getOrdersUsingDeviceID_dto);
 
     //View Cart For Home MenuCartFragment
+    @Headers({"Content-Type:application/json"})
     @POST("view-cart.php")
     Call<JSONResponseToViewCartAtHomeMenuCartFragmentDTO> getViewCartForHomeMenuCartFragment(@Body MenuCartFragmentDTO menuCartFragmentDTO);
 
+    @Headers({"Content-Type:application/json"})
     @POST("view-cart.php")
     Call<JSONResponseViewCartListDTO> getDataFromViewCartWhenOnBackPressed(@Body AddCartDTO onBackPressed);
 
+    @Headers({"Content-Type:application/json"})
     @POST("proceed-cart.php")
     Call<JSONResponseProceedBtnDTO> ProceedBtnInViewCart(@Body ProceedBtnCheckingDTO proceedBtnCheckingDTO);
 
+
     //Send OTP to Registered Mobile Number
+    @Headers({"Content-Type:application/json"})
     @POST()
     Call<ResponseBody> sendOTP();
 
     //Get Existing Address
+    @Headers({"Content-Type:application/json"})
     @POST("get_delivery_address.php")
     Call<GetDeliveryAddressDTO> getExistingAddress(@Body CurrentUserDTO getExistingAddressDTO);
 
     //ADD Address
+    @Headers({"Content-Type:application/json"})
     @POST("add_address.php")
     Call<JSONResponseADDAddress>  addAddress(@Body ADDAddessDTO addAddessDTO);
 
     //Update Address
+    @Headers({"Content-Type:application/json"})
     @POST("update_address.php")
     Call<ResponseBody> updateAddress(@Body UpdateAddressDTO updateAddressDTO);
 
     //Get OTP From Forget Password
+    @Headers({"Content-Type:application/json"})
     @POST("forget_password.php")
     Call<JSONResponseToSendOTPFromForgetPasswordDTO> getOTPTOForgetPassword(@Body OTPSendToMobileDTOFrom_FP mobileNumber);
 
     //Send Mobile Number From Login Forget Password
+    @Headers({"Content-Type:application/json"})
     @POST("forget_password.php")
     Call<JSONResponseToSendMobileNoFromLoginForgetPasswordDTO> sendMobileNumberFromLoginForgetPassword(@Body OTPSendToMobileDTOFrom_FP mobileNumber);
 
 
     //Send OTP and Mobile Number From OTP Activity
+    @Headers({"Content-Type:application/json"})
     @POST("validate_otp.php")
     Call<JSONOTPResponseFromOTPActivity> sendMobileNoandOTPFromOTPActivity(@Body OTPandMobileNoDTO otPandMobileNoDTO);
 
     //Send OTP and Mobile Number From Login Foget Password Activity
+    @Headers({"Content-Type:application/json"})
     @POST("validate_otp.php")
     Call<JSONOTPResponseFromOTPActivity> sendMobileNoandOTPFromLoginForgetPasswordActivity(@Body OTPandMobileNoDTO otPandMobileNoDTO);
 
 
 
     //New Password and Confirm Password
+    @Headers({"Content-Type:application/json"})
     @POST("change_password.php")
     Call<JSONResponseForNPasswordAndCPasswrod> newPasswordAndConfirmPassword(@Body NewPassAndConfirmPassDTO newPassAndConfirmPassDTO);
 
     //New Password and Confirm Password From Login Forget Password
+    @Headers({"Content-Type:application/json"})
     @POST("change_password.php")
     Call<JSONResponseForNPasswordAndCPasswrod> newPasswordAndConfirmPasswordFromLoginPassword(@Body NewPassAndConfirmPassDTO newPassAndConfirmPassDTO);
 
-
+    @Headers({"Content-Type:application/json"})
     @POST("checkout.php")
     Call<JsonOrderResponse> order(@Body OrderDTO orderDTO);
 
     //Edit Profile get User Details using user ID
+    @Headers({"Content-Type:application/json"})
     @POST("profile_update_single_user.php")
     Call<JSONResponseProfileEdit> editProfile(@Body CurrentUserDTO currentUserDTO);
 
     //Update Name and Email
+    @Headers({"Content-Type:application/json"})
     @POST("profile_update.php")
     Call<ResponseBody> getUpdateNameAndMail(@Body UpdateNameEmailDTO updateNameEmailDTO);
 
 
-    //Logout Using DeviceID
+    //Logout Using DeviceID@Headers({"Content-Type:application/json"})
+    //Logout Using DeviceID@Headers({"Content-Type:application/json"})
+
+    @Headers({"Content-Type:application/json"})
     @POST("log_out_delete_cart.php")
     Call<ResponseBody> getLogOutUsingDeviceID(@Body LogOutDeviceIDDTO logOutDeviceIDDTO);
 
 
     //To Send Sms for Order confirmation
+    @Headers({"Content-Type:application/json"})
     @POST("order_sms.php")
     Call<ResponseBody> sendOrderConfirmationSMS(@Body SendOrderConfirmationSMSDTO  sendOrderConfirmationSMSDTO);
 
 
     //Cancel Order List
+    @Headers({"Content-Type:application/json"})
     @POST("to_delivery.php")
     Call<JSONResponseToFetchCancelOrderDTO> getCancelOrderList(@Body CurrentUserDTO currentUserDTO);
 
@@ -256,63 +286,79 @@ public interface ApiInterface {
 
     //Cancel Order using OrderID
 
+    @Headers({"Content-Type:application/json"})
     @POST("clear.php")
     Call<ResponseBody> getCancelOrder(@Body OrderID_DTO orderDTO);
 
     //Cancel Order View Prodcuts
+    @Headers({"Content-Type:application/json"})
     @POST("fetch_ordered_products_details.php")
     Call<JSONResponseToViewOrderedProductList> getViewCancelOrderProductList(@Body OrderID_DTO orderDTO);
 
 
     //Past Order List
+    @Headers({"Content-Type:application/json"})
     @POST("past_order.php")
     Call<JSONResponseToGetPastOrderDetails> getPastOrderList(@Body CurrentUserDTO currentUserToGetPastOrder);
 
     //Past Order View Prodcuts
+    @Headers({"Content-Type:application/json"})
     @POST("fetch_ordered_products_details.php")
     Call<JSONResponseToViewPastOrderedProductList> getViewPastOrderProductList(@Body OrderID_DTO orderDTO);
 
     //Get Coupon Code
+    @Headers({"Content-Type:application/json"})
     @GET("fetch_offer.php")
     Call<JSONResponseCouponDTO> getCouponCode();
 
+    @Headers({"Content-Type:application/json"})
     @POST("notification.php")
     Call<ResponseBody> sendFcmTokenToServer(@Body FcmTokenDTO fcmTokenDTO);
 
+
     //Apply Code
+    @Headers({"Content-Type:application/json"})
     @POST("fetch_single_offer.php")
     Call<JSONResponseApplyCouponDTO> applyCoupon(@Body ApplyCouponDTO applyCouponDTO);
 
     //Apply Code
+    @Headers({"Content-Type:application/json"})
     @POST("delete_offer.php")
     Call<ResponseBody> cancelCoupon(@Body CancelCouponDTO cancelCouponDTO);
 
 
 
+    @Headers({"Content-Type:application/json"})
     @GET("get_auth_users.php")
     Call<SignedInJSONResponse> getAllUser();
 
+    @Headers({"Content-Type:application/json"})
     @POST("fetch_product_description.php")
     Call<JSONResponseToGetProductDescListDTO> getProductDesc(@Body ProductDescDTO productDescDTO);
 
     //Favourite
 
     //Add Favourite
+    @Headers({"Content-Type:application/json"})
     @POST("add_favorite.php")
     Call<JsonResponseForAddFavourite>addFavourite(@Body AddFavouriteDTO addFavouriteDTO);
 
     //Fetch Favourite Brands
+    @Headers({"Content-Type:application/json"})
     @POST("fetch_favorite.php")
     Call<JsonResponseForFavBrandsDTO> getFavouriteBrands(@Body CurrentUserDTO currentUserDTO);
 
     //To Check Favourite
+    @Headers({"Content-Type:application/json"})
     @POST("view_favorite_for_single_brand.php")
     Call<JsonResponseToCheckFavourite> checkFavList(@Body CheckFavDTO checkFavDTO);
 
+    @Headers({"Content-Type:application/json"})
     @POST("delete_favorite.php")
     Call<JsonResponseForDeleteFavDTO> removeFavBrand(@Body CheckFavDTO checkFavDTO);
 
 
+    @Headers({"Content-Type:application/json"})
     @POST("payment.php")
     Call<ResponseBody> doCardPayment(@Body CardPaymentDTO cardPaymentDTO);
 
