@@ -157,7 +157,7 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
                         }
 
 
-                        System.out.println("I am inside ");
+                       // System.out.println("I am inside ");
 
                         JSONResponseApplyCouponDTO jsonResponseApplyCouponDTO = response.body();
 

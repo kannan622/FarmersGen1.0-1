@@ -1071,9 +1071,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         csprogress.show();
 
 
-        csprogress.setCanceledOnTouchOutside(false);
-
-
         ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
 
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);

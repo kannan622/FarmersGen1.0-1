@@ -194,7 +194,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(csprogress.isShowing()){
+                if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
 
@@ -206,7 +206,6 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
             }
         });
-
 
 
     }
@@ -302,29 +301,28 @@ public class PaymentGatewayActivity extends AppCompatActivity {
             public void onResponse(Call<JSONResponseViewCartOrdersatPaymentGateway> call, Response<JSONResponseViewCartOrdersatPaymentGateway> response) {
 
 
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
-                    JSONResponseViewCartOrdersatPaymentGateway jsonResponseViewCartListDTO = response.body();
-                    List<ViewCartPaymentGatewayDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
+                JSONResponseViewCartOrdersatPaymentGateway jsonResponseViewCartListDTO = response.body();
+                List<ViewCartPaymentGatewayDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
 
-                    grandTotal = jsonResponseViewCartListDTO.getGrandTotal();
+                grandTotal = jsonResponseViewCartListDTO.getGrandTotal();
 
-                    String ANDROID_MOBILE_ID = Settings.Secure.getString(PaymentGatewayActivity.this.getContentResolver(),
-                            Settings.Secure.ANDROID_ID);
+                String ANDROID_MOBILE_ID = Settings.Secure.getString(PaymentGatewayActivity.this.getContentResolver(),
+                        Settings.Secure.ANDROID_ID);
 
-                    for (int i = 0; i < viewCartProductListDTO.size(); i++) {
+                for (int i = 0; i < viewCartProductListDTO.size(); i++) {
 
-                        String pay_ProductCode = viewCartProductListDTO.get(i).getProduct_Code();
-                        String pay_ProductCount = viewCartProductListDTO.get(i).getCount();
-                        String pay_ProductPrice = viewCartProductListDTO.get(i).getTotal_price();
+                    String pay_ProductCode = viewCartProductListDTO.get(i).getProduct_Code();
+                    String pay_ProductCount = viewCartProductListDTO.get(i).getCount();
+                    String pay_ProductPrice = viewCartProductListDTO.get(i).getTotal_price();
 
-                        OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO(pay_ProductCode, pay_ProductCount, pay_ProductPrice, ANDROID_MOBILE_ID);
-                        orderDetailsList.add(orderDetailsDTO);
+                    OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO(pay_ProductCode, pay_ProductCount, pay_ProductPrice, ANDROID_MOBILE_ID);
+                    orderDetailsList.add(orderDetailsDTO);
 
-                    }
-
+                }
 
 
                 cashOnDeliveryPay.setText(grandTotal);
@@ -343,7 +341,6 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
 
     }
-
 
 
     //Cash On Delivery Payment
@@ -370,46 +367,45 @@ public class PaymentGatewayActivity extends AppCompatActivity {
             public void onResponse(Call<JsonOrderResponse> call, Response<JsonOrderResponse> response) {
 
 
+                JsonOrderResponse jsonOrderResponse = response.body();
+
+                if (jsonOrderResponse.getResponseCode() == 200) {
+
+                    String orderIDToSendSMS = jsonOrderResponse.getOrderId();
+
+                    //Remove Current User COUPON ID From Shared Preferences
+                    SharedPreferences getCurrentUser_CouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = getCurrentUser_CouponID.edit();
+                    editor.remove("COUPONID");
+                    editor.commit();
+
+
+                    //Remove Current User COUPON CODE From Shared Preferences
+                    SharedPreferences getCurrentUser_CouponCODE = getSharedPreferences("CURRENT_COUPON_CODE", MODE_PRIVATE);
+                    SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
+                    editorCode.remove("COUPON_CODE");
+                    editorCode.commit();
+
+
+                    orderConfirmaationSMSToCustomer(orderIDToSendSMS);
+
+                    clearAllItemsFromSQLDataBase();
+
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
 
                     }
 
-                    JsonOrderResponse jsonOrderResponse = response.body();
 
-                    if (jsonOrderResponse.getResponseCode() == 200) {
-
-                        String orderIDToSendSMS = jsonOrderResponse.getOrderId();
-
-                        //Remove Current User COUPON ID From Shared Preferences
-                        SharedPreferences getCurrentUser_CouponID = getSharedPreferences("CURRENT_COUPON_ID", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = getCurrentUser_CouponID.edit();
-                        editor.remove("COUPONID");
-                        editor.commit();
+                    Intent thanksActivity = new Intent(PaymentGatewayActivity.this, ThanksActivity.class);
+                    startActivity(thanksActivity);
+                    finish();
 
 
-                        //Remove Current User COUPON CODE From Shared Preferences
-                        SharedPreferences getCurrentUser_CouponCODE = getSharedPreferences("CURRENT_COUPON_CODE", MODE_PRIVATE);
-                        SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
-                        editorCode.remove("COUPON_CODE");
-                        editorCode.commit();
-
-
-
-                        orderConfirmaationSMSToCustomer(orderIDToSendSMS);
-
-                        clearAllItemsFromSQLDataBase();
-
-                        Intent thanksActivity = new Intent(PaymentGatewayActivity.this, ThanksActivity.class);
-                        startActivity(thanksActivity);
-                        finish();
-
-
-                    } else if (jsonOrderResponse.getResponseCode() == 500) {
-                        //System.out.println("Order is not Confirmed");
-                    }
-                    //System.out.println("Order Confirmed");
-
+                } else if (jsonOrderResponse.getResponseCode() == 500) {
+                    //System.out.println("Order is not Confirmed");
+                }
+                //System.out.println("Order Confirmed");
 
 
             }
@@ -523,14 +519,13 @@ public class PaymentGatewayActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<GetDeliveryAddressDTO> call, Response<GetDeliveryAddressDTO> response) {
 
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
-                    GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
+                GetDeliveryAddressDTO getDeliveryAddressDTO = response.body();
 
-                    addressID = getDeliveryAddressDTO.getAddressID();
-
+                addressID = getDeliveryAddressDTO.getAddressID();
 
 
             }
@@ -546,7 +541,6 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         });
 
     }
-
 
 
 }

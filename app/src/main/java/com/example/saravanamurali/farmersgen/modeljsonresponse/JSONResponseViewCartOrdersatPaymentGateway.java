@@ -10,7 +10,7 @@ public class JSONResponseViewCartOrdersatPaymentGateway {
     @SerializedName("records")
     public List<ViewCartPaymentGatewayDTO> viewCartListRecord;
 
-    @SerializedName("grand_total")
+    @SerializedName("final_total")
     public String grandTotal;
 
     public List<ViewCartPaymentGatewayDTO> getViewCartListRecord() {

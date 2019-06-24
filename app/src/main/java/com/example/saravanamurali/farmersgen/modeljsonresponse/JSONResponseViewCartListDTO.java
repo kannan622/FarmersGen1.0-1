@@ -10,9 +10,11 @@ public class JSONResponseViewCartListDTO {
     @SerializedName("records")
     public List<ViewCartDTO> viewCartListRecord;
 
+    //After Coupon apply
     @SerializedName("final_total")
     public String grandTotal;
 
+    //Before Coupon apply
     @SerializedName("grand_total")
     String g_Total;
 
