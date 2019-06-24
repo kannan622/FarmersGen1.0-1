@@ -10,7 +10,7 @@ public class JSONResponseToViewCartAtHomeMenuCartFragmentDTO {
     @SerializedName("records")
     public List<MenuCartFragmentViewCartDTO> viewCartListRecord;
 
-    @SerializedName("grand_total")
+    @SerializedName("final_total")
     public String grandTotal;
 
     public List<MenuCartFragmentViewCartDTO> getViewCartListRecord() {

@@ -100,9 +100,8 @@
                 android:id="@+id/discountBlock"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/coupon"
-                android:layout_marginTop="@dimen/five_dp"
-                android:layout_below="@+id/rec">
+                android:layout_above="@id/couponAppliedBlock"
+                android:layout_marginTop="@dimen/five_dp">
 
                 <TextView
                     android:id="@+id/grandTotalText"
