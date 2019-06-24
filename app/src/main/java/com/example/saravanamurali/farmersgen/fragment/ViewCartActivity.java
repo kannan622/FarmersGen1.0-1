@@ -84,6 +84,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     static TextView toPayAmountTextView;
     // TextView toPayT;
     static String GrandTotal;
+    String gTotal;
+    String dPrice;
     static ViewCartAdapter viewCartAdapter;
     private static Context context = null;
     TextView proceedButton;
@@ -104,6 +106,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
     ImageView cancelCoupon;
 
     TextView applyCoupon;
+
+    RelativeLayout relativeLayoutDiscountPriceShow;
+    TextView grandTotalPrice;
+    TextView discountPrice;
 
 
     String addressID;
@@ -199,6 +205,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         showCouponLayout = (RelativeLayout) findViewById(R.id.coupon);
 
         applyCoupon = (TextView) findViewById(R.id.applyCouponText);
+
+        relativeLayoutDiscountPriceShow=(RelativeLayout)findViewById(R.id.discountBlock);
+        grandTotalPrice=(TextView)findViewById(R.id.grandTotalPrice);
+        discountPrice=(TextView)findViewById(R.id.discountPrice);
 
         //Coupon Code Applied
         couponAppliedBlock = (RelativeLayout) findViewById(R.id.couponAppliedBlock);
@@ -314,9 +324,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 final ProgressDialog csprogress;
                 csprogress = new ProgressDialog(ViewCartActivity.this);
                 csprogress.setMessage("Loading...");
-                csprogress.show();
                 csprogress.setCancelable(false);
                 csprogress.setCanceledOnTouchOutside(false);
+                csprogress.show();
 
 
                 // Toast.makeText(ViewCartActivity.this, "Checking Proceed Button", Toast.LENGTH_LONG).show();
@@ -469,9 +479,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
         csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToCancelCouponCode.getApiInterfaceToCancelCouponCode();
@@ -504,9 +514,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                         progressThread.run();
 */
 
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
+
 
                     //Remove Current User COUPON ID From Shared Preferences
                     SharedPreferences getCurrentUser_CouponID = getSharedPreferences("CURRENT_COUPON_ID", context.MODE_PRIVATE);
@@ -525,6 +533,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     couponAppliedBlock.setVisibility(View.GONE);
 
                     loadViewCartProductList();
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
 
 
                 }
@@ -570,9 +582,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
         csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(context.getContentResolver(),
@@ -589,11 +601,13 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         call.enqueue(new Callback<JSONResponseViewCartListDTO>() {
             @Override
             public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
+
+
                 // System.out.println("Null Values");
 
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
+
+                relativeLayoutDiscountPriceShow.setVisibility(View.GONE);
+
 
 
                 JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
@@ -612,11 +626,19 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                     toPayAmountTextView.setText(GrandTotal);
 
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+
 
                 } else if (viewCartProductListDTO == null) {
                     MenuAccountFragment menuAccountFragment = new MenuAccountFragment();
                     menuAccountFragment.clearAllItemFromSQLDataBase();
                     startActivity(new Intent(ViewCartActivity.this, HomeActivity.class));
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
                     Toast.makeText(ViewCartActivity.this, "You havent ordered any item in cart", Toast.LENGTH_LONG).show();
                     finish();
                 }
@@ -644,9 +666,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ViewCartActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
         csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
         String curUser_CouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
@@ -668,12 +690,16 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             @Override
             public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
 
+                relativeLayoutDiscountPriceShow.setVisibility(View.VISIBLE);
+
 
                 JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
                 List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
 
                 GrandTotal = jsonResponseViewCartListDTO.getGrandTotal();
                 System.out.println("GRANDTOTAL" + GrandTotal);
+                gTotal=jsonResponseViewCartListDTO.getG_Total();
+                dPrice=jsonResponseViewCartListDTO.getDiscountPrice();
 
 
                 viewCartAdapter.setData(viewCartProductListDTO);
@@ -682,6 +708,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
                 toPayAmountTextView.setText(GrandTotal);
+                grandTotalPrice.setText(gTotal);
+                discountPrice.setText(dPrice);
 
                 if (csprogress.isShowing()) {
                     csprogress.dismiss();
@@ -947,10 +975,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
                 JSONResponseDeleteCartDTO jsonResponseDeleteCartDTO = response.body();
 
-
                 if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
+
 
                 GrandTotal = jsonResponseDeleteCartDTO.getDeleteGrandTotal();
 
@@ -973,8 +1001,11 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     bottomView.setVisibility(View.GONE);
                     couponAppliedBlock.setVisibility(View.GONE);
                     toolbar.setVisibility(View.GONE);
+                    relativeLayoutDiscountPriceShow.setVisibility(View.GONE);
 
                     viewCartAdapter.notifyDataSetChanged();
+
+
                     //Removes the couponID
 
                     //Remove Current User COUPON ID From Shared Preferences
@@ -989,6 +1020,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
                     editorCode.remove("COUPON_CODE");
                     editorCode.commit();
+
+
 
 
                 }

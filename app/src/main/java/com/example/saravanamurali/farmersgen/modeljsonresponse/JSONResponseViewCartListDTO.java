@@ -10,8 +10,22 @@ public class JSONResponseViewCartListDTO {
     @SerializedName("records")
     public List<ViewCartDTO> viewCartListRecord;
 
-    @SerializedName("grand_total")
+    @SerializedName("final_total")
     public String grandTotal;
+
+    @SerializedName("grand_total")
+    String g_Total;
+
+    @SerializedName("discount")
+    String discountPrice;
+
+    public String getG_Total() {
+        return g_Total;
+    }
+
+    public String getDiscountPrice() {
+        return discountPrice;
+    }
 
     public String getGrandTotal() {
         return grandTotal;

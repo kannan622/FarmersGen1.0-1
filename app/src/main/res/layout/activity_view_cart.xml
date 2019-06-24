@@ -30,8 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/viewBasket"
                 android:fontFamily="sans-serif-condensed"
-                android:textColor="@color/FragmentGreen"
-                android:text="Swipe Right or Left to remove item" />
+                android:text="Swipe Right or Left to remove item"
+                android:textColor="@color/FragmentGreen" />
 
             <ImageView
                 android:layout_width="30dp"
@@ -67,6 +67,7 @@
             tools:context=".fragment.ViewCartActivity">
 
             <RelativeLayout
+                android:id="@+id/rec"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -92,7 +93,100 @@
                       android:textColor="@color/greyi"
                       android:visibility="gone" />
       -->
+
             </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/discountBlock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/coupon"
+                android:layout_marginTop="@dimen/five_dp"
+                android:layout_below="@+id/rec">
+
+                <TextView
+                    android:id="@+id/grandTotalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/FragmentGreen"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginLeft="@dimen/five_dp"
+                    android:text="Total Price"/>
+                <TextView
+                    android:id="@+id/grandTotalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/FragmentGreen"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginLeft="@dimen/three_dp"
+                    android:layout_toRightOf="@id/grandTotalText"
+                    android:text="₹40000"
+                    />
+                <TextView
+                    android:id="@+id/line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="|"
+                    android:layout_marginLeft="@dimen/three_dp"
+                    android:layout_toRightOf="@+id/grandTotalPrice"
+                    />
+
+                <TextView
+                    android:id="@+id/discountText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/three_dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/FragmentGreen"
+                    android:text="Total Discount"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_toRightOf="@id/line"
+                    />
+                <TextView
+                    android:id="@+id/discountPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/FragmentGreen"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_toRightOf="@+id/discountText"
+                    android:layout_marginLeft="@dimen/three_dp"
+                    android:text="₹500"
+                    />
+
+
+
+
+
+
+            </RelativeLayout>
+
+           <!-- <RelativeLayout
+                android:id="@+id/c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_above="@id/coupon"
+                >
+
+                <TextView
+                    android:id="@+id/discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Discount"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/discount"
+                    android:text="500"
+                    />
+
+
+
+            </RelativeLayout>-->
 
             <!--Offers Code-->
             <RelativeLayout
@@ -187,7 +281,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/five_dp"
-                    android:text="₹"
+                    android:text="To Pay ₹"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
@@ -196,7 +290,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/fifteen_dp"
+                    android:layout_toRightOf="@id/rupeeSymbol"
+                    android:layout_marginLeft="@dimen/five_dp"
                     android:fontFamily="sans-serif-condensed"
                     android:text=""
                     android:textColor="@color/white"
