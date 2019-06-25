@@ -416,7 +416,8 @@ public class PaymentGatewayActivity extends AppCompatActivity {
                     editorCode.commit();
 
 
-                    //orderConfirmaationSMSToCustomer(orderIDToSendSMS);
+                    //Sending Order confirmations sms to customer
+                    orderConfirmaationSMSToCustomer(orderIDToSendSMS);
 
                     clearAllItemsFromSQLDataBase();
 
