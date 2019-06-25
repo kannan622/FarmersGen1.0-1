@@ -386,7 +386,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         System.out.println(curUser_CouponID);
         System.out.println();
 
-        OrderDTO orderDTO = new OrderDTO(curUser, addressID, type, grandTotal, orderDetailsList);
+        OrderDTO orderDTO = new OrderDTO(curUser, addressID, type, grandTotal, COUPON_ID,orderDetailsList);
 
 
         Call<JsonOrderResponse> call = api.order(orderDTO);
