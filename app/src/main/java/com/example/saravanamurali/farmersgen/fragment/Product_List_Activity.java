@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForAddCartDTO;
@@ -73,6 +74,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.fabric.sdk.android.Fabric;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -130,6 +132,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product__list_);
+
+        Fabric.with(this, new Crashlytics());
 
         session = new SessionManager(getApplicationContext());
 

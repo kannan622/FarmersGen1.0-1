@@ -12,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToGetProductDescDTO;
@@ -23,6 +24,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -67,6 +69,7 @@ public class ProductDescriptionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_description);
+        Fabric.with(this, new Crashlytics());
 
         //Product Review
         productReview = (TextView) findViewById(R.id.productReview);

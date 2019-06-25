@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseFromServerDBDTO;
@@ -29,6 +30,7 @@ import com.example.saravanamurali.farmersgen.util.Network_config;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -77,6 +79,8 @@ public class Count_Price_Show_Fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_count__price__show, container, false);
+
+        Fabric.with(getActivity(), new Crashlytics());
 
         mSqLiteDatabaseInLogout = getActivity().openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
 

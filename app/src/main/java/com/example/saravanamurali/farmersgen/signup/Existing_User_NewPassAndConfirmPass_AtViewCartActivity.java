@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseForNPasswordAndCPasswrod;
@@ -16,6 +17,7 @@ import com.example.saravanamurali.farmersgen.models.NewPassAndConfirmPassDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForNewPassAndConfirmPass;
 import com.example.saravanamurali.farmersgen.signin.LoginActivityForViewCart;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,6 +39,8 @@ public class Existing_User_NewPassAndConfirmPass_AtViewCartActivity extends AppC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_existing__user__new_pass_and_confirm_pass__at_view_cart);
+
+        Fabric.with(this, new Crashlytics());
 
         Intent get_MobileNo=getIntent();
         MobileNo_For_New_And_Confirm_Pass=get_MobileNo.getStringExtra("MOBILENO_FOR_NEW_AND_CONFIRM_PASSWORD");

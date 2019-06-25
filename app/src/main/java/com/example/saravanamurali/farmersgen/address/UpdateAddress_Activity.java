@@ -32,6 +32,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.cancelorder.CancelOrderActivity;
@@ -45,6 +46,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import io.fabric.sdk.android.Fabric;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -101,6 +103,8 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_address_);
+
+        Fabric.with(this, new Crashlytics());
 
         ContentResolver contentResolver = getContentResolver();
 
@@ -212,6 +216,7 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(UpdateAddress_Activity.this);
         csprogress.setMessage("Loading...");
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
         csprogress.show();
 
@@ -280,8 +285,9 @@ public class UpdateAddress_Activity extends AppCompatActivity implements View.On
             final ProgressDialog csprogress;
             csprogress = new ProgressDialog(UpdateAddress_Activity.this);
             csprogress.setMessage("Loading...");
-            csprogress.show();
+            csprogress.setCancelable(false);
             csprogress.setCanceledOnTouchOutside(false);
+            csprogress.show();
 
 
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);

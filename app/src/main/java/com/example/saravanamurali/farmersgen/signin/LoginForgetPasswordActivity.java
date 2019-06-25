@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToSendMobileNoFromLoginForgetPasswordDTO;
@@ -17,6 +18,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendMobil
 
 import java.util.regex.Pattern;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,6 +39,8 @@ public class LoginForgetPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_forget_password);
+
+        Fabric.with(this, new Crashlytics());
 
         loginForgetPasswordMobileNumber = (TextInputLayout) findViewById(R.id.MobileNoForForgetPassword);
 

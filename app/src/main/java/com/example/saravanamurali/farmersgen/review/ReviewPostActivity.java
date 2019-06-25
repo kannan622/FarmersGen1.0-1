@@ -10,12 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForProductPostReviewDTO;
 import com.example.saravanamurali.farmersgen.models.PostReviewDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.ApiClientToPostReview;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +38,8 @@ public class ReviewPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review_post);
+
+        Fabric.with(this, new Crashlytics());
 
         postMessage = (EditText) findViewById(R.id.reviewTextArea);
         postReview = (Button) findViewById(R.id.postButton);

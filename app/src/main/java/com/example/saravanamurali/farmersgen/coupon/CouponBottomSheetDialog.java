@@ -15,7 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
+
+import io.fabric.sdk.android.Fabric;
 
 @SuppressLint("ValidFragment")
 public class CouponBottomSheetDialog extends BottomSheetDialogFragment {
@@ -44,6 +47,8 @@ public class CouponBottomSheetDialog extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.coupon_sheet_layout, container, false);
+
+        Fabric.with(getActivity(), new Crashlytics());
 
         couponImage=(ImageView) view.findViewById(R.id.sheetImage);
         darkText=(TextView)view.findViewById(R.id.sheetBold);

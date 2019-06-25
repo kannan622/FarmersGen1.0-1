@@ -9,12 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseForNPasswordAndCPasswrod;
 import com.example.saravanamurali.farmersgen.models.NewPassAndConfirmPassDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForNewPassAndConfirmPass;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,6 +42,8 @@ public class NewPassAndConfirmPass extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_pass_and_confirm_pass);
+
+        Fabric.with(this, new Crashlytics());
 
         Intent getMobileNumber = getIntent();
 

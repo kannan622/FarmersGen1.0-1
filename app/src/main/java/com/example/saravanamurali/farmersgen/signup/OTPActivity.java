@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.signin.NewPassAndConfirmPass;
@@ -28,6 +29,7 @@ import com.stfalcon.smsverifycatcher.SmsVerifyCatcher;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,6 +64,8 @@ public class OTPActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
+
+        Fabric.with(this, new Crashlytics());
 
         Intent intent = getIntent();
 

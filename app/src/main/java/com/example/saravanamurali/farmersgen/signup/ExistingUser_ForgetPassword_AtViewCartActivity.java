@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.fragment.ViewCartActivity;
@@ -22,6 +23,7 @@ import com.example.saravanamurali.farmersgen.models.SignedInJSONResponse;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToLogin;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendOTPToMFrom_FP;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +43,8 @@ public class ExistingUser_ForgetPassword_AtViewCartActivity extends AppCompatAct
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_existing_user__forget_password__at_view_cart);
+
+        Fabric.with(this, new Crashlytics());
 
         Intent intent = getIntent();
 

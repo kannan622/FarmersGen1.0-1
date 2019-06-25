@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.SignInDTO;
@@ -20,6 +21,7 @@ import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 
 import java.util.regex.Pattern;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +46,8 @@ public class MenuAccountFragmentLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_account_fragment_login);
+
+        Fabric.with(this, new Crashlytics());
 
         mobileNumberAcc = findViewById(R.id.loginMobileNoMAcc);
         passwordAcc = findViewById(R.id.loginPasswordAcc);

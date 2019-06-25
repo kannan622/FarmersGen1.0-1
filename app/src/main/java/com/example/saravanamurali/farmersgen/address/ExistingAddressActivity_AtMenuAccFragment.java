@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
@@ -20,6 +21,7 @@ import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
 import com.example.saravanamurali.farmersgen.util.Network_config;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +48,8 @@ public class ExistingAddressActivity_AtMenuAccFragment extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_existing_address__at_menu_acc_fragment);
+
+        Fabric.with(this, new Crashlytics());
         /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);

@@ -33,6 +33,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.paymentgateway.PaymentGatewayActivity;
@@ -45,6 +46,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -109,6 +111,8 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add__address_);
+
+        Fabric.with(this, new Crashlytics());
 
         /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -430,8 +434,9 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
             final ProgressDialog csprogress;
             csprogress = new ProgressDialog(Add_Address_Activity.this);
             csprogress.setMessage("Loading...");
-            csprogress.show();
+            csprogress.setCancelable(false);
             csprogress.setCanceledOnTouchOutside(false);
+            csprogress.show();
 
 
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);

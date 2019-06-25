@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.paymentgateway.PaymentGatewayActivity;
@@ -19,6 +20,7 @@ import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.models.GetDeliveryAddressDTO;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToGetExistingAddress;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,6 +52,8 @@ public class ExistingAddressActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_existing_address);
+
+        Fabric.with(this, new Crashlytics());
 
         existingAddressToolBar=(Toolbar)findViewById(R.id.deliverAddressToolBar);
         setSupportActionBar(existingAddressToolBar);
@@ -112,6 +116,7 @@ public class ExistingAddressActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ExistingAddressActivity.this);
         csprogress.setMessage("Loading...");
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
         csprogress.show();
 

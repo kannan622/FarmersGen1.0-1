@@ -7,12 +7,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseToViewPastOrderedProductListDTO;
 
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 public class PastOrderedProductListView extends AppCompatActivity {
 
@@ -29,6 +32,8 @@ public class PastOrderedProductListView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_past_ordered_product_list_view);
+
+        Fabric.with(this, new Crashlytics());
 
         past_UserName=(TextView)findViewById(R.id.PastorderedProductUserName);
         past_GrandTotal=(TextView)findViewById(R.id.pastOrderedProductListGrandTotal);

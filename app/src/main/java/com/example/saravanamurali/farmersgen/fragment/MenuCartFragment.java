@@ -275,8 +275,9 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(getActivity());
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(getActivity().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -324,8 +325,9 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(getActivity());
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         ApiInterface api = ApiClientToMoveDataFromSqlLiteToServerDB.getAPIInterfaceToMoveDataFromSqlLiteToServerDB();
 
@@ -407,6 +409,14 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
     //User not logged in yet fetching data using deviceID
     private void loadViewCartProductList() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.setCancelable(false);
+        csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
+
+
         String ANDROID_MOBILE_ID = Settings.Secure.getString(this.getActivity().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
@@ -463,11 +473,18 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
                 }
                 mauCart_Topay.setText(menuCartGrandTotal);
 
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
+
 
             }
 
             @Override
             public void onFailure(Call<JSONResponseToViewCartAtHomeMenuCartFragmentDTO> call, Throwable t) {
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });
@@ -482,8 +499,10 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(getActivity());
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
+
         String ANDROID_MOBILE_ID = Settings.Secure.getString(this.getActivity().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
@@ -552,8 +571,10 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(getActivity());
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
+
         String ANDROID_MOBILE_ID = Settings.Secure.getString(this.getActivity().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
@@ -625,6 +646,15 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
     //Get Address Id at MenuCartFragment
     private void getAddressID() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.setCancelable(false);
+        csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
+
+
         ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
 
         SharedPreferences getCurUserAddressID = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -643,11 +673,19 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
                     menuCartAddressID = getDeliveryAddressDTO.getAddressID();
                     storeCurrentUserAddressID();
 
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                 }
             }
 
             @Override
             public void onFailure(Call<GetDeliveryAddressDTO> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

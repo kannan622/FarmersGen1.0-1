@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.fragment.ViewCartActivity;
@@ -28,6 +29,7 @@ import com.example.saravanamurali.farmersgen.signup.RegisterUserAtCartActivity;
 import com.example.saravanamurali.farmersgen.util.SessionManager;
 import com.example.saravanamurali.farmersgen.util.Utils;
 
+import io.fabric.sdk.android.Fabric;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,6 +59,8 @@ public class LoginActivityForViewCart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_for_view_cart);
+
+        Fabric.with(this, new Crashlytics());
 
         sessionForPushNotification = new SessionManager(LoginActivityForViewCart.this);
 

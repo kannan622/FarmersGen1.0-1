@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONOTPResponseFromOTPActivity;
@@ -29,6 +30,7 @@ import com.stfalcon.smsverifycatcher.SmsVerifyCatcher;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,6 +55,8 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_existing_user__forget_password__otp__at_view_cart);
+
+        Fabric.with(this, new Crashlytics());
 
         Intent getMobileNumber = getIntent();
         MobileNumberFrom_Existing_User_Forget_Password = getMobileNumber.getStringExtra("MOBILE_NO_TO_CONFIRM_PASSWORD_FOR_EXISTING_USER");

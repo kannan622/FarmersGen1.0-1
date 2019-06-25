@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.fragment.Product_List_Activity;
@@ -28,6 +29,7 @@ import com.example.saravanamurali.farmersgen.util.Network_config;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,6 +53,8 @@ public class FavouriteListActivity extends AppCompatActivity implements Favourit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_list);
+
+        Fabric.with(this, new Crashlytics());
 
         mContext=FavouriteListActivity.this;
         dialog=new Dialog(mContext);

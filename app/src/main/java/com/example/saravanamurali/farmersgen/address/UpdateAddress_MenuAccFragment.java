@@ -31,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.UpdateAddressDTO;
@@ -43,6 +44,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import io.fabric.sdk.android.Fabric;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -98,6 +100,8 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_address__menu_acc_fragment);
+
+        Fabric.with(this, new Crashlytics());
 
         Intent addressID = getIntent();
         addressID_Menu = addressID.getStringExtra("ADDRESSID_AT_MENUCART");

@@ -7,11 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseToViewOrderedProductListDTO;
 
 
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 public class OrderedProductListView extends AppCompatActivity {
 
@@ -27,6 +30,8 @@ public class OrderedProductListView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ordered_product_list_view);
+
+        Fabric.with(this, new Crashlytics());
 
         u_Name=(TextView)findViewById(R.id.orderedProductUserName);
         g_Total=(TextView)findViewById(R.id.orderedProductListGrandTotal);

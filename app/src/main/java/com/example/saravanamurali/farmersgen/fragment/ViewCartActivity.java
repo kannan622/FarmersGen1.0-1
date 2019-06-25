@@ -154,6 +154,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_cart);
 
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 

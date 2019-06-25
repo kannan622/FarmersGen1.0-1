@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import java.io.Serializable;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
@@ -31,6 +32,7 @@ import com.example.saravanamurali.farmersgen.util.Network_config;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.fabric.sdk.android.Fabric;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,6 +60,8 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cancel_order);
+
+        Fabric.with(this, new Crashlytics());
 
         context = CancelOrderActivity.this;
         dialog = new Dialog(context);

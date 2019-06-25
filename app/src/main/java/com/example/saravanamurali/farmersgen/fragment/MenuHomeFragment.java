@@ -193,8 +193,9 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(getActivity());
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         ApiInterface api = APIClientForBrand.getApiInterfaceForBrand();
 

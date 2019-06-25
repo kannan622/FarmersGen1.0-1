@@ -17,11 +17,14 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.fragment.MenuAccountFragment;
 import com.example.saravanamurali.farmersgen.fragment.MenuCartFragment;
 import com.example.saravanamurali.farmersgen.fragment.MenuHomeFragment;
 import com.example.saravanamurali.farmersgen.fragment.MenuSearchFragment;
+
+import io.fabric.sdk.android.Fabric;
 
 //import com.example.saravanamurali.farmersgen.fragment.MenuCartFragment;
 
@@ -48,6 +51,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_bar_main);
+
+        Fabric.with(this, new Crashlytics());
 
         Intent getCurUserID = getIntent();
 

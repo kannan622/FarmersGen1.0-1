@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseToSendOTPFromForgetPasswordDTO;
@@ -23,6 +24,7 @@ import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToSendOTPTo
 import com.example.saravanamurali.farmersgen.signup.OTPActivity;
 import com.example.saravanamurali.farmersgen.tappedactivity.HomeActivity;
 
+import io.fabric.sdk.android.Fabric;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,6 +43,8 @@ public class ForgetPassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
+
+        Fabric.with(this, new Crashlytics());
 
         Intent intent = getIntent();
 

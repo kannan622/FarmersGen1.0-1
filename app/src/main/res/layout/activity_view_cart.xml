@@ -101,96 +101,92 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@id/couponAppliedBlock"
-                android:layout_marginTop="@dimen/five_dp">
+                android:layout_marginTop="@dimen/ten_dp"
+                android:paddingTop="@dimen/eight_dp">
 
                 <TextView
                     android:id="@+id/grandTotalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/eighteen_dp"
-                    android:textColor="@color/FragmentGreen"
-                    android:fontFamily="sans-serif-condensed"
                     android:layout_marginLeft="@dimen/five_dp"
-                    android:text="Total Price"/>
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Total Price"
+                    android:textColor="@color/FragmentGreen"
+                    android:textSize="@dimen/eighteen_dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/grandTotalPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/eighteen_dp"
-                    android:textColor="@color/FragmentGreen"
-                    android:fontFamily="sans-serif-condensed"
                     android:layout_marginLeft="@dimen/three_dp"
                     android:layout_toRightOf="@id/grandTotalText"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="₹40000"
-                    />
+                    android:textColor="@color/FragmentGreen"
+                    android:textSize="@dimen/eighteen_dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/line"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="|"
-                    android:textSize="@dimen/fifteen_sp"
                     android:layout_marginLeft="@dimen/three_dp"
                     android:layout_toRightOf="@+id/grandTotalPrice"
-                    />
+                    android:text="|"
+                    android:textSize="@dimen/fifteen_sp" />
 
                 <TextView
                     android:id="@+id/discountText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/three_dp"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/eighteen_dp"
-                    android:textColor="@color/FragmentGreen"
-                    android:text="Total Discount"
-                    android:fontFamily="sans-serif-condensed"
                     android:layout_toRightOf="@id/line"
-                    />
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Total Discount"
+                    android:textColor="@color/FragmentGreen"
+                    android:textSize="@dimen/eighteen_dp"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/discountPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/eighteen_dp"
-                    android:textColor="@color/FragmentGreen"
-                    android:fontFamily="sans-serif-condensed"
-                    android:layout_toRightOf="@+id/discountText"
                     android:layout_marginLeft="@dimen/three_dp"
+                    android:layout_toRightOf="@+id/discountText"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="₹500"
-                    />
-
-
-
-
+                    android:textColor="@color/FragmentGreen"
+                    android:textSize="@dimen/eighteen_dp"
+                    android:textStyle="bold" />
 
 
             </RelativeLayout>
 
-           <!-- <RelativeLayout
-                android:id="@+id/c"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <!-- <RelativeLayout
+                 android:id="@+id/c"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
 
-                android:layout_above="@id/coupon"
-                >
+                 android:layout_above="@id/coupon"
+                 >
 
-                <TextView
-                    android:id="@+id/discount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total Discount"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/discount"
-                    android:text="500"
-                    />
+                 <TextView
+                     android:id="@+id/discount"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="Total Discount"
+                     />
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_toRightOf="@+id/discount"
+                     android:text="500"
+                     />
 
 
 
-            </RelativeLayout>-->
+             </RelativeLayout>-->
 
             <!--Offers Code-->
             <RelativeLayout
@@ -294,8 +290,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/rupeeSymbol"
                     android:layout_marginLeft="@dimen/five_dp"
+                    android:layout_toRightOf="@id/rupeeSymbol"
                     android:fontFamily="sans-serif-condensed"
                     android:text=""
                     android:textColor="@color/white"
