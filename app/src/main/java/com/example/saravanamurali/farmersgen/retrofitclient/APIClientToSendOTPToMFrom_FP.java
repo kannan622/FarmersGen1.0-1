@@ -2,29 +2,49 @@ package com.example.saravanamurali.farmersgen.retrofitclient;
 
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.baseurl.BaseUrl;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class APIClientToSendOTPToMFrom_FP implements BaseUrl {
 
-    private static Retrofit retrofit=null;
+    private static Retrofit retrofit = null;
 
-    private static  Retrofit getAPIClientToSendOTPToMobileFromForgetPassword(){
+    private static Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
 
-        if(retrofit==null){
 
-            retrofit=new Retrofit.Builder().baseUrl(BaseUrl.ROOT_URL_TO_SEND_OTP_FROM_FORGET_PASSWORD).addConverterFactory(GsonConverterFactory.create()).build();
+    private static Retrofit getAPIClientToSendOTPToMobileFromForgetPassword() {
+
+        if (retrofit == null) {
+
+            OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                    .connectTimeout(60, TimeUnit.SECONDS)
+                    .readTimeout(60, TimeUnit.SECONDS)
+                    .writeTimeout(60, TimeUnit.SECONDS)
+                    .build();
+
+
+            retrofit = new Retrofit.Builder().baseUrl(BaseUrl.ROOT_URL_TO_SEND_OTP_FROM_FORGET_PASSWORD)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .client(okHttpClient)
+                    .build();
 
         }
         return retrofit;
 
     }
 
-    public  static ApiInterface getAPIInterfaceTOSendOTPFrom_FP(){
+    public static ApiInterface getAPIInterfaceTOSendOTPFrom_FP() {
 
-        ApiInterface api=APIClientToSendOTPToMFrom_FP.getAPIClientToSendOTPToMobileFromForgetPassword().create(ApiInterface.class);
+        ApiInterface api = APIClientToSendOTPToMFrom_FP.getAPIClientToSendOTPToMobileFromForgetPassword().create(ApiInterface.class);
 
-        return  api;
+        return api;
     }
 }
