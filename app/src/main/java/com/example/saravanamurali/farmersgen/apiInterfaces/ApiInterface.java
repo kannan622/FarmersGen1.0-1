@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.apiInterfaces;
 
+import com.example.saravanamurali.farmersgen.modeljsonresponse.CouponDetailResponse;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForAddCartDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForAddFavourite;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForDeleteCartDTO;
@@ -15,6 +16,7 @@ import com.example.saravanamurali.farmersgen.models.ApplyCouponDTO;
 import com.example.saravanamurali.farmersgen.models.CancelCouponDTO;
 import com.example.saravanamurali.farmersgen.models.CardPaymentDTO;
 import com.example.saravanamurali.farmersgen.models.CheckFavDTO;
+import com.example.saravanamurali.farmersgen.models.CouponDTO;
 import com.example.saravanamurali.farmersgen.models.CurrentUserDTO;
 import com.example.saravanamurali.farmersgen.models.DeleteCountInCartDTO;
 import com.example.saravanamurali.farmersgen.models.FcmTokenDTO;
@@ -310,6 +312,12 @@ public interface ApiInterface {
     @Headers({"Content-Type:application/json"})
     @GET("fetch_offer.php")
     Call<JSONResponseCouponDTO> getCouponCode();
+
+    //View Coupon Details
+    @Headers({"Content-Type:application/json"})
+    @POST("offer_description.php")
+    Call<CouponDetailResponse> viewCouponDetails(@Body CouponDTO couponDTO);
+
 
     @Headers({"Content-Type:application/json"})
     @POST("notification.php")

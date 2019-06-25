@@ -116,6 +116,9 @@ public interface BaseUrl {
     //Apply Copuon
     public  static final String ROOT_URL_TO_APPLY_COUPON="http://farmersgen.com/service/offers/";
 
+    //View Coupon Details
+    public  static final String ROOT_URL_TO_VIEW_COUPON_DETAILS="http://farmersgen.com/service/offers/";
+
 
     //Cancel Copuon
     public  static final String ROOT_URL_TO_CANCEL_COUPON="http://farmersgen.com/service/offers/";

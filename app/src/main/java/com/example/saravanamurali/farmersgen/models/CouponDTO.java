@@ -17,6 +17,9 @@ public class CouponDTO {
     @SerializedName("offer_price")
     String coupon_OffPrice;
 
+    public CouponDTO(String couponId) {
+        this.couponId = couponId;
+    }
 
     public CouponDTO(String couponId, String couponCode, String desc1, String desc2, String couponImage) {
         this.couponId = couponId;
