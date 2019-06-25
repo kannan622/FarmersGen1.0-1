@@ -23,6 +23,7 @@ public class APIClientForOnBackPressedAtViewCart implements BaseUrl {
         if (retrofit == null) {
 
             OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                    .retryOnConnectionFailure(true)
                     .connectTimeout(60, TimeUnit.SECONDS)
                     .readTimeout(60, TimeUnit.SECONDS)
                     .writeTimeout(60, TimeUnit.SECONDS)
