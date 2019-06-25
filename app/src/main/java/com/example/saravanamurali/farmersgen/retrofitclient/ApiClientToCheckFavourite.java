@@ -2,22 +2,47 @@ package com.example.saravanamurali.farmersgen.retrofitclient;
 
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
 import com.example.saravanamurali.farmersgen.baseurl.BaseUrl;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClientToCheckFavourite implements BaseUrl {
 
-    static Retrofit retrofit=null;
+    static Retrofit retrofit = null;
 
-    private static Retrofit getApiClientToCheckFavourite(){
-        retrofit=new Retrofit.Builder().baseUrl(BaseUrl.ROOT_URL_TO_CHECK_FAVOURITE).addConverterFactory(GsonConverterFactory.create()).build();
+    private static Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
+
+
+    private static Retrofit getApiClientToCheckFavourite() {
+
+        if (retrofit == null) {
+
+            OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
+                    .connectTimeout(60, TimeUnit.SECONDS)
+                    .readTimeout(60, TimeUnit.SECONDS)
+                    .writeTimeout(60, TimeUnit.SECONDS)
+                    .build();
+
+
+            retrofit = new Retrofit.Builder().baseUrl(BaseUrl.ROOT_URL_TO_CHECK_FAVOURITE)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .client(okHttpClient)
+                    .build();
+
+        }
         return retrofit;
     }
 
-    public static ApiInterface getApiInterfaceToCheckFavourite(){
+    public static ApiInterface getApiInterfaceToCheckFavourite() {
 
-        ApiInterface api=ApiClientToCheckFavourite.getApiClientToCheckFavourite().create(ApiInterface.class);
+        ApiInterface api = ApiClientToCheckFavourite.getApiClientToCheckFavourite().create(ApiInterface.class);
 
         return api;
     }
