@@ -370,6 +370,22 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
         String type = "1";
 
+        SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
+        String curUser_CouponID = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
+
+        String COUPON_ID=null;
+
+        if(curUser_CouponID=="NO_CURRENT_COUPON_ID"){
+            COUPON_ID="NO_CURRENT_COUPON_ID";
+        }
+        else if(curUser_CouponID!="NO_CURRENT_COUPON_ID") {
+            COUPON_ID=curUser_CouponID;
+        }
+
+        System.out.println(COUPON_ID);
+        System.out.println(curUser_CouponID);
+        System.out.println();
+
         OrderDTO orderDTO = new OrderDTO(curUser, addressID, type, grandTotal, orderDetailsList);
 
 
@@ -400,7 +416,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
                     editorCode.commit();
 
 
-                    orderConfirmaationSMSToCustomer(orderIDToSendSMS);
+                    //orderConfirmaationSMSToCustomer(orderIDToSendSMS);
 
                     clearAllItemsFromSQLDataBase();
 
@@ -416,6 +432,11 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
 
                 } else if (jsonOrderResponse.getResponseCode() == 500) {
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+
+                    }
                     //System.out.println("Order is not Confirmed");
                 }
                 //System.out.println("Order Confirmed");
