@@ -86,8 +86,9 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(CouponActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api=APIClientToGetCoupon.getApiInterfaceToGetCoupon();
@@ -133,9 +134,9 @@ public class CouponActivity extends AppCompatActivity implements CouponAdapter.S
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(CouponActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
         csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         SharedPreferences getCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);

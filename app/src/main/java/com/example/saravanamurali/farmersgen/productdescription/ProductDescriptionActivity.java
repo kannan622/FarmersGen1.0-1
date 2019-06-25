@@ -222,8 +222,9 @@ public class ProductDescriptionActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ProductDescriptionActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface apiInterface = ApiClientForProductDescription.getApiInterfaceForProdictDesctiption();

@@ -89,8 +89,9 @@ public class NewPassAndConfirmPass extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(NewPassAndConfirmPass.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         Toast.makeText(NewPassAndConfirmPass.this, "Your are entered", Toast.LENGTH_SHORT).show();
@@ -125,6 +126,10 @@ public class NewPassAndConfirmPass extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JSONResponseForNPasswordAndCPasswrod> call, Throwable t) {
+
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

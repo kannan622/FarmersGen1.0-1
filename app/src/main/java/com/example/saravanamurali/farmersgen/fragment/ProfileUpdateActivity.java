@@ -99,8 +99,9 @@ public class ProfileUpdateActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ProfileUpdateActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         SharedPreferences updateProfileForCurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -153,8 +154,9 @@ public class ProfileUpdateActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ProfileUpdateActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         UpdateNameEmailDTO updateNameEmailDTO = new UpdateNameEmailDTO();

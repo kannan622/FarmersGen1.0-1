@@ -93,8 +93,9 @@ public class RegisterUserAtCartActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(RegisterUserAtCartActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface apiInterface = ApiClientToSignUp.getApiInterface();

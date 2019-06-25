@@ -357,6 +357,13 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
 
     private void updateAddressAtManageAddress() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(UpdateAddress_MenuAccFragment.this);
+        csprogress.setMessage("Loading...");
+        csprogress.setCancelable(false);
+        csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
+
         ApiInterface api = APIClientToUpdateAddress.getApiIterfaceToUpdateAddress();
 
         SharedPreferences getcurrentUser = getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -371,8 +378,13 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+
                     Intent menuAcc = new Intent(UpdateAddress_MenuAccFragment.this, HomeActivity.class);
                     startActivity(menuAcc);
+
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
                 }
             }
 
@@ -418,8 +430,9 @@ public class UpdateAddress_MenuAccFragment extends AppCompatActivity implements 
             final ProgressDialog csprogress;
             csprogress = new ProgressDialog(UpdateAddress_MenuAccFragment.this);
             csprogress.setMessage("Loading...");
-            csprogress.show();
+            csprogress.setCancelable(false);
             csprogress.setCanceledOnTouchOutside(false);
+            csprogress.show();
 
 
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);

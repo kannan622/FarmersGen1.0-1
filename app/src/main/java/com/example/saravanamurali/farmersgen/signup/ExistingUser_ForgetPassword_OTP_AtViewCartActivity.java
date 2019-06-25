@@ -177,8 +177,9 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ExistingUser_ForgetPassword_OTP_AtViewCartActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
@@ -231,8 +232,9 @@ public class ExistingUser_ForgetPassword_OTP_AtViewCartActivity extends AppCompa
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ExistingUser_ForgetPassword_OTP_AtViewCartActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToSendMobileNoAndOTP.getApiInterfaceToSendMobileNoAndOTP();

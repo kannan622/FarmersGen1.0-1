@@ -169,9 +169,9 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(OTPActivityForLoginForgetPassword.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
         csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         ApiInterface api = APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
 
@@ -219,14 +219,14 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(OTPActivityForLoginForgetPassword.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
         csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToSendMobileNoAndOTPForLoginForgetPassword.getApiInterfaceToSendMobileNoAndOTPForLoginForgetPassword();
 
-        Log.d("my otp", entered_OTP_AtLoginForgetPassword);
+        //Log.d("my otp", entered_OTP_AtLoginForgetPassword);
         OTPandMobileNoDTO otpAndMobileNoDTO = new OTPandMobileNoDTO(entered_OTP_AtLoginForgetPassword, mobileNumberForLoginForgetPassword);
 
         Call<JSONOTPResponseFromOTPActivity> call = api.sendMobileNoandOTPFromLoginForgetPasswordActivity(otpAndMobileNoDTO);
@@ -266,7 +266,7 @@ public class OTPActivityForLoginForgetPassword extends AppCompatActivity {
                 if (csprogress.isShowing()) {
                     csprogress.dismiss();
                 }
-                Toast.makeText(OTPActivityForLoginForgetPassword.this, "Failed", Toast.LENGTH_LONG).show();
+               // Toast.makeText(OTPActivityForLoginForgetPassword.this, "Failed", Toast.LENGTH_LONG).show();
 
             }
         });

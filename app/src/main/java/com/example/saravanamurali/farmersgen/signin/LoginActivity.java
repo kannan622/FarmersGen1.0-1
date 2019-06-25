@@ -125,9 +125,9 @@ public class LoginActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(LoginActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
         csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         ApiInterface api = APIClientToLogin.getApiInterfaceToLogin();
 
@@ -199,6 +199,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private void sendFCMTokenToServer(String userID,String fcm_token) {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(LoginActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.setCancelable(false);
+        csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
+
+
         ApiInterface apiInterface=ApiClientToSendFcmTokenToServer.getApiInterfaceToSendFcmTokenToServer();
 
         FcmTokenDTO fcmTokenDTO=new FcmTokenDTO(userID,fcm_token);
@@ -208,6 +216,9 @@ public class LoginActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
                 System.out.println("Token Inserted Successfully");
 
@@ -215,6 +226,9 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
             }
         });

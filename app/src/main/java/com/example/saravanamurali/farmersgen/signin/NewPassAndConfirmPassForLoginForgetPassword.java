@@ -104,13 +104,13 @@ public class NewPassAndConfirmPassForLoginForgetPassword extends AppCompatActivi
            public void onResponse(Call<JSONResponseForNPasswordAndCPasswrod> call, Response<JSONResponseForNPasswordAndCPasswrod> response) {
                if(response.isSuccessful()){
 
-                   if(csprogress.isShowing()){
-                       csprogress.dismiss();
-                   }
-
                    JSONResponseForNPasswordAndCPasswrod jsonResponseForNPasswordAndCPasswrod = response.body();
 
                    if (jsonResponseForNPasswordAndCPasswrod.getStatus() == 200) {
+
+                       if(csprogress.isShowing()){
+                           csprogress.dismiss();
+                       }
 
                        Intent loginActivity = new Intent(NewPassAndConfirmPassForLoginForgetPassword.this, LoginActivity.class);
                        startActivity(loginActivity);

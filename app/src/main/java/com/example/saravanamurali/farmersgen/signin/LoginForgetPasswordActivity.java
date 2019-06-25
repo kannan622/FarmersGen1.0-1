@@ -104,9 +104,9 @@ public class LoginForgetPasswordActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(LoginForgetPasswordActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
         csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api=APIClientToSendMobileNoFromLoginForgetPassword.getAPIInterfaceTOSendMobileNoFromLoginForgetPassword();

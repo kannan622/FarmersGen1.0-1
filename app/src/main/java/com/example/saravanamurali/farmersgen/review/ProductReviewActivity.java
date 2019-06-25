@@ -103,8 +103,9 @@ public class ProductReviewActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ProductReviewActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         ApiInterface api = APIClientToGetReviews.getApiInterfaceToGetReviews();
 
@@ -129,6 +130,9 @@ public class ProductReviewActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<JsonResponseForBrandReview> call, Throwable t) {
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
             }
         });

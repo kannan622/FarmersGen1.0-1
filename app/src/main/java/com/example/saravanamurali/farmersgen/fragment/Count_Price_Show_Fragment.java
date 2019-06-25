@@ -129,8 +129,9 @@ public class Count_Price_Show_Fragment extends Fragment {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(getActivity());
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(getActivity().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -199,8 +200,9 @@ public class Count_Price_Show_Fragment extends Fragment {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(getActivity());
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         ApiInterface api = ApiClientToMoveDataFromSqlLiteToServerDB.getAPIInterfaceToMoveDataFromSqlLiteToServerDB();
 
@@ -231,6 +233,9 @@ public class Count_Price_Show_Fragment extends Fragment {
             @Override
             public void onFailure(Call<JsonResponseFromServerDBDTO> call, Throwable t) {
                 //Log.d("lass", "last");
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
             }
         });
 

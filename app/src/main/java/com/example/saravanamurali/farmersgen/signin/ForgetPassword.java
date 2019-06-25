@@ -115,8 +115,9 @@ public class ForgetPassword extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ForgetPassword.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToLogin.getApiInterfaceToLogin();
@@ -211,8 +212,9 @@ public class ForgetPassword extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ForgetPassword.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         Toast.makeText(ForgetPassword.this,"Clicked",Toast.LENGTH_SHORT).show();

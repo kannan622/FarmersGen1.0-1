@@ -94,9 +94,9 @@ public class CancelOrderActivity extends AppCompatActivity implements CancelOrde
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(CancelOrderActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
         csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToGetCancelOrderList.getApiInterfaceToGetCancelOrderList();

@@ -176,8 +176,9 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(OTPActivityForViewCart2.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
@@ -216,8 +217,9 @@ public class OTPActivityForViewCart2 extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(OTPActivityForViewCart2.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToSendMobileNoAndOTP.getApiInterfaceToSendMobileNoAndOTP();

@@ -94,8 +94,9 @@ public class Existing_User_NewPassAndConfirmPass_AtViewCartActivity extends AppC
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(Existing_User_NewPassAndConfirmPass_AtViewCartActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientForNewPassAndConfirmPass.getApiInterfaceForNewPasswordAndConfirmPassword();

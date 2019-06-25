@@ -1,5 +1,6 @@
 package com.example.saravanamurali.farmersgen.signin;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -114,13 +115,6 @@ public class MenuAccountFragmentLoginActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
     public void OnlickLoginMenuAccountFragment(View view) {
         if (!validateMobileNumber() | !validatePassword()) {
 
@@ -133,6 +127,14 @@ public class MenuAccountFragmentLoginActivity extends AppCompatActivity {
     }
 
     private void getLoginUserFromMenuAccountFragment() {
+
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(MenuAccountFragmentLoginActivity.this);
+        csprogress.setMessage("Loading...");
+        csprogress.setCancelable(false);
+        csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
+
         ApiInterface api = APIClientToLogin.getApiInterfaceToLogin();
 
         SignInDTO signInDTO = new SignInDTO(logMMobileAcc, logMPasswordAcc);
@@ -141,15 +143,18 @@ public class MenuAccountFragmentLoginActivity extends AppCompatActivity {
 
         Call<SignedInJSONResponse> call = api.getLoginUser(signInDTO);
 
-        System.out.println("I am here");
+       // System.out.println("I am here");
 
         call.enqueue(new Callback<SignedInJSONResponse>() {
             @Override
             public void onResponse(Call<SignedInJSONResponse> call, Response<SignedInJSONResponse> response) {
-                System.out.println("I am inside");
+               // System.out.println("I am inside");
 
                 // JSONResponse jsonResponse=response.body();
                 if (response.isSuccessful()) {
+
+
+
                     SignedInJSONResponse signedInJSONResponse=response.body();
 
 
@@ -161,10 +166,13 @@ public class MenuAccountFragmentLoginActivity extends AppCompatActivity {
                         editor.putString("CURRENTUSER", signedInJSONResponse.getUser_ID());
                         editor.commit();
 
-                        System.out.println("Added current user"+current_User);
+                        //System.out.println("Added current user"+current_User);
 
-                        Toast.makeText(MenuAccountFragmentLoginActivity.this,signedInJSONResponse.getUser_ID(),Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MenuAccountFragmentLoginActivity.this,signedInJSONResponse.getUser_ID(),Toast.LENGTH_SHORT).show();
 
+                        if(csprogress.isShowing()){
+                            csprogress.dismiss();
+                        }
 
                         Intent menuHomeActivity = new Intent(MenuAccountFragmentLoginActivity.this, HomeActivity.class);
 
@@ -174,15 +182,21 @@ public class MenuAccountFragmentLoginActivity extends AppCompatActivity {
                     }
 
 
-                    Toast.makeText(MenuAccountFragmentLoginActivity.this, "Sucesss", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(MenuAccountFragmentLoginActivity.this, "Sucesss", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(MenuAccountFragmentLoginActivity.this, "Error", Toast.LENGTH_LONG).show();
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+                    //Toast.makeText(MenuAccountFragmentLoginActivity.this, "Error", Toast.LENGTH_LONG).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<SignedInJSONResponse> call, Throwable t) {
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });

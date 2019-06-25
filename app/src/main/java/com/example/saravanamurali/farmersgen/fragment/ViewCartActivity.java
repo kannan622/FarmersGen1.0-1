@@ -960,6 +960,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
         csprogress.show();
+
         String ANDROID_MOBILE_ID = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 

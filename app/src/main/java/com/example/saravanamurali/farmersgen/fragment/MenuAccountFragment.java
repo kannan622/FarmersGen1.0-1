@@ -364,8 +364,9 @@ public class MenuAccountFragment extends Fragment {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(this.getActivity());
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         //Getting Current User
         SharedPreferences getCheckFavList = this.getActivity().getSharedPreferences("CURRENT_USER", Context.MODE_PRIVATE);
@@ -400,6 +401,10 @@ public class MenuAccountFragment extends Fragment {
             @Override
             public void onFailure(Call<JsonResponseForFavBrandsDTO> call, Throwable t) {
 
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
             }
         });
 
@@ -428,8 +433,9 @@ public class MenuAccountFragment extends Fragment {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(getActivity());
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
 
@@ -502,8 +508,9 @@ public class MenuAccountFragment extends Fragment {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(getActivity());
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToGetPastOrderDetails.getApiInterfaceToGetPastOrderDetails();
@@ -571,8 +578,9 @@ public class MenuAccountFragment extends Fragment {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(getActivity());
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToGetCancelOrderList.getApiInterfaceToGetCancelOrderList();
@@ -631,8 +639,9 @@ public class MenuAccountFragment extends Fragment {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(getActivity());
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         SharedPreferences getCurUserNameMobEmail = this.getActivity().getSharedPreferences("CURRENT_USER", MODE_PRIVATE);
@@ -745,8 +754,9 @@ public class MenuAccountFragment extends Fragment {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(getActivity());
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientLogOutUsingDeviceID.getApiInterfaceToLogOutUsingDeviceID();

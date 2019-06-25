@@ -81,8 +81,9 @@ public class LoginActivityForViewCart extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(LoginActivityForViewCart.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
@@ -157,8 +158,9 @@ public class LoginActivityForViewCart extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(LoginActivityForViewCart.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToLogin.getApiInterfaceToLogin();
@@ -234,6 +236,13 @@ public class LoginActivityForViewCart extends AppCompatActivity {
     }
 
     private void sendFCMTokenToServerAtViewCart(String user_id, String fcm_token) {
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(LoginActivityForViewCart.this);
+        csprogress.setMessage("Loading...");
+        csprogress.setCancelable(false);
+        csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
+
 
         ApiInterface apiInterface=ApiClientToSendFcmTokenToServer.getApiInterfaceToSendFcmTokenToServer();
 
@@ -245,10 +254,18 @@ public class LoginActivityForViewCart extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
+
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
             }
         });

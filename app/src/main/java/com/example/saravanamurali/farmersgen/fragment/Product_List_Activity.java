@@ -322,8 +322,9 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(Product_List_Activity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = ApiClientToAddFavouriteItems.getApiInterfaceAddFavouriteItem();
@@ -478,8 +479,9 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(Product_List_Activity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -518,9 +520,9 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(Product_List_Activity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
         csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface apiInterface = APIClientForBrand.getApiInterfaceForBrand();
@@ -622,8 +624,9 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(Product_List_Activity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         ApiInterface api = APIClientLogOutUsingDeviceID.getApiInterfaceToLogOutUsingDeviceID();
 
@@ -741,8 +744,9 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(Product_List_Activity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),

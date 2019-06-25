@@ -63,8 +63,9 @@ public class ExistingUser_ForgetPassword_AtViewCartActivity extends AppCompatAct
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ExistingUser_ForgetPassword_AtViewCartActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api=APIClientToSendOTPToMFrom_FP.getAPIInterfaceTOSendOTPFrom_FP();
@@ -92,6 +93,9 @@ public class ExistingUser_ForgetPassword_AtViewCartActivity extends AppCompatAct
 
             @Override
             public void onFailure(Call<JSONResponseToSendOTPFromForgetPasswordDTO> call, Throwable t) {
+                if(csprogress.isShowing()){
+                    csprogress.dismiss();
+                }
 
             }
         });
@@ -115,8 +119,9 @@ public class ExistingUser_ForgetPassword_AtViewCartActivity extends AppCompatAct
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ExistingUser_ForgetPassword_AtViewCartActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToLogin.getApiInterfaceToLogin();

@@ -122,8 +122,9 @@ public class FavouriteListActivity extends AppCompatActivity implements Favourit
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(FavouriteListActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         //Getting Current User

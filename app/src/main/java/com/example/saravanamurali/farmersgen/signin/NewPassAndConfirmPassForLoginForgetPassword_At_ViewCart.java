@@ -82,8 +82,9 @@ public class NewPassAndConfirmPassForLoginForgetPassword_At_ViewCart extends App
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(NewPassAndConfirmPassForLoginForgetPassword_At_ViewCart.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         ApiInterface api = APIClientForNewPassAndConfirmPassFromLoginPassword.getApiInterfaceForNewPassAndConfirmPassFromLoginPassword();
 
@@ -96,13 +97,14 @@ public class NewPassAndConfirmPassForLoginForgetPassword_At_ViewCart extends App
             public void onResponse(Call<JSONResponseForNPasswordAndCPasswrod> call, Response<JSONResponseForNPasswordAndCPasswrod> response) {
                 if (response.isSuccessful()) {
 
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
 
                     JSONResponseForNPasswordAndCPasswrod jsonResponseForNPasswordAndCPasswrod = response.body();
 
                     if (jsonResponseForNPasswordAndCPasswrod.getStatus() == 200) {
+
+                        if (csprogress.isShowing()) {
+                            csprogress.dismiss();
+                        }
 
                         Intent loginActivity = new Intent(NewPassAndConfirmPassForLoginForgetPassword_At_ViewCart.this, LoginActivityForViewCart.class);
                         startActivity(loginActivity);

@@ -139,8 +139,9 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(PaymentGatewayActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         //Getting Current User
@@ -186,8 +187,9 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(PaymentGatewayActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = ApiClientForPaymentGateway.getApiInterfaceForCardPayment();
@@ -207,6 +209,9 @@ public class PaymentGatewayActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
             }
         });
@@ -219,8 +224,10 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(PaymentGatewayActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
+
 
         SharedPreferences getCouponID = getSharedPreferences("CURRENT_COUPON_ID", Context.MODE_PRIVATE);
         String curUser_CouponID_ForPaymentGatway = getCouponID.getString("COUPONID", "NO_CURRENT_COUPON_ID");
@@ -289,8 +296,9 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(PaymentGatewayActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         String ANDROID_MOBILE_ID = Settings.Secure.getString(PaymentGatewayActivity.this.getContentResolver(),
@@ -353,8 +361,9 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(PaymentGatewayActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api = APIClientToOrder.getAPIInterfaceToOrder();
@@ -421,7 +430,7 @@ public class PaymentGatewayActivity extends AppCompatActivity {
                     csprogress.dismiss();
                 }
 
-                System.out.println("Order is not Confirmed");
+                //System.out.println("Order is not Confirmed");
 
             }
         });
@@ -506,8 +515,9 @@ public class PaymentGatewayActivity extends AppCompatActivity {
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(PaymentGatewayActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         ApiInterface api = APIClientToGetExistingAddress.getAPIInterfaceTOGetExistingAddress();
 

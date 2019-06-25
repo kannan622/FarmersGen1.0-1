@@ -85,8 +85,9 @@ public class PastOrderListActivity extends AppCompatActivity implements PastOrde
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(PastOrderListActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api=APIClientToGetPastOrderDetails.getApiInterfaceToGetPastOrderDetails();
@@ -135,8 +136,9 @@ public class PastOrderListActivity extends AppCompatActivity implements PastOrde
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(PastOrderListActivity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface api=APIClientPastOrderedProductListView.getApiInterfacePastOrderedProductListView();
