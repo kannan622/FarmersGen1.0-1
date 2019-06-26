@@ -16,6 +16,7 @@
         android:id="@+id/reviewTextArea"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:hint="@string/enter_review_about_me"
         android:layout_margin="@dimen/five_dp"
         />
 
@@ -24,6 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="POST REVIEW"
+            android:fontFamily="sans-serif-condensed"
             android:layout_gravity="center"
             android:padding="@dimen/two_dp"
             android:background="@color/FragmentGreen"

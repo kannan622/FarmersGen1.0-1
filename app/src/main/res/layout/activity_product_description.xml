@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_margin="@dimen/ten_dp"
+                android:fontFamily="sans-serif-condensed"
                 android:background="@color/FragmentGreen"
                 android:padding="@dimen/three_dp"
                 android:text="Review" />
@@ -33,7 +34,7 @@
                 android:id="@+id/poductDescImage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/two_hundred_dp"
-                android:src="@drawable/ic_launcher_one" />
+                android:src="@drawable/icon_logo" />
 
 
             <RelativeLayout
@@ -47,6 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:text="Brand Name"
+                    android:fontFamily="sans-serif-condensed"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
                     android:textSize="@dimen/twenty_dp"
                     android:textStyle="bold" />
@@ -60,6 +62,7 @@
                     android:layout_marginLeft="@dimen/eight_dp"
                     android:layout_toRightOf="@id/productDescBrand"
                     android:text="ProductName"
+                    android:fontFamily="sans-serif-condensed"
                     android:textSize="@dimen/twenty_dp"
                     android:textStyle="bold"
                     android:visibility="gone" />
@@ -74,6 +77,7 @@
                 android:layout_marginTop="@dimen/eight_dp"
                 android:text="About this product"
                 android:textColor="@color/lightBlue"
+                android:fontFamily="sans-serif-condensed"
                 android:textSize="@dimen/twenty_dp" />
 
             <LinearLayout
@@ -93,6 +97,7 @@
                         android:layout_height="35dp"
                         android:layout_gravity="left"
                         android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="ProductName" />
 
                     <TextView
@@ -101,6 +106,7 @@
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="ProductQuantity" />
 
                     <TextView
@@ -109,6 +115,7 @@
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="Product Actual Price" />
 
                     <TextView
@@ -117,12 +124,14 @@
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="Product Offer Price" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
                         android:layout_gravity="left"
+                        android:fontFamily="sans-serif-condensed"
                         android:layout_marginTop="@dimen/five_dp"
                         android:gravity="center"
                         android:text="Rating" />
@@ -133,6 +142,7 @@
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="Manufacturing Date"
                         android:textColor="@color/FragmentGreen" />
 
@@ -142,6 +152,7 @@
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="Expairy Date"
                         android:textColor="@color/FragmentGreen" />
 
@@ -159,6 +170,7 @@
                         android:layout_height="35dp"
                         android:layout_gravity="left"
                         android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="Grandmas Oil" />
 
                     <TextView
@@ -168,6 +180,7 @@
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="50grams" />
 
                     <TextView
@@ -177,12 +190,14 @@
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
                         android:text="50" />
 
                     <TextView
                         android:id="@+id/productDescOfferPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
+                        android:fontFamily="sans-serif-condensed"
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:gravity="center"
@@ -196,6 +211,7 @@
                         android:layout_marginTop="@dimen/five_dp"
                         android:background="@color/FragmentGreen"
                         android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
                         android:paddingLeft="@dimen/four_dp"
                         android:paddingRight="@dimen/four_dp"
                         android:text="4.5" />
@@ -207,6 +223,7 @@
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
                         android:inputType="date" />
 
                     <TextView
@@ -216,6 +233,7 @@
                         android:layout_gravity="left"
                         android:layout_marginTop="@dimen/five_dp"
                         android:gravity="center"
+                        android:fontFamily="sans-serif-condensed"
                         android:inputType="date" />
 
 
@@ -235,6 +253,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:text="Product And Packaging"
+                    android:fontFamily="sans-serif-condensed"
                     android:textColor="@color/FragmentGreen"
                     android:textSize="@dimen/eighteen_dp" />
 
@@ -242,6 +261,7 @@
                     android:id="@+id/plusInProductDesc"
                     android:layout_width="30dp"
                     android:layout_height="20dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/plus_produc_desc" />
@@ -250,6 +270,7 @@
                     android:id="@+id/minusInProductDesc"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/minus_produc_desc"
@@ -264,6 +285,7 @@
                 android:layout_marginTop="@dimen/eight_dp"
                 android:layout_marginRight="@dimen/three_dp"
                 android:background="@color/white"
+                android:fontFamily="sans-serif-condensed"
                 android:maxLines="2"
                 android:text="This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is ." />
 
@@ -277,6 +299,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:text="Ingredients Used"
+                    android:fontFamily="sans-serif-condensed"
                     android:textColor="@color/FragmentGreen"
                     android:textSize="@dimen/eighteen_dp" />
 
@@ -305,6 +328,7 @@
                 android:layout_marginRight="@dimen/three_dp"
                 android:background="@color/white"
                 android:maxLines="2"
+                android:fontFamily="sans-serif-condensed"
                 android:text="This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is ." />
 
             <RelativeLayout
@@ -317,6 +341,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:text="Usage and Benefits"
+                    android:fontFamily="sans-serif-condensed"
                     android:textColor="@color/FragmentGreen"
                     android:textSize="@dimen/eighteen_dp" />
 
@@ -345,6 +370,7 @@
                 android:layout_marginRight="@dimen/three_dp"
                 android:background="@color/white"
                 android:maxLines="2"
+                android:fontFamily="sans-serif-condensed"
                 android:text="This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is This product is ." />
 
 
@@ -358,6 +384,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:text="Manufacturing Video"
+                    android:fontFamily="sans-serif-condensed"
                     android:textColor="@color/FragmentGreen"
                     android:textSize="@dimen/eighteen_dp" />
 
@@ -391,6 +418,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/fifteen_dp"
                     android:layout_marginTop="@dimen/three_dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Follow us on Facebook" />
 
                 <TextView
@@ -398,6 +426,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/five_dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:layout_marginTop="@dimen/three_dp"
                     android:layout_toRightOf="@id/followFB"
                     android:text="" />
@@ -415,6 +444,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/fifteen_dp"
                     android:layout_marginTop="@dimen/eight_dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Follow us on Instagram" />
 
                 <TextView
@@ -422,6 +452,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/five_dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:layout_marginTop="@dimen/eight_dp"
                     android:layout_toRightOf="@id/followInsta"
                     android:text="" />
@@ -439,6 +470,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/fifteen_dp"
                     android:layout_marginTop="@dimen/eight_dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:text="Manufacturing Video" />
 
                 <TextView
@@ -447,6 +479,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/five_dp"
                     android:layout_marginTop="@dimen/eight_dp"
+                    android:fontFamily="sans-serif-condensed"
                     android:layout_toRightOf="@id/followYouTube"
                     android:text="" />
 
@@ -463,6 +496,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Rate Me"
+                    android:fontFamily="sans-serif-condensed"
                     android:textColor="@color/FragmentGreen"
                     android:textSize="@dimen/eighteen_dp" />
             </RelativeLayout>

@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:text="UserName"
             android:textSize="@dimen/twenty_dp"
+            android:fontFamily="sans-serif-condensed"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
             android:textStyle="bold"
             android:textColor="@color/FragmentGreen"
@@ -26,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="UserName"
+            android:fontFamily="sans-serif-condensed"
             android:layout_marginTop="@dimen/five_dp"
             android:layout_marginLeft="@dimen/ten_dp" />
 

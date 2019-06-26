@@ -91,6 +91,7 @@ public class ProductReviewActivity extends AppCompatActivity {
                     reviewPostIntent.putExtra("BRANDID_TO_POST_REVIEW", brandID);
                     reviewPostIntent.putExtra("PRODUCT_CODE_TO_POST_REVIEW", productCode);
                     startActivity(reviewPostIntent);
+                    finish();
 
                 }
 
@@ -116,15 +117,16 @@ public class ProductReviewActivity extends AppCompatActivity {
         call.enqueue(new Callback<JsonResponseForBrandReview>() {
             @Override
             public void onResponse(Call<JsonResponseForBrandReview> call, Response<JsonResponseForBrandReview> response) {
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
 
                 JsonResponseForBrandReview jsonResponseForBrandReview = response.body();
 
                 reviewDTOList = jsonResponseForBrandReview.getReviewDetailsDTOS();
 
                 reviewAdapter.setDataForReview(reviewDTOList);
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
             }
 

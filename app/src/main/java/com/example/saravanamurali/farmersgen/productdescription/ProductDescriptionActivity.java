@@ -237,15 +237,15 @@ public class ProductDescriptionActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<JSONResponseToGetProductDescListDTO> call, Response<JSONResponseToGetProductDescListDTO> response) {
 
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
 
                 JSONResponseToGetProductDescListDTO jsonResponseToGetProductDescListDTO = response.body();
                 List<JSONResponseToGetProductDescDTO> jsonResponseToGetProductDescDTOList = jsonResponseToGetProductDescListDTO.getJsonResponseToGetProductDescDTOList();
 
-
                 setProductDescValues(jsonResponseToGetProductDescDTOList);
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
             }
 
             @Override

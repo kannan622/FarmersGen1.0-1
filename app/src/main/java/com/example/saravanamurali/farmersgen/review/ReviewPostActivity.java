@@ -3,6 +3,7 @@ package com.example.saravanamurali.farmersgen.review;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -100,6 +101,18 @@ public class ReviewPostActivity extends AppCompatActivity {
 
                     if (jsonResponseForProductPostReviewDTO.getStatusCode() == 200) {
                         Toast.makeText(ReviewPostActivity.this, "Thanks for the review", Toast.LENGTH_LONG).show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                            }
+                        },1000);
+
+                        Intent reviewIntent=new Intent(ReviewPostActivity.this,ProductReviewActivity.class);
+                        reviewIntent.putExtra("BRAND_ID",brand_ID_To_Post_Review);
+                        reviewIntent.putExtra("PRODUCT_CODE",product_Code);
+                        startActivity(reviewIntent);
+                        finish();
                     }
 
                     else if(jsonResponseForProductPostReviewDTO.getStatusCode() == 500){
