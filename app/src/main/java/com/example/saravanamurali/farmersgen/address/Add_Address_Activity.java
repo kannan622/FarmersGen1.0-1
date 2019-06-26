@@ -41,6 +41,8 @@ import com.example.saravanamurali.farmersgen.models.ADDAddessDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseADDAddress;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientToADDAddress;
 import com.example.saravanamurali.farmersgen.util.FavStatus;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import java.io.IOException;
 import java.util.List;
@@ -51,23 +53,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Add_Address_Activity extends AppCompatActivity implements View.OnClickListener {
+public class Add_Address_Activity extends AppCompatActivity {
 
     private String NO_CURRENT_USER = "NO_CURRENT_USER";
 
-    /*TextView tvDeliverAddress;
-    TextView flatNo;
-    TextView StreetName;
-    TextView Area;
-    TextView City;
-    TextView PinCode;
-
-    EditText eflatNo;
-    EditText eStreetName;
-    EditText eArea;
-    EditText eCity;
-    EditText ePincode;
-*/
 
     private TextInputLayout mFlatNo;
     private TextInputLayout mStreetName;
@@ -106,21 +95,13 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
     Toolbar addAddressToolBar;
 
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add__address_);
 
         Fabric.with(this, new Crashlytics());
-
-        /*requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        getSupportActionBar().hide();
-*/
-
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         //tvDeliverAddress=(TextView)findViewById(R.id.tVDeliveryAddress);
 
@@ -143,18 +124,32 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
 
         myLocation_Button_In_Add_Address = (Button) findViewById(R.id.myLocationButtonInaddAddress);
 
+        contactLoadBlock_AddAddress = (RelativeLayout) findViewById(R.id.contactLoadBlock_AddAddress);
+
 
         addAddressToolBar = (Toolbar) findViewById(R.id.addAddressTootlBar);
         setSupportActionBar(addAddressToolBar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         }
 
-        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
 
-        myLocation_Button_In_Add_Address.setOnClickListener(this);
+        ActivityCompat.requestPermissions(Add_Address_Activity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
 
-        contactLoadBlock_AddAddress = (RelativeLayout) findViewById(R.id.contactLoadBlock_AddAddress);
+
+        // ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
+
+        //myLocation_Button_In_Add_Address.setOnClickListener(this);
+
+        myLocation_Button_In_Add_Address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkGPS();
+            }
+        });
+
+
 
         contactLoadBlock_AddAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,55 +161,129 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
 
     }
 
-    private void loadContactForAddAddress() {
+    private void checkGPS() {
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
-                == PackageManager.PERMISSION_GRANTED) {
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            getLocation();
 
-            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-            startActivityForResult(intent, FavStatus.PICK_CONTACT);
+        } else if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
-                    FavStatus.MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+            buildAlertMessageNoGps();
         }
+
+
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        String phoneNumber = "";
-        String name = "";
 
-        if (resultCode == Activity.RESULT_OK) {
-            Uri contactData = data.getData();
-            Cursor c = managedQuery(contactData, null, null, null, null);
-            if (c.moveToFirst()) {
-                name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                String id = c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
+    private void getLocation() {
+        geocoder = new Geocoder(this, Locale.getDefault());
 
-                Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
-                while (phones.moveToNext()) {
+        if (ActivityCompat.checkSelfPermission(Add_Address_Activity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (Add_Address_Activity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-                    phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+            ActivityCompat.requestPermissions(Add_Address_Activity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
 
+        } else  {
+
+            final ProgressDialog csprogress;
+            csprogress = new ProgressDialog(Add_Address_Activity.this);
+            csprogress.setMessage("Loading...");
+            csprogress.setCancelable(false);
+            csprogress.setCanceledOnTouchOutside(false);
+            csprogress.show();
+
+
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+            Location location1 = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            Location location2 = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+            if (location != null) {
+                lattitude = location.getLatitude();
+                longitude = location.getLongitude();
+                /*lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);
+*/
+
+            } else if (location1 != null) {
+                lattitude = location1.getLatitude();
+                longitude = location1.getLongitude();
+                /*lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);
+*/
+
+
+            } else if (location2 != null) {
+                lattitude = location2.getLatitude();
+                longitude = location2.getLongitude();
+                /*lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);
+*/
+
+            } else {
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
                 }
 
-                // updateMobile.setText(name + " " + phoneNumber);
+                Toast.makeText(this, "Unble to Trace your location", Toast.LENGTH_SHORT).show();
 
-                add_Mobile.setText(phoneNumber);
-                phones.close();
-                /*System.out.println("mobile number"+phoneNumber);
-                System.out.println("Name"+name);*/
             }
 
+            try {
+
+                if (lattitude != null && longitude != null) {
+                    geoAddresses = geocoder.getFromLocation(lattitude, longitude, FavStatus.REQUEST_LOCATION);
+
+
+                    String address = geoAddresses.get(0).getAddressLine(0);
+                    String area = geoAddresses.get(0).getLocality();
+                    String city = geoAddresses.get(0).getAdminArea();
+                    String country = geoAddresses.get(0).getCountryName();
+                    String postalCode = geoAddresses.get(0).getPostalCode();
+                    String subAdminArea = geoAddresses.get(0).getSubAdminArea();
+                    String subLocality = geoAddresses.get(0).getSubLocality();
+                    String premises = geoAddresses.get(0).getPremises();
+                    String addressLine = geoAddresses.get(0).getAddressLine(0);
+
+                    // System.out.println("Address"+address+"  "+"area"+area+"  "+"city"+city+"  "+"country"+country+"  "+"postalCode"+postalCode);
+                /*System.out.println(address);
+                System.out.println(area);
+                System.out.println(city);
+                System.out.println(country);
+                System.out.println(postalCode);
+                System.out.println(subAdminArea);
+                System.out.println(subLocality);
+                System.out.println(premises);
+                System.out.println(addressLine);
+                */
+
+                    showAddress.setVisibility(View.VISIBLE);
+                    showAddress.setText(address + " " + area + " " + city + " " + postalCode);
+                    geoSetArea.setText(subLocality);
+                    geoSetCity.setText(area);
+                    geoSetPincode.setText(postalCode);
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
+
+                } else {
+                    Toast.makeText(Add_Address_Activity.this, "Unble to Fetch your location", Toast.LENGTH_LONG).show();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
+
+
     }
 
     public void onClickProceed(View view) {
-
 
         if (!validateFlatNo() | !validatStreetName() | !validateArea() | !validateCity() | !validatePinCode() | !validateLandMark() | !validateAlternateMobileNumber()) {
             return;
@@ -280,6 +349,76 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
 
 
     }
+
+
+
+    private void loadContactForAddAddress() {
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_GRANTED) {
+
+            Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+            startActivityForResult(intent, FavStatus.PICK_CONTACT);
+
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_CONTACTS},
+                    FavStatus.MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        String phoneNumber = "";
+        String name = "";
+
+        if (resultCode == Activity.RESULT_OK) {
+            Uri contactData = data.getData();
+            Cursor c = managedQuery(contactData, null, null, null, null);
+            if (c.moveToFirst()) {
+                name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                String id = c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
+
+                Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
+                while (phones.moveToNext()) {
+
+                    phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+
+                }
+
+                // updateMobile.setText(name + " " + phoneNumber);
+
+                add_Mobile.setText(phoneNumber);
+                phones.close();
+                /*System.out.println("mobile number"+phoneNumber);
+                System.out.println("Name"+name);*/
+            }
+
+
+        }
+    }
+
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please Turn ON your GPS Connection")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
 
 
     private boolean validateFlatNo() {
@@ -407,146 +546,4 @@ public class Add_Address_Activity extends AppCompatActivity implements View.OnCl
     }
 
 
-    @Override
-    public void onClick(View v) {
-
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
-
-        } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            getLocation();
-        }
-
-    }
-
-    private void getLocation() {
-        geocoder = new Geocoder(this, Locale.getDefault());
-
-        if (ActivityCompat.checkSelfPermission(Add_Address_Activity.this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (Add_Address_Activity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(Add_Address_Activity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, FavStatus.REQUEST_LOCATION);
-
-        } else {
-
-            final ProgressDialog csprogress;
-            csprogress = new ProgressDialog(Add_Address_Activity.this);
-            csprogress.setMessage("Loading...");
-            csprogress.setCancelable(false);
-            csprogress.setCanceledOnTouchOutside(false);
-            csprogress.show();
-
-
-            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-            Location location1 = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-
-            Location location2 = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-
-            if (location != null) {
-                lattitude = location.getLatitude();
-                longitude = location.getLongitude();
-                /*lattitude = String.valueOf(latti);
-                longitude = String.valueOf(longi);
-*/
-
-            } else if (location1 != null) {
-                lattitude = location1.getLatitude();
-                longitude = location1.getLongitude();
-                /*lattitude = String.valueOf(latti);
-                longitude = String.valueOf(longi);
-*/
-
-
-            } else if (location2 != null) {
-                lattitude = location2.getLatitude();
-                longitude = location2.getLongitude();
-                /*lattitude = String.valueOf(latti);
-                longitude = String.valueOf(longi);
-*/
-
-            } else {
-                if (csprogress.isShowing()) {
-                    csprogress.dismiss();
-                }
-
-                Toast.makeText(this, "Unble to Trace your location", Toast.LENGTH_SHORT).show();
-
-            }
-
-            try {
-
-                if (lattitude != null && longitude != null) {
-                    geoAddresses = geocoder.getFromLocation(lattitude, longitude, FavStatus.REQUEST_LOCATION);
-
-
-                    String address = geoAddresses.get(0).getAddressLine(0);
-                    String area = geoAddresses.get(0).getLocality();
-                    String city = geoAddresses.get(0).getAdminArea();
-                    String country = geoAddresses.get(0).getCountryName();
-                    String postalCode = geoAddresses.get(0).getPostalCode();
-                    String subAdminArea = geoAddresses.get(0).getSubAdminArea();
-                    String subLocality = geoAddresses.get(0).getSubLocality();
-                    String premises = geoAddresses.get(0).getPremises();
-                    String addressLine = geoAddresses.get(0).getAddressLine(0);
-
-                    // System.out.println("Address"+address+"  "+"area"+area+"  "+"city"+city+"  "+"country"+country+"  "+"postalCode"+postalCode);
-                /*System.out.println(address);
-                System.out.println(area);
-                System.out.println(city);
-                System.out.println(country);
-                System.out.println(postalCode);
-                System.out.println(subAdminArea);
-                System.out.println(subLocality);
-                System.out.println(premises);
-                System.out.println(addressLine);
-                */
-
-                    showAddress.setVisibility(View.VISIBLE);
-                    showAddress.setText(address + " " + area + " " + city + " " + postalCode);
-
-               /* String doorNo = address;
-                String[] d_No = doorNo.split(",", 2);
-                geoSetFlatNo.setText(d_No[0]);*/
-
-                    geoSetArea.setText(subLocality);
-                    geoSetCity.setText(area);
-                    geoSetPincode.setText(postalCode);
-
-                    if (csprogress.isShowing()) {
-                        csprogress.dismiss();
-                    }
-
-                } else {
-                    Toast.makeText(Add_Address_Activity.this, "Unble to Fetch your location", Toast.LENGTH_LONG).show();
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-
-    }
-
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Please Turn ON your GPS Connection")
-                .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(final DialogInterface dialog, final int id) {
-                        dialog.cancel();
-                    }
-                });
-        final AlertDialog alert = builder.create();
-        alert.show();
-    }
 }
