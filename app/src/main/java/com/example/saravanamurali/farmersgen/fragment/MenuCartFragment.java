@@ -432,6 +432,10 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
                 if (response.isSuccessful()) {
 
+                    if(csprogress.isShowing()){
+                        csprogress.dismiss();
+                    }
+
                     JSONResponseToViewCartAtHomeMenuCartFragmentDTO jsonResponseToViewCartAtHomeMenuCartFragmentDTO = response.body();
 
                     List<MenuCartFragmentViewCartDTO> viewCartAtCartFragment = jsonResponseToViewCartAtHomeMenuCartFragmentDTO.getViewCartListRecord();
@@ -473,9 +477,7 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
                 }
                 mauCart_Topay.setText(menuCartGrandTotal);
 
-                if(csprogress.isShowing()){
-                    csprogress.dismiss();
-                }
+
 
 
             }

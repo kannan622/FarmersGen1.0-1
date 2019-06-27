@@ -414,10 +414,10 @@ public class MenuAccountFragment extends Fragment {
     private void callFavouriteListSnackBar() {
 
 
-        Toast.makeText(getActivity(),"You haven't added any favourite list yet!!!",Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(),"You haven't added any favourite list yet!!!",Toast.LENGTH_LONG).show();
 
-        /*Snackbar snackbar = Snackbar.make(coordinatorLayout, "You haven't added any favourite list yet!!!", Snackbar.LENGTH_LONG);
-        snackbar.show();*/
+        Snackbar snackbar = Snackbar.make(coordinatorLayout, "You haven't added any favourite list yet!!!", Snackbar.LENGTH_LONG);
+        snackbar.show();
 
     }
 
@@ -479,10 +479,10 @@ public class MenuAccountFragment extends Fragment {
 
     private void callSnackBarForAddress() {
 
-        Toast.makeText(getActivity(),"We dont have your address yet!!!",Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(),"We dont have your address yet!!!",Toast.LENGTH_LONG).show();
 
-       /* Snackbar snackbar = Snackbar.make(coordinatorLayout, "We dont have your address yet", Snackbar.LENGTH_LONG);
-        snackbar.show();*/
+        Snackbar snackbar = Snackbar.make(coordinatorLayout, "We dont have your address yet", Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     //To get Past Order List
@@ -495,10 +495,10 @@ public class MenuAccountFragment extends Fragment {
 
     private void callPastOrderSnackBar() {
 
-        Toast.makeText(getActivity(),"You dont placed any order yet!!!",Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(),"You dont placed any order yet!!!",Toast.LENGTH_LONG).show();
 
-        /*Snackbar snackbar = Snackbar.make(coordinatorLayout, "You dont placed any order yet!!!", Snackbar.LENGTH_LONG);
-        snackbar.show();*/
+        Snackbar snackbar = Snackbar.make(coordinatorLayout, "You dont placed any order yet!!!", Snackbar.LENGTH_LONG);
+        snackbar.show();
 
 
     }
@@ -568,9 +568,9 @@ public class MenuAccountFragment extends Fragment {
     private void callCancelOrderSnackerBar() {
 
 
-        Toast.makeText(getActivity(),"You dont have any orders to cancel",Toast.LENGTH_LONG).show();
-       /* Snackbar snackbar = Snackbar.make(coordinatorLayout, "You dont have any orders to cancel", Snackbar.LENGTH_LONG);
-        snackbar.show();*/
+        //Toast.makeText(getActivity(),"You dont have any orders to cancel",Toast.LENGTH_LONG).show();
+        Snackbar snackbar = Snackbar.make(coordinatorLayout, "You dont have any orders to cancel", Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     private void getCancelOrderDetailsToDisplaySnackBar() {

@@ -1,6 +1,7 @@
 package com.example.saravanamurali.farmersgen.modeljsonresponse;
 
 import com.example.saravanamurali.farmersgen.models.BannerDTO;
+import com.example.saravanamurali.farmersgen.models.HomeProductDTO;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -8,9 +9,9 @@ import java.util.List;
 public class JsonResponseForBannerDTO {
 
     @SerializedName("records")
-    List<BannerDTO> records;
+    List<HomeProductDTO> records;
 
-    public List<BannerDTO> getRecords() {
+    public List<HomeProductDTO> getRecords() {
         return records;
     }
 }

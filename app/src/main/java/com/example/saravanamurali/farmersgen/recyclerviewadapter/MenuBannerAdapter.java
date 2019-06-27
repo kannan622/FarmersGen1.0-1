@@ -19,7 +19,7 @@ import java.util.List;
 public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.MenuBAnner_ViewHolder> {
 
     private Context m_context;
-    private List<BannerDTO> menuBannerDTOList;
+    private List<HomeProductDTO> menuBannerDTOList;
 
 
     OnBannerImageClick onBannerImageClick;
@@ -36,12 +36,12 @@ public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.Me
     }
 
 
-    public MenuBannerAdapter(Context context, List<BannerDTO> menuBannerDTOList) {
+    public MenuBannerAdapter(Context context, List<HomeProductDTO> menuBannerDTOList) {
         this.m_context = context;
         this.menuBannerDTOList = menuBannerDTOList;
     }
 
-    public void setBannerImages(List<BannerDTO> menuBannerDTOList){
+    public void setBannerImages(List<HomeProductDTO> menuBannerDTOList){
 
         this.menuBannerDTOList=menuBannerDTOList;
         notifyDataSetChanged();
@@ -63,7 +63,7 @@ public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.Me
     @Override
     public void onBindViewHolder(@NonNull MenuBAnner_ViewHolder menuBAnner_viewHolder, int i) {
 
-       Picasso.with(m_context).load(menuBannerDTOList.get(i).getBanner_image()).into(menuBAnner_viewHolder.imageView);
+       Picasso.with(m_context).load(menuBannerDTOList.get(i).getBannerImage()).into(menuBAnner_viewHolder.imageView);
 
     }
 
@@ -81,7 +81,7 @@ public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.Me
 
             imageView=(ImageView)itemView.findViewById(R.id.banner_Images);
 
-            /*imageView.setOnClickListener(new View.OnClickListener() {
+            imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int bannerAdapterPosition=getAdapterPosition();
@@ -95,7 +95,6 @@ public class MenuBannerAdapter extends RecyclerView.Adapter<MenuBannerAdapter.Me
 
                 }
             });
-*/
         }
     }
 

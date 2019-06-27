@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
     private String NO_CURRENT_USER = "NO_CURRENT_USER";
 
     String deviceID = null;
-    String currentUserAtSplashScreen = null;
+    String currentUserAtSplashScreen;
 
 
     private static SplashActivity instance;
@@ -60,7 +60,7 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(intent);
 
             //Logged in user(User is there)
-            if (deviceID != null && currentUserAtSplashScreen != NO_CURRENT_USER) {
+            if (currentUserAtSplashScreen != NO_CURRENT_USER) {
                 final Intent intentHome = new Intent(SplashActivity.this, HomeActivity.class);
                 startActivity(intentHome);
                 finish();

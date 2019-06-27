@@ -46,7 +46,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnItemClickListener, SearchView.OnQueryTextListener, Menuhome_Adapter.ContactsAdapterListener {
+public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnItemClickListener, SearchView.OnQueryTextListener, Menuhome_Adapter.ContactsAdapterListener, MenuBannerAdapter.OnBannerImageClick {
 
     RecyclerView recyclerView;
     Menuhome_Adapter menuHomeFragmentAdapter;
@@ -67,7 +67,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     //Banner Horizontal
     RecyclerView recyclerViewHorizontal;
     MenuBannerAdapter menuBannerAdapter;
-    List<BannerDTO> menuBannerDTOList;
+    List<HomeProductDTO> menuBannerDTOList;
 
     //Pagination
     private boolean isLoading = true;
@@ -103,8 +103,8 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
         session = new SessionManager(getActivity());
 
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
         toolbar = (Toolbar) view.findViewById(R.id.toolBar);
-
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
@@ -112,41 +112,37 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         activity.getSupportActionBar().setHomeButtonEnabled(true);
         setHasOptionsMenu(true);
 
+        //Brand Display
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         //Banner Horizontal
-       /* recyclerViewHorizontal = (RecyclerView) view.findViewById(R.id.recyclerViewHorizonal);
+        recyclerViewHorizontal = (RecyclerView) view.findViewById(R.id.recyclerViewHorizonal);
         recyclerViewHorizontal.setHasFixedSize(true);
         recyclerViewHorizontal.setLayoutManager(new LinearLayoutManager(this.getActivity(), LinearLayoutManager.HORIZONTAL, true));
-*/
         if (Network_config.is_Network_Connected_flag(getActivity())) {
 
             loadRetrofitforProductDisplay();
 
 
+            homeProductDTOSList = new ArrayList<HomeProductDTO>();
+            menuHomeFragmentAdapter = new Menuhome_Adapter(getActivity(), homeProductDTOSList, this);
+            recyclerView.setAdapter(menuHomeFragmentAdapter);
+            menuHomeFragmentAdapter.setOnItemClickListener(MenuHomeFragment.this);
 
-        homeProductDTOSList = new ArrayList<HomeProductDTO>();
 
-        menuHomeFragmentAdapter = new Menuhome_Adapter(getActivity(), homeProductDTOSList, this);
-        recyclerView.setAdapter(menuHomeFragmentAdapter);
-        menuHomeFragmentAdapter.setOnItemClickListener(MenuHomeFragment.this);
+            //Banner Images
+            menuBannerDTOList = new ArrayList<HomeProductDTO>();
+            menuBannerAdapter = new MenuBannerAdapter(this.getActivity(), menuBannerDTOList);
+            recyclerViewHorizontal.setAdapter(menuBannerAdapter);
 
-        //Banner Images
+            loadBannerImages();
 
-        //loadBannerImages();
-
-        /*menuBannerDTOList = new ArrayList<BannerDTO>();
-        menuBannerAdapter = new MenuBannerAdapter(this.getActivity(), menuBannerDTOList);
-        recyclerViewHorizontal.setAdapter(menuBannerAdapter);
-*/
-        // menuBannerAdapter.setOnBannerImageClick(MenuHomeFragment.this);
-    }
-        else {
+            menuBannerAdapter.setOnBannerImageClick(MenuHomeFragment.this);
+        } else {
             Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                     getResources().getString(R.string.connection_message));
         }
@@ -158,6 +154,12 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     //Display All Banner Images
     private void loadBannerImages() {
 
+        final ProgressDialog csprogress;
+        csprogress = new ProgressDialog(getActivity());
+        csprogress.setMessage("Loading...");
+        csprogress.setCancelable(false);
+        csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
         ApiInterface api = APIClientForBannerImages.getApiInterfaceForBannerImages();
         Call<JsonResponseForBannerDTO> call = api.getAllBannerImages();
@@ -169,10 +171,14 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
                     JsonResponseForBannerDTO jsonBannerResponse = response.body();
 
-                    List<BannerDTO> bannerList = jsonBannerResponse.getRecords();
+                    List<HomeProductDTO> bannerList = jsonBannerResponse.getRecords();
 
                     menuBannerAdapter.setBannerImages(bannerList);
                     menuBannerAdapter.notifyDataSetChanged();
+
+                    if (csprogress.isShowing()) {
+                        csprogress.dismiss();
+                    }
 
 
                 }
@@ -180,6 +186,10 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
             @Override
             public void onFailure(Call<JsonResponseForBannerDTO> call, Throwable t) {
+
+                if (csprogress.isShowing()) {
+                    csprogress.dismiss();
+                }
 
             }
         });
@@ -360,7 +370,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     @Override
     public void onContactSelected(HomeProductDTO contact) {
 
-        session.create_products(currentUserId,contact.getBrandId(),contact.getProductName(),contact.getProductRating());
+        session.create_products(currentUserId, contact.getBrandId(), contact.getProductName(), contact.getProductRating());
 
         Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
         startActivity(productListIntent);
@@ -379,23 +389,29 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     }
 
 
-    /*//Banner Images Clicked
+    //Banner Images Clicked
     @Override
     public void bannerImageClick(String brandID, String brandName, String brandRating) {
 
-        Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
+        if (brandID.equals("BND1")) {
+            Toast.makeText(getActivity(), "New Activity", Toast.LENGTH_SHORT).show();
+        } else {
 
 
-        productListIntent.putExtra("CURRENTUSER", currentUserId);
-
-        productListIntent.putExtra("BRAND_ID", brandID);
-        productListIntent.putExtra("BRAND_NAME", brandName);
-        productListIntent.putExtra("BRAND_RATING", brandRating);
-        startActivity(productListIntent);
+            Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
 
 
+            productListIntent.putExtra("CURRENTUSER", currentUserId);
 
-    }*/
+            productListIntent.putExtra("BRAND_ID", brandID);
+            productListIntent.putExtra("BRAND_NAME", brandName);
+            productListIntent.putExtra("BRAND_RATING", brandRating);
+            startActivity(productListIntent);
+
+        }
+
+
+    }
 
 
 }
