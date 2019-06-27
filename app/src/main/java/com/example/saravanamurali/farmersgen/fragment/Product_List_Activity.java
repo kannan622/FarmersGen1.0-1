@@ -364,8 +364,9 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(Product_List_Activity.this);
         csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
+        csprogress.show();
 
 
         ApiInterface apiInterface = ApiClientToRemoveFav.getApiInterfaceToRemoveBrands();
@@ -476,6 +477,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
     public void loadProductListDataFromSqlLite() {
 
+
+
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(Product_List_Activity.this);
         csprogress.setMessage("Loading...");
@@ -506,6 +509,8 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
 
         }
+
+        cursor.close();
 
         if (csprogress.isShowing()) {
             csprogress.dismiss();
@@ -666,12 +671,14 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
     private void deleteAllDataInSqlLite() {
 
+
         String delete_device_id = Settings.Secure.getString(Product_List_Activity.this.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
         String delete = "delete from add_cart where device_id=?";
 
         mSqLiteDatabase.execSQL(delete, new String[]{delete_device_id});
+       // mSqLiteDatabase.close();
 
     }
 
@@ -689,6 +696,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                 "(?,?,?,?);";
 
         mSqLiteDatabase.execSQL(insertVal, new String[]{product_Code, countVal, productPrice, ANDROID_MOBILE_ID});
+        //mSqLiteDatabase.close();
 
 
         //System.out.println("SQL LITE" + product_Code + " " + countVal + " " + productPrice);
@@ -713,6 +721,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         String u_query = "UPDATE add_cart SET count=?, total_price=? where product_code=? and device_id =? ";
 
         mSqLiteDatabase.execSQL(u_query, new String[]{u_Count, u_totalPrice, updateProductCode, device_id});
+       // mSqLiteDatabase.close();
 
         //System.out.println("Update" + u_Count + u_totalPrice + updateProductCode);
 

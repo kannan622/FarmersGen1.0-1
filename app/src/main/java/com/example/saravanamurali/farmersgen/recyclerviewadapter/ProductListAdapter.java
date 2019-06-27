@@ -122,13 +122,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.productQuantity.setText("" + productListDTOList.get(position).getProductQuantity());
         holder.list_actualprice.setText("₹" + productListDTOList.get(position).getAcutalPrice());
 
-       /* final ProgressDialog csprogress;
+        /*final ProgressDialog csprogress;
         csprogress = new ProgressDialog(mListContext);
-        csprogress.setMessage("Loading...");
-        csprogress.show();
+        csprogress.setMessage("");
         csprogress.setCancelable(false);
         csprogress.setCanceledOnTouchOutside(false);
-
+        csprogress.show();
 */
         Picasso.with(mListContext).load(productListDTOList.get(position).getProductImage()).into(holder.productListImage);
 
@@ -248,7 +247,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
                     String product_Code = productListDTO.getProductCode();
                     String prouctPrice = productListDTO.getProductPrice();
-                    System.out.println("I am First" + product_Code + "  " + countIncInc + "  " + prouctPrice);
+                   // System.out.println("I am First" + product_Code + "  " + countIncInc + "  " + prouctPrice);
 
 
                     addCartInDb.updateCartInSqlLite(product_Code, countIncInc, prouctPrice);
