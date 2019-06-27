@@ -71,9 +71,6 @@ public class HomeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
-
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -115,7 +112,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        setAppBarHeight();
+        //setAppBarHeight();
     }
 
     private void setAppBarHeight() {
