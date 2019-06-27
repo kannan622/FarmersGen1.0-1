@@ -33,13 +33,6 @@
                 android:text="Swipe Right or Left to remove item"
                 android:textColor="@color/FragmentGreen" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="@dimen/four_dp"
-                android:layout_toRightOf="@+id/viewBasket"
-                android:src="@drawable/cartgreen"
-                android:visibility="gone" />
 
         </RelativeLayout>
 

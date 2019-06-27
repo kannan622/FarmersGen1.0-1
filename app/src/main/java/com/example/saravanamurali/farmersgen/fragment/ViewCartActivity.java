@@ -171,15 +171,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         setSupportActionBar(toolbar);
 
 
-        //getSupportActionBar().setTitle("Your Basket");
-
-
-        /*requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-         getSupportActionBar().hide();
-*/
-
         //viewcart_adapterview.xml
         context = getApplicationContext();
         dialog = new Dialog(context);
