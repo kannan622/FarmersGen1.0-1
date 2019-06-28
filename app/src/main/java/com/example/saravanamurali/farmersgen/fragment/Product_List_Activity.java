@@ -2,6 +2,7 @@ package com.example.saravanamurali.farmersgen.fragment;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,10 +19,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
+import android.support.v7.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,7 +103,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
     //Current User From Shared Preferences
     String currentUserIdFromSharedPreferences;
-
+    Toolbar productListToolbar;
     SessionManager session;
 
     RecyclerView recyclerView;
@@ -147,15 +152,18 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         mSqLiteDatabase = openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
         createTable();
 
+        productListToolbar=(Toolbar)findViewById(R.id.productListToolBar);
+        setSupportActionBar(productListToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-       /* imageView = (ImageView) findViewById(R.id.leftArrow);
+        imageView = (ImageView) findViewById(R.id.leftArrow);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Product_List_Activity.this, HomeActivity.class));
             }
-        });*/
+        });
 
         productRating = (TextView) findViewById(R.id.proListRating);
 
@@ -281,6 +289,41 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
                 ");";
 
         mSqLiteDatabase.execSQL(sql);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_product_search, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.productSearch);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setSearchableInfo(searchManager
+                .getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MIN_VALUE);
+
+
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                productListAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                productListAdapter.getFilter().filter(newText);
+
+                return false;
+            }
+        });
+
+        return true;
     }
 
     //Checking to enable favourite icon for this user
@@ -646,7 +689,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         String delete = "delete from add_cart where device_id=?";
 
         mSqLiteDatabase.execSQL(delete, new String[]{delete_device_id});
-       // mSqLiteDatabase.close();
+        // mSqLiteDatabase.close();
 
     }
 
@@ -689,7 +732,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         String u_query = "UPDATE add_cart SET count=?, total_price=? where product_code=? and device_id =? ";
 
         mSqLiteDatabase.execSQL(u_query, new String[]{u_Count, u_totalPrice, updateProductCode, device_id});
-       // mSqLiteDatabase.close();
+        // mSqLiteDatabase.close();
 
         //System.out.println("Update" + u_Count + u_totalPrice + updateProductCode);
 

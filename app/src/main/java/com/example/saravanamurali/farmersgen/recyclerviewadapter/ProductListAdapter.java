@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,20 +30,26 @@ import com.example.saravanamurali.farmersgen.sqllite.ProductAddInSqlLite;
 import com.example.saravanamurali.farmersgen.util.Network_config;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductListAdapterViewHolder> {
+public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductListAdapterViewHolder> implements Filterable {
 
     Context mListContext;
     List<ProductListDTO> productListDTOList;
 
+    //Search
+    List<ProductListDTO> productListDTOFull;
+
     AddCart addCartInDb;
 
     private Dialog dialog;
+
+
 
 
     public interface AddCart {
@@ -65,6 +73,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public ProductListAdapter(Context mListContext, List<ProductListDTO> productListDTOList) {
         this.mListContext = mListContext;
         this.productListDTOList = productListDTOList;
+        this.productListDTOFull=new ArrayList<>(this.productListDTOList);
     }
 
 
@@ -74,6 +83,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     public void setDataSetChanged(List<ProductListDTO> productListDTOList) {
         this.productListDTOList = productListDTOList;
+        this.productListDTOFull=this.productListDTOList;
         notifyDataSetChanged();
 
     }
@@ -167,6 +177,50 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
     public int getItemCount() {
         return productListDTOList.size();
     }
+
+
+
+    @Override
+    public Filter getFilter() {
+        return productFilter;
+    }
+
+    private Filter productFilter=new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            List<ProductListDTO> filteredList=new ArrayList<>();
+            if(constraint==null && constraint.length()==0){
+                filteredList.addAll(productListDTOFull);
+            }
+            else {
+                String stringPattern=constraint.toString().toLowerCase().trim();
+
+                for(ProductListDTO product:productListDTOFull){
+                    if(product.getProductName().toLowerCase().contains(stringPattern)){
+                        filteredList.add(product);
+
+                    }
+                }
+            }
+
+            FilterResults results=new FilterResults();
+            results.values=filteredList;
+
+            return results;
+
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            //productListDTOList.clear();
+            productListDTOList= (ArrayList<ProductListDTO>) results.values;
+            notifyDataSetChanged();
+
+        }
+    };
+
 
     private void removeItem(int adapterPosition) {
 

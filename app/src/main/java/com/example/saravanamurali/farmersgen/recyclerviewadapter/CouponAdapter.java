@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.models.CouponDTO;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponViewHolder> {
 
@@ -37,6 +40,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.CouponView
 
 
     public CouponAdapter(List<CouponDTO> jsonResponseCouponDTOList, Context mCouponContext) {
+        Fabric.with(mCouponContext, new Crashlytics());
         this.jsonResponseCouponDTOList = jsonResponseCouponDTOList;
         this.mCouponContext = mCouponContext;
     }
