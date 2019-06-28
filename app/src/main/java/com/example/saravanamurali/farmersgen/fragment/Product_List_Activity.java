@@ -148,14 +148,14 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         createTable();
 
 
-        imageView = (ImageView) findViewById(R.id.leftArrow);
+       /* imageView = (ImageView) findViewById(R.id.leftArrow);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Product_List_Activity.this, HomeActivity.class));
             }
-        });
+        });*/
 
         productRating = (TextView) findViewById(R.id.proListRating);
 

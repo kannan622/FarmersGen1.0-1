@@ -139,7 +139,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
             menuBannerAdapter = new MenuBannerAdapter(this.getActivity(), menuBannerDTOList);
             recyclerViewHorizontal.setAdapter(menuBannerAdapter);
 
-            loadBannerImages();
+           // loadBannerImages();
 
             menuBannerAdapter.setOnBannerImageClick(MenuHomeFragment.this);
         } else {
