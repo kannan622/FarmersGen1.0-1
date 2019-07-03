@@ -563,7 +563,7 @@ public class MenuCartFragment extends Fragment implements MenuCartFragmentAdapte
 
         mSqLiteDatabase.execSQL(u_query, new String[]{u_menu_Count, u_menu_price, menuCartProductCode, device_id});
 
-        Toast.makeText(getActivity(), "Updated In Menu", Toast.LENGTH_LONG).show();
+
 
     }
 

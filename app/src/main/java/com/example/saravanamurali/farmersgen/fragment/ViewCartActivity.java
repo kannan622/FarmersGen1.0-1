@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -727,8 +728,15 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     //Method 1
 //Okhttp3
-    @Override
+    /*@Override
     public void viewCartUpdateInterface(int updateCount, String updateProductCode, String prouctPrice) {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        },1000);
 
         ProgressDialog csprogress;
         csprogress = new ProgressDialog(ViewCartActivity.this);
@@ -828,11 +836,11 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
 
-                        /*System.out.println("UpdateOKHTTP" + producode + " " + count + " " + totalPRice + " " + grandTotal);
+                        *//*System.out.println("UpdateOKHTTP" + producode + " " + count + " " + totalPRice + " " + grandTotal);
 
                         Log.d("okk", "" + producode + " " + count + " " + totalPRice + " " + grandTotal);
 
-                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();*/
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();*//*
                     } else {
                         if (csprogress.isShowing()){
                             csprogress.dismiss();
@@ -857,10 +865,10 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         }
 
 
-    }
+    }*/
 
     //Update Count in ViewCart
-    /*@Override
+    @Override
     public void viewCartUpdateInterface(int viewCartCount, String viewCartProductCode, String
             viewCartProductPrice) {
 
@@ -920,7 +928,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
     }//// End of Update Count in ViewCart
-*/
     @Override
     public void viewCartUpdateInterfaceSqlLite(int viewCartCount, String viewCartProductCode, String viewCart_Price) {
         String device_id = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),

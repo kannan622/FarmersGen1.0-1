@@ -78,7 +78,6 @@
                       android:layout_centerInParent="true"
                       android:layout_centerHorizontal="true"
                       android:layout_gravity="center"
-
                       android:layout_marginTop="60dp"
                       android:layout_weight=".5"
                       android:drawablePadding="10dp"
@@ -160,10 +159,8 @@
                  android:id="@+id/c"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-
                  android:layout_above="@id/coupon"
                  >
-
                  <TextView
                      android:id="@+id/discount"
                      android:layout_width="wrap_content"
@@ -176,9 +173,6 @@
                      android:layout_toRightOf="@+id/discount"
                      android:text="500"
                      />
-
-
-
              </RelativeLayout>-->
 
             <!--Offers Code-->
