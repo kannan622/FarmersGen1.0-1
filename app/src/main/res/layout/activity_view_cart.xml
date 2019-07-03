@@ -1,351 +1,414 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinator_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/viewCartToolBar"
-        android:layout_width="match_parent"
+    android:padding="5dp">
+
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/grey_lighti"
-        android:minHeight="?attr/actionBarSize">
+        android:background="#FFFFFF">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/viewBasket"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Cart"
-                android:textSize="@dimen/twenty_sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/viewBasket"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Swipe Right or Left to remove item"
-                android:textColor="@color/FragmentGreen" />
-
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.Toolbar>
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/swipe_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/viewCartToolBar"
-        android:background="@color/unknown"
-        tools:context=".fragment.ViewCartActivity">
-
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/activity_cart_list"
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="#f2f2f2"
-            android:paddingTop="7dp"
-            tools:context=".fragment.ViewCartActivity">
-
-            <RelativeLayout
-                android:id="@+id/rec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView_ViewCart"
-                    android:layout_width="match_parent"
-                    android:layout_height="430dp"
-                    android:divider="@android:color/transparent"
-                    android:dividerHeight="25px" />
-
-                <!--  <TextView
-                      android:id="@+id/text_login"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_centerInParent="true"
-                      android:layout_centerHorizontal="true"
-                      android:layout_gravity="center"
-                      android:layout_marginTop="60dp"
-                      android:layout_weight=".5"
-                      android:drawablePadding="10dp"
-                      android:text="Please Login to View Favourites"
-                      android:textColor="@color/greyi"
-                      android:visibility="gone" />
-      -->
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/discountBlock"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/couponAppliedBlock"
-                android:layout_marginTop="@dimen/ten_dp"
-                android:paddingTop="@dimen/eight_dp">
-
-                <TextView
-                    android:id="@+id/grandTotalText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/five_dp"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="Total Price"
-                    android:textColor="@color/FragmentGreen"
-                    android:textSize="@dimen/eighteen_dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/grandTotalPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/three_dp"
-                    android:layout_toRightOf="@id/grandTotalText"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="₹40000"
-                    android:textColor="@color/FragmentGreen"
-                    android:textSize="@dimen/eighteen_dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/line"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/three_dp"
-                    android:layout_toRightOf="@+id/grandTotalPrice"
-                    android:text="|"
-                    android:textSize="@dimen/fifteen_sp" />
-
-                <TextView
-                    android:id="@+id/discountText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/three_dp"
-                    android:layout_toRightOf="@id/line"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="Total Discount"
-                    android:textColor="@color/FragmentGreen"
-                    android:textSize="@dimen/eighteen_dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/discountPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/three_dp"
-                    android:layout_toRightOf="@+id/discountText"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="₹500"
-                    android:textColor="@color/FragmentGreen"
-                    android:textSize="@dimen/eighteen_dp"
-                    android:textStyle="bold" />
-
-
-            </RelativeLayout>
-
-            <!-- <RelativeLayout
-                 android:id="@+id/c"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_above="@id/coupon"
-                 >
-                 <TextView
-                     android:id="@+id/discount"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:text="Total Discount"
-                     />
-                 <TextView
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:layout_toRightOf="@+id/discount"
-                     android:text="500"
-                     />
-             </RelativeLayout>-->
-
-            <!--Offers Code-->
-            <RelativeLayout
-                android:id="@+id/coupon"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/bottom"
-                android:background="@color/gray"
-                android:clickable="true"
-                android:gravity="bottom"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/ten_dp"
-                android:paddingRight="@dimen/ten_dp"
-                android:paddingBottom="@dimen/ten_dp"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/couponPercentage"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/five_dp"
-                    android:src="@drawable/discount" />
-
-                <TextView
-                    android:id="@+id/applyCouponText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/couponPercentage"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text="APPLY COUPON"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
-                    android:textSize="@dimen/twelve_dp" />
-
-                <ImageView
-                    android:id="@+id/offersArrow"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/maarrow" />
-
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/couponAppliedBlock"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@id/bottom"
-                android:background="@color/gray"
-                android:clickable="true"
-                android:gravity="bottom"
-                android:orientation="horizontal"
-                android:padding="@dimen/ten_dp">
-
-                <TextView
-                    android:id="@+id/couponCode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text=""
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
-
-
-                <ImageView
-                    android:id="@+id/couponCodeCancel"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/cross" />
-
-            </RelativeLayout>
-
-            <!--End Offers Code-->
-
-            <RelativeLayout
-                android:id="@+id/bottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="bottom"
-                android:background="@color/FragmentGreen"
-                android:orientation="horizontal"
-                android:paddingTop="5dp">
-
-                <TextView
-                    android:id="@+id/rupeeSymbol"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/five_dp"
-                    android:text="To Pay ₹"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/toPayAmount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/five_dp"
-                    android:layout_toRightOf="@id/rupeeSymbol"
-                    android:fontFamily="sans-serif-condensed"
-                    android:text=""
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sixteen_dp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/rightArrow"
-                    android:layout_width="15dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="@dimen/twelve_dp"
-                    android:src="@drawable/right"
-
-                    />
-
-                <TextView
-                    android:id="@+id/viewCartProceed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="@dimen/six_dp"
-                    android:layout_toLeftOf="@+id/rightArrow"
-                    android:fontFamily="sans-serif-condensed"
-                    android:gravity="center"
-                    android:text="CHECKOUT"
-                    android:textColor="@color/white"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-
-                    />
-
-
-                <!--<TextView
-                    android:id="@+id/viewCartProceed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="3dp"
-                    android:background="@drawable/rounder_themecolor"
-                    android:padding="15dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="Checkout"
-                    android:textColor="@color/FragmentGreen"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
--->
-            </RelativeLayout>
-
-
-        </RelativeLayout>
-
-        <ImageView
-            android:id="@+id/emptyViewCartImage"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/empty_cart"
-            android:visibility="gone" />
+
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="10dp"
+            android:text="View Cart"
+            android:textColor="#666666"
+            android:textSize="28sp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_ViewCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="25px"
+            android:padding="5dp" />
+
+        <RelativeLayout
+            android:id="@+id/rel1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/recyclerView_ViewCart"
+            android:layout_marginTop="25dp"
+            android:background="#FFFFFF"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/spacecraftImg"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+
+                android:layout_marginTop="8dp"
+
+                android:src="@drawable/discount" />
+
+
+            <TextView
+                android:id="@+id/editprofile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+
+                android:layout_toRightOf="@+id/spacecraftImg"
+                android:padding="6dp"
+                android:text="Apply Coupon Code"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/grey1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+
+                />
+
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+
+
+                android:layout_marginTop="8dp"
+                android:paddingRight="5dp"
+                android:src="@drawable/arrow" />
+
+            <ImageView
+                android:id="@+id/couponCodeCancel"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/cross"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rel1"
+            android:background="@color/grey">
+
+        </View>
+
+
+        <TextView
+            android:id="@+id/general"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view2"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:text="Bill Details"
+            android:textColor="@color/grey_black"
+            android:textStyle="bold" />
+
+
+        <RelativeLayout
+            android:id="@+id/rel5"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/general"
+            android:layout_marginTop="5dp"
+            android:background="#FFFFFF"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/item_total_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+
+                android:padding="8dp"
+                android:text="Item Total"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/grey1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+
+                />
+
+            <TextView
+                android:id="@+id/item_total_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="2dp"
+                android:padding="8dp"
+                android:text="$230"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/grey1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+
+                />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rel5"
+            android:background="@color/grey">
+
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/rel_discount"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/rel5"
+            android:layout_marginTop="5dp"
+            android:background="#FFFFFF"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/discount_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+
+                android:padding="8dp"
+                android:text="Discount "
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/grey1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+
+                />
+
+            <TextView
+                android:id="@+id/discount_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="2dp"
+                android:padding="8dp"
+                android:text="$30"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/grey1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+
+                />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rel_discount"
+            android:background="@color/grey">
+
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/rel_delivery"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/rel_discount"
+            android:layout_marginTop="5dp"
+            android:background="#FFFFFF"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/delivery_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+
+                android:padding="8dp"
+                android:text="Delivery Charges"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/grey1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+
+                />
+
+            <TextView
+                android:id="@+id/delivery_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="2dp"
+                android:padding="8dp"
+                android:text="$0"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/grey1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+
+                />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rel_delivery"
+            android:background="@color/grey">
+
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/rel_grandtotal"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/rel_delivery"
+            android:layout_marginTop="5dp"
+            android:background="#FFFFFF"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/grandtotal_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+
+                android:padding="8dp"
+                android:text="Grand Total"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/grey1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+
+                />
+
+            <TextView
+                android:id="@+id/grandtotal_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="2dp"
+                android:padding="8dp"
+                android:text="$200"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/grey1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+
+                />
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/rel_grandtotal"
+            android:background="@color/grey">
+
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:layout_alignParentBottom="true"
+
+
+            android:layout_marginBottom="-152dp"
+            android:background="@color/grey_black"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/rupeeSymbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="To Pay : ₹ "
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/toPayAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/rupeeSymbol"
+                android:fontFamily="sans-serif-condensed"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+
+
+                android:background="@color/white">
+
+            </View>
+
+
+            <TextView
+                android:id="@+id/viewCartProceed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:drawableRight="@drawable/arrow"
+                android:drawablePadding="20dp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:text="CHECKOUT"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:textStyle="bold"
+
+                />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/emptyViewCartImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/empty_cart"
+        android:visibility="gone" />
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/snackBar"
@@ -354,5 +417,7 @@
         android:layout_alignParentBottom="true">
 
     </android.support.design.widget.CoordinatorLayout>
-
 </RelativeLayout>
+
+
+
