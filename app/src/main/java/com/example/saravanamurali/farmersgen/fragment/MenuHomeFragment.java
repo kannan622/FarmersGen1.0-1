@@ -91,7 +91,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_menu_home_new, container, false);
+        View view = inflater.inflate(R.layout.fragment_menu_home, container, false);
 
         Fabric.with(getActivity(), new Crashlytics());
 
@@ -259,7 +259,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
                         csprogress.dismiss();
                     }
 
-                    //  Toast.makeText(getActivity(), "Sucesss Running", Toast.LENGTH_LONG).show();
+
                 }
             }
 
@@ -317,12 +317,6 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
             Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
             startActivity(productListIntent);
 
-            /*productListIntent.putExtra("CURRENTUSER", currentUserId);
-            productListIntent.putExtra("BRAND_ID", clickedBrand.getBrandId());
-            productListIntent.putExtra("BRAND_NAME", clickedBrand.getProductName());
-            productListIntent.putExtra("BRAND_RATING", clickedBrand.getProductRating());
-            productListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);*/
-
         } else {
             Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                     getResources().getString(R.string.connection_message));
@@ -378,9 +372,6 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         menuHomeFragmentAdapter.getFilter().filter(s);
         return false;
 
-        // menuHomeFragmentAdapter.updateList(filteredList);
-
-
     }
 
 
@@ -391,17 +382,6 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
         Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
         startActivity(productListIntent);
-
-       /* productListIntent.putExtra("CURRENTUSER", currentUserId);
-
-        productListIntent.putExtra("BRAND_ID", contact.getBrandId());
-        productListIntent.putExtra("BRAND_NAME", contact.getProductName());
-        productListIntent.putExtra("BRAND_RATING", contact.getProductRating());
-        productListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-       */
-
-
-        //  Toast.makeText(getActivity(), "Selected: " + contact.getProductName() + ", " + contact.getProductDesc(), Toast.LENGTH_LONG).show();
 
     }
 
@@ -414,15 +394,8 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
             Toast.makeText(getActivity(), "New Activity", Toast.LENGTH_SHORT).show();
         } else {
 
-
+            session.create_products(currentUserId, brandID, brandName, brandRating);
             Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
-
-
-            productListIntent.putExtra("CURRENTUSER", currentUserId);
-
-            productListIntent.putExtra("BRAND_ID", brandID);
-            productListIntent.putExtra("BRAND_NAME", brandName);
-            productListIntent.putExtra("BRAND_RATING", brandRating);
             startActivity(productListIntent);
 
         }

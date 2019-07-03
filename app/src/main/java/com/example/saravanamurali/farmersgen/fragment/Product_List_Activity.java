@@ -174,11 +174,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         brand_Name_For_ProductRating = session.getUserDetails().get(SessionManager.KEY_product_rating);
 
 
-        //Brand Details
-        /*brand_ID_For_ProductList = intent.getStringExtra("BRAND_ID");
-        brand_Name_For_ProductList = intent.getStringExtra("BRAND_NAME");
-        brand_Name_For_ProductRating = intent.getStringExtra("BRAND_RATING");*/
-
         textViewProductName = (TextView) findViewById(R.id.proListBrandName);
         // textViewShortDesc = (TextView) findViewById(R.id.proListShortDesc);
         textViewProductName.setText(brand_Name_For_ProductList);
@@ -445,12 +440,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
     }
 
 
-   /* @Override
-    protected void onStart() {
-        super.onStart();
-
-        loadProductListDataFromSqlLite();
-    }*/
 
     @Override
     protected void onResume() {
@@ -508,11 +497,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
                 GetDataFromSqlLiteDTO getDataFromSqlLiteDTO = new GetDataFromSqlLiteDTO(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
 
-
-                /*System.out.println(getDataFromSqlLiteDTO.getCount());
-                System.out.println(getDataFromSqlLiteDTO.getProduct_code());
-                System.out.println(getDataFromSqlLiteDTO.getTotal_price());
-                System.out.println(getDataFromSqlLiteDTO.getDevice_ID());*/
                 getDataFromSqlLiteDTOS.add(getDataFromSqlLiteDTO);
 
             }
@@ -710,9 +694,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         //mSqLiteDatabase.close();
 
 
-        //System.out.println("SQL LITE" + product_Code + " " + countVal + " " + productPrice);
-
-        //Toast.makeText(Product_List_Activity.this, " Added", Toast.LENGTH_LONG).show();
 
 
     }
@@ -734,10 +715,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         mSqLiteDatabase.execSQL(u_query, new String[]{u_Count, u_totalPrice, updateProductCode, device_id});
         // mSqLiteDatabase.close();
 
-        //System.out.println("Update" + u_Count + u_totalPrice + updateProductCode);
-
-        //Toast.makeText(Product_List_Activity.this, "Updated", Toast.LENGTH_LONG).show();
-
     }
 
     @Override
@@ -751,7 +728,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
         mSqLiteDatabase.execSQL(delete, new String[]{product_Code, delete_device_id});
 
-        //Toast.makeText(Product_List_Activity.this, "Deleted", Toast.LENGTH_LONG).show();
 
 
     }
@@ -811,7 +787,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
                     loadRetrofitProductList();
                 }
-                /* Toast.makeText(Product_List_Activity.this,"I am here delete"+t.getMessage(), Toast.LENGTH_LONG).show();*/
+
 
             }
         });

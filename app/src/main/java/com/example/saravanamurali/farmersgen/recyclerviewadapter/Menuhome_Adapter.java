@@ -67,7 +67,7 @@ public class Menuhome_Adapter extends RecyclerView.Adapter<Menuhome_Adapter.MyVi
         holder.container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation));
 
         String brand_Id = contactListFiltered.get(position).getBrandId();
-        System.out.println("This is brand id of brand" + brand_Id);
+       // System.out.println("This is brand id of brand" + brand_Id);
         holder.mtName.setText(contactListFiltered.get(position).getProductName());
         holder.mDescription.setText(contactListFiltered.get(position).getProductDesc());
         //holder.mMinOrder.setText(contactListFiltered.get(position).getProductMinOrder());

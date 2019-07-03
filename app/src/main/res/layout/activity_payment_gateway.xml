@@ -7,10 +7,23 @@
     android:orientation="vertical"
     tools:context=".paymentgateway.PaymentGatewayActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Order Will be deliver within 24 hours"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:textStyle="bold"
+            android:textSize="@dimen/twenty_sp"
+            android:layout_marginTop="@dimen/five_dp"
+            />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,7 +60,7 @@
                 <ImageView
                     android:id="@+id/indianRupee"
                     android:layout_width="@dimen/twenty_dp"
-                    android:layout_height="@dimen/thirty_five_dp"
+                    android:layout_height="@dimen/twenty_dp"
                     android:layout_marginLeft="@dimen/ten_dp"
                     android:layout_toRightOf="@id/paytext"
                     android:src="@drawable/ic_launcher_indian_rupee" />
