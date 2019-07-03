@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,23 +15,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.example.saravanamurali.farmersgen.R;
 import com.example.saravanamurali.farmersgen.apiInterfaces.ApiInterface;
-import com.example.saravanamurali.farmersgen.models.BannerDTO;
-import com.example.saravanamurali.farmersgen.models.HomeProductDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JSONResponseHomeBrandDTO;
 import com.example.saravanamurali.farmersgen.modeljsonresponse.JsonResponseForBannerDTO;
+import com.example.saravanamurali.farmersgen.models.HomeProductDTO;
 import com.example.saravanamurali.farmersgen.recyclerviewadapter.MenuBannerAdapter;
 import com.example.saravanamurali.farmersgen.recyclerviewadapter.Menuhome_Adapter;
 import com.example.saravanamurali.farmersgen.retrofitclient.APIClientForBannerImages;
@@ -57,7 +52,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     LinearLayoutManager linearLayoutManager;
     String brandId;
 
-    ProgressBar progressBar;
+    //ProgressBar progressBar;
 
     SessionManager session;
 
@@ -65,13 +60,11 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
     String currentUserId;
     Dialog dialog;
-    private SearchView searchView;
-
     //Banner Horizontal
     RecyclerView recyclerViewHorizontal;
     MenuBannerAdapter menuBannerAdapter;
     List<HomeProductDTO> menuBannerDTOList;
-
+    private SearchView searchView;
     //Pagination
     private boolean isLoading = true;
     private int pastVisibleItems, visibleItemCount, totalItemCount, previous_total = 0;
@@ -98,7 +91,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_menu_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_menu_home_new, container, false);
 
         Fabric.with(getActivity(), new Crashlytics());
 
@@ -106,8 +99,8 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
         session = new SessionManager(getActivity());
 
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        toolbar = (Toolbar) view.findViewById(R.id.toolBar);
+        //  progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
@@ -142,13 +135,34 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
             menuBannerAdapter = new MenuBannerAdapter(this.getActivity(), menuBannerDTOList);
             recyclerViewHorizontal.setAdapter(menuBannerAdapter);
 
-           // loadBannerImages();
+            loadBannerImages();
 
             menuBannerAdapter.setOnBannerImageClick(MenuHomeFragment.this);
         } else {
             Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                     getResources().getString(R.string.connection_message));
         }
+
+
+       /* AppBarLayout mAppBarLayout = (AppBarLayout) view.findViewById(R.id.app_bar);
+        mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = false;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    isShow = true;
+                    showOption(R.id.action_info);
+                } else if (isShow) {
+                    isShow = false;
+                    hideOption(R.id.action_info);
+                }
+            }
+        });*/
 
         return view;
     }
