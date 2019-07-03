@@ -26,21 +26,25 @@
                 android:elevation="4dp"
                 app:layout_collapseMode="pin"></android.support.v7.widget.Toolbar>
 
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerViewHorizonal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
+                android:background="@color/white"
                 android:orientation="horizontal"
-                app:layout_collapseMode="parallax"></android.support.v7.widget.RecyclerView>
+                app:layout_collapseMode="parallax">
+            </android.support.v7.widget.RecyclerView>
+</RelativeLayout>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/two_dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.RecyclerView

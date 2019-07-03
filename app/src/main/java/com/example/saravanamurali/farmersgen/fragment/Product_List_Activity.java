@@ -297,7 +297,7 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setSearchableInfo(searchManager
                 .getSearchableInfo(getComponentName()));
-        searchView.setMaxWidth(Integer.MIN_VALUE);
+        searchView.setMaxWidth(Integer.MAX_VALUE);
 
 
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -692,8 +692,6 @@ public class Product_List_Activity extends AppCompatActivity implements ProductL
 
         mSqLiteDatabase.execSQL(insertVal, new String[]{product_Code, countVal, productPrice, ANDROID_MOBILE_ID});
         //mSqLiteDatabase.close();
-
-
 
 
     }
