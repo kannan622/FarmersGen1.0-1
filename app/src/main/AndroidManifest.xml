@@ -39,6 +39,7 @@
             android:name=".tappedactivity.HomeActivity"
             android:label=""
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".signin.LoginActivity"
