@@ -3,8 +3,6 @@ package com.example.saravanamurali.farmersgen.fragment;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,12 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -44,7 +42,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnItemClickListener, SearchView.OnQueryTextListener, Menuhome_Adapter.ContactsAdapterListener, MenuBannerAdapter.OnBannerImageClick {
+public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnItemClickListener, Menuhome_Adapter.ContactsAdapterListener, MenuBannerAdapter.OnBannerImageClick {
 
     RecyclerView recyclerView;
     Menuhome_Adapter menuHomeFragmentAdapter;
@@ -56,7 +54,9 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
     SessionManager session;
 
-    Toolbar toolbar;
+    EditText edittext_search;
+
+    // Toolbar toolbar;
 
     String currentUserId;
     Dialog dialog;
@@ -100,16 +100,17 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         session = new SessionManager(getActivity());
 
         //  progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        //  toolbar = (Toolbar) view.findViewById(R.id.toolbar);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
-        activity.setSupportActionBar(toolbar);
+        //  activity.setSupportActionBar(toolbar);
 
         activity.getSupportActionBar().setHomeButtonEnabled(true);
         setHasOptionsMenu(true);
 
         //Brand Display
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        edittext_search = view.findViewById(R.id.edittext_search);
         recyclerView.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -163,6 +164,34 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
                 }
             }
         });*/
+
+
+        edittext_search.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                System.out.println("Text [" + s + "]");
+
+                // adapt.getFilter().filter(s.toString());
+
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // adapt.getFilter().filter(s.toString());
+
+                menuHomeFragmentAdapter.getFilter().filter(s.toString());
+
+                //    adapt.filter(s.toString());
+            }
+        });
 
         return view;
     }
@@ -259,7 +288,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
                         csprogress.dismiss();
                     }
 
-
+                    //  Toast.makeText(getActivity(), "Sucesss Running", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -317,6 +346,12 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
             Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
             startActivity(productListIntent);
 
+            /*productListIntent.putExtra("CURRENTUSER", currentUserId);
+            productListIntent.putExtra("BRAND_ID", clickedBrand.getBrandId());
+            productListIntent.putExtra("BRAND_NAME", clickedBrand.getProductName());
+            productListIntent.putExtra("BRAND_RATING", clickedBrand.getProductRating());
+            productListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);*/
+
         } else {
             Network_config.customAlert(dialog, getActivity(), getResources().getString(R.string.app_name),
                     getResources().getString(R.string.connection_message));
@@ -326,7 +361,7 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
     }
 
 
-    @Override
+   /* @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
@@ -372,7 +407,10 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
         menuHomeFragmentAdapter.getFilter().filter(s);
         return false;
 
-    }
+        // menuHomeFragmentAdapter.updateList(filteredList);
+
+
+    }*/
 
 
     @Override
@@ -382,6 +420,17 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
 
         Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
         startActivity(productListIntent);
+
+       /* productListIntent.putExtra("CURRENTUSER", currentUserId);
+
+        productListIntent.putExtra("BRAND_ID", contact.getBrandId());
+        productListIntent.putExtra("BRAND_NAME", contact.getProductName());
+        productListIntent.putExtra("BRAND_RATING", contact.getProductRating());
+        productListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+       */
+
+
+        //  Toast.makeText(getActivity(), "Selected: " + contact.getProductName() + ", " + contact.getProductDesc(), Toast.LENGTH_LONG).show();
 
     }
 
@@ -394,8 +443,15 @@ public class MenuHomeFragment extends Fragment implements Menuhome_Adapter.OnIte
             Toast.makeText(getActivity(), "New Activity", Toast.LENGTH_SHORT).show();
         } else {
 
-            session.create_products(currentUserId, brandID, brandName, brandRating);
+
             Intent productListIntent = new Intent(this.getActivity(), Product_List_Activity.class);
+
+
+            productListIntent.putExtra("CURRENTUSER", currentUserId);
+
+            productListIntent.putExtra("BRAND_ID", brandID);
+            productListIntent.putExtra("BRAND_NAME", brandName);
+            productListIntent.putExtra("BRAND_RATING", brandRating);
             startActivity(productListIntent);
 
         }
