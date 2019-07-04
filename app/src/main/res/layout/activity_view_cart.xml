@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewCartActivity"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-
-    android:padding="5dp">
-
+    >
 
     <RelativeLayout
         android:id="@+id/main"
@@ -17,16 +17,26 @@
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:text="View Cart"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="#666666"
             android:textSize="28sp"
             android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/message"
+            android:layout_marginLeft="@dimen/twelve_dp"
+            android:text="Swipe Left or Right To Remove Item"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/grey1"
+            />
 
 
     </RelativeLayout>
+
 
 
     <RelativeLayout
@@ -39,30 +49,27 @@
             android:id="@+id/recyclerView_ViewCart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
             android:divider="@android:color/transparent"
             android:dividerHeight="25px"
             android:padding="5dp" />
 
+
         <RelativeLayout
-            android:id="@+id/rel1"
+            android:id="@+id/applyCouponBlock"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_below="@+id/recyclerView_ViewCart"
             android:layout_marginTop="25dp"
             android:background="#FFFFFF"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:visibility="gone"
+            >
 
             <ImageView
                 android:id="@+id/spacecraftImg"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-
-
                 android:layout_marginTop="8dp"
-
                 android:src="@drawable/discount" />
 
 
@@ -71,7 +78,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-
                 android:layout_toRightOf="@+id/spacecraftImg"
                 android:padding="6dp"
                 android:text="Apply Coupon Code"
@@ -83,24 +89,46 @@
                 />
 
             <ImageView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentRight="true"
-
-
                 android:layout_marginTop="8dp"
                 android:paddingRight="5dp"
-                android:src="@drawable/arrow" />
+                android:src="@drawable/maarrow" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/couponAppliedBlock"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/recyclerView_ViewCart"
+            android:layout_marginTop="25dp"
+            android:background="#FFFFFF"
+            android:padding="5dp"
+            android:visibility="visible"
+            >
+
+            <TextView
+                android:id="@+id/couponCodeAppliedText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="@dimen/five_dp"
+                android:text="Coupon Text"
+                android:padding="6dp"
+                android:textColor="@color/grey1"
+                android:textSize="13sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/couponCodeCancel"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/cross"
-                android:visibility="gone" />
+                android:layout_marginTop="5dp"
+                android:src="@drawable/cross" />
 
         </RelativeLayout>
 
@@ -108,7 +136,8 @@
             android:id="@+id/view2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@+id/rel1"
+            android:layout_below="@id/recyclerView_ViewCart"
+            android:layout_marginTop="@dimen/seventy_five_dp"
             android:background="@color/grey">
 
         </View>
@@ -159,7 +188,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="2dp"
                 android:padding="8dp"
-                android:text="$230"
+                android:text=""
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/grey1"
                 android:textSize="13sp"
@@ -210,7 +239,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="2dp"
                 android:padding="8dp"
-                android:text="$30"
+                android:text=""
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/grey1"
                 android:textSize="13sp"
@@ -244,7 +273,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-
                 android:padding="8dp"
                 android:text="Delivery Charges"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -261,7 +289,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="2dp"
                 android:padding="8dp"
-                android:text="$0"
+                android:text="Free"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/grey1"
                 android:textSize="13sp"
@@ -295,7 +323,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-
                 android:padding="8dp"
                 android:text="Grand Total"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -323,6 +350,7 @@
 
         </RelativeLayout>
 
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -335,11 +363,7 @@
             android:id="@+id/bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-
             android:layout_alignParentBottom="true"
-
-
             android:layout_marginBottom="-152dp"
             android:background="@color/grey_black"
             android:paddingTop="5dp">
@@ -350,7 +374,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
-                android:text="To Pay : ₹ "
+                android:text="ToPay : ₹"
                 android:textColor="@color/white"
                 android:textSize="16dp" />
 
@@ -385,7 +409,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
-                android:drawableRight="@drawable/arrow"
                 android:drawablePadding="20dp"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
@@ -399,8 +422,18 @@
 
         </RelativeLayout>
 
-
     </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
 
     <ImageView
         android:id="@+id/emptyViewCartImage"

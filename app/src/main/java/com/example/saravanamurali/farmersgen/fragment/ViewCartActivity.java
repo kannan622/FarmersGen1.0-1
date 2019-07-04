@@ -79,10 +79,19 @@ import retrofit2.Response;
 
 
 public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapter.ViewCartUpdateInterface, ViewCartAdapter.ViewCartDeleteInterface {
-    // Implements swipe interface
-    //, RecyclerItemTouchHelper.RecyclerItemTouchHelperListener
 
-    static TextView toPayAmountTextView;
+    RelativeLayout main;
+    TextView billDeatils;
+    RelativeLayout itemTotalBlock;
+    RelativeLayout discountBlock;
+    RelativeLayout deliveryBlock;
+    RelativeLayout generalBlock;
+
+    TextView toPayAmountTextView;
+    TextView item_total_value;
+    TextView discount_value;
+    TextView delivery_value;
+    TextView grandtotal_value;
     // TextView toPayT;
     static String GrandTotal;
     String gTotal;
@@ -94,8 +103,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
     RelativeLayout bottomView;
 
-
-    // JSONResponseUpdateCartDTO jsonResponseUpdateCartDTO;
     //Coupon
     RelativeLayout showCouponLayout;
 
@@ -162,17 +169,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
         Fabric.with(ViewCartActivity.this, new Crashlytics());
 
+
         mSqLiteDatabaseInViewCart = openOrCreateDatabase(ProductAddInSqlLite.DATABASE_NAME, MODE_PRIVATE, null);
 
-        //getSupportActionBar().hide();
-
-        toolbar = (Toolbar) findViewById(R.id.viewCartToolBar);
-        // toolbar.setTitle("Your Basket");
-
-        setSupportActionBar(toolbar);
-
-
-        //viewcart_adapterview.xml
         context = getApplicationContext();
         dialog = new Dialog(context);
 
@@ -187,26 +186,38 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         recyclerViewViewCart.setHasFixedSize(true);
 
         proceedButton = (TextView) findViewById(R.id.viewCartProceed);
+
+
         toPayAmountTextView = (TextView) findViewById(R.id.toPayAmount);
+        item_total_value = (TextView) findViewById(R.id.item_total_value);
+        discount_value = (TextView) findViewById(R.id.discount_value);
+        delivery_value = (TextView) findViewById(R.id.delivery_value);
+        grandtotal_value = (TextView) findViewById(R.id.grandtotal_value);
+
+        couponAppliedBlock = (RelativeLayout) findViewById(R.id.couponAppliedBlock);
+        couponCodeApplied = (TextView) findViewById(R.id.couponCodeAppliedText);
+        cancelCoupon = (ImageView) findViewById(R.id.couponCodeCancel);
+
+        main = (RelativeLayout) findViewById(R.id.main);
+        billDeatils = (TextView) findViewById(R.id.general);
+        itemTotalBlock = (RelativeLayout) findViewById(R.id.rel5);
+        discountBlock = (RelativeLayout) findViewById(R.id.rel_discount);
+        deliveryBlock = (RelativeLayout) findViewById(R.id.rel_delivery);
+        generalBlock = (RelativeLayout) findViewById(R.id.rel_grandtotal);
+
+
         coordinatorLayout = findViewById(R.id.snackBar);
 
         bottomView = (RelativeLayout) findViewById(R.id.bottom);
 
-        //toPayT=(TextView)findViewById(R.id.toPay);
         emptViewCartImage = (ImageView) findViewById(R.id.emptyViewCartImage);
 
-        showCouponLayout = (RelativeLayout) findViewById(R.id.coupon);
+        showCouponLayout = (RelativeLayout) findViewById(R.id.applyCouponBlock);
 
-        applyCoupon = (TextView) findViewById(R.id.applyCouponText);
+        applyCoupon = (TextView) findViewById(R.id.editprofile);
 
-        relativeLayoutDiscountPriceShow=(RelativeLayout)findViewById(R.id.discountBlock);
-        grandTotalPrice=(TextView)findViewById(R.id.grandTotalPrice);
-        discountPrice=(TextView)findViewById(R.id.discountPrice);
-
-        //Coupon Code Applied
-        couponAppliedBlock = (RelativeLayout) findViewById(R.id.couponAppliedBlock);
-        couponCodeApplied = (TextView) findViewById(R.id.couponCode);
-        cancelCoupon = (ImageView) findViewById(R.id.couponCodeCancel);
+        grandTotalPrice = (TextView) findViewById(R.id.item_total_value);
+        discountPrice = (TextView) findViewById(R.id.discount_value);
 
 
         cancelCoupon.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +225,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             public void onClick(View v) {
 
                 if (Network_config.is_Network_Connected_flag(context)) {
-                    deleteCouponCode();
+                    int i = 1;
+                    deleteCouponCode(i);
                 } else {
                     Network_config.customAlert(dialog, context, getResources().getString(R.string.app_name),
                             getResources().getString(R.string.connection_message));
@@ -308,7 +320,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             }
         });
 
-
         //PROCEED Button Pressed in View Cart Activity
         bottomView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -374,7 +385,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
             }
         });
-
 
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -467,7 +477,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
     //Cancel coupon Code
-    private void deleteCouponCode() {
+    private void deleteCouponCode(final int i) {
 
         final ProgressDialog csprogress;
         csprogress = new ProgressDialog(ViewCartActivity.this);
@@ -508,7 +518,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 */
 
 
-
                     //Remove Current User COUPON ID From Shared Preferences
                     SharedPreferences getCurrentUser_CouponID = getSharedPreferences("CURRENT_COUPON_ID", context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = getCurrentUser_CouponID.edit();
@@ -521,11 +530,18 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
                     editorCode.remove("COUPON_CODE");
                     editorCode.commit();
+                    if (i == 1) {
+                        showCouponLayout.setVisibility(View.VISIBLE);
+                        couponAppliedBlock.setVisibility(View.GONE);
+                    }else if(i==2){
+                        showCouponLayout.setVisibility(View.GONE);
+                        couponAppliedBlock.setVisibility(View.GONE);
+                    }
 
-                    showCouponLayout.setVisibility(View.VISIBLE);
-                    couponAppliedBlock.setVisibility(View.GONE);
+                    if (i == 1) {
+                        loadViewCartProductList();
+                    }
 
-                    loadViewCartProductList();
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
@@ -583,10 +599,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
         String ANDROID_MOBILE_ID = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
 
-        // Toast.makeText(ViewCartActivity.this, "ViewCartResponseSuccessFirst", Toast.LENGTH_LONG).show();
-
-        // System.out.println("I am Here" + ANDROID_MOBILE_ID);
-
         ApiInterface api = APIClientForViewCart.getApiInterfaceForViewCart();
         AddCartDTO loadFragment = new AddCartDTO(ANDROID_MOBILE_ID);
         Call<JSONResponseViewCartListDTO> call = api.getViewCart(loadFragment);
@@ -596,21 +608,12 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
 
 
-                // System.out.println("Null Values");
-
-
-                relativeLayoutDiscountPriceShow.setVisibility(View.GONE);
-
-
-
                 JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
                 List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
 
                 if (viewCartProductListDTO != null) {
 
                     GrandTotal = jsonResponseViewCartListDTO.getGrandTotal();
-                    System.out.println("GRANDTOTAL" + GrandTotal);
-
 
                     viewCartAdapter.setData(viewCartProductListDTO);
 
@@ -618,11 +621,13 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
                     toPayAmountTextView.setText(GrandTotal);
+                    item_total_value.setText("₹" + GrandTotal);
+                    discount_value.setText("₹00");
+                    grandtotal_value.setText("₹" + GrandTotal);
 
                     if (csprogress.isShowing()) {
                         csprogress.dismiss();
                     }
-
 
 
                 } else if (viewCartProductListDTO == null) {
@@ -683,16 +688,16 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
             @Override
             public void onResponse(Call<JSONResponseViewCartListDTO> call, Response<JSONResponseViewCartListDTO> response) {
 
-                relativeLayoutDiscountPriceShow.setVisibility(View.VISIBLE);
+                // relativeLayoutDiscountPriceShow.setVisibility(View.VISIBLE);
 
 
                 JSONResponseViewCartListDTO jsonResponseViewCartListDTO = response.body();
                 List<ViewCartDTO> viewCartProductListDTO = jsonResponseViewCartListDTO.getViewCartListRecord();
 
                 GrandTotal = jsonResponseViewCartListDTO.getGrandTotal();
-                System.out.println("GRANDTOTAL" + GrandTotal);
-                gTotal=jsonResponseViewCartListDTO.getG_Total();
-                dPrice=jsonResponseViewCartListDTO.getDiscountPrice();
+                //System.out.println("GRANDTOTAL" + GrandTotal);
+                gTotal = jsonResponseViewCartListDTO.getG_Total();
+                dPrice = jsonResponseViewCartListDTO.getDiscountPrice();
 
 
                 viewCartAdapter.setData(viewCartProductListDTO);
@@ -701,8 +706,9 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
                 toPayAmountTextView.setText(GrandTotal);
-                grandTotalPrice.setText(gTotal);
-                discountPrice.setText(dPrice);
+                item_total_value.setText("₹" + gTotal);
+                discount_value.setText("₹" + dPrice);
+                grandtotal_value.setText("₹" + GrandTotal);
 
                 if (csprogress.isShowing()) {
                     csprogress.dismiss();
@@ -905,6 +911,8 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     GrandTotal = jsonResponseUpdateCartDTO.getGrandTotal();
 
                     toPayAmountTextView.setText(GrandTotal);
+                    item_total_value.setText("₹" + GrandTotal);
+                    grandtotal_value.setText("₹" + GrandTotal);
                     viewCartAdapter.notifyDataSetChanged();
 
 
@@ -928,6 +936,7 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
 
 
     }//// End of Update Count in ViewCart
+
     @Override
     public void viewCartUpdateInterfaceSqlLite(int viewCartCount, String viewCartProductCode, String viewCart_Price) {
         String device_id = Settings.Secure.getString(ViewCartActivity.this.getContentResolver(),
@@ -991,17 +1000,32 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                 if (toPayCheck > 0) {
 
                     toPayAmountTextView.setText(GrandTotal);
+                    item_total_value.setText("₹" + GrandTotal);
+                    grandtotal_value.setText("" + GrandTotal);
                     bottomView.setVisibility(View.VISIBLE);
                 } else {
-                    toPayAmountTextView.setText("");
-                    // toPayT.setVisibility(View.GONE);
-                    showCouponLayout.setVisibility(View.GONE);
                     emptViewCartImage.setVisibility(View.VISIBLE);
+                    //Deletes Coupon from server also
+                    int i = 2;
+                    deleteCouponCode(i);
+                    // toPayT.setVisibility(View.GONE);
+                    toPayAmountTextView.setText("");
+                    main.setVisibility(View.GONE);
+                    billDeatils.setVisibility(View.GONE);
+                    itemTotalBlock.setVisibility(View.GONE);
+                    discountBlock.setVisibility(View.GONE);
+                    deliveryBlock.setVisibility(View.GONE);
+                    generalBlock.setVisibility(View.GONE);
+                    showCouponLayout.setVisibility(View.GONE);
                     proceedButton.setVisibility(View.GONE);
                     bottomView.setVisibility(View.GONE);
                     couponAppliedBlock.setVisibility(View.GONE);
-                    toolbar.setVisibility(View.GONE);
-                    relativeLayoutDiscountPriceShow.setVisibility(View.GONE);
+                    item_total_value.setVisibility(View.GONE);
+                    discount_value.setVisibility(View.GONE);
+                    delivery_value.setVisibility(View.GONE);
+                    grandtotal_value.setVisibility(View.GONE);
+                    //relativeLayoutDiscountPriceShow.setVisibility(View.GONE);
+
 
                     viewCartAdapter.notifyDataSetChanged();
 
@@ -1020,8 +1044,6 @@ public class ViewCartActivity extends AppCompatActivity implements ViewCartAdapt
                     SharedPreferences.Editor editorCode = getCurrentUser_CouponCODE.edit();
                     editorCode.remove("COUPON_CODE");
                     editorCode.commit();
-
-
 
 
                 }
