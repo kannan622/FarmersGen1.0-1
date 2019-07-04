@@ -54,7 +54,10 @@
     <color name="four_star_color">#85E200</color>
     <color name="five_star_color">#01a351</color>
     <color name="fb_color">#4A5A8F</color>
+ <color name="grey_black">#666666</color>
 
+    <color name="grey1">#a6a6a6</color>
+    <color name="grey">#f2f2f2</color>
 
     <!--Iyappan Code-->
 
